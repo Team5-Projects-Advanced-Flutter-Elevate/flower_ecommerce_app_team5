@@ -66,4 +66,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
       },
     );
   }
+  void hideAlertDialog(){
+    Navigator.pop(context);
+  }
 }
