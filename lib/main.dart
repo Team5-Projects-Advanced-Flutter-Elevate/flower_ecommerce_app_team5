@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/app_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
@@ -46,10 +47,11 @@ class MyApp extends StatelessWidget {
       theme: AppThemes.lightTheme,
       themeMode: ThemeMode.light,
       onGenerateRoute: GenerateRoute.onGenerateRoute,
-      onGenerateInitialRoutes: (initialRoute) =>
-          GenerateRoute.onGenerateInitialRoutes(
-              initialRoute: initialRoute,
-              storedAuthEntity: AuthenticationResponseEntity()),
+      initialRoute: AppRoutes.register,
+      // onGenerateInitialRoutes: (initialRoute) =>
+      //     GenerateRoute.onGenerateInitialRoutes(
+      //         initialRoute: initialRoute,
+      //         storedAuthEntity: AuthenticationResponseEntity()),
     );
   }
 }
