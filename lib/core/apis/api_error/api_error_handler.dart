@@ -22,22 +22,22 @@ class ApiErrorHandler {
         case DioExceptionType.connectionTimeout:
           return tr(LocaleKeys.connectionTimeout);
         case DioExceptionType.sendTimeout:
-          return LocaleKeys.sendTimeout;
+          return tr(LocaleKeys.sendTimeout);
         case DioExceptionType.receiveTimeout:
-          return LocaleKeys.receiveTimeout;
+          return tr(LocaleKeys.receiveTimeout);
         case DioExceptionType.badResponse:
           return ApiErrorModel.fromJson(error.response?.data).message ??
-              LocaleKeys.somethingWentWrong;
+              tr(LocaleKeys.somethingWentWrong);
         case DioExceptionType.cancel:
-          return LocaleKeys.cancel;
+          return tr(LocaleKeys.cancel);
         case DioExceptionType.connectionError:
-          return LocaleKeys.connectionError;
+          return tr(LocaleKeys.connectionError);
         case DioExceptionType.unknown:
-          return LocaleKeys.unknown;
+          return tr(LocaleKeys.unknown);
         case DioExceptionType.badCertificate:
-          return LocaleKeys.badCertificate;
+          return tr(LocaleKeys.badCertificate);
         default:
-          return LocaleKeys.somethingWentWrong;
+          return tr(LocaleKeys.somethingWentWrong);
       }
     } else {
       return error.toString();

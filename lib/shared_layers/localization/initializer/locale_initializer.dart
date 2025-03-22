@@ -11,7 +11,7 @@ abstract class LocaleInitializer {
   Future<String> initCurrentLocal(
       SecureStorageService secureStorageService) async {
     var savedLocale =
-        await secureStorageService.getStringValue(StorageConstants.localKey);
+        await secureStorageService.getStringValue(StorageConstants.localeKey);
     return savedLocale ?? LanguagesEnum.en.getLanguageCode();
   }
 }

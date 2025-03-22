@@ -38,18 +38,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      theme: AppThemes.lightTheme,
-      themeMode: ThemeMode.light,
-      onGenerateRoute: GenerateRoute.onGenerateRoute,
-      onGenerateInitialRoutes: (initialRoute) =>
-          GenerateRoute.onGenerateInitialRoutes(
-              initialRoute: initialRoute,
-              storedAuthEntity: AuthenticationResponseEntity()),
+    return Consumer<LocalizationManager>(
+      builder: (context, localizationManager, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          theme: AppThemes.lightTheme,
+          themeMode: ThemeMode.light,
+          onGenerateRoute: GenerateRoute.onGenerateRoute,
+          onGenerateInitialRoutes: (initialRoute) =>
+              GenerateRoute.onGenerateInitialRoutes(
+                  initialRoute: initialRoute,
+                  storedAuthEntity: AuthenticationResponseEntity()),
+        );
+      },
     );
   }
 }
