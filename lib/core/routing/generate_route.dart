@@ -1,4 +1,6 @@
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class GenerateRoute {
@@ -8,7 +10,8 @@ class GenerateRoute {
 
     switch (name) {
       // Put the Navigated Routes Here
-
+      case DefinedRoutes.homeScreenRoute:
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
       default:
         return _errorRoute();
     }

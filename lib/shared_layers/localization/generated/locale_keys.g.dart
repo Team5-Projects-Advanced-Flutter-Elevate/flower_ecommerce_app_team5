@@ -34,5 +34,10 @@ abstract class  LocaleKeys {
   static const specialCharactersRulePassword = 'specialCharactersRulePassword';
   static const pleaseConfirmPassword = 'pleaseConfirmPassword';
   static const noMatch = 'noMatch';
+  static const appSections____________ = 'appSections____________';
+  static const home = 'home';
+  static const categories = 'categories';
+  static const cart = 'cart';
+  static const profile = 'profile';
 
 }

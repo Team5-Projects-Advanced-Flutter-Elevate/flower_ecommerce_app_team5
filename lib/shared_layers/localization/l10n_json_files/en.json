@@ -31,5 +31,11 @@
   "digitRulePassword": "At least one digit must be there.",
   "specialCharactersRulePassword": "At least one special character(e.g., #?!@$%^&*-) must be included.",
   "pleaseConfirmPassword": "Please confirm password.",
-  "noMatch": "No Match!"
+  "noMatch": "No Match!",
+
+  "appSections____________": "$$$ Comment $$$",
+  "home": "Home",
+  "categories": "Categories",
+  "cart": "Cart",
+  "profile": "Profile"
 }
