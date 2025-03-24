@@ -1,7 +1,6 @@
 {
   "ok": "OK",
   "confirm": "Confirm",
-
   "errorMessages": "$$$ Comment $$$",
   "connectionTimeout": "Connection timeout with server ⌛",
   "sendTimeout": "Send timeout in connection with server ⏱",
@@ -11,7 +10,6 @@
   "unknown": "Something Went Wrong \uD83E\uDD14",
   "badCertificate": "The certificate provided by the server is not valid \uD83D\uDCD1",
   "somethingWentWrong": "Something Went Wrong \uD83E\uDD14",
-
   "validationFunctions______________": "$$$ Comment $$$",
   "pleaseEnterName": "Please enter your name.",
   "pleaseEnterUserName": "Please enter user name.",
@@ -31,5 +29,12 @@
   "digitRulePassword": "At least one digit must be there.",
   "specialCharactersRulePassword": "At least one special character(e.g., #?!@$%^&*-) must be included.",
   "pleaseConfirmPassword": "Please confirm password.",
-  "noMatch": "No Match!"
+  "noMatch": "No Match!",
+  "login": "Login",
+  "email": "E-mail",
+  "password": "Password",
+  "rememberMe": "Remember me",
+  "forgetPassword": "Forget Password",
+  "dontHaveAccount": "Don't have an account?",
+  "signUp": "Sign up"
 }

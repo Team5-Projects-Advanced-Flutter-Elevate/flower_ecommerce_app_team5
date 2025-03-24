@@ -1,4 +1,6 @@
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class GenerateRoute {
@@ -7,7 +9,9 @@ class GenerateRoute {
     var name = settings.name;
 
     switch (name) {
-      // Put the Navigated Routes Here
+      case DefinedRoutes.loginScreenRoute:
+        MaterialPageRoute(builder: (context) => LoginScreen());
+        break;
 
       default:
         return _errorRoute();
@@ -22,12 +26,12 @@ class GenerateRoute {
       if (storedAuthEntity != null)
         MaterialPageRoute(
             builder: (context) =>
-                const SizedBox() //HomeScreen(authEntity: storedAuthEntity),
+                LoginScreen() //HomeScreen(authEntity: storedAuthEntity),
             )
       else
         MaterialPageRoute(
-            builder: (context) => const SizedBox() //const LoginScreen(),
-            )
+          builder: (context) => LoginScreen(), //const LoginScreen(),
+        )
     ];
   }
 

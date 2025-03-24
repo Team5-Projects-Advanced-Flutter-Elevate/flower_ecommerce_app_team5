@@ -1,3 +1,1 @@
-class AuthenticationResponseEntity{
-
-}
+class AuthenticationResponseEntity {}

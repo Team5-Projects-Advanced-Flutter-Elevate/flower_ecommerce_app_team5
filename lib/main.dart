@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           theme: AppThemes.lightTheme,
           themeMode: ThemeMode.light,
+          //initialRoute: DefinedRoutes.loginScreenRoute,
           onGenerateRoute: GenerateRoute.onGenerateRoute,
           onGenerateInitialRoutes: (initialRoute) =>
               GenerateRoute.onGenerateInitialRoutes(
