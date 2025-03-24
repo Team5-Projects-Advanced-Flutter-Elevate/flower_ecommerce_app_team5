@@ -9,23 +9,27 @@ class LocalizationManager extends ChangeNotifier {
   String currentLocale;
   final SecureStorageService _secureStorage;
 
+  Future<void> Function(String newLocale)? changeLocaleOfEasyLocalization;
   LocalizationManager(this._secureStorage,
       @Named(L10nConstants.initCurrentLocal) this.currentLocale);
 
-  void changeLocal(String languageCode, String widgetName) {
+  /// Before Using this function don't forget to initialize the changeLocaleOfEasyLocalization attribute
+  void changeLocal(String languageCode) async {
     currentLocale = languageCode;
-    saveLocal(languageCode, widgetName);
+    saveLocal(languageCode);
+    if (changeLocaleOfEasyLocalization != null) {
+      await changeLocaleOfEasyLocalization!(currentLocale);
+    }
     notifyListeners();
   }
 
-  void saveLocal(String languageCode, String widgetName) {
-    _secureStorage.setStringValue(
-        StorageConstants.localKey, languageCode, widgetName);
+  void saveLocal(String languageCode) {
+    _secureStorage.setStringValue(StorageConstants.localeKey, languageCode);
   }
 
-  Future<String?> getSavedLocal(String widgetName) async {
-    var savedLocale = await _secureStorage.getStringValue(
-        StorageConstants.localKey, widgetName);
+  Future<String?> getSavedLocal() async {
+    var savedLocale =
+        await _secureStorage.getStringValue(StorageConstants.localeKey);
     return savedLocale;
   }
 }

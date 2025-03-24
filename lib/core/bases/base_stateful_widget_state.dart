@@ -23,6 +23,8 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
     screenHeight = MediaQuery.of(context).size.height;
     easyLocalization = EasyLocalization.of(context)!;
     localizationManager = getIt.get<LocalizationManager>();
+    localizationManager.changeLocaleOfEasyLocalization =
+        setLocaleOfEasyLocalization;
     validateFunctions = ValidateFunctions.getInstance();
   }
 
@@ -70,5 +72,9 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
 
   void hideAlertDialog() {
     Navigator.pop(context);
+  }
+
+  Future<void> setLocaleOfEasyLocalization(String newLocale) {
+    return context.setLocale(Locale(newLocale));
   }
 }

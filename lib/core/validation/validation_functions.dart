@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/core/apis/api_error/api_error_handler.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 
 class ValidateFunctions {
@@ -66,7 +65,7 @@ class ValidateFunctions {
   String? validationOfPhoneNumber(String? inputText) {
     RegExp phoneNumber = RegExp(r'^(010|011|012|015)[0-9]{8}$');
     if (inputText?.trim().isEmpty == true || inputText == null) {
-      return LocaleKeys.pleaseEnterPhoneNumber;
+      return LocaleKeys.pleaseEnterPhoneNumber.tr();
     } else if (!phoneNumber.hasMatch(inputText)) {
       return LocaleKeys.phoneNumberRules.tr();
     }
