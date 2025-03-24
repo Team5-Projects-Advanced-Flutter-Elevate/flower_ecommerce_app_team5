@@ -1,7 +1,11 @@
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'userDM.dart';
 
+part 'authentication_response.g.dart';
+
+@JsonSerializable()
 class AuthenticationResponse {
   AuthenticationResponse({
     this.message,
@@ -9,25 +13,14 @@ class AuthenticationResponse {
     this.token,
   });
 
-  AuthenticationResponse.fromJson(dynamic json) {
-    message = json['message'];
-    user = json['user'] != null ? UserDM.fromJson(json['user']) : null;
-    token = json['token'];
-  }
+  factory AuthenticationResponse.fromJson(dynamic json) =>
+      _$AuthenticationResponseFromJson(json);
 
   String? message;
   UserDM? user;
   String? token;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['message'] = message;
-    if (user != null) {
-      map['user'] = user?.toJson();
-    }
-    map['token'] = token;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$AuthenticationResponseToJson(this);
 
   AuthenticationResponseEntity toEntity() => AuthenticationResponseEntity(
         message: message,
