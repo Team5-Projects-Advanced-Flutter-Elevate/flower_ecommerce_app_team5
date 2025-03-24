@@ -31,5 +31,21 @@
   "digitRulePassword": "يجب أن تحتوي على رقم واحد على الأقل.",
   "specialCharactersRulePassword": "يجب أن تحتوي على حرف خاص واحد على الأقل (مثل #?!@$%^&*-).",
   "pleaseConfirmPassword": "يرجى تأكيد كلمة المرور.",
-  "noMatch": "لا يوجد تطابق!"
+  "noMatch": "لا يوجد تطابق!",
+  "signUp": "التسجيل",
+  "alreadyHaveAnAccount": "هل لديك حساب بالفعل ؟ ",
+  "login": "تسجيل الدخول",
+  "female": "أنثى",
+  "male": "ذكر",
+  "gender": "الجنس",
+  "agreeToTerms": "بإنشاء حساب، فإنك توافق على {terms} و {conditions} الخاصة بنا.",
+  "terms": "الشروط",
+  "conditions": "الأحكام",
+  "registeredSuccessfully": "تم التسجيل بنجاح!",
+  "firstName": "الاسم الأول",
+  "lastName": "الاسم الأخير",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "phoneNumber": "رقم الهاتف"
 }

@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/apis/api_error/api_error_handler.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
@@ -5,6 +7,7 @@ import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart'
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/register_request.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view_model/register_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view_model/register_state.dart';
+import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -82,7 +85,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
           ),
         ),
         title: Text(
-          'Sign Up',
+          LocaleKeys.signUp.tr(),
           style: theme.textTheme.labelMedium,
         ),
       ),
@@ -102,7 +105,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                     hideAlertDialog();
                     displayAlertDialog(
                       showOkButton: true,
-                      title: const Text('Registered successfully'),
+                      title: const Text(LocaleKeys.registeredSuccessfully),
                     );
                   case RegisterStatus.error:
                     hideAlertDialog();
@@ -139,9 +142,9 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                             focusNode: firstNameFocusNode,
                             onFieldSubmitted: (value) =>
                                 lastNameFocusNode.requestFocus(),
-                            decoration: const InputDecoration(
-                              labelText: 'First Name',
-                              hintText: 'Enter first name',
+                            decoration:  InputDecoration(
+                              labelText: LocaleKeys.firstName.tr(),
+                              hintText: LocaleKeys.pleaseEnterFirstName.tr(),
                             ),
                           ),
                         ),
@@ -161,9 +164,9 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                             focusNode: lastNameFocusNode,
                             onFieldSubmitted: (value) =>
                                 emailFocusNode.requestFocus(),
-                            decoration: const InputDecoration(
-                              labelText: 'Last Name',
-                              hintText: 'Enter last name',
+                            decoration:  InputDecoration(
+                              labelText: LocaleKeys.lastName.tr(),
+                              hintText: LocaleKeys.pleaseEnterLastName.tr(),
                             ),
                           ),
                         ),
@@ -182,9 +185,9 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                       focusNode: emailFocusNode,
                       onFieldSubmitted: (value) =>
                           passwordFocusNode.requestFocus(),
-                      decoration: const InputDecoration(
-                        labelText: 'Email',
-                        hintText: 'Enter your email',
+                      decoration:  InputDecoration(
+                        labelText: LocaleKeys.email.tr(),
+                        hintText: LocaleKeys.pleaseEnterEmail.tr(),
                       ),
                     ),
                     SizedBox(
@@ -206,9 +209,9 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                             onFieldSubmitted: (value) =>
                                 confirmPasswordFocusNode.requestFocus(),
                             obscureText: true,
-                            decoration: const InputDecoration(
-                              labelText: 'password',
-                              hintText: 'Enter password',
+                            decoration:  InputDecoration(
+                              labelText: LocaleKeys.password.tr(),
+                              hintText: LocaleKeys.pleaseEnterPassword.tr(),
                             ),
                           ),
                         ),
@@ -230,9 +233,9 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                             focusNode: confirmPasswordFocusNode,
                             onFieldSubmitted: (value) =>
                                 phoneNumberFocusNode.requestFocus(),
-                            decoration: const InputDecoration(
-                              labelText: 'Confirm password',
-                              hintText: 'confirm password',
+                            decoration:  InputDecoration(
+                              labelText: LocaleKeys.confirmPassword.tr(),
+                              hintText: LocaleKeys.confirmPassword.tr(),
                             ),
                           ),
                         ),
@@ -252,9 +255,9 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                       focusNode: phoneNumberFocusNode,
                       onFieldSubmitted: (value) =>
                           phoneNumberFocusNode.unfocus(),
-                      decoration: const InputDecoration(
-                        labelText: 'Phone number',
-                        hintText: 'Enter phone number',
+                      decoration:  InputDecoration(
+                        labelText: LocaleKeys.phoneNumber.tr(),
+                        hintText: LocaleKeys.pleaseEnterPhoneNumber.tr(),
                       ),
                     ),
                     SizedBox(
@@ -263,7 +266,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                     Row(
                       children: [
                         Text(
-                          'Gender',
+                          LocaleKeys.gender.tr(),
                           style: theme.textTheme.labelMedium?.copyWith(
                             fontSize: 18,
                             color: AppColors.white[90],
@@ -324,7 +327,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: 'Creating an account you agree to our ',
+                              text: LocaleKeys.agreeToTerms.tr(),
                               style: theme.textTheme.labelSmall!.copyWith(
                                   fontSize: 12, fontWeight: FontWeight.w400),
                             ),
@@ -332,7 +335,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                               alignment: PlaceholderAlignment.baseline,
                               baseline: TextBaseline.alphabetic,
                               child: Text(
-                                'Terms & Conditions',
+                                ' ${LocaleKeys.terms.tr()} & ${LocaleKeys.conditions.tr()}',
                                 style: theme.textTheme.labelSmall!.copyWith(
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold,
@@ -367,7 +370,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                           );
                         },
                         child: Text(
-                          'Sign up',
+                          LocaleKeys.signUp.tr(),
                           style: theme.textTheme.labelSmall
                               ?.copyWith(fontSize: 16, color: AppColors.white),
                         ),
@@ -381,7 +384,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: 'Already have an account ? ',
+                              text: LocaleKeys.alreadyHaveAnAccount.tr(),
                               style: theme.textTheme.labelSmall!.copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w400),
                             ),
@@ -393,7 +396,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                   /// navigate to login
                                 },
                                 child: Text(
-                                  'Login',
+                                  LocaleKeys.login,
                                   style: theme.textTheme.labelSmall!.copyWith(
                                     fontSize: 16,
                                     color: AppColors.mainColor,

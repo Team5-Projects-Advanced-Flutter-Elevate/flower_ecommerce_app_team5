@@ -31,5 +31,21 @@
   "digitRulePassword": "At least one digit must be there.",
   "specialCharactersRulePassword": "At least one special character(e.g., #?!@$%^&*-) must be included.",
   "pleaseConfirmPassword": "Please confirm password.",
-  "noMatch": "No Match!"
+  "noMatch": "No Match!",
+  "signUp": "Sign Up",
+  "alreadyHaveAnAccount": "Already have an account ? ",
+  "login": "Login",
+  "female": "Female",
+  "male": "Male",
+  "gender": "Gender",
+  "agreeToTerms": "Creating an account, you agree to our",
+  "terms": "Terms",
+  "conditions": "Conditions",
+  "registeredSuccessfully": "Registered successfully!",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "phoneNumber": "Phone Number"
 }
