@@ -50,10 +50,11 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           onGenerateRoute: GenerateRoute.onGenerateRoute,
           initialRoute: AppRoutes.register,
-      // onGenerateInitialRoutes: (initialRoute) =>
-      //     GenerateRoute.onGenerateInitialRoutes(
-      //         initialRoute: initialRoute,
-      //         storedAuthEntity: AuthenticationResponseEntity()),);
+          // onGenerateInitialRoutes: (initialRoute) =>
+          //     GenerateRoute.onGenerateInitialRoutes(
+          //         initialRoute: initialRoute,
+          //         storedAuthEntity: AuthenticationResponseEntity()),);
+        );
       },
     );
   }
