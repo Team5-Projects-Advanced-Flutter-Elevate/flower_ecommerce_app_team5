@@ -5,15 +5,14 @@ class ApiErrorModel {
 
   final String? error;
 
-  factory ApiErrorModel.fromJson(Map<String, dynamic> json){
+  factory ApiErrorModel.fromJson(Map<String, dynamic> json) {
     return ApiErrorModel(
       error: json["error"],
     );
   }
 
   @override
-  String toString(){
+  String toString() {
     return "$error, ";
   }
-
 }
