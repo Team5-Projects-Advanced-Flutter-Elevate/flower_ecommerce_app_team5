@@ -1,7 +1,7 @@
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'userDM.g.dart';
+part 'user_DM.g.dart';
 
 @JsonSerializable()
 class UserDM {

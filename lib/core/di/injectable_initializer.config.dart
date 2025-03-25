@@ -25,8 +25,8 @@ import '../../modules/authentication/data/respositoies_imp/register/register_rep
     as _i161;
 import '../../modules/authentication/domain/repositories_contracts/register/register_repo.dart'
     as _i496;
-import '../../modules/authentication/domain/use_cases/register/register_usecase.dart'
-    as _i857;
+import '../../modules/authentication/domain/use_cases/register/register_use_case.dart'
+    as _i782;
 import '../../modules/authentication/ui/register/view_model/register_cubit.dart'
     as _i303;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
@@ -82,10 +82,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i219.RegisterOnlineDataSourceImpl(gh<_i343.AuthApiClient>()));
     gh.factory<_i496.RegisterRepo>(
         () => _i161.RegisterRepoImpl(gh<_i871.RegisterOnlineDataSource>()));
-    gh.factory<_i857.RegisterUseCase>(
-        () => _i857.RegisterUseCase(gh<_i496.RegisterRepo>()));
+    gh.factory<_i782.RegisterUseCase>(
+        () => _i782.RegisterUseCase(gh<_i496.RegisterRepo>()));
     gh.factory<_i303.RegisterCubit>(
-        () => _i303.RegisterCubit(gh<_i857.RegisterUseCase>()));
+        () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     return this;
   }
 }

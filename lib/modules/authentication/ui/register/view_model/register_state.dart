@@ -42,7 +42,7 @@ class RegisterState extends Equatable {
   RegisterState copyWith({
     RegisterStatus? state,
     RegisterFormStatus? registerFormStatus,
-    Error? error,
+    Object? error,
   }) {
     return RegisterState(
       state: state ?? this.state,

@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/register_request.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/register/register_usecase.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/register/register_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view_model/register_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view_model/register_state.dart';
 import 'package:flutter_test/flutter_test.dart';

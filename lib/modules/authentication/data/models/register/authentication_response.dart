@@ -1,7 +1,7 @@
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'userDM.dart';
+import 'user_DM.dart';
 
 part 'authentication_response.g.dart';
 
