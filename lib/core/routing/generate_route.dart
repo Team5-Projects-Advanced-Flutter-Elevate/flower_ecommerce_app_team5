@@ -11,7 +11,7 @@ class GenerateRoute {
     switch (name) {
       // Put the Navigated Routes Here
       case DefinedRoutes.homeScreenRoute:
-        return MaterialPageRoute(builder: (context) => const HomeScreen());
+        return MaterialPageRoute(builder: (context) =>  const HomeScreen());
       default:
         return _errorRoute();
     }

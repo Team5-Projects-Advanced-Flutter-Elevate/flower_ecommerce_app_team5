@@ -14,13 +14,13 @@ class LocalizationManager extends ChangeNotifier {
       @Named(L10nConstants.initCurrentLocal) this.currentLocale);
 
   /// Before Using this function don't forget to initialize the changeLocaleOfEasyLocalization attribute
-  void changeLocal(String languageCode) async {
+  Future<void> changeLocal(String languageCode) async {
     currentLocale = languageCode;
     saveLocal(languageCode);
     if (changeLocaleOfEasyLocalization != null) {
       await changeLocaleOfEasyLocalization!(currentLocale);
     }
-    notifyListeners();
+    // notifyListeners();
   }
 
   void saveLocal(String languageCode) {

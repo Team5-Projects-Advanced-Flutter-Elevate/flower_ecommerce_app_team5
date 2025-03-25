@@ -17,12 +17,17 @@ abstract class AppThemes {
           } else {
             color = AppColors.white[80]!;
           }
-          return IconThemeData(color: color,);
+          return IconThemeData(
+            color: color,
+          );
         },
       ),
       indicatorColor: Colors.transparent,
-      labelTextStyle: WidgetStatePropertyAll(
-          GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.normal)),
+      indicatorShape: const RoundedRectangleBorder(),
+      labelTextStyle: WidgetStatePropertyAll(GoogleFonts.inter(
+          fontSize: 12,
+          fontWeight: FontWeight.normal,
+          )),
     ),
   );
 }

@@ -31,5 +31,11 @@
   "digitRulePassword": "يجب أن تحتوي على رقم واحد على الأقل.",
   "specialCharactersRulePassword": "يجب أن تحتوي على حرف خاص واحد على الأقل (مثل #?!@$%^&*-).",
   "pleaseConfirmPassword": "يرجى تأكيد كلمة المرور.",
-  "noMatch": "لا يوجد تطابق!"
+  "noMatch": "لا يوجد تطابق!",
+
+  "appSections____________": "$$$ تعليق $$$",
+  "home": "الرئيسية",
+  "categories": "الفئات",
+  "cart": "عربة التسوق",
+  "profile": "الملف الشخصي"
 }

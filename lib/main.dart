@@ -28,7 +28,7 @@ void main() async {
           Locale(LanguagesEnum.ar.getLanguageCode())
         ],
         path: L10nConstants.jsonFilesPath,
-        fallbackLocale: Locale(LanguagesEnum.en.getLanguageCode()),
+        //fallbackLocale: Locale(LanguagesEnum.en.getLanguageCode()),
         startLocale: Locale(localizationManager.currentLocale),
         child: const MyApp()),
   ));
@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LocalizationManager>(
       builder: (context, localizationManager, child) {
+        print(context.locale);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           localizationsDelegates: context.localizationDelegates,
