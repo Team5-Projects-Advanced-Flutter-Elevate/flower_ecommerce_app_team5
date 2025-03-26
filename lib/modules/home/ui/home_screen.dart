@@ -19,10 +19,10 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
   int selectedAppSectionIndex = 0;
   final PageController pageController = PageController(initialPage: 0);
   final homePages = [
-    HomeLayout(),
-    CategoriesLayout(),
-    CartLayout(),
-    ProfileLayout()
+    const HomeLayout(),
+    const CategoriesLayout(),
+    const CartLayout(),
+    const ProfileLayout()
   ];
   @override
   Widget build(BuildContext context) {

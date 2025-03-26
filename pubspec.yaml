@@ -31,6 +31,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # native splash
+  flutter_native_splash: any
+
+
   # fonts:
   google_fonts: any
   # localization
@@ -60,6 +64,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  # icon launcher
+  flutter_launcher_icons: ^0.14.3
 
   # API dev_dependencies
   retrofit_generator: any # for Dart 3.3 use ^9.0.0
