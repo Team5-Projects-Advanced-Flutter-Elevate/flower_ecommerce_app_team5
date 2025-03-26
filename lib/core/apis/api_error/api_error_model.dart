@@ -1,11 +1,18 @@
 class ApiErrorModel {
-  String? message;
-  int? code;
+  ApiErrorModel({
+    required this.error,
+  });
 
-  ApiErrorModel({this.message, this.code});
+  final String? error;
 
-  ApiErrorModel.fromJson(dynamic json) {
-    message = json['message'];
-    code = json['code'];
+  factory ApiErrorModel.fromJson(Map<String, dynamic> json) {
+    return ApiErrorModel(
+      error: json["error"],
+    );
+  }
+
+  @override
+  String toString() {
+    return "$error, ";
   }
 }
