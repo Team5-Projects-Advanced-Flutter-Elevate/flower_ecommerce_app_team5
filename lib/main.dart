@@ -27,7 +27,7 @@ void main() async {
           Locale(LanguagesEnum.ar.getLanguageCode())
         ],
         path: L10nConstants.jsonFilesPath,
-        //fallbackLocale: Locale(LanguagesEnum.en.getLanguageCode()),
+        fallbackLocale: Locale(LanguagesEnum.en.getLanguageCode()),
         startLocale: Locale(localizationManager.currentLocale),
         child: const MyApp()),
   ));
