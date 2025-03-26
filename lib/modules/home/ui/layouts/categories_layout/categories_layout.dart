@@ -10,6 +10,6 @@ class CategoriesLayout extends StatefulWidget {
 class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
   @override
   Widget build(BuildContext context) {
-    return Placeholder(color: Colors.deepOrange,);
+    return const Placeholder(color: Colors.deepOrange,);
   }
 }

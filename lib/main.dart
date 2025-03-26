@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LocalizationManager>(
       builder: (context, localizationManager, child) {
-        print(context.locale);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           localizationsDelegates: context.localizationDelegates,
