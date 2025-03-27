@@ -203,7 +203,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                       onTap: () {
                         Navigator.pushReplacementNamed(
                           context,
-                          AppRoutes.register,
+                        DefinedRoutes.register,
                         );
                       },
                       child: Padding(

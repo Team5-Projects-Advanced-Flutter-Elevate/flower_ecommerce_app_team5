@@ -12,7 +12,7 @@ class GenerateRoute {
     var args = settings.arguments;
     var name = settings.name;
     switch (name) {
-      case AppRoutes.register:
+      case DefinedRoutes.register:
         return MaterialPageRoute(
           builder: (context) => const RegisterView(),
         );
