@@ -28,11 +28,11 @@ class GenerateRoute {
       if (loginInfo != null)
         MaterialPageRoute(
             builder: (context) =>
-                const SizedBox() //HomeScreen(authEntity: storedAuthEntity),
+                const HomeScreen()//HomeScreen(authEntity: storedAuthEntity),
             )
       else
         MaterialPageRoute(
-          builder: (context) => LoginScreen(), //const LoginScreen(),
+          builder: (context) => const LoginScreen(), //const LoginScreen(),
         )
     ];
   }

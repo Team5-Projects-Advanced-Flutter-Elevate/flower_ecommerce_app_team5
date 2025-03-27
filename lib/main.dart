@@ -17,7 +17,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await configureDependencies();
-  await getIt.get<LoginUseCase>().deleteLoginInfo();
   storedLoginInfo = await getIt.get<LoginUseCase>().getStoredLoginInfo();
   LocalizationManager localizationManager = getIt.get<LocalizationManager>();
   runApp(MultiProvider(

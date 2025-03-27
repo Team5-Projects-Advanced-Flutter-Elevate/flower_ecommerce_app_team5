@@ -34,9 +34,6 @@ dependencies:
   # native splash
   flutter_native_splash: any
 
-
-  # fonts:
-  google_fonts: any
   # localization
   easy_localization: ^3.0.7+1
   # dependency injection
