@@ -18,8 +18,6 @@ class RegisterView extends StatefulWidget {
   State<RegisterView> createState() => _RegisterViewState();
 }
 
-enum Gender { male, female }
-
 class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
@@ -35,7 +33,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
   late FocusNode phoneNumberFocusNode;
 
   final GlobalKey<FormState> _formKey = GlobalKey();
-  String selectedGender = Gender.female.toString();
+  String selectedGender = LocaleKeys.gender_female.tr();
 
   @override
   void initState() {
@@ -289,12 +287,12 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                       style:
                                           theme.textTheme.labelSmall?.copyWith(
                                         color: selectedGender ==
-                                                Gender.female.toString()
+                                                LocaleKeys.gender_female.tr()
                                             ? AppColors.black
                                             : AppColors.white[90],
                                       ),
                                     ),
-                                    value: Gender.female.toString(),
+                                    value: LocaleKeys.gender_female.tr(),
                                     groupValue: selectedGender,
                                     onChanged: (value) {
                                       setState(() {
@@ -312,12 +310,12 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                       style:
                                           theme.textTheme.labelSmall?.copyWith(
                                         color: selectedGender ==
-                                                Gender.male.toString()
+                                                LocaleKeys.gender_male.tr()
                                             ? AppColors.black
                                             : AppColors.white[90],
                                       ),
                                     ),
-                                    value: Gender.male.toString(),
+                                    value: LocaleKeys.gender_male.tr(),
                                     groupValue: selectedGender,
                                     onChanged: (value) {
                                       setState(() {
@@ -378,7 +376,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                   email: emailController.text,
                                   password: passwordController.text,
                                   phone: '+2${phoneNumberController.text}',
-                                  gender: selectedGender,
+                                  gender: selectedGender.toLowerCase(),
                                 ),
                               ),
                             );
