@@ -3,14 +3,18 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/api/api_client/auth_api_client.dart'
-    as _i3;
-import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/authentication_response.dart'
+    as _i4;
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_input_model.dart'
+    as _i6;
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart'
     as _i2;
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/authentication_response.dart'
+    as _i3;
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/register_request.dart'
-    as _i5;
+    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -26,9 +30,20 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeAuthenticationResponse_0 extends _i1.SmartFake
-    implements _i2.AuthenticationResponse {
-  _FakeAuthenticationResponse_0(
+class _FakeLoginResponseDto_0 extends _i1.SmartFake
+    implements _i2.LoginResponseDto {
+  _FakeLoginResponseDto_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeAuthenticationResponse_1 extends _i1.SmartFake
+    implements _i3.AuthenticationResponse {
+  _FakeAuthenticationResponse_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -40,36 +55,44 @@ class _FakeAuthenticationResponse_0 extends _i1.SmartFake
 /// A class which mocks [AuthApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthApiClient extends _i1.Mock implements _i3.AuthApiClient {
+class MockAuthApiClient extends _i1.Mock implements _i4.AuthApiClient {
   MockAuthApiClient() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<void> login() => (super.noSuchMethod(
+  _i5.Future<_i2.LoginResponseDto> login(
+          _i6.LoginInputModel? loginInputModel) =>
+      (super.noSuchMethod(
         Invocation.method(
           #login,
-          [],
+          [loginInputModel],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue:
+            _i5.Future<_i2.LoginResponseDto>.value(_FakeLoginResponseDto_0(
+          this,
+          Invocation.method(
+            #login,
+            [loginInputModel],
+          ),
+        )),
+      ) as _i5.Future<_i2.LoginResponseDto>);
 
   @override
-  _i4.Future<_i2.AuthenticationResponse> register(
-          _i5.RegisterRequest? registerRequest) =>
+  _i5.Future<_i3.AuthenticationResponse> register(
+          _i7.RegisterRequest? registerRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #register,
           [registerRequest],
         ),
-        returnValue: _i4.Future<_i2.AuthenticationResponse>.value(
-            _FakeAuthenticationResponse_0(
+        returnValue: _i5.Future<_i3.AuthenticationResponse>.value(
+            _FakeAuthenticationResponse_1(
           this,
           Invocation.method(
             #register,
             [registerRequest],
           ),
         )),
-      ) as _i4.Future<_i2.AuthenticationResponse>);
+      ) as _i5.Future<_i3.AuthenticationResponse>);
 }

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/register_request.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view_model/register_cubit.dart';
@@ -18,8 +19,6 @@ class RegisterView extends StatefulWidget {
   @override
   State<RegisterView> createState() => _RegisterViewState();
 }
-
-
 
 class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
   late TextEditingController firstNameController;
@@ -409,7 +408,8 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                 baseline: TextBaseline.alphabetic,
                                 child: InkWell(
                                   onTap: () {
-                                    /// navigate to login
+                                    Navigator.pushReplacementNamed(context,
+                                        DefinedRoutes.loginScreenRoute);
                                   },
                                   child: Text(
                                     LocaleKeys.login,

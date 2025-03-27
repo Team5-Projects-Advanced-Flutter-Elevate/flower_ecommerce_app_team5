@@ -55,13 +55,8 @@ abstract class  LocaleKeys {
   static const categories = 'categories';
   static const cart = 'cart';
   static const profile = 'profile';
-
-  static const login = 'login';
-  static const email = 'email';
-  static const password = 'password';
   static const rememberMe = 'rememberMe';
   static const forgetPassword = 'forgetPassword';
   static const dontHaveAccount = 'dontHaveAccount';
-  static const signUp = 'signUp';
-  static const loginSuccess = 'loginSuccess';
+
 }
