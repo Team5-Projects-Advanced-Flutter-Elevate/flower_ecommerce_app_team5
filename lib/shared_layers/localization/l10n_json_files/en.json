@@ -37,5 +37,13 @@
   "home": "Home",
   "categories": "Categories",
   "cart": "Cart",
-  "profile": "Profile"
+  "profile": "Profile",
+  "login": "Login",
+  "email": "E-mail",
+  "password": "Password",
+  "rememberMe": "Remember me",
+  "forgetPassword": "Forget Password",
+  "dontHaveAccount": "Don't have an account?",
+  "signUp": "Sign up",
+  "loginSuccess": "LoginSuccess"
 }
