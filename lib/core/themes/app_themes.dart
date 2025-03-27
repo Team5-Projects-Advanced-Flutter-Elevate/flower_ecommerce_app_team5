@@ -103,8 +103,12 @@ abstract class AppThemes {
         borderSide: BorderSide(color: AppColors.red),
         borderRadius: BorderRadius.circular(4),
       ),
-      focusedErrorBorder:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: AppColors.red,
+        ),
+      ),
       hintStyle: TextStyle(
         fontSize: 14, // Match your bodyMedium fontSize
         fontWeight: FontWeight.normal, // Match your bodyMedium fontWeight
