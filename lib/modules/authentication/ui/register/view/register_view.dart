@@ -9,6 +9,7 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/vi
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../core/utilities/extensions/gender_ex.dart';
 import '../../../../../core/widgets/loading_state_widget.dart';
 
 class RegisterView extends StatefulWidget {
@@ -18,18 +19,7 @@ class RegisterView extends StatefulWidget {
   State<RegisterView> createState() => _RegisterViewState();
 }
 
-enum Gender { male, female }
 
-extension GenderExtension on Gender {
-  String getValue() {
-    switch (this) {
-      case Gender.male:
-        return 'male';
-      case Gender.female:
-        return 'female';
-    }
-  }
-}
 
 class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
   late TextEditingController firstNameController;
