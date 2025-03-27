@@ -187,16 +187,19 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                   Text(LocaleKeys.dontHaveAccount.tr(),
                       style: GoogleFonts.inter(
                           textStyle: theme.textTheme.bodyLarge)),
-                  TextButton(
-                    onPressed: () {},
-                    child: (Text(
-                      LocaleKeys.signUp.tr(),
-                      style: GoogleFonts.inter(
-                        textStyle: theme.textTheme.bodyLarge!,
-                        decoration: TextDecoration.underline,
-                        decorationColor: AppColors.mainColor,
-                      ).copyWith(color: AppColors.mainColor),
-                    )),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        LocaleKeys.signUp.tr(),
+                        style: GoogleFonts.inter(
+                          textStyle: theme.textTheme.bodyLarge!,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColors.mainColor,
+                        ).copyWith(color: AppColors.mainColor),
+                      ),
+                    ),
                   ),
                 ],
               ),
