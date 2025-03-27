@@ -1,3 +1,6 @@
+import 'package:flower_ecommerce_app_team5/core/routing/app_routes.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
@@ -8,8 +11,11 @@ class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     var args = settings.arguments;
     var name = settings.name;
-
     switch (name) {
+      case DefinedRoutes.register:
+        return MaterialPageRoute(
+          builder: (context) => const RegisterView(),
+        );
       case DefinedRoutes.loginScreenRoute:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
         break;

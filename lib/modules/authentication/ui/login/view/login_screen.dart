@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/app_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_input_model.dart';
@@ -27,6 +28,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
   late FocusNode _passwordFocusNode;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var viewModel = getIt.get<LoginViewModelCubit>();
+
   @override
   initState() {
     _emailController = TextEditingController();
@@ -198,7 +200,12 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                         style: GoogleFonts.inter(
                             textStyle: theme.textTheme.bodyLarge)),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                        DefinedRoutes.register,
+                        );
+                      },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(

@@ -4,9 +4,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppThemes {
   static ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
     textTheme: TextTheme(
       // Body Text Styles
+      labelMedium: GoogleFonts.inter(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+      ),
+      labelSmall: GoogleFonts.inter(
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+      ),
       bodyLarge: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.normal, // Regular weight
@@ -24,16 +33,6 @@ abstract class AppThemes {
       ),
       labelLarge: TextStyle(
         fontSize: 16,
-        fontWeight: FontWeight.w500, // Medium weight
-        color: AppColors.gray,
-      ),
-      labelMedium: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w500, // Medium weight
-        color: AppColors.gray,
-      ),
-      labelSmall: TextStyle(
-        fontSize: 12,
         fontWeight: FontWeight.w500, // Medium weight
         color: AppColors.gray,
       ),
@@ -116,6 +115,7 @@ abstract class AppThemes {
           )),
     ),
     inputDecorationTheme: InputDecorationTheme(
+      errorMaxLines: 4,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
       ),
@@ -133,9 +133,14 @@ abstract class AppThemes {
         ),
       ),
       hintStyle: TextStyle(
-        fontSize: 14, // Match your bodyMedium fontSize
-        fontWeight: FontWeight.normal, // Match your bodyMedium fontWeight
-        color: AppColors.gray, // Match your bodyMedium color
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: AppColors.white[70],
+      ),
+      labelStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: AppColors.white[90],
       ),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       floatingLabelStyle: WidgetStateTextStyle.resolveWith((states) {
@@ -164,6 +169,26 @@ abstract class AppThemes {
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
+      ),
+    ),
+    filledButtonTheme: FilledButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(
+          AppColors.mainColor,
+        ),
+        foregroundColor: WidgetStatePropertyAll(
+          AppColors.white,
+        ),
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100),
+          ),
+        ),
+      ),
+    ),
+    radioTheme: RadioThemeData(
+      fillColor: WidgetStatePropertyAll(
+        AppColors.mainColor,
       ),
     ),
   );

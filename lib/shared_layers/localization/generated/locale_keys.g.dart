@@ -34,18 +34,29 @@ abstract class  LocaleKeys {
   static const specialCharactersRulePassword = 'specialCharactersRulePassword';
   static const pleaseConfirmPassword = 'pleaseConfirmPassword';
   static const noMatch = 'noMatch';
+  static const signUp = 'signUp';
+  static const alreadyHaveAnAccount = 'alreadyHaveAnAccount';
+  static const login = 'login';
+  static const gender_female = 'gender_female';
+  static const gender_male = 'gender_male';
+  static const gender = 'gender';
+  static const agreeToTerms = 'agreeToTerms';
+  static const terms = 'terms';
+  static const conditions = 'conditions';
+  static const registeredSuccessfully = 'registeredSuccessfully';
+  static const firstName = 'firstName';
+  static const lastName = 'lastName';
+  static const email = 'email';
+  static const password = 'password';
+  static const confirmPassword = 'confirmPassword';
+  static const phoneNumber = 'phoneNumber';
   static const appSections____________ = 'appSections____________';
   static const home = 'home';
   static const categories = 'categories';
   static const cart = 'cart';
   static const profile = 'profile';
-
-  static const login = 'login';
-  static const email = 'email';
-  static const password = 'password';
   static const rememberMe = 'rememberMe';
   static const forgetPassword = 'forgetPassword';
   static const dontHaveAccount = 'dontHaveAccount';
-  static const signUp = 'signUp';
-  static const loginSuccess = 'loginSuccess';
+
 }

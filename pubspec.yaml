@@ -57,10 +57,11 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  google_fonts: ^6.2.1
   bloc: ^9.0.0
   meta: ^1.15.0
+  google_fonts: ^6.2.1
   equatable: ^2.0.7
+  mockito: ^5.4.4
   bloc_test: ^10.0.0
 
 dev_dependencies:
@@ -73,7 +74,7 @@ dev_dependencies:
   # API dev_dependencies
   retrofit_generator: any # for Dart 3.3 use ^9.0.0
   build_runner: any
-  json_serializable: any
+  json_serializable: ^6.9.0
 
   # dependency injection
   injectable_generator: any
