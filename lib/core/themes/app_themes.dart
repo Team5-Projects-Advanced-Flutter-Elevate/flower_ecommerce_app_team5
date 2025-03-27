@@ -115,7 +115,7 @@ abstract class AppThemes {
         color: AppColors.gray, // Match your bodyMedium color
       ),
       floatingLabelBehavior: FloatingLabelBehavior.always,
-      labelStyle: WidgetStateTextStyle.resolveWith((states) {
+      floatingLabelStyle: WidgetStateTextStyle.resolveWith((states) {
         if (states.contains(WidgetState.error)) {
           return const TextStyle(color: Colors.red); // Red label in error state
         }

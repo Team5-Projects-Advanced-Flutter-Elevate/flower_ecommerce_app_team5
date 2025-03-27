@@ -45,165 +45,173 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: Text(
-          LocaleKeys.login.tr(),
-          style: GoogleFonts.inter(textStyle: theme.textTheme.headlineMedium),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.white,
+          title: Text(
+            LocaleKeys.login.tr(),
+            style: GoogleFonts.inter(textStyle: theme.textTheme.headlineMedium),
+          ),
+          leading: ModalRoute.of(context)?.isFirst == true
+              ? null
+              : IconButton(
+                  icon: const Icon(Icons.arrow_back_ios),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
         ),
-        leading: ModalRoute.of(context)?.isFirst == true
-            ? null
-            : IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-      ),
-      body: Form(
-        key: _formKey,
-        child: BlocListener<LoginViewModelCubit, LoginViewModelState>(
-          bloc: viewModel,
-          listenWhen: (previous, current) {
-            return previous != current;
-          },
-          listener: (context, state) {
-            if (state is LoginViewModelSuccess) {
-              hideAlertDialog();
-              displayAlertDialog(
-                  showOkButton: true, title: const Text('LoginSuccess'));
-            } else if (state is LoginViewModelError) {
-              hideAlertDialog();
-              displayAlertDialog(
-                  showOkButton: true, title: ErrorWidget(state.error));
-            } else if (state is LoginViewModelLoading) {
-              displayAlertDialog(title: const LoadingWidget());
-            }
-          },
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TextFormField(
-                  focusNode: _emailFocusNode,
-                  controller: _emailController,
-                  onFieldSubmitted: (value) =>
-                      _passwordFocusNode.requestFocus(),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: ValidateFunctions.getInstance().validationOfEmail,
-                  decoration: InputDecoration(
-                    hintText: LocaleKeys.pleaseEnterEmail.tr(),
-                    labelText: LocaleKeys.email.tr(),
+        body: Form(
+          key: _formKey,
+          child: BlocListener<LoginViewModelCubit, LoginViewModelState>(
+            bloc: viewModel,
+            listenWhen: (previous, current) {
+              return previous != current;
+            },
+            listener: (context, state) {
+              if (state is LoginViewModelSuccess) {
+                hideAlertDialog();
+                displayAlertDialog(
+                    showOkButton: true,
+                    title: Text(LocaleKeys.loginSuccess.tr()));
+              } else if (state is LoginViewModelError) {
+                hideAlertDialog();
+                displayAlertDialog(
+                    showOkButton: true, title: ErrorWidget(state.error));
+              } else if (state is LoginViewModelLoading) {
+                FocusScope.of(context).unfocus();
+                displayAlertDialog(title: const LoadingWidget());
+              }
+            },
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextFormField(
+                    focusNode: _emailFocusNode,
+                    controller: _emailController,
+                    onFieldSubmitted: (value) =>
+                        _passwordFocusNode.requestFocus(),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator:
+                        ValidateFunctions.getInstance().validationOfEmail,
+                    decoration: InputDecoration(
+                      hintText: LocaleKeys.pleaseEnterEmail.tr(),
+                      labelText: LocaleKeys.email.tr(),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 16.0, right: 16.0, top: 16),
-                child: BlocBuilder<LoginViewModelCubit, LoginViewModelState>(
-                    bloc: viewModel,
-                    builder: (context, state) {
-                      return TextFormField(
-                        focusNode: _passwordFocusNode,
-                        controller: _passwordController,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: ValidateFunctions.getInstance()
-                            .validationOfPassword,
-                        obscureText: viewModel.obscurePassword,
-                        obscuringCharacter: '*',
-                        decoration: InputDecoration(
-                          hintText: LocaleKeys.pleaseEnterPassword.tr(),
-                          labelText: LocaleKeys.password.tr(),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              viewModel.processIntent(ShowPasswordIntent());
-                            },
-                            icon: Icon(
-                              viewModel.obscurePassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 16.0, right: 16.0, top: 16),
+                  child: BlocBuilder<LoginViewModelCubit, LoginViewModelState>(
+                      bloc: viewModel,
+                      builder: (context, state) {
+                        return TextFormField(
+                          focusNode: _passwordFocusNode,
+                          controller: _passwordController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: ValidateFunctions.getInstance()
+                              .validationOfPassword,
+                          obscureText: viewModel.obscurePassword,
+                          obscuringCharacter: '*',
+                          decoration: InputDecoration(
+                            hintText: LocaleKeys.pleaseEnterPassword.tr(),
+                            labelText: LocaleKeys.password.tr(),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                viewModel.processIntent(ShowPasswordIntent());
+                              },
+                              icon: Icon(
+                                viewModel.obscurePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: 16.0, right: 16.0, left: 16.0),
-                child: Row(
-                  children: [
-                    BlocBuilder<LoginViewModelCubit, LoginViewModelState>(
-                        bloc: viewModel,
-                        builder: (context, state) {
-                          return Checkbox(
-                              activeColor: AppColors.mainColor,
-                              value: viewModel.checkBoxValue,
-                              onChanged: (value) {
-                                viewModel.processIntent(RememberMeIntent());
-                              });
-                        }),
-                    Text(
-                      LocaleKeys.rememberMe.tr(),
-                      style: GoogleFonts.inter(
-                          textStyle: theme.textTheme.bodyMedium),
-                    ),
-                    const Spacer(),
-                    Text(
-                      LocaleKeys.forgetPassword.tr(),
-                      style: GoogleFonts.inter(
-                        textStyle: theme.textTheme.bodyMedium!,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ],
+                        );
+                      }),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (!_formKey.currentState!.validate()) return;
-                          viewModel.processIntent(LoginIntent(
-                              loginInputModel: LoginInputModel(
-                                  email: _emailController.text,
-                                  password: _passwordController.text)));
-                        },
-                        child: Text(
-                          LocaleKeys.login.tr(),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(LocaleKeys.dontHaveAccount.tr(),
-                      style: GoogleFonts.inter(
-                          textStyle: theme.textTheme.bodyLarge)),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        LocaleKeys.signUp.tr(),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      bottom: 16.0, right: 16.0, left: 16.0),
+                  child: Row(
+                    children: [
+                      BlocBuilder<LoginViewModelCubit, LoginViewModelState>(
+                          bloc: viewModel,
+                          builder: (context, state) {
+                            return Checkbox(
+                                activeColor: AppColors.mainColor,
+                                value: viewModel.checkBoxValue,
+                                onChanged: (value) {
+                                  viewModel.processIntent(RememberMeIntent());
+                                });
+                          }),
+                      Text(
+                        LocaleKeys.rememberMe.tr(),
                         style: GoogleFonts.inter(
-                          textStyle: theme.textTheme.bodyLarge!,
+                            textStyle: theme.textTheme.bodyMedium),
+                      ),
+                      const Spacer(),
+                      Text(
+                        LocaleKeys.forgetPassword.tr(),
+                        style: GoogleFonts.inter(
+                          textStyle: theme.textTheme.bodyMedium!,
                           decoration: TextDecoration.underline,
-                          decorationColor: AppColors.mainColor,
-                        ).copyWith(color: AppColors.mainColor),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (!_formKey.currentState!.validate()) return;
+                            viewModel.processIntent(LoginIntent(
+                                loginInputModel: LoginInputModel(
+                                    email: _emailController.text,
+                                    password: _passwordController.text)));
+                          },
+                          child: Text(
+                            LocaleKeys.login.tr(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(LocaleKeys.dontHaveAccount.tr(),
+                        style: GoogleFonts.inter(
+                            textStyle: theme.textTheme.bodyLarge)),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          LocaleKeys.signUp.tr(),
+                          style: GoogleFonts.inter(
+                            textStyle: theme.textTheme.bodyLarge!,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.mainColor,
+                          ).copyWith(color: AppColors.mainColor),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

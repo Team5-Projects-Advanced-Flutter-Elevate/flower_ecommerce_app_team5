@@ -3,7 +3,7 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/lo
 
 import '../../models/login/login_input_model.dart';
 
-abstract class LoginRemoteDataSource {
+abstract interface class LoginRemoteDataSource {
   Future<ApiResult<LoginResponseDto>> login(
       {required LoginInputModel loginInputModel});
 }

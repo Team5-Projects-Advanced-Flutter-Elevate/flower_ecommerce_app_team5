@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/login/login_use_case.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
@@ -9,16 +11,17 @@ part 'login_view_model_state.dart';
 
 @injectable
 class LoginViewModelCubit extends Cubit<LoginViewModelState> {
-  LoginViewModelCubit(this._loginUseCase) : super(LoginViewModelInitial());
+  LoginViewModelCubit(this._loginUseCase)
+      : super(const LoginViewModelInitial());
   final LoginUseCase _loginUseCase;
   bool checkBoxValue = false;
   bool obscurePassword = true;
   _login(LoginInputModel loginInputModel) async {
-    emit(LoginViewModelLoading());
+    emit(const LoginViewModelLoading());
     var result = await _loginUseCase.call(loginInputModel, checkBoxValue);
     switch (result) {
       case Success():
-        emit(LoginViewModelSuccess());
+        emit(LoginViewModelSuccess(result.data));
       case Error():
         emit(LoginViewModelError(error: result.error));
     }
@@ -26,12 +29,12 @@ class LoginViewModelCubit extends Cubit<LoginViewModelState> {
 
   _rememberMe() {
     checkBoxValue = !checkBoxValue;
-    emit(LoginViewModelRememberMe());
+    emit(LoginViewModelRememberMe(checkBoxValue));
   }
 
   _showPassword() {
     obscurePassword = !obscurePassword;
-    emit(LoginViewModelShowPassword());
+    emit(LoginViewModelShowPassword(obscurePassword));
   }
 
   void processIntent(LoginViewModelIntent intent) {
