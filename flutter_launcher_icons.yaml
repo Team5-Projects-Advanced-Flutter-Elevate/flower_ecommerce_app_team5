@@ -1,0 +1,7 @@
+flutter_launcher_icons:
+  android: true
+  ios: true
+
+  image_path: assets/icons/flower_app_icon.png
+  adaptive_icon_background: "#FFF9F9F9"
+  adaptive_icon_foreground: assets/icons/flower_app_icon.png

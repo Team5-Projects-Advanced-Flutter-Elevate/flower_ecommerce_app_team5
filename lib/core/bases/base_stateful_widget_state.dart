@@ -14,6 +14,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
   late InheritedWidget easyLocalization;
   late LocalizationManager localizationManager;
   late ValidateFunctions validateFunctions;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -42,7 +43,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
           title: title,
           actions: [
             if (showOkButton)
-              ElevatedButton(
+              FilledButton(
                   onPressed: () => onOkButtonClick == null
                       ? Navigator.pop(context)
                       : onOkButtonClick(),
@@ -74,6 +75,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
   }
 
   Future<void> setLocaleOfEasyLocalization(String newLocale) {
+    if(!mounted) return Future.value();
     return context.setLocale(Locale(newLocale));
   }
 }

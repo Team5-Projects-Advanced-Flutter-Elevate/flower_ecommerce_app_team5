@@ -1,126 +1,256 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/shared_layers/storage/implementation/flutter_secure_storage_service_imp.dart';
+import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/app_routes.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
+import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view_model/login_view_model_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../core/colors/app_colors.dart';
-import '../../../../../core/di/injectable_initializer.dart';
+import '../../../../../core/widgets/loading_state_widget.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
-import '../../../../../shared_layers/storage/constants/storage_constants.dart';
-import '../../../../../shared_layers/storage/contracts/flutter_secure_storage_service_contract.dart';
-import '../view_model/login_screen_view_model.dart';
-import '../view_model/login_state.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  BaseStatefulWidgetState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginState extends BaseStatefulWidgetState<Login> {
-  //late final SecureStorageService secureStorageService;
-  LoginViewModel ViewModel = getIt.get<LoginViewModel>();
-  SecureStorageService secureStorageService =
-      getIt<SecureStorageService>(); // Initialize here
+class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
+  late FocusNode _emailFocusNode;
+  late FocusNode _passwordFocusNode;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var viewModel = getIt.get<LoginViewModelCubit>();
+
   @override
-  Future<void> displayAlertDialog(
-      {required Widget title,
-      bool showOkButton = false,
-      bool showConfirmButton = false,
-      bool isDismissible = false,
-      VoidFunction? onOkButtonClick,
-      VoidFunction? onConfirmButtonClick}) {
-    // TODO: implement displayAlertDialog
-    return super.displayAlertDialog(
-        title: title,
-        showOkButton: showOkButton,
-        showConfirmButton: showConfirmButton,
-        isDismissible: isDismissible,
-        onOkButtonClick: onOkButtonClick,
-        onConfirmButtonClick: onConfirmButtonClick);
+  initState() {
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _emailFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
+    _emailFocusNode.requestFocus();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ViewModel,
-      child: BlocConsumer<LoginViewModel, loginAuth>(
-        listener: (context, state) {
-          if (state is LoginLoading) {
-            print('Loading...........');
-          } else if (state is LoginFailure) {
-            print('Fail...............${state.error}');
-          } else if (state is IsGuestSuccess) {
-            print('Sucess ......');
-          }
-        },
-        builder: (context, state) {
-          return SafeArea(
-            child: Scaffold(
-              appBar: AppBar(automaticallyImplyLeading: false),
-              body: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: AppColors.gray,
-                          padding: EdgeInsets.all(14),
-                          backgroundColor: AppColors.white,
-                          //disabledBackgroundColor: AppColors.mainColor.shade100,
-                          // disabledForegroundColor: AppColors.gray,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100),
-                              side: BorderSide(
-                                color: AppColors.gray,
-                              )),
-
-                          textStyle: theme.textTheme.headlineMedium!.copyWith(
-                            fontSize: 16,
-                            color: AppColors.gray,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.white,
+          title: Text(
+            LocaleKeys.login.tr(),
+            style: GoogleFonts.inter(textStyle: theme.textTheme.headlineMedium),
+          ),
+          leading: ModalRoute.of(context)?.isFirst == true
+              ? null
+              : IconButton(
+                  icon: const Icon(Icons.arrow_back_ios),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+        ),
+        body: Form(
+          key: _formKey,
+          child: BlocListener<LoginViewModelCubit, LoginViewModelState>(
+            bloc: viewModel,
+            listenWhen: (previous, current) {
+              return previous != current;
+            },
+            listener: (context, state) {
+              if (state is LoginViewModelSuccess) {
+                hideAlertDialog();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  DefinedRoutes.homeScreenRoute,
+                  (route) => false,
+                );
+              } else if (state is LoginViewModelError) {
+                hideAlertDialog();
+                displayAlertDialog(
+                    showOkButton: true, title: ErrorWidget(state.error));
+              } else if (state is LoginViewModelLoading) {
+                FocusScope.of(context).unfocus();
+                displayAlertDialog(title: const LoadingWidget());
+              }
+            },
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextFormField(
+                    focusNode: _emailFocusNode,
+                    controller: _emailController,
+                    onFieldSubmitted: (value) =>
+                        _passwordFocusNode.requestFocus(),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator:
+                        ValidateFunctions.getInstance().validationOfEmail,
+                    decoration: InputDecoration(
+                      hintText: LocaleKeys.pleaseEnterEmail.tr(),
+                      labelText: LocaleKeys.email.tr(),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 16.0, right: 16.0, top: 16),
+                  child: BlocBuilder<LoginViewModelCubit, LoginViewModelState>(
+                      bloc: viewModel,
+                      builder: (context, state) {
+                        return TextFormField(
+                          focusNode: _passwordFocusNode,
+                          controller: _passwordController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: ValidateFunctions.getInstance()
+                              .validationOfPassword,
+                          obscureText: viewModel.obscurePassword,
+                          obscuringCharacter: '*',
+                          decoration: InputDecoration(
+                            hintText: LocaleKeys.pleaseEnterPassword.tr(),
+                            labelText: LocaleKeys.password.tr(),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                viewModel.processIntent(ShowPasswordIntent());
+                              },
+                              icon: Icon(
+                                viewModel.obscurePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      bottom: 16.0, right: 16.0, left: 16.0),
+                  child: Row(
+                    children: [
+                      BlocBuilder<LoginViewModelCubit, LoginViewModelState>(
+                          bloc: viewModel,
+                          builder: (context, state) {
+                            return Checkbox(
+                                activeColor: AppColors.mainColor,
+                                value: viewModel.checkBoxValue,
+                                onChanged: (value) {
+                                  viewModel.processIntent(RememberMeIntent());
+                                });
+                          }),
+                      Text(
+                        LocaleKeys.rememberMe.tr(),
+                        style: GoogleFonts.inter(
+                            textStyle: theme.textTheme.bodyMedium),
+                      ),
+                      const Spacer(),
+                      Text(
+                        LocaleKeys.forgetPassword.tr(),
+                        style: GoogleFonts.inter(
+                          textStyle: theme.textTheme.bodyMedium!,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (!_formKey.currentState!.validate()) return;
+                            viewModel.processIntent(LoginIntent(
+                                loginInputModel: LoginInputModel(
+                                    email: _emailController.text,
+                                    password: _passwordController.text)));
+                          },
+                          child: Text(
+                            LocaleKeys.login.tr(),
                           ),
                         ),
-                        onPressed: () {
-                          ViewModel.onIntent(LoginAsGuestIntent());
-                        },
+                      ),
+
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: AppColors.gray,
+                            padding: EdgeInsets.all(14),
+                            backgroundColor: AppColors.white,
+                            //disabledBackgroundColor: AppColors.mainColor.shade100,
+                            // disabledForegroundColor: AppColors.gray,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                side: BorderSide(
+                                  color: AppColors.gray,
+                                )),
+
+                            textStyle: theme.textTheme.headlineMedium!.copyWith(
+                              fontSize: 16,
+                              color: AppColors.gray,
+                            ),
+                          ),
+                          onPressed: () {
+                            ViewModel.onIntent(LoginAsGuestIntent());
+                          },
+                          child: Text(
+                            LocaleKeys.guestLogin.tr(),
+                          )),
+
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(LocaleKeys.dontHaveAccount.tr(),
+                        style: GoogleFonts.inter(
+                            textStyle: theme.textTheme.bodyLarge)),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                        DefinedRoutes.register,
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          LocaleKeys.guestLogin.tr(),
-                        )),
-                    ElevatedButton(
-                        onPressed: () {
-                          getData();
-                        },
-                        child: const Text(
-                          'Done ...',
-                        ))
+                          LocaleKeys.signUp.tr(),
+                          style: GoogleFonts.inter(
+                            textStyle: theme.textTheme.bodyLarge!,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.mainColor,
+                          ).copyWith(color: AppColors.mainColor),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
+              ],
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
-  }
-
-  Future<String?> getData() async {
-    var p =
-        await secureStorageService.getStringValue(StorageConstants.isGuestKey);
-    print('result:$p');
-    if (p == 'true') {
-      displayAlertDialog(
-        title: Text(LocaleKeys.checkGuest.tr()),
-        showOkButton: true,
-        isDismissible: false,
-        onOkButtonClick: () {
-          Navigator.pop(context);
-        },
-      );
-    }
-    return await secureStorageService
-        .getStringValue(StorageConstants.isGuestKey);
   }
 }
