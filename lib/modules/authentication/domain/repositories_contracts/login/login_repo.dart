@@ -4,5 +4,8 @@ import '../../../data/models/login/login_response_dto.dart';
 
 abstract class LoginRepo {
   Future<ApiResult<LoginResponseDto>> login(
-      {required LoginInputModel loginInputModel});
+      {required LoginInputModel loginInputModel, required bool checkBoxValue});
+  Future<LoginResponseDto?> getStoredLoginInfo();
+
+  Future<void> deleteLoginInfo();
 }

@@ -9,7 +9,11 @@ final class LoginViewModelLoading extends LoginViewModelState {}
 
 final class LoginViewModelSuccess extends LoginViewModelState {}
 
+final class LoginViewModelRememberMe extends LoginViewModelState {}
+
+final class LoginViewModelShowPassword extends LoginViewModelState {}
+
 final class LoginViewModelError extends LoginViewModelState {
-  final String message;
-  LoginViewModelError({required this.message});
+  final Object error;
+  LoginViewModelError({required this.error});
 }

@@ -11,8 +11,6 @@ part 'auth_api_client.g.dart';
 abstract class AuthApiClient {
   factory AuthApiClient(Dio dio) = _AuthApiClient;
 
-  @POST(
-    ApisEndpoints.loginEndPoint,
-  )
+  @POST(ApisEndpoints.loginEndPoint)
   Future<LoginResponseDto> login(@Body() LoginInputModel loginInputModel);
 }

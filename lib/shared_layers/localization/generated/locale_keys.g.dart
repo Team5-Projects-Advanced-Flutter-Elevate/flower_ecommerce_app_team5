@@ -2,7 +2,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const ok = 'ok';
   static const confirm = 'confirm';
   static const errorMessages = 'errorMessages';
@@ -14,7 +14,8 @@ abstract class  LocaleKeys {
   static const unknown = 'unknown';
   static const badCertificate = 'badCertificate';
   static const somethingWentWrong = 'somethingWentWrong';
-  static const validationFunctions______________ = 'validationFunctions______________';
+  static const validationFunctions______________ =
+      'validationFunctions______________';
   static const pleaseEnterName = 'pleaseEnterName';
   static const pleaseEnterUserName = 'pleaseEnterUserName';
   static const userNameLength = 'userNameLength';
@@ -34,5 +35,11 @@ abstract class  LocaleKeys {
   static const specialCharactersRulePassword = 'specialCharactersRulePassword';
   static const pleaseConfirmPassword = 'pleaseConfirmPassword';
   static const noMatch = 'noMatch';
-
+  static const login = 'login';
+  static const email = 'email';
+  static const password = 'password';
+  static const rememberMe = 'rememberMe';
+  static const forgetPassword = 'forgetPassword';
+  static const dontHaveAccount = 'dontHaveAccount';
+  static const signUp = 'signUp';
 }

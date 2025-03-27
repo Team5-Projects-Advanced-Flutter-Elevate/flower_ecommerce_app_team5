@@ -1,24 +1,61 @@
 import 'package:bloc/bloc.dart';
-import 'package:flower_ecommerce_app_team5/core/apis/api_error/api_error_handler.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_input_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/login/login_use_case.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 part 'login_view_model_state.dart';
 
+@injectable
 class LoginViewModelCubit extends Cubit<LoginViewModelState> {
   LoginViewModelCubit(this._loginUseCase) : super(LoginViewModelInitial());
   final LoginUseCase _loginUseCase;
-  login(LoginInputModel loginInputModel) async {
+  bool checkBoxValue = false;
+  bool obscurePassword = true;
+  _login(LoginInputModel loginInputModel) async {
     emit(LoginViewModelLoading());
-    var result = await _loginUseCase.call(loginInputModel);
-    switch (result.status) {
+    var result = await _loginUseCase.call(loginInputModel, checkBoxValue);
+    switch (result) {
       case Success():
         emit(LoginViewModelSuccess());
       case Error():
-        emit(LoginViewModelError(
-            message: ApiErrorHandler.getInstance().handle(result.error)));
+        emit(LoginViewModelError(error: result.error));
     }
   }
+
+  _rememberMe() {
+    checkBoxValue = !checkBoxValue;
+    emit(LoginViewModelRememberMe());
+  }
+
+  _showPassword() {
+    obscurePassword = !obscurePassword;
+    emit(LoginViewModelShowPassword());
+  }
+
+  void processIntent(LoginViewModelIntent intent) {
+    switch (intent) {
+      case ShowPasswordIntent():
+        _showPassword();
+        break;
+      case RememberMeIntent():
+        _rememberMe();
+        break;
+      case LoginIntent():
+        _login(intent.loginInputModel);
+        break;
+    }
+  }
+}
+
+sealed class LoginViewModelIntent {}
+
+final class ShowPasswordIntent extends LoginViewModelIntent {}
+
+final class RememberMeIntent extends LoginViewModelIntent {}
+
+final class LoginIntent extends LoginViewModelIntent {
+  final LoginInputModel loginInputModel;
+  LoginIntent({required this.loginInputModel});
 }
