@@ -18,6 +18,19 @@ class RegisterView extends StatefulWidget {
   State<RegisterView> createState() => _RegisterViewState();
 }
 
+enum Gender { male, female }
+
+extension GenderExtension on Gender {
+  String getValue() {
+    switch (this) {
+      case Gender.male:
+        return 'male';
+      case Gender.female:
+        return 'female';
+    }
+  }
+}
+
 class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
@@ -33,7 +46,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
   late FocusNode phoneNumberFocusNode;
 
   final GlobalKey<FormState> _formKey = GlobalKey();
-  String selectedGender = LocaleKeys.gender_female.tr();
+  String selectedGender = Gender.female.getValue();
 
   @override
   void initState() {
@@ -287,12 +300,12 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                       style:
                                           theme.textTheme.labelSmall?.copyWith(
                                         color: selectedGender ==
-                                                LocaleKeys.gender_female.tr()
+                                                Gender.female.getValue()
                                             ? AppColors.black
                                             : AppColors.white[90],
                                       ),
                                     ),
-                                    value: LocaleKeys.gender_female.tr(),
+                                    value: Gender.female.getValue(),
                                     groupValue: selectedGender,
                                     onChanged: (value) {
                                       setState(() {
@@ -310,12 +323,12 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                       style:
                                           theme.textTheme.labelSmall?.copyWith(
                                         color: selectedGender ==
-                                                LocaleKeys.gender_male.tr()
+                                                Gender.male.getValue()
                                             ? AppColors.black
                                             : AppColors.white[90],
                                       ),
                                     ),
-                                    value: LocaleKeys.gender_male.tr(),
+                                    value: Gender.male.getValue(),
                                     groupValue: selectedGender,
                                     onChanged: (value) {
                                       setState(() {
