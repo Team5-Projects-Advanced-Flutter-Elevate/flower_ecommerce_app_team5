@@ -18,6 +18,8 @@ class RegisterView extends StatefulWidget {
   State<RegisterView> createState() => _RegisterViewState();
 }
 
+enum Gender { male, female }
+
 class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
@@ -33,7 +35,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
   late FocusNode phoneNumberFocusNode;
 
   final GlobalKey<FormState> _formKey = GlobalKey();
-  String selectedGender = 'female';
+  String selectedGender = Gender.female.toString();
 
   @override
   void initState() {
@@ -280,17 +282,19 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                               children: [
                                 Expanded(
                                   child: RadioListTile<String>(
+                                    contentPadding: EdgeInsets.zero,
                                     hoverColor: AppColors.transparent,
                                     title: Text(
-                                      'Female',
+                                      LocaleKeys.gender_female.tr(),
                                       style:
                                           theme.textTheme.labelSmall?.copyWith(
-                                        color: selectedGender == 'female'
+                                        color: selectedGender ==
+                                                Gender.female.toString()
                                             ? AppColors.black
                                             : AppColors.white[90],
                                       ),
                                     ),
-                                    value: 'female',
+                                    value: Gender.female.toString(),
                                     groupValue: selectedGender,
                                     onChanged: (value) {
                                       setState(() {
@@ -302,16 +306,18 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                 ),
                                 Expanded(
                                   child: RadioListTile<String>(
+                                    contentPadding: EdgeInsets.zero,
                                     title: Text(
-                                      'Male',
+                                      LocaleKeys.gender_male.tr(),
                                       style:
                                           theme.textTheme.labelSmall?.copyWith(
-                                        color: selectedGender == 'male'
+                                        color: selectedGender ==
+                                                Gender.male.toString()
                                             ? AppColors.black
                                             : AppColors.white[90],
                                       ),
                                     ),
-                                    value: 'male',
+                                    value: Gender.male.toString(),
                                     groupValue: selectedGender,
                                     onChanged: (value) {
                                       setState(() {
@@ -331,6 +337,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                       ),
                       Center(
                         child: RichText(
+                          textAlign: TextAlign.center,
                           text: TextSpan(
                             children: [
                               TextSpan(
@@ -342,7 +349,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                 alignment: PlaceholderAlignment.baseline,
                                 baseline: TextBaseline.alphabetic,
                                 child: Text(
-                                  ' ${LocaleKeys.terms.tr()} & ${LocaleKeys.conditions.tr()}',
+                                  '${LocaleKeys.terms.tr()} & ${LocaleKeys.conditions.tr()}',
                                   style: theme.textTheme.labelSmall!.copyWith(
                                     fontSize: 13,
                                     fontWeight: FontWeight.bold,

@@ -37,6 +37,8 @@ abstract class  LocaleKeys {
   static const signUp = 'signUp';
   static const alreadyHaveAnAccount = 'alreadyHaveAnAccount';
   static const login = 'login';
+  static const gender_female = 'gender_female';
+  static const gender_male = 'gender_male';
   static const gender = 'gender';
   static const agreeToTerms = 'agreeToTerms';
   static const terms = 'terms';
