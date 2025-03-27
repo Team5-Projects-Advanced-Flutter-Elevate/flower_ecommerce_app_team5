@@ -13,7 +13,9 @@ class _AuthApiClient implements AuthApiClient {
     this._dio, {
     this.baseUrl,
     this.errorLogger,
-  });
+  }) {
+    baseUrl ??= 'https://flower.elevateegy.com/';
+  }
 
   final Dio _dio;
 
@@ -22,12 +24,13 @@ class _AuthApiClient implements AuthApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<void> login() async {
+  Future<LoginResponseDto> login(LoginInputModel loginInputModel) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<void>(Options(
+    final _data = <String, dynamic>{};
+    _data.addAll(loginInputModel.toJson());
+    final _options = _setStreamType<LoginResponseDto>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -43,7 +46,15 @@ class _AuthApiClient implements AuthApiClient {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    await _dio.fetch<void>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late LoginResponseDto _value;
+    try {
+      _value = LoginResponseDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override

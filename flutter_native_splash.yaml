@@ -1,0 +1,12 @@
+flutter_native_splash:
+ android: true
+ ios: true
+
+ color: "#F9F9F9"
+ image: assets/icons/flower_icon.png
+ branding: assets/icons/flowery.png
+
+ android_12:
+  color: "#F9F9F9"
+  image: assets/icons/flower_icon_android_12.png
+  branding: assets/icons/flowery_android_12.png

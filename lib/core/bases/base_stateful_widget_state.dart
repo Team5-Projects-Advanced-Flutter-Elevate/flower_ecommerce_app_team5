@@ -75,6 +75,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
   }
 
   Future<void> setLocaleOfEasyLocalization(String newLocale) {
+    if(!mounted) return Future.value();
     return context.setLocale(Locale(newLocale));
   }
 }

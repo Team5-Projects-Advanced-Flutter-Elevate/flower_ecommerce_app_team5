@@ -17,18 +17,22 @@ import '../../modules/authentication/data/api/api_client/auth_api_client.dart'
     as _i343;
 import '../../modules/authentication/data/api/api_client_provider/auth_api_client_provider.dart'
     as _i1019;
-import '../../modules/authentication/data/data_sources_contracts/register/register_online_datasource_contract.dart'
-    as _i871;
-import '../../modules/authentication/data/data_sources_imp/register/register_online_datasource_impl.dart'
-    as _i219;
-import '../../modules/authentication/data/respositoies_imp/register/register_repo_impl.dart'
-    as _i161;
-import '../../modules/authentication/domain/repositories_contracts/register/register_repo.dart'
-    as _i496;
-import '../../modules/authentication/domain/use_cases/register/register_use_case.dart'
-    as _i782;
-import '../../modules/authentication/ui/register/view_model/register_cubit.dart'
-    as _i303;
+import '../../modules/authentication/data/data_sources_contracts/login/login_local_data_source.dart'
+    as _i147;
+import '../../modules/authentication/data/data_sources_contracts/login/login_remote_data_source.dart'
+    as _i766;
+import '../../modules/authentication/data/data_sources_imp/login/login_local_data_source_imp.dart'
+    as _i916;
+import '../../modules/authentication/data/data_sources_imp/login/login_remote_data_source_imp.dart'
+    as _i132;
+import '../../modules/authentication/data/respositoies_imp/login/login_repo_imp.dart'
+    as _i639;
+import '../../modules/authentication/domain/repositories_contracts/login/login_repo.dart'
+    as _i450;
+import '../../modules/authentication/domain/use_cases/login/login_use_case.dart'
+    as _i543;
+import '../../modules/authentication/ui/login/view_model/login_view_model_cubit.dart'
+    as _i363;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -68,6 +72,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
         () => _i701.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()));
+    gh.factory<_i766.LoginRemoteDataSource>(
+        () => _i132.LoginRemoteDataSourceImp(gh<_i343.AuthApiClient>()));
     await gh.factoryAsync<String>(
       () => localeInitializer
           .initCurrentLocal(gh<_i629.SecureStorageService<dynamic>>()),
@@ -78,14 +84,16 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i629.SecureStorageService<dynamic>>(),
           gh<String>(instanceName: 'initCurrentLocal'),
         ));
-    gh.factory<_i871.RegisterOnlineDataSource>(
-        () => _i219.RegisterOnlineDataSourceImpl(gh<_i343.AuthApiClient>()));
-    gh.factory<_i496.RegisterRepo>(
-        () => _i161.RegisterRepoImpl(gh<_i871.RegisterOnlineDataSource>()));
-    gh.factory<_i782.RegisterUseCase>(
-        () => _i782.RegisterUseCase(gh<_i496.RegisterRepo>()));
-    gh.factory<_i303.RegisterCubit>(
-        () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
+    gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
+        storageService: gh<_i629.SecureStorageService<dynamic>>()));
+    gh.factory<_i450.LoginRepo>(() => _i639.LoginRepoImp(
+          gh<_i766.LoginRemoteDataSource>(),
+          gh<_i147.LoginLocalDataSource>(),
+        ));
+    gh.factory<_i543.LoginUseCase>(
+        () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
+    gh.factory<_i363.LoginViewModelCubit>(
+        () => _i363.LoginViewModelCubit(gh<_i543.LoginUseCase>()));
     return this;
   }
 }

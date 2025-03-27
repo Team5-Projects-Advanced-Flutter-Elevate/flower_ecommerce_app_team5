@@ -1,6 +1,10 @@
 import 'package:flower_ecommerce_app_team5/core/routing/app_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class GenerateRoute {
@@ -12,27 +16,32 @@ class GenerateRoute {
         return MaterialPageRoute(
           builder: (context) => const RegisterView(),
         );
+      case DefinedRoutes.loginScreenRoute:
+        return MaterialPageRoute(builder: (context) => const LoginScreen());
+        break;
+      case DefinedRoutes.homeScreenRoute:
+        return MaterialPageRoute(builder: (context) =>  const HomeScreen());
       default:
         return _errorRoute();
     }
   }
-  //
-  // static List<Route<dynamic>> onGenerateInitialRoutes(
-  //     {String? initialRoute,
-  //     AuthenticationResponseEntity? storedAuthEntity,
-  //     bool rememberMe = false}) {
-  //   return [
-  //     if (storedAuthEntity != null)
-  //       MaterialPageRoute(
-  //           builder: (context) =>
-  //               const SizedBox() //HomeScreen(authEntity: storedAuthEntity),
-  //           )
-  //     else
-  //       MaterialPageRoute(
-  //           builder: (context) => const RegisterView() //const LoginScreen(),
-  //           )
-  //   ];
-  // }
+
+  static List<Route<dynamic>> onGenerateInitialRoutes(
+      {String? initialRoute,
+      LoginResponseDto? loginInfo,
+      bool rememberMe = false}) {
+    return [
+      if (loginInfo != null)
+        MaterialPageRoute(
+            builder: (context) =>
+                const HomeScreen()//HomeScreen(authEntity: storedAuthEntity),
+            )
+      else
+        MaterialPageRoute(
+          builder: (context) => const LoginScreen(), //const LoginScreen(),
+        )
+    ];
+  }
 
   static Route<dynamic> _errorRoute() {
     return MaterialPageRoute(

@@ -1,7 +1,6 @@
 {
   "ok": "OK",
   "confirm": "Confirm",
-
   "errorMessages": "$$$ Comment $$$",
   "connectionTimeout": "Connection timeout with server ⌛",
   "sendTimeout": "Send timeout in connection with server ⏱",
@@ -11,7 +10,6 @@
   "unknown": "Something Went Wrong \uD83E\uDD14",
   "badCertificate": "The certificate provided by the server is not valid \uD83D\uDCD1",
   "somethingWentWrong": "Something Went Wrong \uD83E\uDD14",
-
   "validationFunctions______________": "$$$ Comment $$$",
   "pleaseEnterName": "Please enter your name.",
   "pleaseEnterUserName": "Please enter user name.",
@@ -31,10 +29,7 @@
   "digitRulePassword": "At least one digit must be there.",
   "specialCharactersRulePassword": "At least one special character(e.g., #?!@$%^&*-) must be included.",
   "pleaseConfirmPassword": "Please confirm password.",
-  "noMatch": "No Match!",
-  "signUp": "Sign Up",
   "alreadyHaveAnAccount": "Already have an account ? ",
-  "login": "Login",
   "gender_female": "Female",
   "gender_male": "Male",
   "gender": "Gender",
@@ -44,8 +39,20 @@
   "registeredSuccessfully": "Registered successfully!",
   "firstName": "First Name",
   "lastName": "Last Name",
-  "email": "Email",
-  "password": "Password",
   "confirmPassword": "Confirm Password",
-  "phoneNumber": "Phone Number"
+  "phoneNumber": "Phone Number",
+  "noMatch": "No Match!",
+  "appSections____________": "$$$ Comment $$$",
+  "home": "Home",
+  "categories": "Categories",
+  "cart": "Cart",
+  "profile": "Profile",
+  "login": "Login",
+  "email": "E-mail",
+  "password": "Password",
+  "rememberMe": "Remember me",
+  "forgetPassword": "Forget Password",
+  "dontHaveAccount": "Don't have an account?",
+  "signUp": "Sign up",
+  "loginSuccess": "LoginSuccess"
 }
