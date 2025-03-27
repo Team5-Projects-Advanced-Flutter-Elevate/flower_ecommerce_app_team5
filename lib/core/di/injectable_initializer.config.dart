@@ -17,6 +17,18 @@ import '../../modules/authentication/data/api/api_client/auth_api_client.dart'
     as _i343;
 import '../../modules/authentication/data/api/api_client_provider/auth_api_client_provider.dart'
     as _i1019;
+import '../../modules/authentication/data/data_sources_contracts/login_as_guest/login_as_guest_data_source.dart'
+    as _i138;
+import '../../modules/authentication/data/data_sources_imp/login_as_guest/login_as_guest_data_source_impl.dart'
+    as _i79;
+import '../../modules/authentication/data/respositoies_imp/login_as_guest/login_as_guest_repo_impl.dart'
+    as _i252;
+import '../../modules/authentication/domain/repositories_contracts/login_as_guest/login_as_guest_repo.dart'
+    as _i926;
+import '../../modules/authentication/domain/use_cases/login_as_guest/login_as_gust_use_case.dart'
+    as _i421;
+import '../../modules/authentication/ui/login/view_model/login_screen_view_model.dart'
+    as _i248;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -66,6 +78,15 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i629.SecureStorageService<dynamic>>(),
           gh<String>(instanceName: 'initCurrentLocal'),
         ));
+    gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
+        _i79.LoginAsGuestOfflineDataSourceImpl(
+            gh<_i629.SecureStorageService<dynamic>>()));
+    gh.factory<_i926.LoginAsGuestRepo>(() =>
+        _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
+    gh.factory<_i421.LoginAsGuest>(
+        () => _i421.LoginAsGuest(gh<_i926.LoginAsGuestRepo>()));
+    gh.factory<_i248.LoginViewModel>(
+        () => _i248.LoginViewModel(gh<_i421.LoginAsGuest>()));
     return this;
   }
 }

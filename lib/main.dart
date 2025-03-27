@@ -9,6 +9,8 @@ import 'package:flower_ecommerce_app_team5/shared_layers/localization/l10n_manag
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'modules/authentication/ui/login/view/login_screen.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -47,11 +49,12 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           theme: AppThemes.lightTheme,
           themeMode: ThemeMode.light,
-          onGenerateRoute: GenerateRoute.onGenerateRoute,
-          onGenerateInitialRoutes: (initialRoute) =>
-              GenerateRoute.onGenerateInitialRoutes(
-                  initialRoute: initialRoute,
-                  storedAuthEntity: AuthenticationResponseEntity()),
+          home: Login(),
+          // onGenerateRoute: GenerateRoute.onGenerateRoute,
+          // onGenerateInitialRoutes: (initialRoute) =>
+          //     GenerateRoute.onGenerateInitialRoutes(
+          //         initialRoute: initialRoute,
+          //         storedAuthEntity: AuthenticationResponseEntity()),
         );
       },
     );

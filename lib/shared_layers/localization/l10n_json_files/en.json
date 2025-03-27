@@ -2,7 +2,7 @@
   "ok": "OK",
   "confirm": "Confirm",
 
-  "errorMessages": "$$$ Comment $$$",
+  "errorMessages": " Comment ",
   "connectionTimeout": "Connection timeout with server ⌛",
   "sendTimeout": "Send timeout in connection with server ⏱",
   "receiveTimeout": "Receive timeout in connection with server ⏰",
@@ -31,5 +31,7 @@
   "digitRulePassword": "At least one digit must be there.",
   "specialCharactersRulePassword": "At least one special character(e.g., #?!@$%^&*-) must be included.",
   "pleaseConfirmPassword": "Please confirm password.",
-  "noMatch": "No Match!"
+  "noMatch": "No Match!",
+  "guestLogin": "Continue as guest ",
+  "checkGuest": "Please Log-in"
 }
