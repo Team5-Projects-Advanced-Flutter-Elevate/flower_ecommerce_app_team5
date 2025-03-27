@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
@@ -16,7 +17,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await configureDependencies();
-  await getIt.get<LoginUseCase>().deleteLoginInfo();
   storedLoginInfo = await getIt.get<LoginUseCase>().getStoredLoginInfo();
   LocalizationManager localizationManager = getIt.get<LocalizationManager>();
   runApp(MultiProvider(
@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           theme: AppThemes.lightTheme,
           themeMode: ThemeMode.light,
-          //initialRoute: DefinedRoutes.loginScreenRoute,
           onGenerateRoute: GenerateRoute.onGenerateRoute,
           onGenerateInitialRoutes: (initialRoute) =>
               GenerateRoute.onGenerateInitialRoutes(
