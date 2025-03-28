@@ -1,0 +1,44 @@
+import 'package:flower_ecommerce_app_team5/core/apis/api_executor/api_executor.dart';
+import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/api/api_client/home_api_client.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_gategories_reponse/all_categories_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
+import 'package:injectable/injectable.dart';
+import '../datasource_contract/home_online_data_source.dart';
+import '../models/all_occasions_response/all_occasions_response.dart';
+
+@Injectable(as: HomeDataSource)
+class HomeDataSourceImpl implements HomeDataSource {
+  final HomeApiClient _homeApiClient;
+
+  HomeDataSourceImpl(this._homeApiClient);
+
+  @override
+  Future<ApiResult<List<CategoryEntity>?>> getAllCategories() async {
+    var result = await ApiExecutor.executeApi(
+        () async => await _homeApiClient.getCategories());
+    switch (result) {
+      case Success<AllCategoriesResponse>():
+        return Success(
+          data: result.data.categories?.map((e) => e.toEntity()).toList(),
+        );
+      case Error<AllCategoriesResponse>():
+        return Error(error: result.error);
+    }
+  }
+
+  @override
+  Future<ApiResult<List<OccasionEntity>?>> getAllOccasions() async {
+    var result = await ApiExecutor.executeApi(
+        () async => await _homeApiClient.getOccasions());
+    switch (result) {
+      case Success<AllOccasionsResponse>():
+        return Success(
+          data: result.data.categories?.map((e) => e.toEntity()).toList(),
+        );
+      case Error<AllOccasionsResponse>():
+        return Error(error: result.error);
+    }
+  }
+}
