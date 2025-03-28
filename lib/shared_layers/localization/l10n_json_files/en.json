@@ -54,5 +54,10 @@
   "forgetPassword": "Forget Password",
   "dontHaveAccount": "Don't have an account?",
   "signUp": "Sign up",
-  "loginSuccess": "LoginSuccess"
+  "loginSuccess": "LoginSuccess",
+
+  "bestSellerSection____": "$$$ Comment $$$",
+  "addToCart": "Add To Cart",
+  "bestSeller": "Best Seller",
+  "bloomWithBestSeller": "Bloom with our exquisite best sellers"
 }

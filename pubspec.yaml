@@ -52,6 +52,8 @@ dependencies:
 
   # Local Storage
   flutter_secure_storage: ^9.2.4
+  # cached Network Image
+  cached_network_image: ^3.4.1
 
 
   # The following adds the Cupertino Icons font to your application.
