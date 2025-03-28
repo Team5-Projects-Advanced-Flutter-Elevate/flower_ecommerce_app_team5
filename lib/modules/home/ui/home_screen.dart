@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
+import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/cart_layout.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/categories_layout.dart';
@@ -24,33 +25,44 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
     const CartLayout(),
     const ProfileLayout()
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-          selectedIndex: selectedAppSectionIndex,
-          onDestinationSelected: (value) {
-            setState(() {
-              selectedAppSectionIndex = value;
-              pageController.animateToPage(value,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut);
-            });
-          },
-          destinations: [
-            NavigationDestination(
-                icon: ImageIcon(AssetImage(AssetsPaths.homeIcon)),
-                label: tr(LocaleKeys.home)),
-            NavigationDestination(
-                icon: ImageIcon(AssetImage(AssetsPaths.categoriesIcon)),
-                label: LocaleKeys.categories.tr()),
-            NavigationDestination(
-                icon: ImageIcon(AssetImage(AssetsPaths.cartIcon)),
-                label: LocaleKeys.cart.tr()),
-            NavigationDestination(
-                icon: ImageIcon(AssetImage(AssetsPaths.profileIcon)),
-                label: LocaleKeys.profile.tr()),
-          ]),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: AppColors.white[60]!,
+              width: 1,
+            ),
+          ),
+        ),
+        child: NavigationBar(
+            selectedIndex: selectedAppSectionIndex,
+            onDestinationSelected: (value) {
+              setState(() {
+                selectedAppSectionIndex = value;
+                pageController.animateToPage(value,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut);
+              });
+            },
+            destinations: [
+              NavigationDestination(
+                  icon: ImageIcon(AssetImage(AssetsPaths.homeIcon)),
+                  label: tr(LocaleKeys.home)),
+              NavigationDestination(
+                  icon: ImageIcon(AssetImage(AssetsPaths.categoriesIcon)),
+                  label: LocaleKeys.categories.tr()),
+              NavigationDestination(
+                  icon: ImageIcon(AssetImage(AssetsPaths.cartIcon)),
+                  label: LocaleKeys.cart.tr()),
+              NavigationDestination(
+                  icon: ImageIcon(AssetImage(AssetsPaths.profileIcon)),
+                  label: LocaleKeys.profile.tr()),
+            ]),
+      ),
       body: PageView(
         controller: pageController,
         onPageChanged: (value) {
