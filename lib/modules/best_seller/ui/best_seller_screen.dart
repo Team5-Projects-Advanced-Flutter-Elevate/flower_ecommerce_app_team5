@@ -62,14 +62,22 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
         ),
         body: CustomMaterialIndicator(
           backgroundColor: AppColors.white,
-          displacement: 10,
+          displacement: 20,
           indicatorBuilder: (context, controller) {
             return Transform.scale(
-              scale: 1.5,
-              child: Center(
-                child: Lottie.asset(
-                  AssetsPaths.flowerLoadingAnimation,
-                  alignment: Alignment.center,
+              scale: 1.2,
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white, shape: BoxShape.circle),
+                padding: const EdgeInsets.only(top: 6),
+                child: Center(
+                  child: Transform.scale(
+                    scale: 1.5,
+                    child: Lottie.asset(
+                      AssetsPaths.flowerLoadingAnimation,
+                      alignment: Alignment.center,
+                    ),
+                  ),
                 ),
               ),
             );
@@ -83,42 +91,42 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
                 case BestSellerStatus.initial:
                   return const SizedBox();
                 case BestSellerStatus.loading:
-                  return CustomScrollView(slivers: [
-                    SliverFillRemaining(child: const LoadingWidget())
-                  ]);
+                  return const CustomScrollView(
+                      slivers: [SliverFillRemaining(child: LoadingWidget())]);
                 case BestSellerStatus.success:
                   var bestSellerProducts = state.bestSellerProducts ?? [];
-                  print(bestSellerProducts.length);
                   if (bestSellerProducts.isEmpty) {
                     return Center(
                         child: Text(
-                      'No Products',
+                      LocaleKeys.noProducts.tr(),
                       style: theme.textTheme.labelLarge!
                           .copyWith(fontSize: 20 * (screenWidth / 375)),
                     ));
                   }
-                  return GridView.builder(
-                    itemCount: bestSellerProducts.length,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth * 0.04,
-                        vertical: screenHeight * 0.01),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 163 / 229,
-                            mainAxisSpacing: 17,
-                            crossAxisSpacing: 17),
-                    itemBuilder: (context, index) {
-                      return ProductCard(
-                          onProductCardClick: () {},
-                          width: screenWidth * 0.45,
-                          height: screenHeight * 0.25,
-                          productTitle: bestSellerProducts[index].title ?? "",
-                          price: bestSellerProducts[index].price,
-                          priceAfterDiscountIfExist:
-                              bestSellerProducts[index].priceAfterDiscount,
-                          imageUrl: bestSellerProducts[index].imgCover ?? "");
-                    },
+                  return Material(
+                    child: GridView.builder(
+                      itemCount: bestSellerProducts.length,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.04,
+                          vertical: screenHeight * 0.01),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 163 / 229,
+                              mainAxisSpacing: 17,
+                              crossAxisSpacing: 17),
+                      itemBuilder: (context, index) {
+                        return ProductCard(
+                            onProductCardClick: () {},
+                            width: screenWidth * 0.45,
+                            height: screenHeight * 0.25,
+                            productTitle: bestSellerProducts[index].title ?? "",
+                            price: bestSellerProducts[index].price,
+                            priceAfterDiscountIfExist:
+                                bestSellerProducts[index].priceAfterDiscount,
+                            imageUrl: bestSellerProducts[index].imgCover ?? "");
+                      },
+                    ),
                   );
                 case BestSellerStatus.error:
                   return CustomScrollView(slivers: [
@@ -127,55 +135,7 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
                   ]);
               }
             },
-          )
-
-          // child: BlocBuilder<BestSellerViewModel, BestSellerState>(
-          //   builder: (context, state) {
-          //     switch (state.bestSellerStatus) {
-          //       case BestSellerStatus.initial:
-          //         return const SizedBox();
-          //       case BestSellerStatus.loading:
-          //         return const LoadingWidget();
-          //       case BestSellerStatus.success:
-          //         var bestSellerProducts = state.bestSellerProducts ?? [];
-          //         print(bestSellerProducts.length);
-          //         if (bestSellerProducts.isEmpty) {
-          //           return Center(
-          //               child: Text(
-          //             'No Products',
-          //             style: theme.textTheme.labelLarge!
-          //                 .copyWith(fontSize: 20 * (screenWidth / 375)),
-          //           ));
-          //         }
-          //         return GridView.builder(
-          //           itemCount: bestSellerProducts.length,
-          //           padding: EdgeInsets.symmetric(
-          //               horizontal: screenWidth * 0.04,
-          //               vertical: screenHeight * 0.01),
-          //           gridDelegate:
-          //               const SliverGridDelegateWithFixedCrossAxisCount(
-          //                   crossAxisCount: 2,
-          //                   childAspectRatio: 163 / 229,
-          //                   mainAxisSpacing: 17,
-          //                   crossAxisSpacing: 17),
-          //           itemBuilder: (context, index) {
-          //             return ProductCard(
-          //                 onProductCardClick: () {},
-          //                 width: screenWidth * 0.45,
-          //                 height: screenHeight * 0.25,
-          //                 productTitle: bestSellerProducts[index].title ?? "",
-          //                 price: bestSellerProducts[index].price,
-          //                 priceAfterDiscountIfExist:
-          //                     bestSellerProducts[index].priceAfterDiscount,
-          //                 imageUrl: bestSellerProducts[index].imgCover ?? "");
-          //           },
-          //         );
-          //       case BestSellerStatus.error:
-          //         return ErrorStateWidget(error: state.error!);
-          //     }
-          //   },
-          // ),
-          ,
+          ),
         ),
       ),
     );

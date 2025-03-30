@@ -63,5 +63,6 @@ abstract class  LocaleKeys {
   static const addToCart = 'addToCart';
   static const bestSeller = 'bestSeller';
   static const bloomWithBestSeller = 'bloomWithBestSeller';
+  static const noProducts = 'noProducts';
 
 }
