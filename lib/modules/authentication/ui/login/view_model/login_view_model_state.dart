@@ -53,3 +53,4 @@ final class LoginViewModelError extends LoginViewModelState {
   @override
   List<Object?> get props => [error]; // Include error in comparison
 }
+class IsGuestSuccess extends LoginViewModelState {}

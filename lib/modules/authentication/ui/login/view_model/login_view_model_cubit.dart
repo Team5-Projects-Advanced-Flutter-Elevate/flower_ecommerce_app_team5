@@ -7,13 +7,17 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cas
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
+import '../../../domain/use_cases/login_as_guest/login_as_gust_use_case.dart';
+
 part 'login_view_model_state.dart';
 
 @injectable
 class LoginViewModelCubit extends Cubit<LoginViewModelState> {
-  LoginViewModelCubit(this._loginUseCase)
+  LoginViewModelCubit(this._loginUseCase, this.loginAsGuest)
       : super(const LoginViewModelInitial());
   final LoginUseCase _loginUseCase;
+  LoginAsGuest loginAsGuest;
+
   bool checkBoxValue = false;
   bool obscurePassword = true;
   _login(LoginInputModel loginInputModel) async {
@@ -37,6 +41,16 @@ class LoginViewModelCubit extends Cubit<LoginViewModelState> {
     emit(LoginViewModelShowPassword(obscurePassword));
   }
 
+  Future<void> _handleLoginGuest() async {
+    try {
+      emit(LoginViewModelLoading());
+      var GuestLogin = await loginAsGuest.isGuest();
+      emit(IsGuestSuccess());
+    } on Exception catch (e) {
+      emit(LoginViewModelError(error: e));
+    }
+  }
+
   void processIntent(LoginViewModelIntent intent) {
     switch (intent) {
       case ShowPasswordIntent():
@@ -47,6 +61,9 @@ class LoginViewModelCubit extends Cubit<LoginViewModelState> {
         break;
       case LoginIntent():
         _login(intent.loginInputModel);
+        break;
+      case LoginAsGuestIntent():
+        _handleLoginGuest();
         break;
     }
   }
@@ -62,3 +79,5 @@ final class LoginIntent extends LoginViewModelIntent {
   final LoginInputModel loginInputModel;
   LoginIntent({required this.loginInputModel});
 }
+
+class LoginAsGuestIntent extends LoginViewModelIntent {}

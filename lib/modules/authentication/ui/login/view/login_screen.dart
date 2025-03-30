@@ -90,9 +90,17 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
               } else if (state is LoginViewModelLoading) {
                 FocusScope.of(context).unfocus();
                 displayAlertDialog(title: const LoadingWidget());
+              } else if (state is IsGuestSuccess) {
+                hideAlertDialog();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  DefinedRoutes.homeScreenRoute,
+                  (route) => false,
+                );
               }
             },
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -190,34 +198,32 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                           ),
                         ),
                       ),
-
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: AppColors.gray,
-                            padding: EdgeInsets.all(14),
-                            backgroundColor: AppColors.white,
-                            //disabledBackgroundColor: AppColors.mainColor.shade100,
-                            // disabledForegroundColor: AppColors.gray,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100),
-                                side: BorderSide(
-                                  color: AppColors.gray,
-                                )),
-
-                            textStyle: theme.textTheme.headlineMedium!.copyWith(
-                              fontSize: 16,
-                              color: AppColors.gray,
-                            ),
-                          ),
-                          onPressed: () {
-                            ViewModel.onIntent(LoginAsGuestIntent());
-                          },
-                          child: Text(
-                            LocaleKeys.guestLogin.tr(),
-                          )),
-
                     ],
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: AppColors.gray,
+                        padding: EdgeInsets.all(14),
+                        backgroundColor: AppColors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            side: BorderSide(
+                              color: AppColors.gray,
+                            )),
+                        textStyle: theme.textTheme.headlineMedium!.copyWith(
+                          fontSize: 16,
+                          color: AppColors.gray,
+                        ),
+                      ),
+                      onPressed: () {
+                        viewModel.processIntent(LoginAsGuestIntent());
+                      },
+                      child: Text(
+                        LocaleKeys.guestLogin.tr(),
+                      )),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -229,7 +235,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                       onTap: () {
                         Navigator.pushReplacementNamed(
                           context,
-                        DefinedRoutes.register,
+                          DefinedRoutes.register,
                         );
                       },
                       child: Padding(
