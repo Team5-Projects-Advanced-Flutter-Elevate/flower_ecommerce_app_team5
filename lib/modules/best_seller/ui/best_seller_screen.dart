@@ -40,25 +40,29 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
             ],
           ),
         ),
-        body: GridView.builder(
-          itemCount: 15,
-          padding: EdgeInsets.symmetric(
-              horizontal: screenWidth * 0.04, vertical: screenHeight * 0.01),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 163 / 229,
-              mainAxisSpacing: 17,
-              crossAxisSpacing: 17),
-          itemBuilder: (context, index) {
-            return ProductCard(
-                width: screenWidth * 0.45,
-                height: screenHeight * 0.25,
-                productTitle: "Forever Pink | Baby Roses",
-                price: "2049",
-                priceAfterDiscountIfExist: "1899",
-                imageUrl:
-                    "https://flower.elevateegy.com/uploads/336d4a68-109d-4f29-a35c-d5ca2215b4ff-cover_image.png");
-          },
+        body: Material(
+          child: GridView.builder(
+            itemCount: 15,
+            padding: EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.04, vertical: screenHeight * 0.01),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 163 / 229,
+                mainAxisSpacing: 17,
+                crossAxisSpacing: 17),
+            itemBuilder: (context, index) {
+              return ProductCard(
+                  onProductCardClick: () {},
+                  onAddToCartButtonClick: () {},
+                  width: screenWidth * 0.45,
+                  height: screenHeight * 0.25,
+                  productTitle: "Forever Pink | Baby Roses",
+                  price: 2049,
+                  priceAfterDiscountIfExist: 1899,
+                  imageUrl:
+                      "https://flower.elevateegy.com/uploads/336d4a68-109d-4f29-a35c-d5ca2215b4ff-cover_image.png");
+            },
+          ),
         ));
   }
 }
