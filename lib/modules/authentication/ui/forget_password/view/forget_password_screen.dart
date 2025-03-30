@@ -112,9 +112,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       },
                       child: Text(LocaleKeys.confirm.tr()));
                 }, listener: (context, state) {
-                  if (state is PasswordSuccessState) {
+                  if (state is EmailSuccessState) {
                     Fluttertoast.showToast(
-                        msg: state.message,
+                        msg: 'Otp-Code-send',
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 1,

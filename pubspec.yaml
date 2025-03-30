@@ -59,6 +59,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   flutter_otp_text_field: ^1.5.1+1
   fluttertoast: ^8.2.12
+  flutter_timer_countdown: ^1.0.7
   google_fonts: ^6.2.1
 dev_dependencies:
   flutter_test:
