@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/forget_password_screen.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/constants/l10n_constants.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/l10n_manager/localization_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -40,18 +43,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LocalizationManager>(
       builder: (context, localizationManager, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          theme: AppThemes.lightTheme,
-          themeMode: ThemeMode.light,
-          onGenerateRoute: GenerateRoute.onGenerateRoute,
-          onGenerateInitialRoutes: (initialRoute) =>
-              GenerateRoute.onGenerateInitialRoutes(
-                  initialRoute: initialRoute,
-                  storedAuthEntity: AuthenticationResponseEntity()),
+        return ScreenUtilInit(
+          designSize: Size(375, 812),
+          minTextAdapt: true,
+          builder: (context, child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            theme: AppThemes.lightTheme,
+            themeMode: ThemeMode.light,
+            initialRoute: DefinedRoutes.forgetPasswordScreenRoute,
+            onGenerateRoute: GenerateRoute.onGenerateRoute,
+            // onGenerateInitialRoutes: (initialRoute) =>
+            //     GenerateRoute.onGenerateInitialRoutes(
+            //         initialRoute: initialRoute,
+            //         storedAuthEntity: AuthenticationResponseEntity()),
+          ),
         );
       },
     );

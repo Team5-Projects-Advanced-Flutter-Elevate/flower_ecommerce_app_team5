@@ -17,6 +17,38 @@ import '../../modules/authentication/data/api/api_client/auth_api_client.dart'
     as _i343;
 import '../../modules/authentication/data/api/api_client_provider/auth_api_client_provider.dart'
     as _i1019;
+import '../../modules/authentication/data/data_sources_contracts/forget_password/forget_password_remote_data_source.dart'
+    as _i150;
+import '../../modules/authentication/data/data_sources_contracts/forget_password/reset_code_remote_data_source.dart'
+    as _i779;
+import '../../modules/authentication/data/data_sources_contracts/forget_password/reset_password_remote_data_source.dart'
+    as _i881;
+import '../../modules/authentication/data/data_sources_imp/forget_password/forget_password_remote_data_source_imp.dart'
+    as _i191;
+import '../../modules/authentication/data/data_sources_imp/forget_password/reset_code_remote_data_source_impl.dart'
+    as _i808;
+import '../../modules/authentication/data/data_sources_imp/forget_password/reset_password_remote_data_source_impl.dart'
+    as _i956;
+import '../../modules/authentication/data/respositoies_imp/forget_password/forget_password_repo_imp.dart'
+    as _i811;
+import '../../modules/authentication/data/respositoies_imp/forget_password/reset_code_repo_impl.dart'
+    as _i196;
+import '../../modules/authentication/data/respositoies_imp/forget_password/reset_password_repo_impl.dart'
+    as _i940;
+import '../../modules/authentication/domain/repositories_contracts/forget_password/forget_password_repo.dart'
+    as _i1013;
+import '../../modules/authentication/domain/repositories_contracts/forget_password/reset_code_repo.dart'
+    as _i251;
+import '../../modules/authentication/domain/repositories_contracts/forget_password/reset_password_repo.dart'
+    as _i731;
+import '../../modules/authentication/domain/use_cases/forget_password/forget_password_use_case.dart'
+    as _i823;
+import '../../modules/authentication/domain/use_cases/forget_password/reset_code_use_case.dart'
+    as _i9;
+import '../../modules/authentication/domain/use_cases/forget_password/reset_password_use_case.dart'
+    as _i110;
+import '../../modules/authentication/ui/forget_password/view_model/forget_password_screen_view_model.dart'
+    as _i105;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -54,8 +86,16 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
+    gh.factory<_i779.ResetCodeRemoteDataSource>(
+        () => _i808.ResetCodeRemoteDataSourceImpl(gh<_i343.AuthApiClient>()));
+    gh.factory<_i150.ForgetPasswordRemoteDataSource>(() =>
+        _i191.ForgetPasswordRemoteDataSourceImpl(gh<_i343.AuthApiClient>()));
+    gh.factory<_i251.ResetCodeRepo>(
+        () => _i196.ResetCodeRepoImpl(gh<_i779.ResetCodeRemoteDataSource>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
         () => _i701.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()));
+    gh.factory<_i881.ResetPasswordRemoteDataSource>(() =>
+        _i956.ResetPasswordRemoteDataSourceImpl(gh<_i343.AuthApiClient>()));
     await gh.factoryAsync<String>(
       () => localeInitializer
           .initCurrentLocal(gh<_i629.SecureStorageService<dynamic>>()),
@@ -66,6 +106,22 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i629.SecureStorageService<dynamic>>(),
           gh<String>(instanceName: 'initCurrentLocal'),
         ));
+    gh.factory<_i731.ResetPasswordRepo>(() =>
+        _i940.ResetPasswordRepoImpl(gh<_i881.ResetPasswordRemoteDataSource>()));
+    gh.factory<_i1013.ForgetPasswordRepo>(() => _i811.ForgetPasswordRepoImpl(
+        gh<_i150.ForgetPasswordRemoteDataSource>()));
+    gh.factory<_i9.ResetCodeUseCase>(
+        () => _i9.ResetCodeUseCase(gh<_i251.ResetCodeRepo>()));
+    gh.factory<_i110.ResetPasswordUseCase>(
+        () => _i110.ResetPasswordUseCase(gh<_i731.ResetPasswordRepo>()));
+    gh.factory<_i823.ForgetPasswordUseCase>(
+        () => _i823.ForgetPasswordUseCase(gh<_i1013.ForgetPasswordRepo>()));
+    gh.factory<_i105.ForgetPasswordViewModel>(
+        () => _i105.ForgetPasswordViewModel(
+              gh<_i823.ForgetPasswordUseCase>(),
+              gh<_i110.ResetPasswordUseCase>(),
+              gh<_i9.ResetCodeUseCase>(),
+            ));
     return this;
   }
 }
