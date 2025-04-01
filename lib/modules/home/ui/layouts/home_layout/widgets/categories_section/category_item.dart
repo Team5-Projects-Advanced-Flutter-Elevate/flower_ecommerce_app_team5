@@ -1,9 +1,16 @@
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/cashed_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import '../../../../../../../core/colors/app_colors.dart';
 
 class CategoryItem extends BaseStatelessWidget {
-  CategoryItem({super.key});
+  CategoryItem({
+    super.key,
+    required this.categoryEntity,
+  });
+
+  final CategoryEntity categoryEntity;
 
   @override
   Widget customBuild(BuildContext context) {
@@ -17,14 +24,20 @@ class CategoryItem extends BaseStatelessWidget {
             borderRadius: BorderRadius.circular(20),
             color: AppColors.lightPink,
           ),
-          child: Text(
-            'data',
+          child: SizedBox(
+            width: screenWidth * 0.1 / 1.5,
+            height: screenHeight * 0.1 / 1.5,
+            child: CashedImage(
+              url: categoryEntity.image ?? '',
+            ),
           ),
         ),
         SizedBox(
           height: screenHeight * 0.005,
         ),
-        Text('data'),
+        Text(
+          categoryEntity.name ?? '',
+        ),
       ],
     );
   }

@@ -56,8 +56,12 @@ import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
 import '../../modules/home/domain/repo_contract/home_repo.dart' as _i1003;
 import '../../modules/home/domain/use_cases/get_categories_use_case.dart'
     as _i369;
+import '../../modules/home/domain/use_cases/get_home_data_use_case.dart'
+    as _i90;
 import '../../modules/home/domain/use_cases/get_occasions_use_case.dart'
     as _i386;
+import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
+    as _i692;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -122,6 +126,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i386.GetOccasionsUseCase>(
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
+    gh.factory<_i90.GetHomeDataUseCase>(
+        () => _i90.GetHomeDataUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
         storageService: gh<_i629.SecureStorageService<dynamic>>()));
     gh.factory<_i496.RegisterRepo>(
@@ -132,6 +138,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
         ));
+    gh.factory<_i692.HomeCubit>(
+        () => _i692.HomeCubit(gh<_i90.GetHomeDataUseCase>()));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     gh.factory<_i543.LoginUseCase>(

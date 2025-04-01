@@ -2,9 +2,11 @@ import 'package:flower_ecommerce_app_team5/core/apis/api_executor/api_executor.d
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/api/api_client/home_api_client.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_gategories_reponse/all_categories_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
 import 'package:injectable/injectable.dart';
+import '../../domain/entities/home_data_response_entity.dart';
 import '../datasource_contract/home_online_data_source.dart';
 import '../models/all_occasions_response/all_occasions_response.dart';
 
@@ -38,6 +40,18 @@ class HomeDataSourceImpl implements HomeDataSource {
           data: result.data.categories?.map((e) => e.toEntity()).toList(),
         );
       case Error<AllOccasionsResponse>():
+        return Error(error: result.error);
+    }
+  }
+
+  @override
+  Future<ApiResult<HomeDataResponseEntity>> getHomeData() async {
+    var result = await ApiExecutor.executeApi(
+        () async => await _homeApiClient.getHomeData());
+    switch (result) {
+      case Success<HomeDataResponse>():
+        return Success(data: result.data.toEntity());
+      case Error<HomeDataResponse>():
         return Error(error: result.error);
     }
   }

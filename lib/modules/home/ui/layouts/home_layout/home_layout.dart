@@ -1,9 +1,14 @@
+import 'dart:developer';
+
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
+import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/view_model/home_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/best_seller_section/best_seller_section.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/categories_section/categoreis_section.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/occasions_section/occasions_section.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/search_bar_and_logo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
@@ -15,10 +20,12 @@ class HomeLayout extends StatefulWidget {
 class _HomeLayoutState extends BaseStatefulWidgetState<HomeLayout> {
   late TextEditingController searchController;
   late FocusNode searchFocusNode;
+  var cubit = getIt<HomeCubit>();
 
   @override
   void initState() {
     super.initState();
+    cubit.doIntent(GetHomeDataIntent());
     searchController = TextEditingController();
     searchFocusNode = FocusNode();
   }
@@ -32,6 +39,7 @@ class _HomeLayoutState extends BaseStatefulWidgetState<HomeLayout> {
 
   @override
   Widget build(BuildContext context) {
+    log(const HomeState().state.toString());
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Padding(
@@ -40,33 +48,36 @@ class _HomeLayoutState extends BaseStatefulWidgetState<HomeLayout> {
         ),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              SearchBarAndLogo(
-                screenHeight: screenHeight,
-                screenWidth: screenWidth,
-                searchController: searchController,
-                searchFocusNode: searchFocusNode,
-              ),
-              SizedBox(
-                height: screenHeight * 0.03,
-              ),
-              CategoriesSection(
-                screenHeight: screenHeight,
-              ),
-              SizedBox(
-                height: screenHeight * 0.015,
-              ),
-              BestSellerSection(
-                screenHeight: screenHeight,
-              ),
-              SizedBox(
-                height: screenHeight * 0.01,
-              ),
-              OccasionsSection(
-                screenHeight: screenHeight,
-              ),
-            ],
+          child: BlocProvider(
+            create: (context) => cubit,
+            child: Column(
+              children: [
+                SearchBarAndLogo(
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                  searchController: searchController,
+                  searchFocusNode: searchFocusNode,
+                ),
+                SizedBox(
+                  height: screenHeight * 0.03,
+                ),
+                CategoriesSection(
+                  screenHeight: screenHeight,
+                ),
+                SizedBox(
+                  height: screenHeight * 0.015,
+                ),
+                BestSellerSection(
+                  screenHeight: screenHeight,
+                ),
+                SizedBox(
+                  height: screenHeight * 0.01,
+                ),
+                OccasionsSection(
+                  screenHeight: screenHeight,
+                ),
+              ],
+            ),
           ),
         ),
       ),
