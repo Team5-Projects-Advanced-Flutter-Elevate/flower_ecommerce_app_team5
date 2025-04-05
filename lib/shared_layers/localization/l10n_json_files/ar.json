@@ -52,5 +52,10 @@
   "home": "الرئيسية",
   "categories": "الفئات",
   "cart": "عربة التسوق",
-  "profile": "الملف الشخصي"
+  "profile": "الملف الشخصي",
+
+  "bestSellerSection____": "$$$ تعليق $$$",
+  "addToCart": "أضف إلى السلة",
+  "bestSeller": "الأكثر مبيعًا",
+  "bloomWithBestSeller": "ازدهر مع أفضل مبيعاتنا الرائعة"
 }
