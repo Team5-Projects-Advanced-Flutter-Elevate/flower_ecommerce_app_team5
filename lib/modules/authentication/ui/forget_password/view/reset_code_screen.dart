@@ -14,10 +14,19 @@ import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import '../view_model/forget_password_screen_view_model.dart';
 import '../view_model/forget_password_state.dart';
 import 'forget_password_screen.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/timer.dart';
 
-class ResetCodeScreen extends StatelessWidget {
+class ResetCodeScreen extends StatefulWidget {
+  const ResetCodeScreen({super.key});
+
+  @override
+  State<ResetCodeScreen> createState() => _ResetCodeScreenState();
+}
+
+class _ResetCodeScreenState extends State<ResetCodeScreen> {
   bool sent = true;
-  ResetCodeScreen({super.key});
+  bool resend = false;
+  final ValueNotifier<bool> _isLessThan5Minutes = ValueNotifier<bool>(false);
   final _formKey = GlobalKey<FormState>();
   ForgetPasswordViewModel forgetPasswordViewModel =
       getIt.get<ForgetPasswordViewModel>();
@@ -76,7 +85,7 @@ class ResetCodeScreen extends StatelessWidget {
                   Center(
                     child: OTPTextField(
                       length: 6,
-                      width: 344.w,
+                      width: 300.w,
                       style: TextStyle(fontSize: 17),
                       textFieldAlignment: MainAxisAlignment.spaceAround,
                       fieldStyle: FieldStyle.box,
@@ -116,19 +125,35 @@ class ResetCodeScreen extends StatelessWidget {
                         LocaleKeys.dontReceive,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
-                      InkWell(
-                          onTap: () {
-                            forgetPasswordViewModel.onIntent(
-                                ForgotPasswordIntent(emailController.text));
-                          },
-                          child: Text(LocaleKeys.resend,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                      color: AppColors.mainColor,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: AppColors.mainColor))),
+                      resend == false
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Timer(
+                                  isLessThan5Minutes: _isLessThan5Minutes,
+                                  examDuration: 30,
+                                  onTimeEnd: () {
+                                    setState(() {
+                                      resend = true;
+                                    });
+                                  },
+                                )
+                              ],
+                            )
+                          : InkWell(
+                              onTap: () {
+                                forgetPasswordViewModel.onIntent(
+                                    ForgotPasswordIntent(emailController.text));
+                              },
+                              child: Text(LocaleKeys.resend,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                          color: AppColors.mainColor,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor:
+                                              AppColors.mainColor))),
                     ],
                   )
                 ],
@@ -139,7 +164,7 @@ class ResetCodeScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is PasswordSuccessState) {
             Fluttertoast.showToast(
-                msg: state.message,
+                msg: 'valid otp',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,

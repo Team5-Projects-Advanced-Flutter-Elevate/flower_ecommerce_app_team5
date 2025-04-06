@@ -14,3 +14,7 @@ class PasswordSuccessState extends PasswordState {
   final String message;
   PasswordSuccessState(this.message);
 }
+class EmailSuccessState extends PasswordState {
+  final String message;
+  EmailSuccessState(this.message);
+}
