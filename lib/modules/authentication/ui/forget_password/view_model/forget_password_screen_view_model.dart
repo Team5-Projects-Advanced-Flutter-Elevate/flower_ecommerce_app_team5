@@ -52,7 +52,6 @@ class ForgetPasswordViewModel extends Cubit<PasswordState>{
 }
 
 sealed class ForgetIntent {}
-
 class ForgotPasswordIntent extends ForgetIntent {
   final String email;
   ForgotPasswordIntent(this.email);
