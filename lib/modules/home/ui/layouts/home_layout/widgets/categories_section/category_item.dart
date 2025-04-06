@@ -2,6 +2,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/cashed_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../../core/colors/app_colors.dart';
 
 class CategoryItem extends BaseStatelessWidget {
@@ -37,6 +38,9 @@ class CategoryItem extends BaseStatelessWidget {
         ),
         Text(
           categoryEntity.name ?? '',
+          style: GoogleFonts.inter(
+            textStyle: theme.textTheme.bodyMedium,
+          ),
         ),
       ],
     );

@@ -19,8 +19,8 @@ class OccasionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: screenHeight * 0.27,
+    return Expanded(
+      flex: 3,
       child: Column(
         children: [
           HeadLineSection(
@@ -38,8 +38,10 @@ class OccasionsSection extends StatelessWidget {
                     child: LoadingWidget(),
                   );
                 case HomeStatus.success:
-                  return OccasionsListView(
-                    occasions: state.homeDataResponseEntity?.occasions ?? [],
+                  return Expanded(
+                    child: OccasionsListView(
+                      occasions: state.homeDataResponseEntity?.occasions ?? [],
+                    ),
                   );
                 case HomeStatus.error:
                   return ErrorStateWidget(error: state.error!);

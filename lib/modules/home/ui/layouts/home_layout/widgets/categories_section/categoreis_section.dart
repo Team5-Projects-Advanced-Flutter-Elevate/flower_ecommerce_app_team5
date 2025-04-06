@@ -19,8 +19,8 @@ class CategoriesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: screenHeight * 0.16,
+    return Expanded(
+      flex: 2,
       child: Column(
         children: [
           HeadLineSection(
@@ -38,8 +38,10 @@ class CategoriesSection extends StatelessWidget {
                     child: LoadingWidget(),
                   );
                 case HomeStatus.success:
-                  return CategoriesListView(
-                    categories: state.homeDataResponseEntity?.categories ?? [],
+                  return Expanded(
+                    child: CategoriesListView(
+                      categories: state.homeDataResponseEntity?.categories ?? [],
+                    ),
                   );
                 case HomeStatus.error:
                   return ErrorStateWidget(error: state.error!);

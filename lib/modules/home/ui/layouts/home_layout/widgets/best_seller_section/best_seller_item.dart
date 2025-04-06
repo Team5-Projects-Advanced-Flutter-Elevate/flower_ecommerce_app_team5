@@ -42,7 +42,7 @@ class BestSellerItem extends BaseStatelessWidget {
             maxLines: 1,
           ),
           SizedBox(
-            height: screenHeight * 0.001,
+            height: screenHeight * 0.003,
           ),
           Text(
             '${bestSellerEntity.price} EGP' ?? '',

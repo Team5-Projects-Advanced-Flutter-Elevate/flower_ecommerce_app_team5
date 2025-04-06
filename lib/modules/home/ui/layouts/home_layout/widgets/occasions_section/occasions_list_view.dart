@@ -11,8 +11,7 @@ class OccasionsListView extends BaseStatelessWidget {
 
   @override
   Widget customBuild(BuildContext context) {
-    return Container(
-      height: screenHeight * 0.22,
+    return Padding(
       padding: EdgeInsets.only(
         left: screenWidth * 0.05,
       ),

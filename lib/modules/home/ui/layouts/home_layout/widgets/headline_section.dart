@@ -8,9 +8,10 @@ import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
 
 class HeadLineSection extends BaseStatelessWidget {
-  HeadLineSection(this.title, {super.key});
+  HeadLineSection(this.title, {this.onTap, Key? key});
 
   final String title;
+  final VoidCallback? onTap;
 
   @override
   Widget customBuild(BuildContext context) {
@@ -27,16 +28,19 @@ class HeadLineSection extends BaseStatelessWidget {
             ),
           ),
           const Spacer(),
-          Text(
-            LocaleKeys.viewAll.tr(),
-            textAlign: TextAlign.center,
-            style: GoogleFonts.inter(
-              decoration: TextDecoration.underline,
-              decorationColor: AppColors.mainColor,
-              textStyle: theme.textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w500,
-                fontSize: 12,
-                color: AppColors.mainColor,
+          GestureDetector(
+            onTap: onTap,
+            child: Text(
+              LocaleKeys.viewAll.tr(),
+              textAlign: TextAlign.center,
+              style: GoogleFonts.inter(
+                decoration: TextDecoration.underline,
+                decorationColor: AppColors.mainColor,
+                textStyle: theme.textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                  color: AppColors.mainColor,
+                ),
               ),
             ),
           )

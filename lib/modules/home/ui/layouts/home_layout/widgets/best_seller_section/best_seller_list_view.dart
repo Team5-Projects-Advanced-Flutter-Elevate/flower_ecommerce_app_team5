@@ -10,8 +10,7 @@ class BestSellerListView extends BaseStatelessWidget {
 
   @override
   Widget customBuild(BuildContext context) {
-    return Container(
-      height: screenHeight * 0.23,
+    return Padding(
       padding: EdgeInsets.only(
         left: screenWidth * 0.05,
       ),

@@ -19,8 +19,8 @@ class BestSellerSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: screenHeight * 0.29,
+    return Expanded(
+      flex:3,
       child: Column(
         children: [
           HeadLineSection(
@@ -38,8 +38,10 @@ class BestSellerSection extends StatelessWidget {
                     child: LoadingWidget(),
                   );
                 case HomeStatus.success:
-                  return BestSellerListView(
-                    bestSellers: state.homeDataResponseEntity?.bestSeller ?? [],
+                  return Expanded(
+                    child: BestSellerListView(
+                      bestSellers: state.homeDataResponseEntity?.bestSeller ?? [],
+                    ),
                   );
                 case HomeStatus.error:
                   return ErrorStateWidget(error: state.error!);

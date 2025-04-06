@@ -46,38 +46,32 @@ class _HomeLayoutState extends BaseStatefulWidgetState<HomeLayout> {
         padding: EdgeInsets.only(
           top: screenHeight * 0.04,
         ),
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: BlocProvider(
-            create: (context) => cubit,
-            child: Column(
-              children: [
-                SearchBarAndLogo(
-                  screenHeight: screenHeight,
-                  screenWidth: screenWidth,
-                  searchController: searchController,
-                  searchFocusNode: searchFocusNode,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.03,
-                ),
-                CategoriesSection(
-                  screenHeight: screenHeight,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.015,
-                ),
-                BestSellerSection(
-                  screenHeight: screenHeight,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.01,
-                ),
-                OccasionsSection(
-                  screenHeight: screenHeight,
-                ),
-              ],
-            ),
+        child: BlocProvider(
+          create: (context) => cubit,
+          child: Column(
+            children: [
+              SearchBarAndLogo(
+                screenHeight: screenHeight,
+                screenWidth: screenWidth,
+                searchController: searchController,
+                searchFocusNode: searchFocusNode,
+              ),
+              SizedBox(
+                height: screenHeight * 0.03,
+              ),
+              CategoriesSection(
+                screenHeight: screenHeight,
+              ),
+              BestSellerSection(
+                screenHeight: screenHeight,
+              ),
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              OccasionsSection(
+                screenHeight: screenHeight,
+              ),
+            ],
           ),
         ),
       ),
