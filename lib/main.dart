@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/core/routing/app_routes.dart';
-import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
@@ -10,8 +8,6 @@ import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/lang
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/l10n_manager/localization_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'modules/authentication/ui/login/view/login_screen.dart';
 
 import 'modules/authentication/domain/use_cases/login/login_use_case.dart';
 
@@ -55,10 +51,10 @@ class MyApp extends StatelessWidget {
           theme: AppThemes.lightTheme,
           themeMode: ThemeMode.light,
           onGenerateRoute: GenerateRoute.onGenerateRoute,
-          // onGenerateInitialRoutes: (initialRoute) =>
-          //     GenerateRoute.onGenerateInitialRoutes(
-          //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
-          initialRoute: DefinedRoutes.bestSellerScreenRoute,
+          onGenerateInitialRoutes: (initialRoute) =>
+              GenerateRoute.onGenerateInitialRoutes(
+                  initialRoute: initialRoute, loginInfo: storedLoginInfo),
+          //initialRoute: DefinedRoutes.bestSellerScreenRoute,
         );
       },
     );
