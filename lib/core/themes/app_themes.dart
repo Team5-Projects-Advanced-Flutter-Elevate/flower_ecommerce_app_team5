@@ -99,7 +99,7 @@ abstract class AppThemes {
       ),
     ),
     progressIndicatorTheme: ProgressIndicatorThemeData(
-      color: AppColors.white,
+      color: AppColors.mainColor,
     ),
     dialogTheme: DialogTheme(
       backgroundColor: AppColors.white,
@@ -122,9 +122,9 @@ abstract class AppThemes {
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
       labelTextStyle: WidgetStatePropertyAll(GoogleFonts.inter(
-          fontSize: 12,
-          fontWeight: FontWeight.normal,
-          )),
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+      )),
     ),
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,

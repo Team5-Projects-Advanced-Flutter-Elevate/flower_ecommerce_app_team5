@@ -68,6 +68,8 @@ import '../../modules/home/domain/use_cases/get_categories_use_case.dart'
     as _i369;
 import '../../modules/home/domain/use_cases/get_occasions_use_case.dart'
     as _i386;
+import '../../modules/home/ui/layouts/categories_layout/view_model/categories_layout_view_model.dart'
+    as _i44;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -134,6 +136,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
         storageService: gh<_i629.SecureStorageService<dynamic>>()));
+    gh.factory<_i44.CategoriesLayoutViewModel>(
+        () => _i44.CategoriesLayoutViewModel(gh<_i369.GetCategoriesUseCase>()));
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
         _i79.LoginAsGuestOfflineDataSourceImpl(
             gh<_i629.SecureStorageService<dynamic>>()));
