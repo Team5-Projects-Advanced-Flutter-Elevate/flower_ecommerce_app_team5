@@ -54,6 +54,11 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           theme: AppThemes.lightTheme,
           themeMode: ThemeMode.light,
+          onGenerateRoute: GenerateRoute.onGenerateRoute,
+          onGenerateInitialRoutes: (initialRoute) =>
+              GenerateRoute.onGenerateInitialRoutes(
+                  initialRoute: initialRoute, loginInfo: storedLoginInfo),
+          //initialRoute: DefinedRoutes.bestSellerScreenRoute,
           home: const OcassionListScreen(),
           // onGenerateRoute: GenerateRoute.onGenerateRoute,
           // onGenerateInitialRoutes: (initialRoute) =>

@@ -56,9 +56,12 @@
   "signUp": "Sign up",
   "loginSuccess": "LoginSuccess",
   "bestSellerSection____": "$$$ Comment $$$",
+
+  "//bestSellerSection": "$$$ Comment $$$",
   "addToCart": "Add To Cart",
   "bestSeller": "Best Seller",
   "bloomWithBestSeller": "Bloom with our exquisite best sellers",
+  "noProducts": "No Products",
   "guestLogin": "Continue as guest ",
   "checkGuest": "Please Log-in",
   "occsionScreenTitle": "Occasion",
