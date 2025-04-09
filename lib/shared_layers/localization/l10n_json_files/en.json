@@ -1,7 +1,7 @@
 {
   "ok": "OK",
   "confirm": "Confirm",
-  "errorMessages": "$$$ Comment $$$",
+  "//errorMessages": "$$$ Comment $$$",
   "connectionTimeout": "Connection timeout with server ⌛",
   "sendTimeout": "Send timeout in connection with server ⏱",
   "receiveTimeout": "Receive timeout in connection with server ⏰",
@@ -10,7 +10,8 @@
   "unknown": "Something Went Wrong \uD83E\uDD14",
   "badCertificate": "The certificate provided by the server is not valid \uD83D\uDCD1",
   "somethingWentWrong": "Something Went Wrong \uD83E\uDD14",
-  "validationFunctions______________": "$$$ Comment $$$",
+
+  "//validationFunctions": "$$$ Comment $$$",
   "pleaseEnterName": "Please enter your name.",
   "pleaseEnterUserName": "Please enter user name.",
   "userNameLength": "Username must be between 3 and 16 characters long.",
@@ -42,7 +43,8 @@
   "confirmPassword": "Confirm Password",
   "phoneNumber": "Phone Number",
   "noMatch": "No Match!",
-  "appSections____________": "$$$ Comment $$$",
+
+  "//appSections": "$$$ Comment $$$",
   "home": "Home",
   "categories": "Categories",
   "cart": "Cart",
@@ -56,7 +58,7 @@
   "signUp": "Sign up",
   "loginSuccess": "LoginSuccess",
 
-  "bestSellerSection____": "$$$ Comment $$$",
+  "//bestSellerSection": "$$$ Comment $$$",
   "addToCart": "Add To Cart",
   "bestSeller": "Best Seller",
   "bloomWithBestSeller": "Bloom with our exquisite best sellers",

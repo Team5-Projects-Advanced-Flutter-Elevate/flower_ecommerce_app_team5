@@ -2,7 +2,7 @@
   "ok": "موافق",
   "confirm": "تأكيد",
 
-  "errorMessages": "$$$ تعليق $$$",
+  "//errorMessages": "",
   "connectionTimeout": "انتهت مهلة الاتصال بالخادم ⌛",
   "sendTimeout": "انتهت مهلة الإرسال في الاتصال بالخادم ⏱",
   "receiveTimeout": "انتهت مهلة الاستلام في الاتصال بالخادم ⏰",
@@ -12,7 +12,7 @@
   "badCertificate": "الشهادة المقدمة من الخادم غير صالحة \uD83D\uDCD1",
   "somethingWentWrong": "حدث خطأ ما \uD83E\uDD14",
 
-  "validationFunctions______________": "$$$ تعليق $$$",
+  "//validationFunctions": "",
   "pleaseEnterName": "يرجى إدخال اسمك.",
   "pleaseEnterUserName": "يرجى إدخال اسم المستخدم.",
   "userNameLength": "يجب أن يكون اسم المستخدم بين 3 و 16 حرفًا.",
@@ -48,13 +48,14 @@
   "password": "كلمة المرور",
   "confirmPassword": "تأكيد كلمة المرور",
   "phoneNumber": "رقم الهاتف",
-  "appSections____________": "$$$ تعليق $$$",
+
+  "//appSections": "",
   "home": "الرئيسية",
   "categories": "الفئات",
   "cart": "عربة التسوق",
   "profile": "الملف الشخصي",
 
-  "bestSellerSection____": "$$$ تعليق $$$",
+  "//bestSellerSection": "",
   "addToCart": "أضف إلى السلة",
   "bestSeller": "الأكثر مبيعًا",
   "bloomWithBestSeller": "ازدهر مع أفضل مبيعاتنا الرائعة",
