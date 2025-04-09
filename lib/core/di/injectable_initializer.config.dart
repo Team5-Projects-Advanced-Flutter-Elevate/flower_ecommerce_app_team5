@@ -64,6 +64,8 @@ import '../../modules/home/data/datasource_impl/home_data_source_impl.dart'
     as _i524;
 import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
 import '../../modules/home/domain/repo_contract/home_repo.dart' as _i1003;
+import '../../modules/home/domain/use_cases/get_all_products_use_case.dart'
+    as _i1019;
 import '../../modules/home/domain/use_cases/get_categories_use_case.dart'
     as _i369;
 import '../../modules/home/domain/use_cases/get_occasions_use_case.dart'
@@ -134,10 +136,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i386.GetOccasionsUseCase>(
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
+    gh.factory<_i1019.GetAllProductsUseCase>(
+        () => _i1019.GetAllProductsUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
         storageService: gh<_i629.SecureStorageService<dynamic>>()));
-    gh.factory<_i44.CategoriesLayoutViewModel>(
-        () => _i44.CategoriesLayoutViewModel(gh<_i369.GetCategoriesUseCase>()));
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
         _i79.LoginAsGuestOfflineDataSourceImpl(
             gh<_i629.SecureStorageService<dynamic>>()));
@@ -149,6 +151,11 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
         ));
+    gh.factory<_i44.CategoriesLayoutViewModel>(
+        () => _i44.CategoriesLayoutViewModel(
+              gh<_i369.GetCategoriesUseCase>(),
+              gh<_i1019.GetAllProductsUseCase>(),
+            ));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>

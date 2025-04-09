@@ -4,4 +4,5 @@ class ApisEndpoints {
   static const String register = 'api/v1/auth/signup';
   static const String getCategories = 'api/v1/categories';
   static const String getOccasions = 'api/v1/occasions';
+  static const String getProducts = 'api/v1/products';
 }
