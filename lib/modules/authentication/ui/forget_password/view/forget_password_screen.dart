@@ -5,21 +5,22 @@ import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../core/routing/defined_routes.dart';
+import '../../../../../core/widgets/error_state_widget.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import '../view_model/forget_password_screen_view_model.dart';
 import '../view_model/forget_password_state.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
-  ForgetPasswordScreen({super.key});
+  const ForgetPasswordScreen({super.key});
   @override
   State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
 }
 
 late TextEditingController emailController;
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+class _ForgetPasswordScreenState extends BaseStatefulWidgetState<ForgetPasswordScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   ForgetPasswordViewModel forgetPasswordViewModel =
       getIt.get<ForgetPasswordViewModel>();
@@ -41,6 +42,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       create: (context) => forgetPasswordViewModel,
       child: Scaffold(
         appBar: AppBar(
+          forceMaterialTransparency: true,
           automaticallyImplyLeading: false,
           title: Row(
             children: [
@@ -87,7 +89,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 ),
                 TextFormField(
                   validator: (value) {
-                    ValidateFunctions.getInstance().validationOfEmail(value);
+                    return ValidateFunctions.getInstance().validationOfEmail(value);
                   },
                   controller: emailController,
                   decoration: InputDecoration(
@@ -102,7 +104,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 BlocConsumer<ForgetPasswordViewModel, PasswordState>(
                     builder: (context, state) {
                   if (state is PasswordLoadingState) {
-                    return LoadingWidget();
+                    return const LoadingWidget();
                   }
                   return ElevatedButton(
                       onPressed: () {
@@ -113,19 +115,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       child: Text(LocaleKeys.confirm.tr()));
                 }, listener: (context, state) {
                   if (state is EmailSuccessState) {
-                    Fluttertoast.showToast(
-                        msg: 'Otp-Code-send',
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.green,
-                        textColor: Colors.white,
-                        fontSize: 16.0.sp);
-                       Navigator.pushNamed(context, DefinedRoutes.resetCodeScreenRoute, arguments: emailController.text);
+                    displayAlertDialog(title: const Text('Otp-Code-send'),showOkButton: true,onOkButtonClick: () {
+                      hideAlertDialog();
+                      Navigator.pushNamed(context, DefinedRoutes.resetCodeScreenRoute, arguments: emailController.text);
+                    },);
                   } else if (state is PasswordErrorState) {
-                    ErrorWidget(state.error);
+                    ErrorStateWidget(error: state.error);
                   } else if (state is PasswordLoadingState) {
-                    LoadingWidget();
+                    const LoadingWidget();
                   }
                 }),
               ],

@@ -9,7 +9,7 @@ import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart'
     as _i4;
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/data_sources_contracts/forget_password/reset_password_remote_data_source.dart'
     as _i2;
-import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/forget_password/ForgetPasswordResponse.dart'
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/forget_password/forget_password_response.dart'
     as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;

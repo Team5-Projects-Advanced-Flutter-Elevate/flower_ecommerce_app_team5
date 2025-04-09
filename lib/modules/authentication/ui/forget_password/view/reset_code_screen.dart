@@ -2,14 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/reset_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import '../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../core/routing/defined_routes.dart';
+import '../../../../../core/widgets/error_state_widget.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import '../view_model/forget_password_screen_view_model.dart';
 import '../view_model/forget_password_state.dart';
@@ -23,7 +24,7 @@ class ResetCodeScreen extends StatefulWidget {
   State<ResetCodeScreen> createState() => _ResetCodeScreenState();
 }
 
-class _ResetCodeScreenState extends State<ResetCodeScreen> {
+class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
   bool sent = true;
   bool resend = false;
   final ValueNotifier<bool> _isLessThan5Minutes = ValueNotifier<bool>(false);
@@ -37,6 +38,7 @@ class _ResetCodeScreenState extends State<ResetCodeScreen> {
       child: BlocConsumer<ForgetPasswordViewModel, PasswordState>(
         builder: (context, state) => Scaffold(
           appBar: AppBar(
+            forceMaterialTransparency: true,
             automaticallyImplyLeading: false,
             title: Row(
               children: [
@@ -86,29 +88,30 @@ class _ResetCodeScreenState extends State<ResetCodeScreen> {
                     child: OTPTextField(
                       length: 6,
                       width: 300.w,
-                      style: TextStyle(fontSize: 17),
+                      otpFieldStyle: OtpFieldStyle(errorBorderColor: Colors.red),
+                      style: TextStyle(fontSize: 17.sp),
                       textFieldAlignment: MainAxisAlignment.spaceAround,
                       fieldStyle: FieldStyle.box,
                       onChanged: (value) {
-                        if (value == null || value.length != value) {
-                          Fluttertoast.showToast(
-                              msg: "Please enter a valid $value-digit OTP",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.green,
-                              textColor: Colors.white,
-                              fontSize: 16.0.sp);
-                          return;
-                        }
-                        Fluttertoast.showToast(
-                            msg: "OTP Verified: $value",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.green,
-                            textColor: Colors.white,
-                            fontSize: 16.0.sp);
+                        // if (value == null || value.length != value) {
+                        //   Fluttertoast.showToast(
+                        //       msg: "Please enter a valid $value-digit OTP",
+                        //       toastLength: Toast.LENGTH_SHORT,
+                        //       gravity: ToastGravity.BOTTOM,
+                        //       timeInSecForIosWeb: 1,
+                        //       backgroundColor: Colors.green,
+                        //       textColor: Colors.white,
+                        //       fontSize: 16.0.sp);
+                        //   return;
+                        // }
+                        // Fluttertoast.showToast(
+                        //     msg: "OTP Verified: $value",
+                        //     toastLength: Toast.LENGTH_SHORT,
+                        //     gravity: ToastGravity.BOTTOM,
+                        //     timeInSecForIosWeb: 1,
+                        //     backgroundColor: Colors.green,
+                        //     textColor: Colors.white,
+                        //     fontSize: 16.0.sp);
                       },
                       onCompleted: (code) {
                         forgetPasswordViewModel.onIntent(ResetCodeIntent(code));
@@ -163,20 +166,14 @@ class _ResetCodeScreenState extends State<ResetCodeScreen> {
         ),
         listener: (context, state) {
           if (state is PasswordSuccessState) {
-            Fluttertoast.showToast(
-                msg: 'valid otp',
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.green,
-                textColor: Colors.white,
-                fontSize: 16.0.sp);
-            Navigator.pushNamed(context, DefinedRoutes.resetPasswordScreenRoute,
-                arguments: emailController.text);
+            displayAlertDialog(title: const Text('valid otp'),showOkButton: true,onOkButtonClick: () {
+              hideAlertDialog();
+              Navigator.pushNamed(context, DefinedRoutes.resetPasswordScreenRoute, arguments: emailController.text);
+            },);
           } else if (state is PasswordErrorState) {
-            ErrorWidget(state.error);
+            ErrorStateWidget(error: state.error);
           } else if (state is PasswordLoadingState) {
-            LoadingWidget();
+            const LoadingWidget();
           }
         },
       ),

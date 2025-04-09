@@ -7,7 +7,7 @@ import 'dart:async' as _i3;
 
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart'
     as _i4;
-import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/forget_password/ForgetPasswordResponse.dart'
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/forget_password/forget_password_response.dart'
     as _i5;
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/repositories_contracts/forget_password/reset_code_repo.dart'
     as _i2;

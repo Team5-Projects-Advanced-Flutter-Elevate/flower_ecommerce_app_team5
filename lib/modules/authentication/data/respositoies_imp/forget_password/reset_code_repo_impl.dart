@@ -3,7 +3,7 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/data/data_sour
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/repositories_contracts/forget_password/reset_code_repo.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../models/forget_password/ForgetPasswordResponse.dart';
+import '../../models/forget_password/forget_password_response.dart';
 
 @Injectable(as: ResetCodeRepo)
 class ResetCodeRepoImpl extends ResetCodeRepo{

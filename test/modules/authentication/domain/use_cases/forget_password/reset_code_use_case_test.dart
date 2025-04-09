@@ -1,5 +1,5 @@
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/forget_password/ForgetPasswordResponse.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/forget_password/forget_password_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/repositories_contracts/forget_password/reset_code_repo.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/forget_password/reset_code_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';

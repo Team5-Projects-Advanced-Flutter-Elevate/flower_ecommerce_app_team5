@@ -5,15 +5,16 @@ import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../core/routing/defined_routes.dart';
 import '../../../../../core/validation/validation_functions.dart';
+import '../../../../../core/widgets/error_state_widget.dart';
 import '../../../../../core/widgets/loading_state_widget.dart';
 import '../view_model/forget_password_screen_view_model.dart';
 import '../view_model/forget_password_state.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  ResetPasswordScreen({super.key});
+  const ResetPasswordScreen({super.key});
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -21,7 +22,7 @@ class ResetPasswordScreen extends StatefulWidget {
 late TextEditingController newPasswordController;
 late TextEditingController confirmPasswordController;
 GlobalKey<FormState> formKey = GlobalKey<FormState>();
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+class _ResetPasswordScreenState extends BaseStatefulWidgetState<ResetPasswordScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -44,6 +45,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       child: BlocConsumer<ForgetPasswordViewModel,PasswordState>(
         builder: (context, state) =>  Scaffold(
           appBar: AppBar(
+            forceMaterialTransparency: true,
             automaticallyImplyLeading: false,
             title: Row(children: [InkWell(
               onTap: () {
@@ -68,7 +70,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   SizedBox(height: 32.h,),
                   TextFormField(
                     validator: (value) {
-                      ValidateFunctions.getInstance().validationOfPassword(value);
+                      return ValidateFunctions.getInstance().validationOfPassword(value);
                     },
                     controller: newPasswordController,
                     decoration: InputDecoration(
@@ -80,10 +82,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   SizedBox(height: 24.h,),
                   TextFormField(
                     validator: (value) {
-                      ValidateFunctions.getInstance().validationOfConfirmPassword(value, newPasswordController.text);
+                      return ValidateFunctions.getInstance().validationOfConfirmPassword(value, newPasswordController.text);
                     },
                     controller: confirmPasswordController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       enabled: true,
                       hintText: LocaleKeys.confirmPassword,
                       labelText: LocaleKeys.confirmPassword,
@@ -94,8 +96,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     if(formKey.currentState!.validate()){
                       forgetPasswordViewModel.onIntent(ResetPasswordIntent(emailController.text, newPasswordController.text.trim()));
                     }
-                  }, child: Text(LocaleKeys.confirm.tr()),
-                      style: ButtonStyle(padding:WidgetStatePropertyAll(REdgeInsets.symmetric(vertical: 14),),))
+                  },
+                      style: ButtonStyle(padding:WidgetStatePropertyAll(REdgeInsets.symmetric(vertical: 14),),), child: Text(LocaleKeys.confirm.tr()))
                 ],
               ),
             ),
@@ -103,19 +105,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         ) ,
         listener: (context, state) {
           if (state is PasswordSuccessState) {
-            Fluttertoast.showToast(
-                msg: state.message,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.green,
-                textColor: Colors.white,
-                fontSize: 16.0.sp);
-            Navigator.pushNamed(context, DefinedRoutes.forgetPasswordScreenRoute);
+            displayAlertDialog(title: Text(state.message),showOkButton: true,onOkButtonClick: () {
+              hideAlertDialog();
+              Navigator.pushNamed(context, DefinedRoutes.forgetPasswordScreenRoute);
+            },);
           } else if (state is PasswordErrorState) {
-            ErrorWidget(state.error);
+            ErrorStateWidget(error: state.error);
           } else if (state is PasswordLoadingState) {
-            LoadingWidget();
+            const LoadingWidget();
           }
         },
       ),
