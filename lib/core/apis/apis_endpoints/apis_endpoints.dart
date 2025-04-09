@@ -6,7 +6,5 @@ class ApisEndpoints {
   static const String getOccasions = 'api/v1/occasions';
   static const String getProducts = 'api/v1/products';
   static const String occasion = 'api/v1/occasions';
-  static const String getCategories = 'api/v1/categories';
-  static const String getOccasions = 'api/v1/occasions';
   static const String getHomeData = 'api/v1/home';
 }

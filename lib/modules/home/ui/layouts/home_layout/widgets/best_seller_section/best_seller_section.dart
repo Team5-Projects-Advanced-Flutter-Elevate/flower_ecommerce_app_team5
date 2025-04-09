@@ -25,6 +25,9 @@ class BestSellerSection extends StatelessWidget {
         children: [
           HeadLineSection(
             LocaleKeys.bestSeller.tr(),
+            onTap: () {
+
+            },
           ),
           SizedBox(
             height: screenHeight * 0.02,

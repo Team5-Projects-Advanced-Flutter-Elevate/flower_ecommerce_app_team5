@@ -122,10 +122,7 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
-      labelTextStyle: WidgetStatePropertyAll(GoogleFonts.inter(
-        fontSize: 12,
-        fontWeight: FontWeight.normal,
-      )),
+      
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return GoogleFonts.inter(
