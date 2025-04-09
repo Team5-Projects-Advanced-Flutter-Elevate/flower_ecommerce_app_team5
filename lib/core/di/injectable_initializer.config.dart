@@ -55,6 +55,19 @@ import '../../modules/authentication/ui/login/view_model/login_view_model_cubit.
     as _i363;
 import '../../modules/authentication/ui/register/view_model/register_cubit.dart'
     as _i303;
+import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
+import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
+    as _i507;
+import '../../modules/occasion/data/data_sources_contracts/occasion_data_source.dart'
+    as _i362;
+import '../../modules/occasion/data/data_sources_imp/occasion_datasourceimpl.dart'
+    as _i713;
+import '../../modules/occasion/data/repositories_imp/occasion_repo_imp.dart'
+    as _i276;
+import '../../modules/occasion/domain/repositories_contracts/ocassion_repo.dart'
+    as _i319;
+import '../../modules/occasion/domain/use_cases/occasion_usecase.dart' as _i41;
+import '../../modules/occasion/ui/occasion_cubit.dart' as _i855;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -81,6 +94,7 @@ extension GetItInjectableX on _i174.GetIt {
     final dioService = _$DioService();
     final storagesInitializer = _$StoragesInitializer();
     final authApiClientProvider = _$AuthApiClientProvider();
+    final occasionApiClientProvider = _$OccasionApiClientProvider();
     final localeInitializer = _$LocaleInitializer();
     await gh.factoryAsync<_i361.Dio>(
       () => dioService.provideDio(),
@@ -92,10 +106,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
+    gh.singleton<_i941.OccasionApiClient>(
+        () => occasionApiClientProvider.ApiClient(gh<_i361.Dio>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
         () => _i701.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()));
     gh.factory<_i766.LoginRemoteDataSource>(
         () => _i132.LoginRemoteDataSourceImp(gh<_i343.AuthApiClient>()));
+    gh.factory<_i362.OccasionOnlineDataSource>(() =>
+        _i713.OccasionOnlineDataSourceImpl(gh<_i941.OccasionApiClient>()));
     await gh.factoryAsync<String>(
       () => localeInitializer
           .initCurrentLocal(gh<_i629.SecureStorageService<dynamic>>()),
@@ -106,10 +124,16 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i629.SecureStorageService<dynamic>>(),
           gh<String>(instanceName: 'initCurrentLocal'),
         ));
+    gh.factory<_i319.OccasionRepo>(
+        () => _i276.OccasionRepoImpl(gh<_i362.OccasionOnlineDataSource>()));
     gh.factory<_i871.RegisterOnlineDataSource>(
         () => _i219.RegisterOnlineDataSourceImpl(gh<_i343.AuthApiClient>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
         storageService: gh<_i629.SecureStorageService<dynamic>>()));
+    gh.factory<_i41.OccasionUseCase>(
+        () => _i41.OccasionUseCase(gh<_i319.OccasionRepo>()));
+    gh.factory<_i855.OcassionViewModelCubit>(
+        () => _i855.OcassionViewModelCubit(gh<_i41.OccasionUseCase>()));
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
         _i79.LoginAsGuestOfflineDataSourceImpl(
             gh<_i629.SecureStorageService<dynamic>>()));
@@ -142,5 +166,7 @@ class _$DioService extends _i738.DioService {}
 class _$StoragesInitializer extends _i241.StoragesInitializer {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
+
+class _$OccasionApiClientProvider extends _i507.OccasionApiClientProvider {}
 
 class _$LocaleInitializer extends _i631.LocaleInitializer {}

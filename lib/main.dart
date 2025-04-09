@@ -5,6 +5,7 @@ import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
+import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/constants/l10n_constants.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/l10n_manager/localization_manager.dart';
@@ -54,11 +55,12 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           theme: AppThemes.lightTheme,
           themeMode: ThemeMode.light,
-          onGenerateRoute: GenerateRoute.onGenerateRoute,
+        home: OcassionListScreen(),
+        //  onGenerateRoute: GenerateRoute.onGenerateRoute,
           // onGenerateInitialRoutes: (initialRoute) =>
           //     GenerateRoute.onGenerateInitialRoutes(
           //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
-          initialRoute: DefinedRoutes.bestSellerScreenRoute,
+         // initialRoute: DefinedRoutes.bestSellerScreenRoute,
         );
       },
     );
