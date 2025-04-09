@@ -60,5 +60,10 @@
   "bestSeller": "Best Seller",
   "bloomWithBestSeller": "Bloom with our exquisite best sellers",
   "guestLogin": "Continue as guest ",
-  "checkGuest": "Please Log-in"
+  "checkGuest": "Please Log-in",
+  "loginSuccess": "LoginSuccess",
+  "bestSellerSection____": "$$$ Comment $$$",
+  "addToCart": "Add To Cart",
+  "bestSeller": "Best Seller",
+  "bloomWithBestSeller": "Bloom with our exquisite best sellers"
 }
