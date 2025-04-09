@@ -39,12 +39,11 @@ class _HomeLayoutState extends BaseStatefulWidgetState<HomeLayout> {
 
   @override
   Widget build(BuildContext context) {
-    log(const HomeState().state.toString());
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Padding(
         padding: EdgeInsets.only(
-          top: screenHeight * 0.04,
+          top: screenHeight * 0.03,
         ),
         child: BlocProvider(
           create: (context) => cubit,

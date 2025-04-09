@@ -3,7 +3,6 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/w
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
-
 import '../../../../../../../core/colors/app_colors.dart';
 
 class BestSellerItem extends BaseStatelessWidget {
@@ -21,8 +20,8 @@ class BestSellerItem extends BaseStatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: screenHeight * 0.18,
+          Expanded(
+            flex: 3,
             child: CashedImage(
               fit: BoxFit.cover,
               url: bestSellerEntity.imgCover ?? '',
@@ -31,26 +30,34 @@ class BestSellerItem extends BaseStatelessWidget {
           SizedBox(
             height: screenHeight * 0.01,
           ),
-          Text(
-            bestSellerEntity.title ?? '',
-            style: GoogleFonts.inter(
-              textStyle: theme.textTheme.bodySmall?.copyWith(
-                fontSize: 12,
-              ),
-            ),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
-          SizedBox(
-            height: screenHeight * 0.003,
-          ),
-          Text(
-            '${bestSellerEntity.price} EGP' ?? '',
-            style: GoogleFonts.inter(
-              textStyle: theme.textTheme.bodySmall?.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  bestSellerEntity.title ?? '',
+                  style: GoogleFonts.inter(
+                    textStyle: theme.textTheme.bodySmall?.copyWith(
+                      fontSize: 12,
+                    ),
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                SizedBox(
+                  height: screenHeight * 0.003,
+                ),
+                Text(
+                  '${bestSellerEntity.price} EGP' ?? '',
+                  style: GoogleFonts.inter(
+                    textStyle: theme.textTheme.bodySmall?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

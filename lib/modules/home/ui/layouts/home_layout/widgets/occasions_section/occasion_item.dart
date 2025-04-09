@@ -21,8 +21,8 @@ class OccasionItem extends BaseStatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: screenHeight * 0.18,
+          Expanded(
+            flex: 3,
             child: CashedImage(
               fit: BoxFit.cover,
               url: occasionEntity.image ?? '',
@@ -31,12 +31,17 @@ class OccasionItem extends BaseStatelessWidget {
           SizedBox(
             height: screenHeight * 0.01,
           ),
-          Text(
-            occasionEntity.name ?? '',
-            style: GoogleFonts.inter(
-              textStyle: theme.textTheme.bodySmall?.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+          Expanded(
+            flex: 1,
+            child: Text(
+              occasionEntity.name ?? '',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.inter(
+                textStyle: theme.textTheme.bodySmall?.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),

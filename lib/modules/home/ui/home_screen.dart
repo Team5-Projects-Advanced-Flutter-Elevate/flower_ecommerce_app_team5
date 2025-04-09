@@ -31,49 +31,51 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: AppColors.white[60]!,
-              width: 1,
+    return SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: AppColors.white[60]!,
+                width: 1,
+              ),
             ),
           ),
+          child: NavigationBar(
+              selectedIndex: selectedAppSectionIndex,
+              onDestinationSelected: (value) {
+                setState(() {
+                  selectedAppSectionIndex = value;
+                  pageController.animateToPage(value,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
+                });
+              },
+              destinations: [
+                NavigationDestination(
+                    icon: ImageIcon(AssetImage(AssetsPaths.homeIcon)),
+                    label: tr(LocaleKeys.home)),
+                NavigationDestination(
+                    icon: ImageIcon(AssetImage(AssetsPaths.categoriesIcon)),
+                    label: LocaleKeys.categories.tr()),
+                NavigationDestination(
+                    icon: ImageIcon(AssetImage(AssetsPaths.cartIcon)),
+                    label: LocaleKeys.cart.tr()),
+                NavigationDestination(
+                    icon: ImageIcon(AssetImage(AssetsPaths.profileIcon)),
+                    label: LocaleKeys.profile.tr()),
+              ]),
         ),
-        child: NavigationBar(
-            selectedIndex: selectedAppSectionIndex,
-            onDestinationSelected: (value) {
-              setState(() {
-                selectedAppSectionIndex = value;
-                pageController.animateToPage(value,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut);
-              });
-            },
-            destinations: [
-              NavigationDestination(
-                  icon: ImageIcon(AssetImage(AssetsPaths.homeIcon)),
-                  label: tr(LocaleKeys.home)),
-              NavigationDestination(
-                  icon: ImageIcon(AssetImage(AssetsPaths.categoriesIcon)),
-                  label: LocaleKeys.categories.tr()),
-              NavigationDestination(
-                  icon: ImageIcon(AssetImage(AssetsPaths.cartIcon)),
-                  label: LocaleKeys.cart.tr()),
-              NavigationDestination(
-                  icon: ImageIcon(AssetImage(AssetsPaths.profileIcon)),
-                  label: LocaleKeys.profile.tr()),
-            ]),
-      ),
-      body: PageView(
-        controller: pageController,
-        onPageChanged: (value) {
-          setState(() {
-            selectedAppSectionIndex = value;
-          });
-        },
-        children: homePages,
+        body: PageView(
+          controller: pageController,
+          onPageChanged: (value) {
+            setState(() {
+              selectedAppSectionIndex = value;
+            });
+          },
+          children: homePages,
+        ),
       ),
     );
   }
