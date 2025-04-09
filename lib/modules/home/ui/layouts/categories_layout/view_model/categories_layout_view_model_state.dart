@@ -30,3 +30,10 @@ final class CategoriesLayoutViewModelError
   @override
   List<Object> get props => [error];
 }
+
+final class CategoriesViewModelTabBarChanged
+    extends CategoriesLayoutViewModelState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
