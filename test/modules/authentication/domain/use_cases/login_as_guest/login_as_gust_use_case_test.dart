@@ -12,12 +12,12 @@ import 'login_as_gust_use_case_test.mocks.dart';
 // Generate a mock class for LoginAsGuestRepo
 @GenerateMocks([LoginAsGuestRepo])
 void main() {
-  late LoginAsGuest useCase;
+  late LoginAsGuestUseCase useCase;
   late LoginAsGuestRepo mockRepo;
 
   setUp(() {
     mockRepo = MockLoginAsGuestRepo();
-    useCase = LoginAsGuest(mockRepo);
+    useCase = LoginAsGuestUseCase(mockRepo);
     provideDummy<StorageResult<void>>(StorageSuccessResult<void>(data: null));
   });
 

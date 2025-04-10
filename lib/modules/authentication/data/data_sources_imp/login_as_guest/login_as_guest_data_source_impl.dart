@@ -6,15 +6,14 @@ import '../../../../../shared_layers/storage/result/storage_result.dart';
 import '../../data_sources_contracts/login_as_guest/login_as_guest_data_source.dart';
 
 @Injectable(as: LoginAsGuestOfflineDataSource)
-class LoginAsGuestOfflineDataSourceImpl implements LoginAsGuestOfflineDataSource {
-  static const String isGuestK = StorageConstants.isGuestKey;
-  final SecureStorageService _SecureStorageService;
+class LoginAsGuestOfflineDataSourceImpl
+    implements LoginAsGuestOfflineDataSource {
+  final SecureStorageService _secureStorageService;
 
-  LoginAsGuestOfflineDataSourceImpl(this._SecureStorageService);
+  LoginAsGuestOfflineDataSourceImpl(this._secureStorageService);
   @override
   Future<StorageResult<void>> isGuest() async {
-    // TODO: implement isGuest
-    _SecureStorageService.setStringValue(isGuestK,'true');
-    return StorageSuccessResult(data: StorageConstants.successMessage);
+    _secureStorageService.setStringValue(StorageConstants.isGuestKey, 'true');
+    return StorageSuccessResult<String>(data: StorageConstants.successMessage);
   }
 }

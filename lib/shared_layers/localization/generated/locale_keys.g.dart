@@ -52,10 +52,21 @@ abstract class LocaleKeys {
   static const confirmPassword = 'confirmPassword';
   static const phoneNumber = 'phoneNumber';
 
+  static const dontHaveAccount = 'dontHaveAnAccount';
+  static const forgetPassword = 'forgetPassword';
+  static const resetPassword = 'resetPassword';
+  static const rememberMe = 'rememberMe';
+  static const appSections____________ = 'appSections____________';
   static const home = 'home';
   static const categories = 'categories';
   static const cart = 'cart';
   static const profile = 'profile';
+  static const search = 'search';
+  static const viewAll = 'viewAll';
+  static const bestSeller = 'bestSeller';
+  static const occasions = 'occasions';
+  static const guestLogin='guestLogin';
+  static const checkGuest='checkGuest';
   static const rememberMe = 'rememberMe';
   static const forgetPassword = 'forgetPassword';
   static const dontHaveAccount = 'dontHaveAccount';

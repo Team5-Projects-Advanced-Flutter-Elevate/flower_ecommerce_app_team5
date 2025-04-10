@@ -10,7 +10,6 @@ class LoginAsGuestRepoImpl implements LoginAsGuestRepo {
   LoginAsGuestRepoImpl(this.loginAsGuestOfflineDataSource);
   @override
   Future<StorageResult<void>> isGuest() {
-    // TODO: implement isGuest
     return loginAsGuestOfflineDataSource.isGuest();
   }
 }
