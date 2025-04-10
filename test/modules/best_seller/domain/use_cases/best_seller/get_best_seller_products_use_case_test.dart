@@ -2,24 +2,23 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
-import 'package:flower_ecommerce_app_team5/modules/best_seller/data/data_sources_contract/best_seller/best_seller_remote_data_source.dart';
-import 'package:flower_ecommerce_app_team5/modules/best_seller/data/respositories_imp/best_seller/best_seller_repositories_imp.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/repositories_contracts/best_seller/best_seller_repository.dart';
+import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/use_cases/best_seller/get_best_seller_products_use_case.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'best_seller_repositories_imp_test.mocks.dart';
+import 'get_best_seller_products_use_case_test.mocks.dart';
 
-@GenerateMocks([BestSellerRemoteDataSource])
+@GenerateMocks([BestSellerRepository])
 void main() {
   group(
-    "BestSellerRepositoryImp class Testing",
+    "GetBestSellerProductsUseCase Class Testing",
     () {
+      late GetBestSellerProductsUseCase getBestSellerProductsUseCase;
       late BestSellerRepository bestSellerRepository;
-      late BestSellerRemoteDataSource bestSellerRemoteDataSource;
       BestSellerResponseEntity bestSellerResponseEntity =
           BestSellerResponseEntity(
         message: "Success",
@@ -78,51 +77,49 @@ void main() {
       );
       setUpAll(
         () {
-          bestSellerRemoteDataSource = MockBestSellerRemoteDataSource();
-          bestSellerRepository =
-              BestSellerRepositoryImp(bestSellerRemoteDataSource);
+          bestSellerRepository = MockBestSellerRepository();
+          getBestSellerProductsUseCase =
+              GetBestSellerProductsUseCase(bestSellerRepository);
         },
       );
       test(
-        'When calling getBestSellerProducts(), it should call getBestSellerProducts() of remoteDataSource and return success<BestSellerResponseEntity> if the remoteDataSourceFunction returns success too.',
+        "When calling call() function of GetBestSellerProductsUseCase, it should call getBestSellerProducts() of BestSellerRepository and return the Success<BestSellerResponseEntity> if the repository function returns success too.",
         () async {
           // arrange
           provideDummy<ApiResult<BestSellerResponseEntity>>(
               Success(data: bestSellerResponseEntity));
-          when(bestSellerRemoteDataSource.getBestSellerProducts()).thenAnswer(
+          when(bestSellerRepository.getBestSellerProducts()).thenAnswer(
             (realInvocation) =>
                 Future.value(Success(data: bestSellerResponseEntity)),
           );
           // act
-          var actualResult = await bestSellerRepository.getBestSellerProducts();
+          var actualResult = await getBestSellerProductsUseCase();
           // assert
-          verify(bestSellerRemoteDataSource.getBestSellerProducts()).called(1);
+          verify(bestSellerRepository.getBestSellerProducts()).called(1);
           switch (actualResult) {
             case Success<BestSellerResponseEntity>():
               expect(actualResult.data, bestSellerResponseEntity);
-
             case Error<BestSellerResponseEntity>():
-              debugPrint("Not Possible Case Happened");
+              debugPrint("Impossible Case Has Happened");
           }
         },
       );
       test(
-        'When calling getBestSellerProducts(), it should call getBestSellerProducts() of remoteDataSource and return Error<BestSellerResponseEntity> if the remoteDataSourceFunction returns error too.',
+        "When calling call() function of GetBestSellerProductsUseCase, it should call getBestSellerProducts() of BestSellerRepository and return the Error<BestSellerResponseEntity> if the repository function returns Error too.",
         () async {
           // arrange
           provideDummy<ApiResult<BestSellerResponseEntity>>(
               Error(error: noNetworkConnection));
-          when(bestSellerRemoteDataSource.getBestSellerProducts()).thenAnswer(
+          when(bestSellerRepository.getBestSellerProducts()).thenAnswer(
             (realInvocation) => Future.value(Error(error: noNetworkConnection)),
           );
           // act
-          var actualResult = await bestSellerRepository.getBestSellerProducts();
+          var actualResult = await getBestSellerProductsUseCase();
           // assert
-          verify(bestSellerRemoteDataSource.getBestSellerProducts()).called(1);
+          verify(bestSellerRepository.getBestSellerProducts()).called(1);
           switch (actualResult) {
             case Success<BestSellerResponseEntity>():
-              debugPrint("Not Possible Case Happened");
-
+              debugPrint("Impossible Case Has Happened");
             case Error<BestSellerResponseEntity>():
               expect(actualResult.error, noNetworkConnection);
           }

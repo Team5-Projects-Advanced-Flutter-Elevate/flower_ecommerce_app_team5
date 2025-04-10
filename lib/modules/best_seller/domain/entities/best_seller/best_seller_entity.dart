@@ -1,17 +1,24 @@
-class BestSellerResponseEntity {
+import 'package:equatable/equatable.dart';
+
+class BestSellerResponseEntity extends Equatable {
   BestSellerResponseEntity({
     this.message,
-    this.bestSeller,
+    this.bestSellerProducts,
   });
+
   final String? message;
-  final List<BestSellerDataEntity>? bestSeller;
+  final List<BestSellerDataEntity>? bestSellerProducts;
+
   @override
   String toString() {
-    return "$message, $bestSeller, ";
+    return "$message, $bestSellerProducts, ";
   }
+
+  @override
+  List<Object?> get props => [message, bestSellerProducts];
 }
 
-class BestSellerDataEntity {
+class BestSellerDataEntity extends Equatable {
   BestSellerDataEntity({
     this.id,
     this.title,
@@ -45,6 +52,7 @@ class BestSellerDataEntity {
   final num? quantity;
   final String? category;
   final String? occasion;
+
   //final DateTime? createdAt;
   //final DateTime? updatedAt;
   //final num? v;
@@ -58,4 +66,24 @@ class BestSellerDataEntity {
   String toString() {
     return "$id, $title, $slug, $description, $imgCover, $images, $price, $priceAfterDiscount, $quantity, $category, $occasion, $discount, $sold, $rateAvg, $rateCount, $bestSellerId, ";
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        slug,
+        description,
+        imgCover,
+        images,
+        price,
+        priceAfterDiscount,
+        quantity,
+        category,
+        occasion,
+        discount,
+        sold,
+        rateAvg,
+        rateCount,
+        bestSellerId
+      ];
 }

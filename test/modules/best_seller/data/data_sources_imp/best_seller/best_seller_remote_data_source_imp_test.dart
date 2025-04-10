@@ -101,7 +101,7 @@ void main() {
           //assert
           verify(bestSellerApiClient.getBestSellerProducts()).called(1);
           if (result is Success<BestSellerResponseEntity>) {
-            expect(result.data.bestSeller?.length,
+            expect(result.data.bestSellerProducts?.length,
                 bestSellerResponseDto.bestSellerProducts?.length);
           }
         },

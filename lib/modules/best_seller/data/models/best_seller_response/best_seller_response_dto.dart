@@ -25,7 +25,7 @@ class BestSellerResponseDto {
   BestSellerResponseEntity convertIntoEntity() {
     return BestSellerResponseEntity(
         message: message,
-        bestSeller: bestSellerProducts?.map(
+        bestSellerProducts: bestSellerProducts?.map(
           (product) {
             return product.convertIntoEntity();
           },

@@ -71,38 +71,38 @@ void main() {
           // act
           var actualResult = bestSellerResponseDto.convertIntoEntity();
           // assert
-          expect(actualResult.bestSeller?.length,
+          expect(actualResult.bestSellerProducts?.length,
               bestSellerResponseDto.bestSellerProducts?.length);
-          for (int i = 0; i < (actualResult.bestSeller?.length ?? 0); i++) {
-            actualResult.bestSeller?[i].bestSellerId ==
+          for (int i = 0; i < (actualResult.bestSellerProducts?.length ?? 0); i++) {
+            actualResult.bestSellerProducts?[i].bestSellerId ==
                 bestSellerResponseDto.bestSellerProducts?[i].bestSellerId;
-            actualResult.bestSeller?[i].category ==
+            actualResult.bestSellerProducts?[i].category ==
                 bestSellerResponseDto.bestSellerProducts?[i].category;
-            actualResult.bestSeller?[i].description ==
+            actualResult.bestSellerProducts?[i].description ==
                 bestSellerResponseDto.bestSellerProducts?[i].description;
-            actualResult.bestSeller?[i].discount ==
+            actualResult.bestSellerProducts?[i].discount ==
                 bestSellerResponseDto.bestSellerProducts?[i].discount;
-            actualResult.bestSeller?[i].id ==
+            actualResult.bestSellerProducts?[i].id ==
                 bestSellerResponseDto.bestSellerProducts?[i].id;
-            actualResult.bestSeller?[i].images ==
+            actualResult.bestSellerProducts?[i].images ==
                 bestSellerResponseDto.bestSellerProducts?[i].images;
-            actualResult.bestSeller?[i].imgCover ==
+            actualResult.bestSellerProducts?[i].imgCover ==
                 bestSellerResponseDto.bestSellerProducts?[i].imgCover;
-            actualResult.bestSeller?[i].occasion ==
+            actualResult.bestSellerProducts?[i].occasion ==
                 bestSellerResponseDto.bestSellerProducts?[i].occasion;
-            actualResult.bestSeller?[i].price ==
+            actualResult.bestSellerProducts?[i].price ==
                 bestSellerResponseDto.bestSellerProducts?[i].price;
-            actualResult.bestSeller?[i].priceAfterDiscount ==
+            actualResult.bestSellerProducts?[i].priceAfterDiscount ==
                 bestSellerResponseDto.bestSellerProducts?[i].priceAfterDiscount;
-            actualResult.bestSeller?[i].title ==
+            actualResult.bestSellerProducts?[i].title ==
                 bestSellerResponseDto.bestSellerProducts?[i].title;
-            actualResult.bestSeller?[i].slug ==
+            actualResult.bestSellerProducts?[i].slug ==
                 bestSellerResponseDto.bestSellerProducts?[i].slug;
-            actualResult.bestSeller?[i].sold ==
+            actualResult.bestSellerProducts?[i].sold ==
                 bestSellerResponseDto.bestSellerProducts?[i].sold;
-            actualResult.bestSeller?[i].rateAvg ==
+            actualResult.bestSellerProducts?[i].rateAvg ==
                 bestSellerResponseDto.bestSellerProducts?[i].rateAvg;
-            actualResult.bestSeller?[i].rateCount ==
+            actualResult.bestSellerProducts?[i].rateCount ==
                 bestSellerResponseDto.bestSellerProducts?[i].rateCount;
           }
         },
