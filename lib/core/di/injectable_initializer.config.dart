@@ -125,13 +125,13 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
-    gh.factory<_i421.LoginAsGuest>(
-        () => _i421.LoginAsGuest(gh<_i926.LoginAsGuestRepo>()));
+    gh.factory<_i421.LoginAsGuestUseCase>(
+        () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
     gh.factory<_i363.LoginViewModelCubit>(() => _i363.LoginViewModelCubit(
           gh<_i543.LoginUseCase>(),
-          gh<_i421.LoginAsGuest>(),
+          gh<_i421.LoginAsGuestUseCase>(),
         ));
     return this;
   }

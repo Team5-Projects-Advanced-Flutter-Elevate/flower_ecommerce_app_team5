@@ -3,10 +3,10 @@ import 'package:injectable/injectable.dart';
 import '../../../../../shared_layers/storage/result/storage_result.dart';
 
 @injectable
-class LoginAsGuest {
+class LoginAsGuestUseCase {
   LoginAsGuestRepo loginAsGuestRepo;
 
-  LoginAsGuest(this.loginAsGuestRepo);
+  LoginAsGuestUseCase(this.loginAsGuestRepo);
 
   Future<StorageResult<void>> isGuest() async {
     return loginAsGuestRepo.isGuest();

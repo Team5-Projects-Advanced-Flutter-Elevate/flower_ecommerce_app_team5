@@ -13,10 +13,10 @@ part 'login_view_model_state.dart';
 
 @injectable
 class LoginViewModelCubit extends Cubit<LoginViewModelState> {
-  LoginViewModelCubit(this._loginUseCase, this.loginAsGuest)
+  LoginViewModelCubit(this._loginUseCase, this.loginAsGuestUseCase)
       : super(const LoginViewModelInitial());
   final LoginUseCase _loginUseCase;
-  LoginAsGuest loginAsGuest;
+  LoginAsGuestUseCase loginAsGuestUseCase;
 
   bool checkBoxValue = false;
   bool obscurePassword = true;
@@ -43,8 +43,8 @@ class LoginViewModelCubit extends Cubit<LoginViewModelState> {
 
   Future<void> _handleLoginGuest() async {
     try {
-      emit(LoginViewModelLoading());
-      var GuestLogin = await loginAsGuest.isGuest();
+      emit(const LoginViewModelLoading());
+      var guestLogin = await loginAsGuestUseCase.isGuest();
       emit(IsGuestSuccess());
     } on Exception catch (e) {
       emit(LoginViewModelError(error: e));
