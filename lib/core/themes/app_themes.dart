@@ -126,6 +126,21 @@ abstract class AppThemes {
         fontWeight: FontWeight.normal,
       )),
     ),
+    tabBarTheme: const TabBarTheme(
+      labelColor: Colors.pink,
+      unselectedLabelColor: Colors.grey,
+      indicatorColor: Colors.pink,
+      labelStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      ),
+    ),
+
+
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,
       border: OutlineInputBorder(

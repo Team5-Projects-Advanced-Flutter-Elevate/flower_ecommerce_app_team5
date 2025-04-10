@@ -63,18 +63,12 @@ abstract class LocaleKeys {
   static const bestSellerSection____ = 'bestSellerSection____';
   static const addToCart = 'addToCart';
   static const bestSeller = 'bestSeller';
-  static const bloomWithBestSeller = 'bloomWithBestSeller';
   static const guestLogin = 'guestLogin';
   static const checkGuest = 'checkGuest';
   static const search = 'search';
-  static const signUp = 'signUp';
-  static const loginSuccess = 'loginSuccess';
-  static const bestSellerSection____ = 'bestSellerSection____';
-  static const addToCart = 'addToCart';
-  static const bestSeller = 'bestSeller';
   static const bloomWithBestSeller = 'bloomWithBestSeller';
-  static const guestLogin='guestLogin';
-  static const checkGuest='checkGuest';
+  static const occsionScreenTitle = 'occsionScreenTitle';
+  static const occasionScreenSubTitle = 'occasionScreenSubTitle';
 
-  static const noProductsFound = 'noProductsFound';
+  static const noProductsFound = "noProductsFound";
 }

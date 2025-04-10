@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/bases/base_stateful_widget_state.dart';
 import '../../../core/di/injectable_initializer.dart';
+import '../../../shared_layers/localization/generated/locale_keys.g.dart';
 import 'occasion_cubit.dart';
 import 'occasion_state.dart';
 
@@ -28,93 +31,127 @@ class _OcassionListScreenState
         return viewModel;
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            forceMaterialTransparency: true,
+            titleSpacing: 0,
+            title: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   IconButton(
+                    icon: const Icon(Icons.arrow_back_ios,
+                        size: 20, color: Colors.black),
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      size: 20,
-                    ),
                   ),
-                  Text('Occasion',
-                      style: Theme.of(context).textTheme.headlineMedium),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(LocaleKeys.occsionScreenTitle.tr(),
+                          style: Theme.of(context).textTheme.headlineMedium),
+                      const SizedBox(height: 2),
+                      Text(LocaleKeys.occasionScreenSubTitle.tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(color: AppColors.gray)),
+                      const SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  ),
                 ],
               ),
-            ],
-          )
-        ),
-        body: BlocBuilder<OcassionViewModelCubit, OccasionState>(
-          builder: (context, state) {
-            if (state is OccasionLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is OccasionSuccess) {
-              final allOccasions = state.allOccasions;
-              final filtered = state.filteredOccasions;
-              final slugs = allOccasions.map((e) => e.slug).toSet().toList();
-              final selectedSlug = state.selectedSlug;
+            ),
+          ),
+          body: BlocBuilder<OcassionViewModelCubit, OccasionState>(
+            builder: (context, state) {
+              if (state is OccasionLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is OccasionSuccess) {
+                final allOccasions = state.allOccasions;
+                final filteredProduct = state.filteredProducts;
+                final selectedOccasionId = state.selectedSlug;
 
-              final selectedIndex = slugs.indexOf(selectedSlug);
+                final selectedIndex =
+                    allOccasions.indexWhere((e) => e.id == selectedOccasionId);
 
-              return DefaultTabController(
-                length: slugs.length,
-                initialIndex: selectedIndex, // <- important!
-                child: Column(
-                  children: [
-                    TabBar(
+                return DefaultTabController(
+                  length: allOccasions.length,
+                  initialIndex: selectedIndex == -1 ? 0 : selectedIndex,
+                  child: Column(
+                    children: [
+                      TabBar(
+                        isScrollable: true,
+                        labelColor: Colors.pink,
+                        indicatorPadding: EdgeInsets.only(bottom: 7),
+                        // labelPadding: EdgeInsets.symmetric(horizontal: 2), // optional
 
-                      isScrollable: true,
-                      labelColor: Colors.pink,
-                      unselectedLabelColor: Colors.grey,
-                      indicatorColor: Colors.pink,
-                      onTap: (index) {
-                        final slug = slugs[index];
-                        viewModel.processIntent(LoadFilterIntent(slug));
-                      },
-                      tabs: slugs.map((slug) => Tab(text: slug)).toList(),
-                    ),
-                    Expanded(
-                      child: GridView.builder(
-                        itemCount: filtered.length,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.04,
-                            vertical: screenHeight * 0.01),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 163 / 229,
-                                mainAxisSpacing: 17,
-                                crossAxisSpacing: 17),
-                        itemBuilder: (context, index) {
-                          final occasion = filtered[index];
-                          return ProductCard(
-                              onProductCardClick: () {},
-                              onAddToCartButtonClick: () {},
-                              width: screenWidth * 0.45,
-                              height: screenHeight * 0.25,
-                              productTitle: occasion.name,
-                              price: 600 + index + 20,
-                              // priceAfterDiscountIfExist: 1899,
-                              imageUrl:
-                                  "https://flower.elevateegy.com/uploads/${occasion.image}");
+                        tabs: allOccasions.map((occasion) {
+                          return Tab(
+                            child: Column(
+                              children: [
+                                Text(occasion.name),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                        onTap: (index) {
+                          final selectedOccasion = allOccasions[index];
+                          context.read<OcassionViewModelCubit>().processIntent(
+                                LoadFilterIntent(selectedOccasion.id),
+                              );
                         },
                       ),
-                    )
-                  ],
-                ),
-              );
-            } else if (state is OccasionError) {
-              return Center(child: Text("Error: ${state.message}"));
-            }
-            return const SizedBox();
-          },
-        ),
-      ),
+                      filteredProduct.isEmpty
+                          ? const Center(
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 300),
+                                child: Text('No Products Found'),
+                              ),
+                            )
+                          : Expanded(
+                              child: GridView.builder(
+                                itemCount: filteredProduct.length,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: screenWidth * 0.04,
+                                  vertical: screenHeight * 0.01,
+                                ),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 163 / 229,
+                                  mainAxisSpacing: 17,
+                                  crossAxisSpacing: 17,
+                                ),
+                                itemBuilder: (context, index) {
+                                  final product = filteredProduct[index];
+                                  return ProductCard(
+                                    onProductCardClick: () {},
+                                    onAddToCartButtonClick: () {},
+                                    width: screenWidth * 0.45,
+                                    height: screenHeight * 0.25,
+                                    productTitle: '${product.title}',
+                                    price: product.price,
+                                    priceAfterDiscountIfExist:
+                                        product.priceAfterDiscount,
+                                    imageUrl: "${product.images?[index]}",
+                                  );
+                                },
+                              ),
+                            )
+                    ],
+                  ),
+                );
+              } else if (state is OccasionError) {
+                return Center(child: Text("Error: ${state.message}"));
+              }
+              return const SizedBox();
+            },
+          )),
     );
   }
 }

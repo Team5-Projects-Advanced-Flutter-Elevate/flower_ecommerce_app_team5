@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/domain/use_cases/occasion_usecase.dart';
 import 'package:injectable/injectable.dart';
+import '../../home/data/models/all_products_response/all_product_response.dart';
 import '../domain/entities/get_occasion.dart';
 import 'occasion_state.dart';
 
@@ -10,32 +11,34 @@ class OcassionViewModelCubit extends Cubit<OccasionState> {
   final OccasionUseCase occasionUseCase;
 
   List<Occasion> _allOccasions = [];
+  List<Products>? _allProducts = [];
 
   Future<void> _handleOccasionList() async {
     try {
       emit(OccasionLoading());
       _allOccasions = await occasionUseCase.getOccasion();
-      // Default: show all or based on first slug
-      final defaultSlug = _allOccasions.first.slug;
+      _allProducts = await occasionUseCase.execute();
+      final defaultID = _allOccasions.first.id;
       final filtered =
-          _allOccasions.where((e) => e.slug == defaultSlug).toList();
+          _allProducts?.where((e) => e.occasion == defaultID).toList();
       emit(OccasionSuccess(
         _allOccasions,
-        filtered,
-        defaultSlug,
+        filtered!,
+        defaultID,
       ));
     } catch (e) {
       emit(OccasionError(e.toString()));
     }
   }
 
-  Future<void> _filterOccasionBySlug(String slug) async {
+  Future<void> _filterProductById(String occasionId) async {
     try {
-      final filtered = _allOccasions.where((e) => e.slug == slug).toList();
+      final filtered =
+          _allProducts?.where((e) => e.occasion == occasionId).toList();
       emit(OccasionSuccess(
         _allOccasions,
-        filtered,
-        slug,
+        filtered!,
+        occasionId,
       ));
     } catch (e) {
       emit(OccasionError(e.toString()));
@@ -45,7 +48,7 @@ class OcassionViewModelCubit extends Cubit<OccasionState> {
   void processIntent(OccasionIntent intent) {
     switch (intent) {
       case LoadFilterIntent():
-        _filterOccasionBySlug(intent.Slug);
+        _filterProductById(intent.occasionId);
         break;
       case LoadOccasionIntent():
         _handleOccasionList();
@@ -57,8 +60,8 @@ class OcassionViewModelCubit extends Cubit<OccasionState> {
 sealed class OccasionIntent {}
 
 class LoadFilterIntent extends OccasionIntent {
-  final String Slug;
-  LoadFilterIntent(this.Slug);
+  final String occasionId;
+  LoadFilterIntent(this.occasionId);
 }
 
 class LoadOccasionIntent extends OccasionIntent {}

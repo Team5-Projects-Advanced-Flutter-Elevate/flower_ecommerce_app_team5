@@ -61,10 +61,7 @@
   "bloomWithBestSeller": "Bloom with our exquisite best sellers",
   "guestLogin": "Continue as guest ",
   "checkGuest": "Please Log-in",
-  "loginSuccess": "LoginSuccess",
-  "bestSellerSection____": "$$$ Comment $$$",
-  "addToCart": "Add To Cart",
-  "bestSeller": "Best Seller",
-  "bloomWithBestSeller": "Bloom with our exquisite best sellers",
-  "noProductsFound": "No products found"
+  "occsionScreenTitle": "Occasion",
+  "occasionScreenSubTitle": "Bloom with our exquisite best sellers",
+  "noProductsFound": "No Products Found"
 }

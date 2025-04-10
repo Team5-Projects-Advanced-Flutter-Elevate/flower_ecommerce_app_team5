@@ -54,17 +54,11 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           theme: AppThemes.lightTheme,
           themeMode: ThemeMode.light,
-        home: OcassionListScreen(),
-        //  onGenerateRoute: GenerateRoute.onGenerateRoute,
+          home: const OcassionListScreen(),
+          // onGenerateRoute: GenerateRoute.onGenerateRoute,
           // onGenerateInitialRoutes: (initialRoute) =>
           //     GenerateRoute.onGenerateInitialRoutes(
           //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
-         // initialRoute: DefinedRoutes.bestSellerScreenRoute,
-          onGenerateRoute: GenerateRoute.onGenerateRoute,
-          onGenerateInitialRoutes: (initialRoute) =>
-              GenerateRoute.onGenerateInitialRoutes(
-                  initialRoute: initialRoute, loginInfo: storedLoginInfo),
-          //initialRoute: DefinedRoutes.bestSellerScreenRoute,
         );
       },
     );
