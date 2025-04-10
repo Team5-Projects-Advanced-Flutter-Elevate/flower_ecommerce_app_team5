@@ -4,7 +4,6 @@ import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
@@ -27,6 +26,7 @@ class ResetCodeScreen extends StatefulWidget {
 class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
   bool sent = true;
   bool resend = false;
+  bool _hasError = false;
   final ValueNotifier<bool> _isLessThan5Minutes = ValueNotifier<bool>(false);
   final _formKey = GlobalKey<FormState>();
   ForgetPasswordViewModel forgetPasswordViewModel =
@@ -43,122 +43,104 @@ class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
             title: Row(
               children: [
                 InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(Icons.arrow_back_ios, size: 20.r)),
+                  onTap: () => Navigator.pop(context),
+                  child: Icon(Icons.arrow_back_ios, size: screenWidth * 0.05),
+                ),
                 Text(
                   LocaleKeys.password.tr(),
                   style: Theme.of(context).textTheme.labelMedium,
-                )
+                ),
               ],
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(
-                    height: 40.h,
-                  ),
+                  SizedBox(height: screenHeight * 0.05),
                   Text(
                     LocaleKeys.emailVerification.tr(),
                     textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelMedium
-                        ?.copyWith(fontSize: 18.sp),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      fontSize: screenWidth * 0.045,
+                    ),
                   ),
-                  SizedBox(
-                    height: 16.h,
+                  SizedBox(height: screenHeight * 0.02),
+                  Text(
+                    LocaleKeys.emailVerificationText.tr(),
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.grey,
+                    ),
                   ),
-                  Text(LocaleKeys.emailVerificationText,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: Colors.grey)),
-                  SizedBox(
-                    height: 32.h,
-                  ),
+                  SizedBox(height: screenHeight * 0.04),
                   Center(
                     child: OTPTextField(
                       length: 6,
-                      width: 300.w,
+                      width: screenWidth * 0.75,
                       otpFieldStyle: OtpFieldStyle(errorBorderColor: Colors.red),
-                      style: TextStyle(fontSize: 17.sp),
+                      style: TextStyle(fontSize: screenWidth * 0.0425),
                       textFieldAlignment: MainAxisAlignment.spaceAround,
                       fieldStyle: FieldStyle.box,
+                        hasError: _hasError,
                       onChanged: (value) {
-                        // if (value == null || value.length != value) {
-                        //   Fluttertoast.showToast(
-                        //       msg: "Please enter a valid $value-digit OTP",
-                        //       toastLength: Toast.LENGTH_SHORT,
-                        //       gravity: ToastGravity.BOTTOM,
-                        //       timeInSecForIosWeb: 1,
-                        //       backgroundColor: Colors.green,
-                        //       textColor: Colors.white,
-                        //       fontSize: 16.0.sp);
-                        //   return;
-                        // }
-                        // Fluttertoast.showToast(
-                        //     msg: "OTP Verified: $value",
-                        //     toastLength: Toast.LENGTH_SHORT,
-                        //     gravity: ToastGravity.BOTTOM,
-                        //     timeInSecForIosWeb: 1,
-                        //     backgroundColor: Colors.green,
-                        //     textColor: Colors.white,
-                        //     fontSize: 16.0.sp);
+                        if (_hasError) {
+                          setState(() {
+                            _hasError = false; // Reset error once user starts editing
+                          });
+                        }
                       },
                       onCompleted: (code) {
                         forgetPasswordViewModel.onIntent(ResetCodeIntent(code));
                       },
                     ),
                   ),
-                  SizedBox(
-                    height: 32.h,
-                  ),
+                  SizedBox(height: screenHeight * 0.04),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        LocaleKeys.dontReceive,
+                        LocaleKeys.dontReceive.tr(),
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       resend == false
                           ? Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Timer(
-                                  isLessThan5Minutes: _isLessThan5Minutes,
-                                  examDuration: 30,
-                                  onTimeEnd: () {
-                                    setState(() {
-                                      resend = true;
-                                    });
-                                  },
-                                )
-                              ],
-                            )
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Timer(
+                            isLessThan5Minutes: _isLessThan5Minutes,
+                            examDuration: 30,
+                            onTimeEnd: () {
+                              setState(() {
+                                resend = true;
+                              });
+                            },
+                          )
+                        ],
+                      )
                           : InkWell(
-                              onTap: () {
-                                forgetPasswordViewModel.onIntent(
-                                    ForgotPasswordIntent(emailController.text));
-                              },
-                              child: Text(LocaleKeys.resend,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                          color: AppColors.mainColor,
-                                          decoration: TextDecoration.underline,
-                                          decorationColor:
-                                              AppColors.mainColor))),
+                        onTap: () {
+                          forgetPasswordViewModel.onIntent(
+                            ForgotPasswordIntent(emailController.text),
+                          );
+                        },
+                        child: Text(
+                          LocaleKeys.resend.tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                            color: AppColors.mainColor,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.mainColor,
+                          ),
+                        ),
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -166,12 +148,30 @@ class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
         ),
         listener: (context, state) {
           if (state is PasswordSuccessState) {
-            displayAlertDialog(title: const Text('valid otp'),showOkButton: true,onOkButtonClick: () {
-              hideAlertDialog();
-              Navigator.pushNamed(context, DefinedRoutes.resetPasswordScreenRoute, arguments: emailController.text);
-            },);
+            displayAlertDialog(
+              title: const Text('valid otp'),
+              showOkButton: true,
+              onOkButtonClick: () {
+                hideAlertDialog();
+                Navigator.pushNamed(
+                  context,
+                  DefinedRoutes.resetPasswordScreenRoute,
+                  arguments: emailController.text,
+                );
+              },
+            );
           } else if (state is PasswordErrorState) {
-            ErrorStateWidget(error: state.error);
+            setState(() {
+              _hasError = true;
+            });
+            displayAlertDialog(
+              title:  Text(state.error),
+              showOkButton: true,
+              onOkButtonClick: () {
+                hideAlertDialog();
+                return ;
+              },
+            );
           } else if (state is PasswordLoadingState) {
             const LoadingWidget();
           }
@@ -179,4 +179,5 @@ class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
       ),
     );
   }
+
 }

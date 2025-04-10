@@ -4,7 +4,6 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_pass
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../core/routing/defined_routes.dart';
 import '../../../../../core/validation/validation_functions.dart';
@@ -19,96 +18,125 @@ class ResetPasswordScreen extends StatefulWidget {
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
+
 late TextEditingController newPasswordController;
 late TextEditingController confirmPasswordController;
-GlobalKey<FormState> formKey = GlobalKey<FormState>();
+final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
 class _ResetPasswordScreenState extends BaseStatefulWidgetState<ResetPasswordScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     newPasswordController = TextEditingController();
     confirmPasswordController = TextEditingController();
   }
+
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     newPasswordController.dispose();
     confirmPasswordController.dispose();
+    super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    ForgetPasswordViewModel forgetPasswordViewModel = getIt.get<ForgetPasswordViewModel>();
+
+    final ForgetPasswordViewModel forgetPasswordViewModel = getIt.get<ForgetPasswordViewModel>();
+
     return BlocProvider(
       create: (context) => forgetPasswordViewModel,
-      child: BlocConsumer<ForgetPasswordViewModel,PasswordState>(
-        builder: (context, state) =>  Scaffold(
+      child: BlocConsumer<ForgetPasswordViewModel, PasswordState>(
+        builder: (context, state) => Scaffold(
           appBar: AppBar(
             forceMaterialTransparency: true,
             automaticallyImplyLeading: false,
-            title: Row(children: [InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-                child: Icon(Icons.arrow_back_ios,size: 20.sp)),Text(LocaleKeys.password.tr(),style: Theme.of(context).textTheme.labelMedium)],),),
+            title: Row(
+              children: [
+                InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Icon(Icons.arrow_back_ios, size: screenWidth * 0.05),
+                ),
+                Text(
+                  LocaleKeys.password.tr(),
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              ],
+            ),
+          ),
           body: Form(
             key: formKey,
             child: Padding(
-              padding: REdgeInsets.symmetric(horizontal: 16.0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: 40.h,),
-                  Text(LocaleKeys.resetPassword.tr(),style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    fontSize: 18.sp
-                  ),textAlign: TextAlign.center,),
-                  SizedBox(height: 16.h,),
-                  Text(LocaleKeys.passwordVerificationRole.tr(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey
-                  ),textAlign: TextAlign.center,),
-                  SizedBox(height: 32.h,),
+                  SizedBox(height: screenHeight * 0.05),
+                  Text(
+                    LocaleKeys.resetPassword.tr(),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      fontSize: screenWidth * 0.045,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                  Text(
+                    LocaleKeys.passwordVerificationRole.tr(),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: screenHeight * 0.04),
                   TextFormField(
-                    validator: (value) {
-                      return ValidateFunctions.getInstance().validationOfPassword(value);
-                    },
+                    validator: (value) =>
+                        ValidateFunctions.getInstance().validationOfPassword(value),
                     controller: newPasswordController,
                     decoration: InputDecoration(
                       enabled: true,
-                      hintText: LocaleKeys.enterYourPassword,
+                      hintText: LocaleKeys.enterYourPassword.tr(),
                       labelText: LocaleKeys.newPassword.tr(),
                     ),
                   ),
-                  SizedBox(height: 24.h,),
+                  SizedBox(height: screenHeight * 0.03),
                   TextFormField(
-                    validator: (value) {
-                      return ValidateFunctions.getInstance().validationOfConfirmPassword(value, newPasswordController.text);
-                    },
+                    validator: (value) => ValidateFunctions.getInstance()
+                        .validationOfConfirmPassword(value, newPasswordController.text),
                     controller: confirmPasswordController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       enabled: true,
-                      hintText: LocaleKeys.confirmPassword,
-                      labelText: LocaleKeys.confirmPassword,
+                      hintText: LocaleKeys.confirmPassword.tr(),
+                      labelText: LocaleKeys.confirmPassword.tr(),
                     ),
                   ),
-                  SizedBox(height: 48.h,),
-                  ElevatedButton(onPressed: () {
-                    if(formKey.currentState!.validate()){
-                      forgetPasswordViewModel.onIntent(ResetPasswordIntent(emailController.text, newPasswordController.text.trim()));
-                    }
-                  },
-                      style: ButtonStyle(padding:WidgetStatePropertyAll(REdgeInsets.symmetric(vertical: 14),),), child: Text(LocaleKeys.confirm.tr()))
+                  SizedBox(height: screenHeight * 0.06),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        forgetPasswordViewModel.onIntent(
+                          ResetPasswordIntent(emailController.text, newPasswordController.text.trim()),
+                        );
+                      }
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(vertical: screenHeight * 0.018),
+                      ),
+                    ),
+                    child: Text(LocaleKeys.confirm.tr()),
+                  ),
                 ],
               ),
             ),
           ),
-        ) ,
+        ),
         listener: (context, state) {
           if (state is PasswordSuccessState) {
-            displayAlertDialog(title: Text(state.message),showOkButton: true,onOkButtonClick: () {
-              hideAlertDialog();
-              Navigator.pushNamed(context, DefinedRoutes.forgetPasswordScreenRoute);
-            },);
+            displayAlertDialog(
+              title: Text(state.message),
+              showOkButton: true,
+              onOkButtonClick: () {
+                hideAlertDialog();
+                Navigator.pushNamed(context, DefinedRoutes.forgetPasswordScreenRoute);
+              },
+            );
           } else if (state is PasswordErrorState) {
             ErrorStateWidget(error: state.error);
           } else if (state is PasswordLoadingState) {

@@ -49,7 +49,4 @@ abstract class  LocaleKeys {
   static const emailVerificationRole = "Please enter your email associated to \n your account";
   static const passwordVerificationRole = "Password must not be empty and must contain \n 8 characters with upper case letter and one\n number at least ";
   static const emailVerificationText = "Please enter your code that send to your\n email address ";
-
-
-
 }

@@ -26,7 +26,7 @@ class ForgetPasswordViewModel extends Cubit<PasswordState>{
     emit(PasswordLoadingState());
        var result = await forgetPasswordUseCase.call(email);
        if( result is Success){
-         emit(EmailSuccessState(result.toString()));
+         emit(PasswordSuccessState(result.toString()));
        }else{
          emit(PasswordErrorState(result.toString()));
        }

@@ -31,5 +31,20 @@
   "digitRulePassword": "At least one digit must be there.",
   "specialCharactersRulePassword": "At least one special character(e.g., #?!@$%^&*-) must be included.",
   "pleaseConfirmPassword": "Please confirm password.",
-  "noMatch": "No Match!"
+  "noMatch": "No Match!",
+  "password": "Password",
+  "forgetPassword": "ForgetPassword",
+  "confirmPassword": "Confirm password",
+  "newPassword": "New password",
+  "enterYourPassword": "Enter your password",
+  "resetPassword": "ResetPassword",
+   "enterYourEmail": "Enter your email",
+  "emailVerification": "Email verification",
+   "email" : "Email",
+   "resend": " Resend",
+  "wait30Munit": "Wait 30 Munit",
+  "dontReceive": "Didn't receive code?",
+  "emailVerificationRole": "Please enter your email associated to \n your account",
+  "passwordVerificationRole": "Password must not be empty and must contain \n 8 characters with upper case letter and one\n number at least ",
+  "emailVerificationText": "Please enter your code that send to your\n email address "
 }

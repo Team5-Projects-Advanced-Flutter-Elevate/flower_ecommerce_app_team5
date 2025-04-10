@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 
 class Timer extends StatelessWidget {
@@ -15,8 +14,9 @@ class Timer extends StatelessWidget {
   final VoidCallback onTimeEnd;
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.only(right: 12.w, left: 8.w),
+      padding: EdgeInsets.only( right: screenWidth * 0.03, left: screenWidth * 0.02,),
       child: ValueListenableBuilder<bool>(
         valueListenable: _isLessThan5Minutes,
         builder: (context, isLessThan5Minutes, child) {

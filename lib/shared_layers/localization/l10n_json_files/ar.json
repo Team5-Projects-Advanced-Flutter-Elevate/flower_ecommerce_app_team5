@@ -31,5 +31,20 @@
   "digitRulePassword": "يجب أن تحتوي على رقم واحد على الأقل.",
   "specialCharactersRulePassword": "يجب أن تحتوي على حرف خاص واحد على الأقل (مثل #?!@$%^&*-).",
   "pleaseConfirmPassword": "يرجى تأكيد كلمة المرور.",
-  "noMatch": "لا يوجد تطابق!"
+  "noMatch": "لا يوجد تطابق!",
+  "password": "كلمه المرور",
+  "forgetPassword": "نسيت كلمه المرور",
+  "confirmPassword": "تاكيد كلمه المرور",
+  "newPassword": "كلمه مرور جديد",
+  "enterYourPassword": "ادخل كلمه المرور",
+  "resetPassword": "اعاده كلمه المرور",
+  "enterYourEmail": "ادخل الايميل",
+  "emailVerification": "تاكيد الايميل",
+  "email" : "الايميل",
+  "resend": " اعاده الارسال",
+  "wait30Munit": "انتظر 30 دقيقه",
+  "dontReceive": "لم احصل علي الرمز",
+  "emailVerificationRole": "الرجاء إدخال البريد الإلكتروني \nالمرتبط بحسابك",
+  "passwordVerificationRole": "جب ألا تكون كلمة المرور فارغة، ويجب أن تحتوي على 8 أحرف على الأقل، بما في ذلك حرف كبير\n ورقم واحد على الأقل",
+  "emailVerificationText": "من فضلك أدخل الرمز الذي تم إرساله إلى عنوان\n بريدك الإلكتروني "
 }

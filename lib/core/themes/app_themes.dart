@@ -1,6 +1,5 @@
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppThemes {
@@ -10,48 +9,48 @@ abstract class AppThemes {
     textTheme: TextTheme(
       // Body Text Styles
       labelMedium: GoogleFonts.inter(
-        fontSize: 20.sp,
+        fontSize: 20,
         fontWeight: FontWeight.w500,
         color: Colors.black
       ),
       labelSmall: GoogleFonts.inter(
-        fontSize: 15.sp,
+        fontSize: 15,
         fontWeight: FontWeight.w500,
       ),
       bodyLarge: TextStyle(
-        fontSize: 16.sp,
+        fontSize: 16,
         fontWeight: FontWeight.normal, // Regular weight
         color: AppColors.black,
       ),
       bodyMedium: TextStyle(
-        fontSize: 14.sp,
+        fontSize: 14,
         fontWeight: FontWeight.normal, // Regular weight
         color: AppColors.black,
       ),
       bodySmall: TextStyle(
-        fontSize: 13.sp,
+        fontSize: 13,
         fontWeight: FontWeight.normal, // Regular weight
         color: AppColors.black,
       ),
       labelLarge: TextStyle(
-        fontSize: 16.sp,
+        fontSize: 16,
         fontWeight: FontWeight.w500, // Medium weight
         color: AppColors.gray,
       ),
 
       // Title Text Styles (Used for headings)
       titleLarge: TextStyle(
-        fontSize: 18.sp,
+        fontSize: 18,
         fontWeight: FontWeight.w600, // Semi-bold for emphasis
         color: AppColors.black,
       ),
       titleMedium: TextStyle(
-        fontSize: 16.sp,
+        fontSize: 16,
         fontWeight: FontWeight.w600, // Semi-bold for emphasis
         color: AppColors.black,
       ),
       titleSmall: TextStyle(
-        fontSize: 14.sp,
+        fontSize: 14,
         fontWeight: FontWeight.w600, // Semi-bold for emphasis
         color: AppColors.black,
       ),
@@ -60,34 +59,34 @@ abstract class AppThemes {
 
       // Headline Text Styles (Used for large headings)
       headlineLarge: TextStyle(
-        fontSize: 24.sp,
+        fontSize: 24,
         fontWeight: FontWeight.w700, // Bold for emphasis
         color: AppColors.black,
       ),
       headlineMedium: TextStyle(
-        fontSize: 20.sp,
+        fontSize: 20,
         fontWeight: FontWeight.w700, // Bold for emphasis
         color: AppColors.black,
       ),
       headlineSmall: TextStyle(
-        fontSize: 18.sp,
+        fontSize: 18,
         fontWeight: FontWeight.w700, // Bold for emphasis
         color: AppColors.black,
       ),
 
       // Display Text Styles (Used for very large text, e.g., hero sections)
       displayLarge: TextStyle(
-        fontSize: 32.sp,
+        fontSize: 32,
         fontWeight: FontWeight.w800, // Extra-bold for emphasis
         color: AppColors.black,
       ),
       displayMedium: TextStyle(
-        fontSize: 28.sp,
+        fontSize: 28,
         fontWeight: FontWeight.w800, // Extra-bold for emphasis
         color: AppColors.black,
       ),
       displaySmall: TextStyle(
-        fontSize: 24.sp,
+        fontSize: 24,
         fontWeight: FontWeight.w800, // Extra-bold for emphasis
         color: AppColors.black,
       ),
@@ -112,21 +111,21 @@ abstract class AppThemes {
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
       labelTextStyle: WidgetStatePropertyAll(GoogleFonts.inter(
-        fontSize: 12.sp,
+        fontSize: 12,
         fontWeight: FontWeight.normal,
       )),
     ),
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4.r),
+        borderRadius: BorderRadius.circular(4),
       ),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
 
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: AppColors.red),
-        borderRadius: BorderRadius.circular(4.r),
+        borderRadius: BorderRadius.circular(4),
       ),
 
       focusedErrorBorder: OutlineInputBorder(
@@ -135,12 +134,12 @@ abstract class AppThemes {
         ),
       ),
       hintStyle: TextStyle(
-        fontSize: 14.sp,
+        fontSize: 14,
         fontWeight: FontWeight.w400,
         color: AppColors.white[70],
       ),
       labelStyle: TextStyle(
-        fontSize: 16.sp,
+        fontSize: 16,
         fontWeight: FontWeight.w400,
         color: AppColors.white[90],
       ),
@@ -162,13 +161,13 @@ abstract class AppThemes {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: AppColors.white,
-        padding: REdgeInsets.all(14),
+        padding: EdgeInsets.all(14),
         backgroundColor: AppColors.mainColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.r),
+          borderRadius: BorderRadius.circular(20),
         ),
         textStyle: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -183,7 +182,7 @@ abstract class AppThemes {
         ),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100.r),
+            borderRadius: BorderRadius.circular(100),
           ),
         ),
       ),

@@ -7,6 +7,8 @@ import 'dart:async' as _i3;
 
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/api/api_client/auth_api_client.dart'
     as _i2;
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/forget_password/forget_password_response.dart'
+    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -32,50 +34,35 @@ class MockAuthApiClient extends _i1.Mock implements _i2.AuthApiClient {
   }
 
   @override
-  _i3.Future<dynamic> login(dynamic loginInputModel) => (super.noSuchMethod(
-        Invocation.method(
-          #login,
-          [loginInputModel],
-        ),
-        returnValue: _i3.Future<dynamic>.value(),
-      ) as _i3.Future<dynamic>);
-
-  @override
-  _i3.Future<dynamic> register(dynamic registerRequest) => (super.noSuchMethod(
-        Invocation.method(
-          #register,
-          [registerRequest],
-        ),
-        returnValue: _i3.Future<dynamic>.value(),
-      ) as _i3.Future<dynamic>);
-
-  @override
-  _i3.Future<dynamic> forgetPassword(Map<String, dynamic>? body) =>
+  _i3.Future<_i4.ForgetPasswordResponse?> forgetPassword(
+          Map<String, dynamic>? body) =>
       (super.noSuchMethod(
         Invocation.method(
           #forgetPassword,
           [body],
         ),
-        returnValue: _i3.Future<dynamic>.value(),
-      ) as _i3.Future<dynamic>);
+        returnValue: _i3.Future<_i4.ForgetPasswordResponse?>.value(),
+      ) as _i3.Future<_i4.ForgetPasswordResponse?>);
 
   @override
-  _i3.Future<dynamic> resetPassword(Map<String, dynamic>? body) =>
+  _i3.Future<_i4.ForgetPasswordResponse?> resetPassword(
+          Map<String, dynamic>? body) =>
       (super.noSuchMethod(
         Invocation.method(
           #resetPassword,
           [body],
         ),
-        returnValue: _i3.Future<dynamic>.value(),
-      ) as _i3.Future<dynamic>);
+        returnValue: _i3.Future<_i4.ForgetPasswordResponse?>.value(),
+      ) as _i3.Future<_i4.ForgetPasswordResponse?>);
 
   @override
-  _i3.Future<dynamic> resetCode(Map<String, dynamic>? body) =>
+  _i3.Future<_i4.ForgetPasswordResponse?> resetCode(
+          Map<String, dynamic>? body) =>
       (super.noSuchMethod(
         Invocation.method(
           #resetCode,
           [body],
         ),
-        returnValue: _i3.Future<dynamic>.value(),
-      ) as _i3.Future<dynamic>);
+        returnValue: _i3.Future<_i4.ForgetPasswordResponse?>.value(),
+      ) as _i3.Future<_i4.ForgetPasswordResponse?>);
 }
