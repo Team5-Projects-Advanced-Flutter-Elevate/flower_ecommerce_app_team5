@@ -14,6 +14,7 @@ abstract class BaseStatelessWidget extends StatelessWidget {
   BaseStatelessWidget({super.key});
 
   late BuildContext _context;
+
   @override
   Widget build(BuildContext context) {
     _context = context;
@@ -33,5 +34,4 @@ abstract class BaseStatelessWidget extends StatelessWidget {
   Future<void> setLocaleOfEasyLocalization(String newLocale) {
     return _context.setLocale(Locale(newLocale));
   }
-
 }

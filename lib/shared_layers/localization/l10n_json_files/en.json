@@ -55,7 +55,10 @@
   "dontHaveAccount": "Don't have an account?",
   "signUp": "Sign up",
   "loginSuccess": "LoginSuccess",
-  "noMatch": "No Match!",
+  "search": "Search",
+  "viewAll": "View All",
+  "bestSeller": "Best Seller",
+  "occasions": "Occasions",
   "guestLogin": "Continue as guest ",
   "checkGuest": "Please Log-in"
 }

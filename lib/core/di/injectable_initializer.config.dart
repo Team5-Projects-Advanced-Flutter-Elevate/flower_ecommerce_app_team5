@@ -55,6 +55,23 @@ import '../../modules/authentication/ui/login/view_model/login_view_model_cubit.
     as _i363;
 import '../../modules/authentication/ui/register/view_model/register_cubit.dart'
     as _i303;
+import '../../modules/home/data/api/api_client/home_api_client.dart' as _i293;
+import '../../modules/home/data/api/api_client_provider/home_api_client_provider.dart'
+    as _i939;
+import '../../modules/home/data/datasource_contract/home_online_data_source.dart'
+    as _i274;
+import '../../modules/home/data/datasource_impl/home_data_source_impl.dart'
+    as _i524;
+import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
+import '../../modules/home/domain/repo_contract/home_repo.dart' as _i1003;
+import '../../modules/home/domain/use_cases/get_categories_use_case.dart'
+    as _i369;
+import '../../modules/home/domain/use_cases/get_home_data_use_case.dart'
+    as _i90;
+import '../../modules/home/domain/use_cases/get_occasions_use_case.dart'
+    as _i386;
+import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
+    as _i692;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -81,6 +98,7 @@ extension GetItInjectableX on _i174.GetIt {
     final dioService = _$DioService();
     final storagesInitializer = _$StoragesInitializer();
     final authApiClientProvider = _$AuthApiClientProvider();
+    final homeApiClientProvider = _$HomeApiClientProvider();
     final localeInitializer = _$LocaleInitializer();
     await gh.factoryAsync<_i361.Dio>(
       () => dioService.provideDio(),
@@ -92,6 +110,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
+    gh.singleton<_i293.HomeApiClient>(
+        () => homeApiClientProvider.provideApiClient(gh<_i361.Dio>()));
+    gh.factory<_i274.HomeDataSource>(
+        () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
         () => _i701.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()));
     gh.factory<_i766.LoginRemoteDataSource>(
@@ -106,8 +128,16 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i629.SecureStorageService<dynamic>>(),
           gh<String>(instanceName: 'initCurrentLocal'),
         ));
+    gh.factory<_i1003.HomeRepo>(
+        () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
     gh.factory<_i871.RegisterOnlineDataSource>(
         () => _i219.RegisterOnlineDataSourceImpl(gh<_i343.AuthApiClient>()));
+    gh.factory<_i369.GetCategoriesUseCase>(
+        () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
+    gh.factory<_i386.GetOccasionsUseCase>(
+        () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
+    gh.factory<_i90.GetHomeDataUseCase>(
+        () => _i90.GetHomeDataUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
         storageService: gh<_i629.SecureStorageService<dynamic>>()));
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
@@ -121,6 +151,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
         ));
+    gh.factory<_i692.HomeCubit>(
+        () => _i692.HomeCubit(gh<_i90.GetHomeDataUseCase>()));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>
@@ -142,5 +174,7 @@ class _$DioService extends _i738.DioService {}
 class _$StoragesInitializer extends _i241.StoragesInitializer {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
+
+class _$HomeApiClientProvider extends _i939.HomeApiClientProvider {}
 
 class _$LocaleInitializer extends _i631.LocaleInitializer {}
