@@ -55,10 +55,20 @@
   "dontHaveAccount": "Don't have an account?",
   "signUp": "Sign up",
   "loginSuccess": "LoginSuccess",
+  "bestSellerSection____": "$$$ Comment $$$",
+
+  "//bestSellerSection": "$$$ Comment $$$",
+  "addToCart": "Add To Cart",
+  "bestSeller": "Best Seller",
+  "bloomWithBestSeller": "Bloom with our exquisite best sellers",
+  "noProducts": "No Products",
   "search": "Search",
   "viewAll": "View All",
   "bestSeller": "Best Seller",
   "occasions": "Occasions",
   "guestLogin": "Continue as guest ",
-  "checkGuest": "Please Log-in"
+  "checkGuest": "Please Log-in",
+  "occsionScreenTitle": "Occasion",
+  "occasionScreenSubTitle": "Bloom with our exquisite best sellers",
+  "noProductsFound": "No Products Found"
 }

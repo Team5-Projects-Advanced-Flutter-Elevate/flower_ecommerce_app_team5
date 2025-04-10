@@ -99,7 +99,7 @@ abstract class AppThemes {
       ),
     ),
     progressIndicatorTheme: ProgressIndicatorThemeData(
-      color: AppColors.white,
+      color: AppColors.mainColor,
     ),
     dialogTheme: DialogTheme(
       backgroundColor: AppColors.white,
@@ -122,6 +122,10 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
+      labelTextStyle: WidgetStatePropertyAll(GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+      )),
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return GoogleFonts.inter(
@@ -138,6 +142,21 @@ abstract class AppThemes {
         }
       }),
     ),
+    tabBarTheme: const TabBarTheme(
+      labelColor: Colors.pink,
+      unselectedLabelColor: Colors.grey,
+      indicatorColor: Colors.pink,
+      labelStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      ),
+    ),
+
+
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,
       border: OutlineInputBorder(

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/core/routing/app_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_input_model.dart';
@@ -264,6 +263,160 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                   )
                 ],
               ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextFormField(
+                    focusNode: _emailFocusNode,
+                    controller: _emailController,
+                    onFieldSubmitted: (value) =>
+                        _passwordFocusNode.requestFocus(),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator:
+                        ValidateFunctions.getInstance().validationOfEmail,
+                    decoration: InputDecoration(
+                      hintText: LocaleKeys.pleaseEnterEmail.tr(),
+                      labelText: LocaleKeys.email.tr(),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 16.0, right: 16.0, top: 16),
+                  child: BlocBuilder<LoginViewModelCubit, LoginViewModelState>(
+                      bloc: viewModel,
+                      builder: (context, state) {
+                        return TextFormField(
+                          focusNode: _passwordFocusNode,
+                          controller: _passwordController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: ValidateFunctions.getInstance()
+                              .validationOfPassword,
+                          obscureText: viewModel.obscurePassword,
+                          obscuringCharacter: '*',
+                          decoration: InputDecoration(
+                            hintText: LocaleKeys.pleaseEnterPassword.tr(),
+                            labelText: LocaleKeys.password.tr(),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                viewModel.processIntent(ShowPasswordIntent());
+                              },
+                              icon: Icon(
+                                viewModel.obscurePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      bottom: 16.0, right: 16.0, left: 16.0),
+                  child: Row(
+                    children: [
+                      BlocBuilder<LoginViewModelCubit, LoginViewModelState>(
+                          bloc: viewModel,
+                          builder: (context, state) {
+                            return Checkbox(
+                                activeColor: AppColors.mainColor,
+                                value: viewModel.checkBoxValue,
+                                onChanged: (value) {
+                                  viewModel.processIntent(RememberMeIntent());
+                                });
+                          }),
+                      Text(
+                        LocaleKeys.rememberMe.tr(),
+                        style: GoogleFonts.inter(
+                            textStyle: theme.textTheme.bodyMedium),
+                      ),
+                      const Spacer(),
+                      Text(
+                        LocaleKeys.forgetPassword.tr(),
+                        style: GoogleFonts.inter(
+                          textStyle: theme.textTheme.bodyMedium!,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (!_formKey.currentState!.validate()) return;
+                            viewModel.processIntent(LoginIntent(
+                                loginInputModel: LoginInputModel(
+                                    email: _emailController.text,
+                                    password: _passwordController.text)));
+                          },
+                          child: Text(
+                            LocaleKeys.login.tr(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: AppColors.gray,
+                        padding: const EdgeInsets.all(14),
+                        backgroundColor: AppColors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            side: BorderSide(
+                              color: AppColors.gray,
+                            )),
+                        textStyle: theme.textTheme.headlineMedium!.copyWith(
+                          fontSize: 16,
+                          color: AppColors.gray,
+                        ),
+                      ),
+                      onPressed: () {
+                        viewModel.processIntent(LoginAsGuestIntent());
+                      },
+                      child: Text(
+                        LocaleKeys.guestLogin.tr(),
+                      )),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(LocaleKeys.dontHaveAccount.tr(),
+                        style: GoogleFonts.inter(
+                            textStyle: theme.textTheme.bodyLarge)),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          DefinedRoutes.register,
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          LocaleKeys.signUp.tr(),
+                          style: GoogleFonts.inter(
+                            textStyle: theme.textTheme.bodyLarge!,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.mainColor,
+                          ).copyWith(color: AppColors.mainColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
