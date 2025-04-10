@@ -9,7 +9,6 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import '../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../core/routing/defined_routes.dart';
-import '../../../../../core/widgets/error_state_widget.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import '../view_model/forget_password_screen_view_model.dart';
 import '../view_model/forget_password_state.dart';
