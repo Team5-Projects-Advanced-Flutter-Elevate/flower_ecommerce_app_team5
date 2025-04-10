@@ -55,12 +55,16 @@ void main() {
               createdAt: 'createdAt',
               updatedAt: 'updatedAt',
               productsCount: 1,
-
             )
           ],
         );
         // act
         var result = homeDataResponse.toEntity();
+        // ensure homeDataResponse is not null
+        var mappedResult = homeDataResponse.toJson();
+        mappedResult.forEach((key, value) {
+          expect(value, isNotNull);
+        });
         // assert
         expect(result, isA<HomeDataResponseEntity>());
       },
@@ -73,6 +77,11 @@ void main() {
         var homeDataResponse = HomeDataResponse();
         // act
         var result = homeDataResponse.toEntity();
+        // ensure homeDataResponse is null
+        var mappedResult = homeDataResponse.toJson();
+        mappedResult.forEach((key, value) {
+          expect(value, isNull);
+        });
         // assert
         expect(result, isA<HomeDataResponseEntity?>());
       },

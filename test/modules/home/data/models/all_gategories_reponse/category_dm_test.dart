@@ -19,6 +19,11 @@ void main() {
         );
         // act
         var result = category.toEntity();
+        // ensure category is not null
+        var mappedResult = category.toJson();
+        mappedResult.forEach((key, value) {
+          expect(value, isNotNull);
+        });
         // assert
         expect(result, isA<CategoryEntity>());
       },
@@ -31,6 +36,12 @@ void main() {
         var category = CategoryDM();
         // act
         var result = category.toEntity();
+        // ensure category is null
+
+        var mappedResult = category.toJson();
+        mappedResult.forEach((key, value) {
+          expect(value, isNull);
+        });
         // assert
         expect(result, isA<CategoryEntity?>());
       },

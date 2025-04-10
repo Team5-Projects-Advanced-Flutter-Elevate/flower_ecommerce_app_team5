@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Occasion model', () {
+
+
     test(
       'when call toEntity with non null values it should return OccasionEntity',
       () {
@@ -19,6 +21,11 @@ void main() {
         );
         // act
         var result = occasion.toEntity();
+        // ensure category is not null
+        var mappedResult = occasion.toJson();
+        mappedResult.forEach((key, value) {
+          expect(value, isNotNull);
+        });
         // assert
         expect(result, isA<OccasionEntity>());
       },
@@ -31,6 +38,11 @@ void main() {
         var occasion = OccasionDM();
         // act
         var result = occasion.toEntity();
+        // ensure category is null
+        var mappedResult = occasion.toJson();
+        mappedResult.forEach((key, value) {
+          expect(value, isNull);
+        });
         // assert
         expect(result, isA<OccasionEntity?>());
       },

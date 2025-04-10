@@ -30,6 +30,11 @@ void main() {
         );
         // act
         var result = bestSeller.toEntity();
+        // ensure best seller is not null
+        var mappedResult = bestSeller.toJson();
+        mappedResult.forEach((key, value) {
+          expect(value, isNotNull);
+        });
         // assert
         expect(result, isA<BestSellerEntity>());
       },
@@ -42,6 +47,11 @@ void main() {
         var bestSeller = BestSellerDM();
         // act
         var result = bestSeller.toEntity();
+        // ensure best seller null
+        var mappedResult = bestSeller.toJson();
+        mappedResult.forEach((key, value) {
+          expect(value, isNull);
+        });
         // assert
         expect(result, isA<BestSellerEntity?>());
       },
