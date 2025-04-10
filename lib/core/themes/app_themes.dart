@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppThemes {
+  static final TextTheme _textTheme = TextTheme(
+    headlineMedium: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      color: AppColors.gray,
+    ),
+  );
+
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
@@ -90,8 +98,12 @@ abstract class AppThemes {
         color: AppColors.black,
       ),
     ),
-    progressIndicatorTheme:
-        ProgressIndicatorThemeData(color: AppColors.mainColor),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: AppColors.white,
+    ),
+    dialogTheme: DialogTheme(
+      backgroundColor: AppColors.white,
+    ),
     navigationBarTheme: NavigationBarThemeData(
 
       backgroundColor: AppColors.white,

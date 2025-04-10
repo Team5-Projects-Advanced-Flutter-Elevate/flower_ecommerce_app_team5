@@ -45,6 +45,8 @@ dependencies:
   dio: ^5.8.0+1
   json_annotation: any
   pretty_dio_logger: ^1.4.0
+  mockito: ^5.4.4
+
 
   # State Management
   provider: ^6.1.2
@@ -61,7 +63,6 @@ dependencies:
   meta: ^1.15.0
   google_fonts: ^6.2.1
   equatable: ^2.0.7
-  mockito: ^5.4.4
   bloc_test: ^10.0.0
   cached_network_image: ^3.4.1
 

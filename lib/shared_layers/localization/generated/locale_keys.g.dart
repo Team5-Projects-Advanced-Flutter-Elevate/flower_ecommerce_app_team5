@@ -63,5 +63,7 @@ abstract class  LocaleKeys {
   static const viewAll = 'viewAll';
   static const bestSeller = 'bestSeller';
   static const occasions = 'occasions';
+  static const guestLogin='guestLogin';
+  static const checkGuest='checkGuest';
 
 }

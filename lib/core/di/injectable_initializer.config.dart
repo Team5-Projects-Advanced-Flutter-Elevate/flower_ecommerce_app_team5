@@ -21,24 +21,34 @@ import '../../modules/authentication/data/data_sources_contracts/login/login_loc
     as _i147;
 import '../../modules/authentication/data/data_sources_contracts/login/login_remote_data_source.dart'
     as _i766;
+import '../../modules/authentication/data/data_sources_contracts/login_as_guest/login_as_guest_data_source.dart'
+    as _i138;
 import '../../modules/authentication/data/data_sources_contracts/register/register_online_datasource_contract.dart'
     as _i871;
 import '../../modules/authentication/data/data_sources_imp/login/login_local_data_source_imp.dart'
     as _i916;
 import '../../modules/authentication/data/data_sources_imp/login/login_remote_data_source_imp.dart'
     as _i132;
+import '../../modules/authentication/data/data_sources_imp/login_as_guest/login_as_guest_data_source_impl.dart'
+    as _i79;
 import '../../modules/authentication/data/data_sources_imp/register/register_online_datasource_impl.dart'
     as _i219;
 import '../../modules/authentication/data/respositoies_imp/login/login_repo_imp.dart'
     as _i639;
+import '../../modules/authentication/data/respositoies_imp/login_as_guest/login_as_guest_repo_impl.dart'
+    as _i252;
 import '../../modules/authentication/data/respositoies_imp/register/register_repo_impl.dart'
     as _i161;
 import '../../modules/authentication/domain/repositories_contracts/login/login_repo.dart'
     as _i450;
+import '../../modules/authentication/domain/repositories_contracts/login_as_guest/login_as_guest_repo.dart'
+    as _i926;
 import '../../modules/authentication/domain/repositories_contracts/register/register_repo.dart'
     as _i496;
 import '../../modules/authentication/domain/use_cases/login/login_use_case.dart'
     as _i543;
+import '../../modules/authentication/domain/use_cases/login_as_guest/login_as_gust_use_case.dart'
+    as _i421;
 import '../../modules/authentication/domain/use_cases/register/register_use_case.dart'
     as _i782;
 import '../../modules/authentication/ui/login/view_model/login_view_model_cubit.dart'
@@ -130,6 +140,9 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i90.GetHomeDataUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
         storageService: gh<_i629.SecureStorageService<dynamic>>()));
+    gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
+        _i79.LoginAsGuestOfflineDataSourceImpl(
+            gh<_i629.SecureStorageService<dynamic>>()));
     gh.factory<_i496.RegisterRepo>(
         () => _i161.RegisterRepoImpl(gh<_i871.RegisterOnlineDataSource>()));
     gh.factory<_i782.RegisterUseCase>(
@@ -142,10 +155,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i692.HomeCubit(gh<_i90.GetHomeDataUseCase>()));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
+    gh.factory<_i926.LoginAsGuestRepo>(() =>
+        _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
+    gh.factory<_i421.LoginAsGuestUseCase>(
+        () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
-    gh.factory<_i363.LoginViewModelCubit>(
-        () => _i363.LoginViewModelCubit(gh<_i543.LoginUseCase>()));
+    gh.factory<_i363.LoginViewModelCubit>(() => _i363.LoginViewModelCubit(
+          gh<_i543.LoginUseCase>(),
+          gh<_i421.LoginAsGuestUseCase>(),
+        ));
     return this;
   }
 }

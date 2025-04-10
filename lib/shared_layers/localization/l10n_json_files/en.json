@@ -58,5 +58,7 @@
   "search": "Search",
   "viewAll": "View All",
   "bestSeller": "Best Seller",
-  "occasions": "Occasions"
+  "occasions": "Occasions",
+  "guestLogin": "Continue as guest ",
+  "checkGuest": "Please Log-in"
 }
