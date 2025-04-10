@@ -19,8 +19,16 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
   final GetAllProductsUseCase _getAllProductsUseCase;
   List<CategoryEntity> categoriesList = [];
   List<Products> productsList = [];
+  String? selectedCategoryId;
+  _tabChange(String? categoryId) {
+    if (categoryId == selectedCategoryId) return;
+
+    selectedCategoryId = categoryId;
+    _getAllProduct(categoryId: selectedCategoryId);
+  }
 
   void _getCategories() async {
+    categoriesList.clear();
     emit(CategoriesLayoutViewModelLoading());
     final result = await _getCategoriesUseCase.execute();
     switch (result) {
@@ -38,19 +46,24 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
     switch (result) {
       case Success<List<Products>?>():
         productsList = result.data!;
-        emit(CategoriesLayoutViewModelSuccess());
+        emit(CategoriesViewModelTabBarChanged());
+        break;
       case Error<List<Products>?>():
         emit(CategoriesLayoutViewModelError(error: result.error));
+        break;
     }
   }
 
-  void processIntent(CategoriesLayoutViewModelIntent intent) {
+  dynamic processIntent(CategoriesLayoutViewModelIntent intent) {
     switch (intent) {
       case GetCategoriesIntent():
         _getCategories();
         break;
       case GetProductsIntent():
         _getAllProduct(categoryId: intent.categoryId);
+        break;
+      case TabBarChangedIntent():
+        _tabChange(intent.categoryId);
         break;
     }
   }
@@ -63,4 +76,9 @@ final class GetCategoriesIntent extends CategoriesLayoutViewModelIntent {}
 final class GetProductsIntent extends CategoriesLayoutViewModelIntent {
   final String? categoryId;
   GetProductsIntent({this.categoryId});
+}
+
+final class TabBarChangedIntent extends CategoriesLayoutViewModelIntent {
+  final String? categoryId;
+  TabBarChangedIntent({this.categoryId});
 }

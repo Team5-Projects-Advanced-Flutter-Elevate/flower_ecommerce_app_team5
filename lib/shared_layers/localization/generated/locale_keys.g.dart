@@ -76,4 +76,5 @@ abstract class LocaleKeys {
   static const guestLogin='guestLogin';
   static const checkGuest='checkGuest';
 
+  static const noProductsFound = 'noProductsFound';
 }
