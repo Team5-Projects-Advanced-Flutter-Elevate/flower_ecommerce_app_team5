@@ -20,7 +20,7 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
   List<CategoryEntity> categoriesList = [];
   List<Products> productsList = [];
   String? selectedCategoryId;
-  _tabChange(String? categoryId) {
+  void _tabChange(String? categoryId) {
     if (categoryId == selectedCategoryId) return;
 
     selectedCategoryId = categoryId;
