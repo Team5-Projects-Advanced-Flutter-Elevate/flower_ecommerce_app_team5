@@ -14,7 +14,7 @@ if [[ ! "$BRANCH_NAME" =~ $PATTERN ]]; then
   echo "❌ Invalid branch name: '$BRANCH_NAME'"
   echo "✅ Valid formats:"
   echo "   - Protected branches: 'master', 'develop'"
-  echo "   - Feature branches: 'type/TICKET-123/task-name' (e.g., 'feature/SCRUM-42/login-page')"
+  echo "   - Feature branches: 'type/TICKET-123-task-name' (e.g., 'feature/SCRUM-100-login-page')"
   echo "Allowed prefixes: feature, bugfix, hotfix, release"
   exit 1  # Fail the workflow
 fi
