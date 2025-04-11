@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BRANCH_NAME=${GITHUB_REF#refs/heads/}
+BRANCH_NAME=$1
 
 # Print the branch name for debugging purposes
 echo "Branch name being validated: '$BRANCH_NAME'"
