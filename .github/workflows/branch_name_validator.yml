@@ -27,7 +27,7 @@ jobs:
           fi
 
       - name: Validate Branch Name
-        run: ./.github/scripts/validate_branch_name.sh ${{ steps.get_branch.outputs.branch }}
+        run: ./.github/scripts/validate_branch_name.sh "${{ env.branch_name }}"
         
 # name: Branch Name Validation
 
