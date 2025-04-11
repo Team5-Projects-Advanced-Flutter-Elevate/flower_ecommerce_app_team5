@@ -1,6 +1,9 @@
 #!/bin/bash
 
-BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+BRANCH_NAME=${GITHUB_REF#refs/heads/}
+
+# Print the branch name for debugging purposes
+echo "Branch name being validated: '$BRANCH_NAME'"
 
 # Allow 'master' and 'develop' without validation
 if [[ "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "develop" ]]; then
