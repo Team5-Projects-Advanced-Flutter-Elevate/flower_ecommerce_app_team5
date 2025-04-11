@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BRANCH_NAME=$1
+BRANCH_NAME=${1:-$(git rev-parse --abbrev-ref HEAD)}
 
 # Print the branch name for debugging purposes
 echo "Branch name being validated: '$BRANCH_NAME'"
