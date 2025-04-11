@@ -22,5 +22,5 @@ jobs:
 
       - name: Validate branch name
         run: |
-          chmod +x ./.github/scripts/validate-branch-name.sh
-          ./.github/scripts/validate-branch-name.sh "${{ steps.extract-branch.outputs.branch_name }}"
+          chmod +x ./.github/scripts/validate_branch_name.sh
+          ./.github/scripts/validate_branch_name.sh "${{ steps.extract-branch.outputs.branch_name }}"
