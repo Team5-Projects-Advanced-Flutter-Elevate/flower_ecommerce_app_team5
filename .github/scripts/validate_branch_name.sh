@@ -9,13 +9,13 @@ if [[ "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "develop" ]]; then
 fi
 
 # Validate other branches
-PATTERN="^(feature|bugfix|hotfix|release|chore|docs)\/[A-Z]+-\d+\/[a-z0-9-]+$"
+PATTERN='^(feature|bugfix|hotfix|release)\/[A-Z]+-\d+-[a-zA-Z0-9-]+$'
 if [[ ! "$BRANCH_NAME" =~ $PATTERN ]]; then
   echo "❌ Invalid branch name: '$BRANCH_NAME'"
   echo "✅ Valid formats:"
   echo "   - Protected branches: 'master', 'develop'"
   echo "   - Feature branches: 'type/TICKET-123/task-name' (e.g., 'feature/SCRUM-42/login-page')"
-  echo "Allowed prefixes: feature, bugfix, hotfix, release, chore, doc"
+  echo "Allowed prefixes: feature, bugfix, hotfix, release"
   exit 1  # Fail the workflow
 fi
 
