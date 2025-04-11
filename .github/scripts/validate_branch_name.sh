@@ -9,7 +9,7 @@ if [[ "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "develop" ]]; then
 fi
 
 # Validate other branches
-PATTERN='^(feature|bugfix|hotfix|release)\/[A-Z]+-\d+-[a-zA-Z0-9-]+$'
+PATTERN="^(feature|bugfix|hotfix|release)\/[A-Z]+-\d+-[a-zA-Z0-9-]+$"
 if [[ ! "$BRANCH_NAME" =~ $PATTERN ]]; then
   echo "❌ Invalid branch name: '$BRANCH_NAME'"
   echo "✅ Valid formats:"
