@@ -2,6 +2,7 @@ name: Branch Name Validation
 
 on:
   pull_request:
+    types: [opened, synchronize]  # Trigger on PR open and when new commits are pushed to the PR branch
     branches: ['**']  # Checks all branches (alternatively, specify protected branches like 'main')
 
 jobs:
