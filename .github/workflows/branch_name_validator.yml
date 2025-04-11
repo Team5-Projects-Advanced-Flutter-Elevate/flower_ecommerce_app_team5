@@ -2,53 +2,22 @@ name: Branch Name Validation
 
 on:
   pull_request:
-    types: [opened, synchronize]
-    branches:
-      - '*'
+    types: [opened, synchronize]  # Trigger on PR open and when new commits are pushed to the PR branch
+    branches: ['**']  # Checks all branches (alternatively, specify protected branches like 'main')
 
 jobs:
   validate-branch-name:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # Use v3 (latest)
 
-      - name: Set script permissions
-        run: chmod +x ./.github/scripts/validate_branch_name.sh
-
-      - name: Get branch name
-        id: get_branch
+      - name: Extract branch name
+        id: extract-branch
         run: |
-          if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
-            BRANCH_NAME=${GITHUB_HEAD_REF}
-          else
-            BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          fi
+          echo "branch_name=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
 
-      - name: Validate Branch Name
-        run: ./.github/scripts/validate_branch_name.sh "${{ env.branch_name }}"
-        
-# name: Branch Name Validation
-
-# on:
-#   pull_request:
-#     types: [opened, synchronize]  # Trigger on PR open and when new commits are pushed to the PR branch
-#     branches: ['**']  # Checks all branches (alternatively, specify protected branches like 'main')
-
-# jobs:
-#   validate-branch-name:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v3  # Use v3 (latest)
-
-#       - name: Extract branch name
-#         id: extract-branch
-#         run: |
-#           echo "branch_name=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-
-#       - name: Validate branch name
-#         run: |
-#           chmod +x ./.github/scripts/validate_branch_name.sh
-#           ./.github/scripts/validate_branch_name.sh "${{ env.branch_name }}"
+      - name: Validate branch name
+        run: |
+          chmod +x ./.github/scripts/validate_branch_name.sh
+          ./.github/scripts/validate_branch_name.sh "${{ env.branch_name }}"
