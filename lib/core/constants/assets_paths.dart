@@ -5,6 +5,8 @@ abstract class AssetsPaths {
   static const String _profileIcon = "assets/icons/profile_icon.png";
   static const String _logo = "assets/icons/Logo.png";
 
+  static const String _flowerLoadingAnimation =
+      "assets/animations/flower_loading_animation.json";
   static String get homeIcon => _homeIcon;
 
   static String get categoriesIcon => _categoriesIcon;
@@ -12,6 +14,8 @@ abstract class AssetsPaths {
   static String get profileIcon => _profileIcon;
 
   static String get cartIcon => _cartIcon;
+
+  static String get flowerLoadingAnimation => _flowerLoadingAnimation;
 
   static String get logo => _logo;
 }

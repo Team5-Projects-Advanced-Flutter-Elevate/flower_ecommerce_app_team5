@@ -55,6 +55,22 @@ import '../../modules/authentication/ui/login/view_model/login_view_model_cubit.
     as _i363;
 import '../../modules/authentication/ui/register/view_model/register_cubit.dart'
     as _i303;
+import '../../modules/best_seller/data/api/api_client/best_seller_api_client.dart'
+    as _i41;
+import '../../modules/best_seller/data/api/api_client_provider/best_seller_client_provider.dart'
+    as _i664;
+import '../../modules/best_seller/data/data_sources_contract/best_seller/best_seller_remote_data_source.dart'
+    as _i23;
+import '../../modules/best_seller/data/data_sources_imp/best_seller/best_seller_remote_data_source_imp.dart'
+    as _i393;
+import '../../modules/best_seller/data/respositories_imp/best_seller/best_seller_repositories_imp.dart'
+    as _i911;
+import '../../modules/best_seller/domain/repositories_contracts/best_seller/best_seller_repository.dart'
+    as _i76;
+import '../../modules/best_seller/domain/use_cases/best_seller/get_best_seller_products_use_case.dart'
+    as _i502;
+import '../../modules/best_seller/ui/view_model/best_seller_view_model.dart'
+    as _i460;
 import '../../modules/home/data/api/api_client/home_api_client.dart' as _i293;
 import '../../modules/home/data/api/api_client_provider/home_api_client_provider.dart'
     as _i939;
@@ -114,6 +130,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final dioService = _$DioService();
     final storagesInitializer = _$StoragesInitializer();
+    final bestSellerClientProvider = _$BestSellerClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
     final occasionApiClientProvider = _$OccasionApiClientProvider();
@@ -126,6 +143,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
+    gh.lazySingleton<_i41.BestSellerApiClient>(
+        () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i293.HomeApiClient>(
@@ -150,6 +169,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i629.SecureStorageService<dynamic>>(),
           gh<String>(instanceName: 'initCurrentLocal'),
         ));
+    gh.factory<_i23.BestSellerRemoteDataSource>(() =>
+        _i393.BestSellerRemoteDataSourceImp(gh<_i41.BestSellerApiClient>()));
     gh.factory<_i319.OccasionRepo>(
         () => _i276.OccasionRepoImpl(gh<_i362.OccasionOnlineDataSource>()));
     gh.factory<_i1003.HomeRepo>(
@@ -173,6 +194,8 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i629.SecureStorageService<dynamic>>()));
     gh.factory<_i855.OcassionViewModelCubit>(
         () => _i855.OcassionViewModelCubit(gh<_i41.OccasionUseCase>()));
+    gh.factory<_i76.BestSellerRepository>(() =>
+        _i911.BestSellerRepositoryImp(gh<_i23.BestSellerRemoteDataSource>()));
     gh.factory<_i496.RegisterRepo>(
         () => _i161.RegisterRepoImpl(gh<_i871.RegisterOnlineDataSource>()));
     gh.factory<_i782.RegisterUseCase>(
@@ -181,8 +204,12 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
         ));
+    gh.factory<_i502.GetBestSellerProductsUseCase>(() =>
+        _i502.GetBestSellerProductsUseCase(gh<_i76.BestSellerRepository>()));
     gh.factory<_i692.HomeCubit>(
         () => _i692.HomeCubit(gh<_i90.GetHomeDataUseCase>()));
+    gh.factory<_i460.BestSellerViewModel>(() =>
+        _i460.BestSellerViewModel(gh<_i502.GetBestSellerProductsUseCase>()));
     gh.factory<_i44.CategoriesLayoutViewModel>(
         () => _i44.CategoriesLayoutViewModel(
               gh<_i369.GetCategoriesUseCase>(),
@@ -207,6 +234,8 @@ extension GetItInjectableX on _i174.GetIt {
 class _$DioService extends _i738.DioService {}
 
 class _$StoragesInitializer extends _i241.StoragesInitializer {}
+
+class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 

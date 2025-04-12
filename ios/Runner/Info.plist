@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-	<key>NSAppTransportSecurity</key>
 	<dict>
+		<!-- App Transport Security Settings -->
+		<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+		</dict>
+
+		<!-- Localization Settings -->
 		<key>CFBundleLocalizations</key>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
 		<array>
 			<string>en</string>
 			<string>ar</string>
-			<!-- Add Other Languages code here-->
-			<!-- Find the lang code from ISO 639.2-->
+			<!-- Add other language codes here (ISO 639.2) -->
 		</array>
+
+		<!-- Standard iOS Configurations -->
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
