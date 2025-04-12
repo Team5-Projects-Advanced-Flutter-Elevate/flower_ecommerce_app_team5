@@ -31,14 +31,62 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # native splash
+  flutter_native_splash: any
+
+  # localization
+  easy_localization: ^3.0.7+1
+  # dependency injection
+  injectable: any
+  get_it: any
+
+  # API dependencies
+  retrofit: any
+  dio: ^5.8.0+1
+  json_annotation: any
+  pretty_dio_logger: ^1.4.0
+  #mockito: ^5.4.5
+  mockito: ^5.4.4
+
+
+  # State Management
+  provider: ^6.1.2
+  flutter_bloc: ^9.1.0
+
+  # Local Storage
+  flutter_secure_storage: ^9.2.4
+  # cached Network Image
+  cached_network_image: ^3.4.1
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  bloc: ^9.0.0
+  meta: ^1.15.0
+  google_fonts: ^6.2.1
+  equatable: ^2.0.7
+  bloc_test: ^10.0.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  # icon launcher
+  flutter_launcher_icons: ^0.14.3
+
+  # API dev_dependencies
+  retrofit_generator: any # for Dart 3.3 use ^9.0.0
+  build_runner: any
+  json_serializable: ^6.9.0
+
+  # dependency injection
+  injectable_generator: any
+
+  # localization dev_dependencies
+  easy_localization_generator: any
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -59,9 +107,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+  - lib/shared_layers/localization/l10n_json_files/
+  - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
