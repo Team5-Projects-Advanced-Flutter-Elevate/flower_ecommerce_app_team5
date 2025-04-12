@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppThemes {
+  static final TextTheme _textTheme = TextTheme(
+    headlineMedium: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      color: AppColors.gray,
+    ),
+  );
+
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
@@ -91,9 +99,14 @@ abstract class AppThemes {
         color: AppColors.black,
       ),
     ),
-    progressIndicatorTheme:
-        ProgressIndicatorThemeData(color: AppColors.mainColor),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: AppColors.mainColor,
+    ),
+    dialogTheme: DialogTheme(
+      backgroundColor: AppColors.white,
+    ),
     navigationBarTheme: NavigationBarThemeData(
+
       backgroundColor: AppColors.white,
       iconTheme: WidgetStateProperty.resolveWith(
         (states) {
@@ -110,11 +123,38 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
-      labelTextStyle: WidgetStatePropertyAll(GoogleFonts.inter(
-          fontSize: 12,
-          fontWeight: FontWeight.normal,
-          )),
+      
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return GoogleFonts.inter(
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+            color: AppColors.mainColor,
+          );
+        } else {
+          return GoogleFonts.inter(
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+            color: AppColors.white[80],
+          );
+        }
+      }),
     ),
+    tabBarTheme: const TabBarTheme(
+      labelColor: Colors.pink,
+      unselectedLabelColor: Colors.grey,
+      indicatorColor: Colors.pink,
+      labelStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      ),
+    ),
+
+
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,
       border: OutlineInputBorder(

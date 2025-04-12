@@ -8,7 +8,6 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../models/login/login_input_model.dart';
 
-
 part 'auth_api_client.g.dart';
 
 @RestApi(baseUrl: ApisEndpoints.baseUrl)
@@ -19,5 +18,6 @@ abstract class AuthApiClient {
   Future<LoginResponseDto> login(@Body() LoginInputModel loginInputModel);
 
   @POST(ApisEndpoints.register)
-  Future<AuthenticationResponse> register(@Body() RegisterRequest registerRequest);
+  Future<AuthenticationResponse> register(
+      @Body() RegisterRequest registerRequest);
 }

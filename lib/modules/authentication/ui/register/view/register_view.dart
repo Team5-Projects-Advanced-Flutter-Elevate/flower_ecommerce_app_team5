@@ -82,7 +82,10 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
           forceMaterialTransparency: true,
           titleSpacing: 0.0,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacementNamed(context,
+                  DefinedRoutes.loginScreenRoute);
+            },
             icon: const Icon(
               Icons.arrow_back_ios,
             ),

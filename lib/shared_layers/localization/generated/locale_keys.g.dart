@@ -1,63 +1,88 @@
-abstract class LocaleKeys {
-  static const String ok = "ok";
-  static const String confirm = "confirm";
-  static const String errorMessages = "errorMessages";
-  static const String connectionTimeout = "connectionTimeout";
-  static const String sendTimeout = "sendTimeout";
-  static const String receiveTimeout = "receiveTimeout";
-  static const String cancel = "cancel";
-  static const String connectionError = "connectionError";
-  static const String unknown = "unknown";
-  static const String badCertificate = "badCertificate";
-  static const String somethingWentWrong = "somethingWentWrong";
-  static const String pleaseEnterName = "pleaseEnterName";
-  static const String pleaseEnterUserName = "pleaseEnterUserName";
-  static const String userNameLength = "userNameLength";
-  static const String userNameRules = "userNameRules";
-  static const String pleaseEnterFirstName = "pleaseEnterFirstName";
-  static const String pleaseEnterLastName = "pleaseEnterLastName";
-  static const String namesRules = "namesRules";
-  static const String pleaseEnterEmail = "pleaseEnterEmail";
-  static const String pleaseEnterValidEmail = "pleaseEnterValidEmail";
-  static const String pleaseEnterPhoneNumber = "pleaseEnterPhoneNumber";
-  static const String phoneNumberRules = "phoneNumberRules";
-  static const String pleaseEnterPassword = "pleaseEnterPassword";
-  static const String passwordLength = "passwordLength";
-  static const String uppercaseRulePassword = "uppercaseRulePassword";
-  static const String lowercaseRulePassword = "lowercaseRulePassword";
-  static const String digitRulePassword = "digitRulePassword";
-  static const String specialCharactersRulePassword = "specialCharactersRulePassword";
-  static const String pleaseConfirmPassword = "pleaseConfirmPassword";
-  static const String alreadyHaveAnAccount = "alreadyHaveAnAccount";
-  static const String genderFemale = "gender_female";
-  static const String genderMale = "gender_male";
-  static const String gender = "gender";
-  static const String agreeToTerms = "agreeToTerms";
-  static const String terms = "terms";
-  static const String conditions = "conditions";
-  static const String registeredSuccessfully = "registeredSuccessfully";
-  static const String firstName = "firstName";
-  static const String lastName = "lastName";
-  static const String confirmPassword = "confirmPassword";
-  static const String phoneNumber = "phoneNumber";
-  static const String noMatch = "noMatch";
-  static const String appSections = "appSections";
-  static const String home = "home";
-  static const String categories = "categories";
-  static const String cart = "cart";
-  static const String profile = "profile";
-  static const String login = "login";
-  static const String email = "email";
-  static const String password = "password";
-  static const String rememberMe = "rememberMe";
-  static const String forgetPassword = "forgetPassword";
-  static const String dontHaveAccount = "dontHaveAccount";
-  static const String signUp = "signUp";
-  static const String loginSuccess = "loginSuccess";
-  static const String bestSellerSection = "bestSellerSection";
-  static const String addToCart = "addToCart";
-  static const String bestSeller = "bestSeller";
-  static const String bloomWithBestSeller = "bloomWithBestSeller";
-  static const String noProducts = "noProducts";
-  static const String validationFunctions = "validationFunctions";
+// DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
+
+// ignore_for_file: constant_identifier_names
+
+class LocaleKeys {
+  // General
+  static const String ok = 'ok';
+  static const String confirm = 'confirm';
+  static const String errorMessages = 'errorMessages';
+  static const String connectionTimeout = 'connectionTimeout';
+  static const String sendTimeout = 'sendTimeout';
+  static const String receiveTimeout = 'receiveTimeout';
+  static const String cancel = 'cancel';
+  static const String connectionError = 'connectionError';
+  static const String unknown = 'unknown';
+  static const String badCertificate = 'badCertificate';
+  static const String somethingWentWrong = 'somethingWentWrong';
+  static const String validationFunctions = 'validationFunctions______________';
+
+  // Validation Messages
+  static const String pleaseEnterName = 'pleaseEnterName';
+  static const String pleaseEnterUserName = 'pleaseEnterUserName';
+  static const String userNameLength = 'userNameLength';
+  static const String userNameRules = 'userNameRules';
+  static const String pleaseEnterFirstName = 'pleaseEnterFirstName';
+  static const String pleaseEnterLastName = 'pleaseEnterLastName';
+  static const String namesRules = 'namesRules';
+  static const String pleaseEnterEmail = 'pleaseEnterEmail';
+  static const String pleaseEnterValidEmail = 'pleaseEnterValidEmail';
+  static const String pleaseEnterPhoneNumber = 'pleaseEnterPhoneNumber';
+  static const String phoneNumberRules = 'phoneNumberRules';
+  static const String pleaseEnterPassword = 'pleaseEnterPassword';
+  static const String passwordLength = 'passwordLength';
+  static const String uppercaseRulePassword = 'uppercaseRulePassword';
+  static const String lowercaseRulePassword = 'lowercaseRulePassword';
+  static const String digitRulePassword = 'digitRulePassword';
+  static const String specialCharactersRulePassword = 'specialCharactersRulePassword';
+  static const String pleaseConfirmPassword = 'pleaseConfirmPassword';
+  static const String noMatch = 'noMatch';
+
+  // Auth
+  static const String alreadyHaveAnAccount = 'alreadyHaveAnAccount';
+  static const String gender_female = 'gender_female';
+  static const String gender_male = 'gender_male';
+  static const String gender = 'gender';
+  static const String agreeToTerms = 'agreeToTerms';
+  static const String terms = 'terms';
+  static const String conditions = 'conditions';
+  static const String registeredSuccessfully = 'registeredSuccessfully';
+  static const String firstName = 'firstName';
+  static const String lastName = 'lastName';
+  static const String confirmPassword = 'confirmPassword';
+  static const String phoneNumber = 'phoneNumber';
+  static const String login = 'login';
+  static const String email = 'email';
+  static const String password = 'password';
+  static const String rememberMe = 'rememberMe';
+  static const String forgetPassword = 'forgetPassword';
+  static const String dontHaveAccount = 'dontHaveAccount';
+  static const String signUp = 'signUp';
+  static const String loginSuccess = 'loginSuccess';
+  static const String guestLogin = 'guestLogin';
+  static const String checkGuest = 'checkGuest';
+
+  // App Sections
+  static const String appSections = 'appSections____________';
+  static const String home = 'home';
+  static const String categories = 'categories';
+  static const String cart = 'cart';
+  static const String profile = 'profile';
+
+  // Best Seller Section
+  static const String bestSellerSection = 'bestSellerSection____';
+  static const String bestSellerSectionComment = '//bestSellerSection';
+  static const String addToCart = 'addToCart';
+  static const String bloomWithBestSeller = 'bloomWithBestSeller';
+  static const String noProducts = 'noProducts';
+  static const String search = 'search';
+  static const String viewAll = 'viewAll';
+  static const String bestSeller = 'bestSeller';
+  static const String occasions = 'occasions';
+  static const String occsionScreenTitle = 'occsionScreenTitle';
+  static const String occasionScreenSubTitle = 'occasionScreenSubTitle';
+  static const String noProductsFound = 'noProductsFound';
 }
+
+}
+
