@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
               GenerateRoute.onGenerateInitialRoutes(
                   initialRoute: initialRoute, loginInfo: storedLoginInfo),
           //initialRoute: DefinedRoutes.bestSellerScreenRoute,
-          home: const OcassionListScreen(),
+         // home: const OcassionListScreen(),
           // onGenerateRoute: GenerateRoute.onGenerateRoute,
           // onGenerateInitialRoutes: (initialRoute) =>
           //     GenerateRoute.onGenerateInitialRoutes(

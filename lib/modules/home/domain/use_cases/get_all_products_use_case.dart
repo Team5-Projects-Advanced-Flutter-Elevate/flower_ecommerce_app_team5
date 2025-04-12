@@ -10,6 +10,5 @@ class GetAllProductsUseCase {
 
   GetAllProductsUseCase(this._homeRepo);
 
-  Future<ApiResult<List<Products>?>> execute({String? categoryId}) =>
-      _homeRepo.getAllProduct(categoryId: categoryId);
+
 }
