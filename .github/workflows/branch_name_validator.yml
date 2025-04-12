@@ -1,23 +1,19 @@
-name: Branch Name Validation
-
+name: Check PR Branch Name
 on:
   pull_request:
-    types: [opened, synchronize]  # Trigger on PR open and when new commits are pushed to the PR branch
-    branches: ['**']  # Checks all branches (alternatively, specify protected branches like 'main')
-
+    types: [opened, edited]
 jobs:
-  validate-branch-name:
+  check-pr-branch-name:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3  # Use v3 (latest)
-
-      - name: Extract branch name
-        id: extract-branch
+      - name: Check PR branch name format
         run: |
-          echo "branch_name=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-
-      - name: Validate branch name
-        run: |
-          chmod +x ./.github/scripts/validate_branch_name.sh
-          ./.github/scripts/validate_branch_name.sh "${{ env.branch_name }}"
+          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          if [[ ! "$BRANCH_NAME" =~ ^(feature|bugfix|hotfix|release)/[A-Z]+-[0-9]+-[a-z]+([-_ ][a-z]+)*$ ]]; then
+            echo "❌ **Invalid branch name format:** $BRANCH_NAME"
+            echo "Please use the format: branch-type/{Ticket-Id - TicketNum}-task_name (e.g., feature/ECOM-27-initialize project)"
+            exit 1
+          else
+            echo "✅ **Valid branch name format:** $BRANCH_NAME"
+          fi
+        shell: bash
