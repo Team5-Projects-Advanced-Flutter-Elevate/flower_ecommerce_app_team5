@@ -9,7 +9,6 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_la
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../../core/colors/app_colors.dart';
 import '../../../../../core/widgets/product_card.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';

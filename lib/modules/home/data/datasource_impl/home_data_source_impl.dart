@@ -48,16 +48,23 @@ class HomeDataSourceImpl implements HomeDataSource {
 
   @override
   Future<ApiResult<List<Products>>> getAllProduct({String? categoryId}) async {
-  Future<ApiResult<HomeDataResponseEntity>> getHomeData() async {
     var result = await ApiExecutor.executeApi(
         () async => await _homeApiClient.getAllProduct(categoryId: categoryId));
-        () async => await _homeApiClient.getHomeData());
     switch (result) {
       case Success<AllProductResponse>():
         return Success(
           data: result.data.products ?? [],
         );
       case Error<AllProductResponse>():
+        return Error(error: result.error);
+    }
+  }
+
+  @override
+  Future<ApiResult<HomeDataResponseEntity>> getHomeData() async {
+    var result = await ApiExecutor.executeApi(
+        () async => await _homeApiClient.getHomeData());
+    switch (result) {
       case Success<HomeDataResponse>():
         return Success(data: result.data.toEntity());
       case Error<HomeDataResponse>():

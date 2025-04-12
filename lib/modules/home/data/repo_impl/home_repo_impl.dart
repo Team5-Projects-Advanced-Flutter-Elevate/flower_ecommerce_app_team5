@@ -27,6 +27,9 @@ class HomeRepoImpl implements HomeRepo {
   @override
   Future<ApiResult<HomeDataResponseEntity>> getHomeData() {
     return _homeDataSource.getHomeData();
+  }
+
+  @override
   Future<ApiResult<List<Products>?>> getAllProduct({String? categoryId}) {
     return _homeDataSource.getAllProduct(categoryId: categoryId);
   }

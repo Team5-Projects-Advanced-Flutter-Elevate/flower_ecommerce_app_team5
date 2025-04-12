@@ -105,7 +105,6 @@ abstract class AppThemes {
       backgroundColor: AppColors.white,
     ),
     navigationBarTheme: NavigationBarThemeData(
-
       backgroundColor: AppColors.white,
       iconTheme: WidgetStateProperty.resolveWith(
         (states) {
@@ -122,10 +121,6 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
-      labelTextStyle: WidgetStatePropertyAll(GoogleFonts.inter(
-        fontSize: 12,
-        fontWeight: FontWeight.normal,
-      )),
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return GoogleFonts.inter(
@@ -155,8 +150,6 @@ abstract class AppThemes {
         fontSize: 14,
       ),
     ),
-
-
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,
       border: OutlineInputBorder(

@@ -65,22 +65,16 @@ abstract class LocaleKeys {
   static const viewAll = 'viewAll';
   static const bestSeller = 'bestSeller';
   static const occasions = 'occasions';
-  static const guestLogin='guestLogin';
-  static const checkGuest='checkGuest';
-  static const rememberMe = 'rememberMe';
-  static const forgetPassword = 'forgetPassword';
-  static const dontHaveAccount = 'dontHaveAccount';
-
   static const guestLogin = 'guestLogin';
   static const checkGuest = 'checkGuest';
   static const loginSuccess = 'loginSuccess';
   static const bestSellerSection = 'bestSellerSection';
   static const addToCart = 'addToCart';
-  static const bestSeller = 'bestSeller';
   static const bloomWithBestSeller = 'bloomWithBestSeller';
   static const noProducts = 'noProducts';
   static const validationFunctions = 'validationFunctions';
-  static const occsionScreenTitle='occsionScreenTitle';
-  static const occasionScreenSubTitle='occasionScreenSubTitle';
+  static const occsionScreenTitle = 'occsionScreenTitle';
+  static const occasionScreenSubTitle = 'occasionScreenSubTitle';
+  static const noProductsFound = 'noProductsFound';
 
 }
