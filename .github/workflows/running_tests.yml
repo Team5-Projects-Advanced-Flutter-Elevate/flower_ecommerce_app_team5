@@ -1,0 +1,34 @@
+name: Flutter Unit Tests
+
+on:
+  pull_request:
+    branches: [ main, develop ]  # Trigger on PRs targeting these branches
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for merge simulation
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.19.0"  # Replace with your Flutter version
+          channel: "stable"  # or "beta", "dev"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # --- Run tests on the PR branch (ISOLATED) ---
+      - name: Run unit tests (isolated)
+        run: flutter test
+
+      # --- Simulate the merged state ---
+      - name: Test merged state
+        run: |
+          git fetch origin develop  # Replace with target branch (e.g., 'develop')
+          git merge origin/develop
+          flutter test  # Re-run tests in merged state
