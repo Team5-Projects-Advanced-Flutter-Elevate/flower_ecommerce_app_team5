@@ -18,7 +18,7 @@ CategoryDM _$CategoryDMFromJson(Map<String, dynamic> json) => CategoryDM(
 
 Map<String, dynamic> _$CategoryDMToJson(CategoryDM instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'name': instance.name,
       'slug': instance.slug,
       'image': instance.image,

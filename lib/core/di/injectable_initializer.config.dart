@@ -132,12 +132,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
     gh.factory<_i871.RegisterOnlineDataSource>(
         () => _i219.RegisterOnlineDataSourceImpl(gh<_i343.AuthApiClient>()));
-    gh.factory<_i1019.GetAllProductsUseCase>(
-        () => _i1019.GetAllProductsUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i369.GetCategoriesUseCase>(
         () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i386.GetOccasionsUseCase>(
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
+    gh.factory<_i1019.GetAllProductsUseCase>(
+        () => _i1019.GetAllProductsUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
         storageService: gh<_i629.SecureStorageService<dynamic>>()));
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
