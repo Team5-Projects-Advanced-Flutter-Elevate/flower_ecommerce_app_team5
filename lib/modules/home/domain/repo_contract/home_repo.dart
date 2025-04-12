@@ -11,4 +11,6 @@ abstract interface class HomeRepo {
   Future<ApiResult<List<OccasionEntity>?>> getAllOccasions();
 
   Future<ApiResult<HomeDataResponseEntity>> getHomeData();
+
+  Future<ApiResult<List<Products>?>> getAllProduct({String? categoryId});
 }

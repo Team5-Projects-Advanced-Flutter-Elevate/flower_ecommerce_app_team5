@@ -33,7 +33,7 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
     final result = await _getCategoriesUseCase.execute();
     switch (result) {
       case Success<List<CategoryEntity>?>():
-        categoriesList = result.data!;
+        categoriesList = result.data ??[];
         emit(CategoriesLayoutViewModelSuccess());
       case Error<List<CategoryEntity>?>():
         emit(CategoriesLayoutViewModelError(error: result.error));
