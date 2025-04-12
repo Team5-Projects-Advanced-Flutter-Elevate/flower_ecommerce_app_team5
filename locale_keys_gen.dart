@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+
 void main() {
   const translationClassPath =
       'lib/shared_layers/localization/generated/locale_keys.g.dart'; // Path to LocaleKeys.dart
@@ -29,7 +31,7 @@ void main() {
 Map<String, dynamic> loadJson(String path) {
   final file = File(path);
   if (!file.existsSync()) {
-    print('Error: File not found - $path');
+    debugPrint('Error: File not found - $path');
     return {};
   }
   return json.decode(file.readAsStringSync()) as Map<String, dynamic>;
@@ -76,11 +78,11 @@ void updateLocaleKeysClass(
   final newKeys = jsonKeys.difference(existingKeys);
 
   if (newKeys.isEmpty) {
-    print('No new keys to add. LocaleKeys is up to date.');
+    debugPrint('No new keys to add. LocaleKeys is up to date.');
     return;
   }
 
-  print('Adding ${newKeys.length} new keys...');
+  debugPrint('Adding ${newKeys.length} new keys...');
 
   final buffer = StringBuffer();
   buffer.writeln('abstract class LocaleKeys {');
@@ -99,7 +101,7 @@ void updateLocaleKeysClass(
 
   // Write updated class back to file
   file.writeAsStringSync(buffer.toString());
-  print('LocaleKeys updated successfully!');
+  debugPrint('LocaleKeys updated successfully!');
 }
 
 /// Format JSON key into a valid Dart constant name (LowerCamelCase)
