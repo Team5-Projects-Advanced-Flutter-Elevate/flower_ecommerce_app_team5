@@ -42,7 +42,9 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
           forceMaterialTransparency: true,
           leadingWidth: screenWidth * 0.08,
           leading: IconButton(
-              onPressed: () {}, icon: const Icon(Icons.arrow_back_ios)),
+              onPressed: () {
+                Navigator.pop(context);
+              }, icon: const Icon(Icons.arrow_back_ios)),
           title: Column(
             crossAxisAlignment: Platform.isIOS
                 ? CrossAxisAlignment.center

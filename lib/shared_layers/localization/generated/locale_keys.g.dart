@@ -1,12 +1,9 @@
-// DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
-
-// ignore_for_file: constant_identifier_names
-
 class LocaleKeys {
   // General
   static const String ok = 'ok';
   static const String confirm = 'confirm';
-  static const String errorMessages = 'errorMessages';
+
+  // Connection/Error Messages
   static const String connectionTimeout = 'connectionTimeout';
   static const String sendTimeout = 'sendTimeout';
   static const String receiveTimeout = 'receiveTimeout';
@@ -15,7 +12,6 @@ class LocaleKeys {
   static const String unknown = 'unknown';
   static const String badCertificate = 'badCertificate';
   static const String somethingWentWrong = 'somethingWentWrong';
-  static const String validationFunctions = 'validationFunctions______________';
 
   // Validation Messages
   static const String pleaseEnterName = 'pleaseEnterName';
@@ -38,19 +34,15 @@ class LocaleKeys {
   static const String pleaseConfirmPassword = 'pleaseConfirmPassword';
   static const String noMatch = 'noMatch';
 
-  // Auth
+  // Authentication
   static const String alreadyHaveAnAccount = 'alreadyHaveAnAccount';
-  static const String gender_female = 'gender_female';
-  static const String gender_male = 'gender_male';
+  static const String genderFemale = 'genderFemale';
+  static const String genderMale = 'genderMale';
   static const String gender = 'gender';
   static const String agreeToTerms = 'agreeToTerms';
   static const String terms = 'terms';
   static const String conditions = 'conditions';
   static const String registeredSuccessfully = 'registeredSuccessfully';
-  static const String firstName = 'firstName';
-  static const String lastName = 'lastName';
-  static const String confirmPassword = 'confirmPassword';
-  static const String phoneNumber = 'phoneNumber';
   static const String login = 'login';
   static const String email = 'email';
   static const String password = 'password';
@@ -62,16 +54,19 @@ class LocaleKeys {
   static const String guestLogin = 'guestLogin';
   static const String checkGuest = 'checkGuest';
 
-  // App Sections
-  static const String appSections = 'appSections____________';
+  // User Profile
+  static const String firstName = 'firstName';
+  static const String lastName = 'lastName';
+  static const String confirmPassword = 'confirmPassword';
+  static const String phoneNumber = 'phoneNumber';
+
+  // App Navigation
   static const String home = 'home';
   static const String categories = 'categories';
   static const String cart = 'cart';
   static const String profile = 'profile';
 
-  // Best Seller Section
-  static const String bestSellerSection = 'bestSellerSection____';
-  static const String bestSellerSectionComment = '//bestSellerSection';
+  // Product Section
   static const String addToCart = 'addToCart';
   static const String bloomWithBestSeller = 'bloomWithBestSeller';
   static const String noProducts = 'noProducts';
@@ -82,7 +77,10 @@ class LocaleKeys {
   static const String occsionScreenTitle = 'occsionScreenTitle';
   static const String occasionScreenSubTitle = 'occasionScreenSubTitle';
   static const String noProductsFound = 'noProductsFound';
-}
 
+  // Comments (for reference)
+  static const String errorMessagesComment = '//errorMessages';
+  static const String validationFunctionsComment = '//validationFunctions';
+  static const String appSectionsComment = '//appSections';
+  static const String bestSellerSectionComment = '//bestSellerSection';
 }
-

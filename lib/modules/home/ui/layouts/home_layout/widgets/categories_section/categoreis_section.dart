@@ -25,6 +25,9 @@ class CategoriesSection extends StatelessWidget {
         children: [
           HeadLineSection(
             LocaleKeys.categories.tr(),
+            onTap: () {
+
+            },
           ),
           SizedBox(
             height: screenHeight * 0.02,
