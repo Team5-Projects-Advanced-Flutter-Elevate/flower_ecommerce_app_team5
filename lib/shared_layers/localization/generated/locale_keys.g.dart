@@ -14,8 +14,7 @@ abstract class LocaleKeys {
   static const unknown = 'unknown';
   static const badCertificate = 'badCertificate';
   static const somethingWentWrong = 'somethingWentWrong';
-  static const validationFunctions______________ =
-      'validationFunctions______________';
+
   static const pleaseEnterName = 'pleaseEnterName';
   static const pleaseEnterUserName = 'pleaseEnterUserName';
   static const userNameLength = 'userNameLength';
@@ -34,7 +33,11 @@ abstract class LocaleKeys {
   static const digitRulePassword = 'digitRulePassword';
   static const specialCharactersRulePassword = 'specialCharactersRulePassword';
   static const pleaseConfirmPassword = 'pleaseConfirmPassword';
+  static const noMatch = 'noMatch';
+
+  static const signUp = 'signUp';
   static const alreadyHaveAnAccount = 'alreadyHaveAnAccount';
+  static const login = 'login';
   static const gender_female = 'gender_female';
   static const gender_male = 'gender_male';
   static const gender = 'gender';
@@ -44,28 +47,34 @@ abstract class LocaleKeys {
   static const registeredSuccessfully = 'registeredSuccessfully';
   static const firstName = 'firstName';
   static const lastName = 'lastName';
+  static const email = 'email';
+  static const password = 'password';
   static const confirmPassword = 'confirmPassword';
   static const phoneNumber = 'phoneNumber';
-  static const noMatch = 'noMatch';
+
+  static const dontHaveAccount = 'dontHaveAnAccount';
+  static const forgetPassword = 'forgetPassword';
+  static const resetPassword = 'resetPassword';
+  static const rememberMe = 'rememberMe';
   static const appSections____________ = 'appSections____________';
   static const home = 'home';
   static const categories = 'categories';
   static const cart = 'cart';
   static const profile = 'profile';
-  static const login = 'login';
-  static const email = 'email';
-  static const password = 'password';
-  static const rememberMe = 'rememberMe';
-  static const forgetPassword = 'forgetPassword';
-  static const dontHaveAccount = 'dontHaveAccount';
-  static const signUp = 'signUp';
-  static const loginSuccess = 'loginSuccess';
-  static const bestSellerSection____ = 'bestSellerSection____';
-  static const addToCart = 'addToCart';
-  static const bestSeller = 'bestSeller';
-  static const bloomWithBestSeller = 'bloomWithBestSeller';
-  static const guestLogin = 'guestLogin';
-  static const checkGuest = 'checkGuest';
   static const search = 'search';
-  static const noProductsFound = 'noProductsFound';
+  static const viewAll = 'viewAll';
+  static const bestSeller = 'bestSeller';
+  static const occasions = 'occasions';
+  static const guestLogin='guestLogin';
+  static const checkGuest='checkGuest';
+
+  static const loginSuccess = 'loginSuccess';
+  static const bestSellerSection = 'bestSellerSection';
+  static const addToCart = 'addToCart';
+  static const bloomWithBestSeller = 'bloomWithBestSeller';
+  static const noProducts = 'noProducts';
+  static const validationFunctions = 'validationFunctions';
+  static const occsionScreenTitle='occsionScreenTitle';
+  static const occasionScreenSubTitle='occasionScreenSubTitle';
+
 }

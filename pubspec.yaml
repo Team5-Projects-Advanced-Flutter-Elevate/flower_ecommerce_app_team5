@@ -45,7 +45,6 @@ dependencies:
   dio: ^5.8.0+1
   json_annotation: any
   pretty_dio_logger: ^1.4.0
-  #mockito: ^5.4.5
 
 
   # State Management

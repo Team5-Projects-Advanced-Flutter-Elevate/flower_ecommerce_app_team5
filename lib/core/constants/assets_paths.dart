@@ -1,8 +1,9 @@
-abstract class AssetsPaths{
+abstract class AssetsPaths {
   static const String _homeIcon = "assets/icons/home_icon.png";
   static const String _categoriesIcon = "assets/icons/category_icon.png";
   static const String _cartIcon = "assets/icons/shopping_cart_icon.png";
   static const String _profileIcon = "assets/icons/profile_icon.png";
+  static const String _logo = "assets/icons/Logo.png";
 
   static String get homeIcon => _homeIcon;
 
@@ -11,4 +12,6 @@ abstract class AssetsPaths{
   static String get profileIcon => _profileIcon;
 
   static String get cartIcon => _cartIcon;
+
+  static String get logo => _logo;
 }

@@ -105,6 +105,7 @@ abstract class AppThemes {
       backgroundColor: AppColors.white,
     ),
     navigationBarTheme: NavigationBarThemeData(
+
       backgroundColor: AppColors.white,
       iconTheme: WidgetStateProperty.resolveWith(
         (states) {
@@ -121,11 +122,38 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
-      labelTextStyle: WidgetStatePropertyAll(GoogleFonts.inter(
-        fontSize: 12,
-        fontWeight: FontWeight.normal,
-      )),
+      
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return GoogleFonts.inter(
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+            color: AppColors.mainColor,
+          );
+        } else {
+          return GoogleFonts.inter(
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+            color: AppColors.white[80],
+          );
+        }
+      }),
     ),
+    tabBarTheme: const TabBarTheme(
+      labelColor: Colors.pink,
+      unselectedLabelColor: Colors.grey,
+      indicatorColor: Colors.pink,
+      labelStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      ),
+    ),
+
+
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,
       border: OutlineInputBorder(
