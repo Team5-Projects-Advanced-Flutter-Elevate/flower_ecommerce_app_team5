@@ -1,19 +1,23 @@
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/cashed_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/constants/assets_paths.dart';
+import '../../../../domain/entities/cart_response_entity/cart_item_entity.dart';
 
 class CartItem extends BaseStatelessWidget {
-  CartItem({super.key});
+  CartItem({super.key, required this.cartItemEntity});
+
+  CartItemEntity cartItemEntity;
 
   @override
   Widget customBuild(BuildContext context) {
     return Container(
-      height: 125,
+      height: screenHeight * 0.14,
       padding: EdgeInsets.symmetric(
-        vertical: screenHeight * 0.01,
+        vertical: screenHeight * 0.011,
         horizontal: screenWidth * 0.025,
       ),
       decoration: BoxDecoration(
@@ -26,16 +30,22 @@ class CartItem extends BaseStatelessWidget {
       child: Row(
         children: [
           Expanded(
-            flex: 1,
-            child: Container(
-              color: AppColors.mainColor,
+            flex: 2,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8),
+              ),
+              child: CashedImage(
+                url: cartItemEntity.productEntity?.imgCover ?? '',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           SizedBox(
             width: screenWidth * 0.03,
           ),
           Expanded(
-            flex: 3,
+            flex: 5,
             child: Padding(
               padding: EdgeInsets.symmetric(
                 vertical: screenHeight * 0.01,
@@ -44,25 +54,31 @@ class CartItem extends BaseStatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Red roses',
-                            style: theme.textTheme.labelMedium?.copyWith(
-                              fontSize: 16 * (screenWidth / 375),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              cartItemEntity.productEntity?.title ?? '',
+                              style: theme.textTheme.labelMedium?.copyWith(
+                                fontSize: 16 * (screenWidth / 375),
+                              ),
                             ),
-                          ),
-                          Text(
-                            '15 pink rose Bouquet',
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              fontSize: 12 * (screenWidth / 375),
-                              color: AppColors.gray,
+                            SizedBox(
+                              height: screenHeight * 0.002,
                             ),
-                          ),
-                        ],
+                            Text(
+                              cartItemEntity.productEntity?.description ?? '',
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                fontSize: 12 * (screenWidth / 375),
+                                color: AppColors.gray,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
-                      const Spacer(),
                       ImageIcon(
                         AssetImage(
                           AssetsPaths.deleteIcon,
@@ -75,7 +91,7 @@ class CartItem extends BaseStatelessWidget {
                   Row(
                     children: [
                       Text(
-                        'EGP 600',
+                        'EGP ${cartItemEntity.price?.toInt()}',
                         style: theme.textTheme.labelMedium?.copyWith(
                           fontSize: 14 * (screenWidth / 375),
                           fontWeight: FontWeight.w600,

@@ -1,3 +1,4 @@
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_item_entity.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../../core/bases/base_statless_widget.dart';
@@ -5,9 +6,9 @@ import '../../../../../../core/colors/app_colors.dart';
 import 'cart_list_view.dart';
 
 class TitleAndCartItems extends BaseStatelessWidget {
-  TitleAndCartItems({
-    super.key,
-  });
+  TitleAndCartItems({super.key, required this.cartItems});
+
+  final List<CartItemEntity> cartItems;
 
   @override
   Widget customBuild(BuildContext context) {
@@ -33,7 +34,9 @@ class TitleAndCartItems extends BaseStatelessWidget {
             height: screenHeight * 0.02,
           ),
           Expanded(
-            child: CartListView(),
+            child: CartListView(
+              cartItems: cartItems,
+            ),
           ),
         ],
       ),

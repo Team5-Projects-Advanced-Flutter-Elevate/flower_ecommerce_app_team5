@@ -1,3 +1,4 @@
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'cart_model.dart';
 
@@ -20,4 +21,10 @@ class CartResponse {
       _$CartResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$CartResponseToJson(this);
+
+  CartResponseEntity toEntity() => CartResponseEntity(
+        message: message,
+        numOfCartItems: numOfCartItems,
+        cartModelEntity: cart?.toEntity(),
+      );
 }

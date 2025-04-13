@@ -63,11 +63,17 @@ class _CartLayoutState extends BaseStatefulWidgetState<CartLayout> {
             } else if (state.status == CartStatus.success) {
               return Column(
                 children: [
-                  TitleAndCartItems(),
+                  TitleAndCartItems(
+                    cartItems:
+                        state.cartResponseEntity?.cartModelEntity?.cartItems ??
+                            [],
+                  ),
                   SizedBox(
                     height: screenHeight * 0.02,
                   ),
-                  InvoiceSectionAndCheckoutButton(),
+                  InvoiceSectionAndCheckoutButton(
+                    cartResponseEntity: state.cartResponseEntity!,
+                  ),
                 ],
               );
             } else {

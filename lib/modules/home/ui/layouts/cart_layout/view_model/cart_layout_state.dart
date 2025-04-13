@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
-import '../../../../domain/entities/cart_item_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/cart_response_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
+import '../../../../domain/entities/cart_response_entity/cart_item_entity.dart';
 
 enum CartStatus {
   initial,
@@ -12,23 +14,23 @@ enum CartStatus {
 class CartState extends Equatable {
   final CartStatus status;
   final Object? error;
-  final List<CartItemEntity>? cartItems;
+  final CartResponseEntity? cartResponseEntity;
 
   const CartState({
     this.status = CartStatus.initial,
     this.error,
-    this.cartItems,
+    this.cartResponseEntity,
   });
 
   CartState copyWith({
     CartStatus? state,
     Object? error,
-    List<CartItemEntity>? cartItems,
+    CartResponseEntity? cartResponseEntity,
   }) {
     return CartState(
-      status: state ?? this.status,
+      status: state ?? status,
       error: error ?? this.error,
-      cartItems: cartItems ?? this.cartItems,
+      cartResponseEntity: cartResponseEntity ?? this.cartResponseEntity,
     );
   }
 
@@ -36,6 +38,6 @@ class CartState extends Equatable {
   List<Object?> get props => [
         status,
         error,
-        cartItems,
+        cartResponseEntity,
       ];
 }

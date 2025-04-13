@@ -1,3 +1,5 @@
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_item_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +10,9 @@ import 'invoice_section.dart';
 class InvoiceSectionAndCheckoutButton extends BaseStatelessWidget {
   InvoiceSectionAndCheckoutButton({
     super.key,
+    required this.cartResponseEntity
   });
-
+final CartResponseEntity cartResponseEntity;
   @override
   Widget customBuild(BuildContext context) {
     return Expanded(
@@ -21,7 +24,7 @@ class InvoiceSectionAndCheckoutButton extends BaseStatelessWidget {
             flex: 4,
             child: Column(
               children: [
-                InvoiceSection(),
+                InvoiceSection(cartResponseEntity: cartResponseEntity,),
                 SizedBox(
                   height: screenHeight * 0.03,
                 ),
