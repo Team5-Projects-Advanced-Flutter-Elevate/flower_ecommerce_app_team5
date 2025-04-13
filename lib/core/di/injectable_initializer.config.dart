@@ -82,12 +82,16 @@ import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
 import '../../modules/home/domain/repo_contract/home_repo.dart' as _i1003;
 import '../../modules/home/domain/use_cases/get_all_products_use_case.dart'
     as _i1019;
+import '../../modules/home/domain/use_cases/get_cart_items_use_case.dart'
+    as _i640;
 import '../../modules/home/domain/use_cases/get_categories_use_case.dart'
     as _i369;
 import '../../modules/home/domain/use_cases/get_home_data_use_case.dart'
     as _i90;
 import '../../modules/home/domain/use_cases/get_occasions_use_case.dart'
     as _i386;
+import '../../modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart'
+    as _i671;
 import '../../modules/home/ui/layouts/categories_layout/view_model/categories_layout_view_model.dart'
     as _i44;
 import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
@@ -192,6 +196,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
         _i79.LoginAsGuestOfflineDataSourceImpl(
             gh<_i629.SecureStorageService<dynamic>>()));
+    gh.factory<_i640.GetCartItemsUseCase>(
+        () => _i640.GetCartItemsUseCase(homeRepo: gh<_i1003.HomeRepo>()));
     gh.factory<_i855.OcassionViewModelCubit>(
         () => _i855.OcassionViewModelCubit(gh<_i41.OccasionUseCase>()));
     gh.factory<_i76.BestSellerRepository>(() =>
@@ -226,6 +232,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i363.LoginViewModelCubit>(() => _i363.LoginViewModelCubit(
           gh<_i543.LoginUseCase>(),
           gh<_i421.LoginAsGuestUseCase>(),
+        ));
+    gh.factory<_i671.CartCubit>(() => _i671.CartCubit(
+          gh<_i640.GetCartItemsUseCase>(),
+          gh<_i543.LoginUseCase>(),
         ));
     return this;
   }

@@ -82,7 +82,7 @@ dev_dependencies:
   # API dev_dependencies
   retrofit_generator: any # for Dart 3.3 use ^9.0.0
   build_runner: any
-  json_serializable: ^6.9.0
+  json_serializable: any
 
   # dependency injection
   injectable_generator: any

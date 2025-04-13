@@ -1,6 +1,7 @@
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/datasource_contract/home_online_data_source.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_item_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/home_data_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
@@ -32,5 +33,10 @@ class HomeRepoImpl implements HomeRepo {
   @override
   Future<ApiResult<List<Products>?>> getAllProduct({String? categoryId}) {
     return _homeDataSource.getAllProduct(categoryId: categoryId);
+  }
+
+  @override
+  Future<ApiResult<List<CartItemEntity>?>> getCartItems() {
+    return _homeDataSource.getCartItems();
   }
 }
