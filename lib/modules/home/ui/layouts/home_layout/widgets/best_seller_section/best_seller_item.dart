@@ -3,7 +3,6 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/w
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
-import '../../../../../../../core/colors/app_colors.dart';
 
 class BestSellerItem extends BaseStatelessWidget {
   BestSellerItem({
