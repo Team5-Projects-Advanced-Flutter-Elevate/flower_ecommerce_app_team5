@@ -288,7 +288,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                     contentPadding: EdgeInsets.zero,
                                     hoverColor: AppColors.transparent,
                                     title: Text(
-                                      LocaleKeys.gender_female.tr(),
+                                      LocaleKeys.genderFemale.tr(),
                                       style:
                                           theme.textTheme.labelSmall?.copyWith(
                                         color: selectedGender ==
@@ -311,7 +311,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                   child: RadioListTile<String>(
                                     contentPadding: EdgeInsets.zero,
                                     title: Text(
-                                      LocaleKeys.gender_male.tr(),
+                                      LocaleKeys.genderMale.tr(),
                                       style:
                                           theme.textTheme.labelSmall?.copyWith(
                                         color: selectedGender ==

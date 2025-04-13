@@ -1,0 +1,19 @@
+name: PR Code Check By Dart Linter
+on:
+  pull_request:
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.3'
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Analyze code
+        run: flutter analyze
+      - name: Verify formatting
+        run: flutter format --output=none --set-exit-if-changed .

@@ -14,6 +14,7 @@ abstract class AppThemes {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
+    appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
     textTheme: TextTheme(
       // Body Text Styles
       labelMedium: GoogleFonts.inter(
@@ -121,6 +122,7 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
+
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return GoogleFonts.inter(

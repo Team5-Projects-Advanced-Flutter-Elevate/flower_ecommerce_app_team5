@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
+import '../../../../../occasion/ui/occasion_screen.dart';
 
 class HeadLineSection extends BaseStatelessWidget {
   HeadLineSection(this.title, {this.onTap, Key? key});

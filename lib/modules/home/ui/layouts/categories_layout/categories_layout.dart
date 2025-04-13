@@ -68,8 +68,9 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
                           }
 
                           viewModel.processIntent(TabBarChangedIntent(
-                              categoryId:
-                                  viewModel.categoriesList[value - 1].id));
+                              categoryId: ((value - 1) >= 0)
+                                  ? viewModel.categoriesList[value - 1].id
+                                  : null));
                         },
                         physics: const BouncingScrollPhysics(),
                         tabAlignment: TabAlignment.start,
