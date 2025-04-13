@@ -137,8 +137,8 @@ extension GetItInjectableX on _i174.GetIt {
     final bestSellerClientProvider = _$BestSellerClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
-    final profileApiClientProvider = _$ProfileApiClientProvider();
     final occasionApiClientProvider = _$OccasionApiClientProvider();
+    final profileApiClientProvider = _$ProfileApiClientProvider();
     final localeInitializer = _$LocaleInitializer();
     await gh.factoryAsync<_i361.Dio>(
       () => dioService.provideDio(),
@@ -154,10 +154,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i293.HomeApiClient>(
         () => homeApiClientProvider.provideApiClient(gh<_i361.Dio>()));
-    gh.singleton<_i486.ProfileApiClient>(
-        () => profileApiClientProvider.ApiClient(gh<_i361.Dio>()));
     gh.singleton<_i941.OccasionApiClient>(
         () => occasionApiClientProvider.ApiClient(gh<_i361.Dio>()));
+    gh.singleton<_i486.ProfileApiClient>(
+        () => profileApiClientProvider.ApiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
@@ -248,8 +248,8 @@ class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 
 class _$HomeApiClientProvider extends _i939.HomeApiClientProvider {}
 
-class _$ProfileApiClientProvider extends _i911.ProfileApiClientProvider {}
-
 class _$OccasionApiClientProvider extends _i507.OccasionApiClientProvider {}
+
+class _$ProfileApiClientProvider extends _i911.ProfileApiClientProvider {}
 
 class _$LocaleInitializer extends _i631.LocaleInitializer {}
