@@ -1,7 +1,8 @@
 name: Check PR Branch Name
 on:
   pull_request:
-    types: [opened, edited]
+    branches:
+      - '**'
 jobs:
   check-pr-branch-name:
     runs-on: ubuntu-latest
