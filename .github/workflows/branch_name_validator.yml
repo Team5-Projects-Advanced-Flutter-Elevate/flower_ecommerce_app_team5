@@ -1,6 +1,7 @@
 name: Check PR Branch Name
 on:
   pull_request:
+    types: [opened, edited]
     branches:
       - '**'
 jobs:
