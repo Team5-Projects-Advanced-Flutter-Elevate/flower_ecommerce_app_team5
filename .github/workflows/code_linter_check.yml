@@ -1,6 +1,11 @@
-name: PR Code Check By Dart Linter
+name: Code Check By Dart Linter (on Push or PR)
 on:
+  push:
+    branches:
+      - '**'
   pull_request:
+    branches:
+      - '**'
 jobs:
   analyze:
     runs-on: ubuntu-latest
@@ -16,4 +21,4 @@ jobs:
       - name: Analyze code
         run: flutter analyze
       - name: Verify formatting
-        run: flutter format --output=none --set-exit-if-changed .
+        run: dart format --output=none --set-exit-if-changed .
