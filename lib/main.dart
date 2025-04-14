@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import 'core/utilities/bloc_observer/bloc_observer.dart';
 import 'modules/authentication/domain/use_cases/login/login_use_case.dart';
+import 'modules/home/ui/layouts/profile_layout/profile_layout.dart';
 
 LoginResponseDto? storedLoginInfo;
 void main() async {
@@ -54,12 +55,12 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           theme: AppThemes.lightTheme,
           themeMode: ThemeMode.light,
-          onGenerateRoute: GenerateRoute.onGenerateRoute,
-          onGenerateInitialRoutes: (initialRoute) =>
-              GenerateRoute.onGenerateInitialRoutes(
-                  initialRoute: initialRoute, loginInfo: storedLoginInfo),
+          // onGenerateRoute: GenerateRoute.onGenerateRoute,
+          // onGenerateInitialRoutes: (initialRoute) =>
+          //     GenerateRoute.onGenerateInitialRoutes(
+          //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
           //initialRoute: DefinedRoutes.bestSellerScreenRoute,
-          // home: const OcassionListScreen(),
+          home: const ProfileLayout()
           // onGenerateRoute: GenerateRoute.onGenerateRoute,
           // onGenerateInitialRoutes: (initialRoute) =>
           //     GenerateRoute.onGenerateInitialRoutes(
