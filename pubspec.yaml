@@ -71,6 +71,7 @@ dependencies:
   bloc_test: ^10.0.0
   mockito: ^5.4.4
   mocktail: ^1.0.4
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:

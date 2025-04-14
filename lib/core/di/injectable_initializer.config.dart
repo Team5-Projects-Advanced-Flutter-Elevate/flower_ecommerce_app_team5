@@ -80,8 +80,12 @@ import '../../modules/home/data/api/api_client_provider/profile_api_client_provi
     as _i911;
 import '../../modules/home/data/datasource_contract/home_online_data_source.dart'
     as _i274;
+import '../../modules/home/data/datasource_contract/profile_online_data_source.dart'
+    as _i896;
 import '../../modules/home/data/datasource_impl/home_data_source_impl.dart'
     as _i524;
+import '../../modules/home/data/datasource_impl/profile_data_source_impl.dart'
+    as _i846;
 import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
 import '../../modules/home/domain/repo_contract/home_repo.dart' as _i1003;
 import '../../modules/home/domain/use_cases/get_all_products_use_case.dart'
@@ -137,8 +141,8 @@ extension GetItInjectableX on _i174.GetIt {
     final bestSellerClientProvider = _$BestSellerClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
-    final occasionApiClientProvider = _$OccasionApiClientProvider();
     final profileApiClientProvider = _$ProfileApiClientProvider();
+    final occasionApiClientProvider = _$OccasionApiClientProvider();
     final localeInitializer = _$LocaleInitializer();
     await gh.factoryAsync<_i361.Dio>(
       () => dioService.provideDio(),
@@ -154,10 +158,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i293.HomeApiClient>(
         () => homeApiClientProvider.provideApiClient(gh<_i361.Dio>()));
-    gh.singleton<_i941.OccasionApiClient>(
-        () => occasionApiClientProvider.ApiClient(gh<_i361.Dio>()));
     gh.singleton<_i486.ProfileApiClient>(
         () => profileApiClientProvider.ApiClient(gh<_i361.Dio>()));
+    gh.singleton<_i941.OccasionApiClient>(
+        () => occasionApiClientProvider.ApiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
@@ -178,6 +182,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i23.BestSellerRemoteDataSource>(() =>
         _i393.BestSellerRemoteDataSourceImp(gh<_i41.BestSellerApiClient>()));
+    gh.factory<_i896.ProfileOnlineDataSource>(
+        () => _i846.ProfileOnlineDataSourceImpl(gh<_i486.ProfileApiClient>()));
     gh.factory<_i319.OccasionRepo>(
         () => _i276.OccasionRepoImpl(gh<_i362.OccasionOnlineDataSource>()));
     gh.factory<_i1003.HomeRepo>(
@@ -248,8 +254,8 @@ class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 
 class _$HomeApiClientProvider extends _i939.HomeApiClientProvider {}
 
-class _$OccasionApiClientProvider extends _i507.OccasionApiClientProvider {}
-
 class _$ProfileApiClientProvider extends _i911.ProfileApiClientProvider {}
+
+class _$OccasionApiClientProvider extends _i507.OccasionApiClientProvider {}
 
 class _$LocaleInitializer extends _i631.LocaleInitializer {}
