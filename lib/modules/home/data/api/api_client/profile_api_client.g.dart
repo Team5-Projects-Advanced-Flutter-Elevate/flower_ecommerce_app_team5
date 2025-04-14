@@ -24,14 +24,10 @@ class _ProfileApiClient implements ProfileApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<UploadImageResponse> uploadProfileImage({
-    required String imagePath,
-    required File imageFile,
-    void Function(int, int)? onUploadProgress,
-  }) async {
+  Future<UploadImageResponse> uploadProfileImage(
+      {required File imageFile}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = FormData();
     _data.files.add(MapEntry(
@@ -51,7 +47,6 @@ class _ProfileApiClient implements ProfileApiClient {
           'api/v1/auth/upload-photo',
           queryParameters: queryParameters,
           data: _data,
-          onSendProgress: onUploadProgress,
         )
         .copyWith(
             baseUrl: _combineBaseUrls(

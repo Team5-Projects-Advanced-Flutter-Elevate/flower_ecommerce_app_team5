@@ -87,7 +87,15 @@ import '../../modules/home/data/datasource_impl/home_data_source_impl.dart'
 import '../../modules/home/data/datasource_impl/profile_data_source_impl.dart'
     as _i846;
 import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
+import '../../modules/home/data/repo_impl/profile_repo_impl.dart' as _i182;
 import '../../modules/home/domain/repo_contract/home_repo.dart' as _i1003;
+import '../../modules/home/domain/repo_contract/profile_repo.dart' as _i329;
+import '../../modules/home/domain/use_cases/change_password_use_case.dart'
+    as _i1029;
+import '../../modules/home/domain/use_cases/edite_profile_image_use_case.dart'
+    as _i208;
+import '../../modules/home/domain/use_cases/edite_profile_use_case.dart'
+    as _i411;
 import '../../modules/home/domain/use_cases/get_all_products_use_case.dart'
     as _i1019;
 import '../../modules/home/domain/use_cases/get_categories_use_case.dart'
@@ -196,6 +204,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i386.GetOccasionsUseCase>(
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
+    gh.factory<_i329.ProfileRepo>(
+        () => _i182.ProfileRepoImpl(gh<_i896.ProfileOnlineDataSource>()));
     gh.factory<_i90.GetHomeDataUseCase>(
         () => _i90.GetHomeDataUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
@@ -209,6 +219,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i855.OcassionViewModelCubit(gh<_i41.OccasionUseCase>()));
     gh.factory<_i76.BestSellerRepository>(() =>
         _i911.BestSellerRepositoryImp(gh<_i23.BestSellerRemoteDataSource>()));
+    gh.factory<_i411.EditeProfileUseCase>(
+        () => _i411.EditeProfileUseCase(gh<_i329.ProfileRepo>()));
+    gh.factory<_i208.EditeProfileImageUseCase>(
+        () => _i208.EditeProfileImageUseCase(gh<_i329.ProfileRepo>()));
+    gh.factory<_i1029.ChangePasswordUseCase>(
+        () => _i1029.ChangePasswordUseCase(gh<_i329.ProfileRepo>()));
     gh.factory<_i496.RegisterRepo>(
         () => _i161.RegisterRepoImpl(gh<_i871.RegisterOnlineDataSource>()));
     gh.factory<_i782.RegisterUseCase>(

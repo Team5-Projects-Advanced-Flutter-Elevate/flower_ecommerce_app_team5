@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/apis_endpoints/apis_endpoints.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_pofile/edite_profile_input_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_pofile/edite_profile_response.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_pofile/upload_image_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/edite_profile_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/edite_profile_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/upload_image_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../models/change_password/change_password_response.dart';
@@ -17,9 +17,7 @@ abstract class ProfileApiClient {
 
   @PUT(ApisEndpoints.uploadProfileImage)
   Future<UploadImageResponse> uploadProfileImage({
-    @Path("imagePath") required String imagePath,
     @Part() required File imageFile,
-    @SendProgress() ProgressCallback? onUploadProgress,
   } // Add this
       );
   @PUT(ApisEndpoints.editProfile)
