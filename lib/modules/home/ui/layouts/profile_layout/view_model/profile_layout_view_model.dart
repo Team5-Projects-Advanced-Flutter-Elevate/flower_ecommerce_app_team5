@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
-import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class ProfileViewModelCubit extends Cubit<ProfileState> {
   ProfileViewModelCubit() : super(ProfileInitial());
 
@@ -10,20 +11,10 @@ class ProfileViewModelCubit extends Cubit<ProfileState> {
       case LoadProfile():
         _handleProfiledata();
         break;
-
     }
   }
 
-
-  void _handleProfiledata(){
-
-  }
-
-
-
-
-
-
+  void _handleProfiledata() {}
 }
 
 sealed class ProfileonIntent {}

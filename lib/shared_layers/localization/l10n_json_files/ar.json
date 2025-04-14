@@ -42,9 +42,7 @@
   "confirmPassword": "تأكيد كلمة المرور",
   "phoneNumber": "رقم الهاتف",
   "noMatch": "غير متطابق!",
-  "appSections____________": "$$$ تعليق $$$",
-
-  "//appSections": "",
+  "//appSections": "$$$ تعليق $$$",
   "home": "الرئيسية",
   "categories": "الفئات",
   "cart": "السلة",

@@ -1,12 +1,13 @@
-import 'package:flower_ecommerce_app_team5/core/routing/app_routes.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/best_seller_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/edite_profile_layout_view.dart';
 import 'package:flutter/material.dart';
+
+import '../../modules/home/ui/layouts/profile_layout/change_password_layout_view.dart';
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -21,9 +22,19 @@ class GenerateRoute {
         return MaterialPageRoute(builder: (context) => const LoginScreen());
         break;
       case DefinedRoutes.homeScreenRoute:
-        return MaterialPageRoute(builder: (context) =>  const HomeScreen());
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
       case DefinedRoutes.bestSellerScreenRoute:
-        return MaterialPageRoute(builder: (context) => const BestSellerScreen(),);
+        return MaterialPageRoute(
+          builder: (context) => const BestSellerScreen(),
+        );
+      case DefinedRoutes.editProfileScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const EditeProfileLayoutView(),
+        );
+      case DefinedRoutes.changePasswordScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const ChangePasswordLayoutView(),
+        );
       default:
         return _errorRoute();
     }
@@ -37,7 +48,7 @@ class GenerateRoute {
       if (loginInfo != null)
         MaterialPageRoute(
             builder: (context) =>
-                const HomeScreen()//HomeScreen(authEntity: storedAuthEntity),
+                const EditeProfileLayoutView() //HomeScreen(authEntity: storedAuthEntity),
             )
       else
         MaterialPageRoute(
