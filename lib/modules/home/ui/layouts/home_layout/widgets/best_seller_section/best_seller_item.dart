@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import '../../../../../../../core/colors/app_colors.dart';
+import '../../../../../../../core/constants/constants.dart';
 
 class BestSellerItem extends BaseStatelessWidget {
   BestSellerItem({
@@ -48,14 +49,33 @@ class BestSellerItem extends BaseStatelessWidget {
                 SizedBox(
                   height: screenHeight * 0.003,
                 ),
-                Text(
-                  '${bestSellerEntity.price} EGP' ?? '',
-                  style: GoogleFonts.inter(
-                    textStyle: theme.textTheme.bodySmall?.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      bestSellerEntity.priceAfterDiscount != null
+                          ? "EGP ${bestSellerEntity.priceAfterDiscount?.toInt()}"
+                          : "EGP ${bestSellerEntity.price?.toInt()}",
+                      style: theme.textTheme.labelMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14 * (screenWidth / Constants.designWidth)),
                     ),
-                  ),
+                    Text(
+                      bestSellerEntity.priceAfterDiscount != null
+                          ? "${bestSellerEntity.price!}"
+                          : "",
+                      style: theme.textTheme.labelSmall!.copyWith(
+                          fontSize: 10 * (screenWidth / Constants.designWidth),
+                          fontWeight: FontWeight.w400,
+                          decoration: TextDecoration.lineThrough),
+                    ),
+                    Text(getPercentageOfDiscount(),
+                        style: theme.textTheme.labelSmall!.copyWith(
+                          fontSize: 10 * (screenWidth / Constants.designWidth),
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.green,
+                        ))
+                  ],
                 ),
               ],
             ),
@@ -63,5 +83,21 @@ class BestSellerItem extends BaseStatelessWidget {
         ],
       ),
     );
+  }
+
+  String getPercentageOfDiscount() {
+    if (bestSellerEntity.priceAfterDiscount != null) {
+      if (bestSellerEntity.price != null &&
+          bestSellerEntity.priceAfterDiscount != null &&
+          bestSellerEntity.price! > 0 &&
+          bestSellerEntity.priceAfterDiscount! > 0) {
+        double percentage =
+            ((bestSellerEntity.price! - bestSellerEntity.priceAfterDiscount!) /
+                    bestSellerEntity.price!) *
+                100;
+        return "${percentage.round()}%";
+      }
+    }
+    return "";
   }
 }
