@@ -71,11 +71,11 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
   }
 
   void hideAlertDialog() {
-    Navigator.pop(context);
+    Navigator.of(context).pop();
   }
 
   Future<void> setLocaleOfEasyLocalization(String newLocale) {
-    if(!mounted) return Future.value();
+    if (!mounted) return Future.value();
     return context.setLocale(Locale(newLocale));
   }
 }

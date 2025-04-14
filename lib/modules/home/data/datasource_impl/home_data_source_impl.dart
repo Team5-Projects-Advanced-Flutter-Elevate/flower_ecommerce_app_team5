@@ -3,6 +3,7 @@ import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart'
 import 'package:flower_ecommerce_app_team5/modules/home/data/api/api_client/home_api_client.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_gategories_reponse/all_categories_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_item_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
@@ -83,6 +84,20 @@ class HomeDataSourceImpl implements HomeDataSource {
         return Success(
           data: result.data.toEntity(),
         );
+      case Error<CartResponse>():
+        return Error(error: result.error);
+    }
+  }
+
+  @override
+  Future<ApiResult<CartResponseEntity>> addToCart(
+      AddToCartRequest request) async {
+    var result = await ApiExecutor.executeApi(
+        () async => await _homeApiClient.addToCart(request));
+
+    switch (result) {
+      case Success<CartResponse>():
+        return Success(data: result.data.toEntity());
       case Error<CartResponse>():
         return Error(error: result.error);
     }

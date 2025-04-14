@@ -3,27 +3,36 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
+import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../modules/home/data/models/cart_response/add_to_cart_request.dart';
 
 class ProductCard extends BaseStatelessWidget {
   final String imageUrl;
   final String productTitle;
+  final String? id;
   final double? width, height;
   final num? price;
   final num? priceAfterDiscountIfExist;
-  final void Function()? onAddToCartButtonClick, onProductCardClick;
-  ProductCard(
-      {super.key,
-      required this.productTitle,
-      required this.imageUrl,
-      required this.price,
-      this.onProductCardClick,
-      this.priceAfterDiscountIfExist,
-      this.onAddToCartButtonClick,
-      this.width,
-      this.height});
+  final void Function()? onProductCardClick;
+
+  ProductCard({
+    super.key,
+    required this.productTitle,
+    required this.imageUrl,
+    required this.price,
+    this.onProductCardClick,
+    this.priceAfterDiscountIfExist,
+    this.width,
+    this.height,
+    this.id,
+  });
 
   @override
   Widget customBuild(BuildContext context) {
@@ -104,32 +113,47 @@ class ProductCard extends BaseStatelessWidget {
                       ),
                       Expanded(
                         flex: 15,
-                        child: FilledButton(
-                            onPressed: onAddToCartButtonClick,
-                            style: FilledButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.shopping_cart_outlined,
-                                  size: 18 *
-                                      (screenWidth / Constants.designWidth),
-                                ),
-                                SizedBox(
-                                  width: screenWidth * 0.02,
-                                ),
-                                Text(
-                                  LocaleKeys.addToCart.tr(),
-                                  style: theme.textTheme.labelLarge!.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 13 *
+                        child: BlocBuilder<CartCubit, CartState>(
+                          builder: (context, state) {
+                            return FilledButton(
+                                onPressed: () {
+                                  getIt<CartCubit>().doIntent(
+                                    AddToCartIntent(
+                                      request: AddToCartRequest(
+                                        product: id,
+                                        quantity: 1,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                style: FilledButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 2)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.shopping_cart_outlined,
+                                      size: 18 *
                                           (screenWidth / Constants.designWidth),
-                                      color: AppColors.white),
-                                )
-                              ],
-                            )),
+                                    ),
+                                    SizedBox(
+                                      width: screenWidth * 0.02,
+                                    ),
+                                    Text(
+                                      LocaleKeys.addToCart.tr(),
+                                      style: theme.textTheme.labelLarge!
+                                          .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 13 *
+                                                  (screenWidth /
+                                                      Constants.designWidth),
+                                              color: AppColors.white),
+                                    )
+                                  ],
+                                ));
+                          },
+                        ),
                       )
                     ],
                   ))

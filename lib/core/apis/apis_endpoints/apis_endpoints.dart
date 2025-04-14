@@ -9,4 +9,6 @@ class ApisEndpoints {
   static const String occasion = 'api/v1/occasions';
   static const String getHomeData = 'api/v1/home';
   static const String getCartItems = 'api/v1/cart';
+  static const String addToCart = 'api/v1/cart';
+
 }

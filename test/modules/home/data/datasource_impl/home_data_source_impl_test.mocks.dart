@@ -13,6 +13,8 @@ import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_occasion
     as _i3;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart'
     as _i5;
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart'
+    as _i9;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/cart_response_model.dart'
     as _i6;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart'
@@ -172,6 +174,23 @@ class MockHomeApiClient extends _i1.Mock implements _i7.HomeApiClient {
           Invocation.method(
             #getCartItems,
             [],
+          ),
+        )),
+      ) as _i8.Future<_i6.CartResponse>);
+
+  @override
+  _i8.Future<_i6.CartResponse> addToCart(
+          _i9.AddToCartRequest? addToCartRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addToCart,
+          [addToCartRequest],
+        ),
+        returnValue: _i8.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
+          this,
+          Invocation.method(
+            #addToCart,
+            [addToCartRequest],
           ),
         )),
       ) as _i8.Future<_i6.CartResponse>);

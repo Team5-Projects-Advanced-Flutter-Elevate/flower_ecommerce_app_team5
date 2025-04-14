@@ -33,54 +33,50 @@ class _CartLayoutState extends BaseStatefulWidgetState<CartLayout> {
         vertical: screenHeight * 0.02,
         horizontal: screenWidth * 0.05,
       ),
-      child: BlocProvider(
-        create: (context) => cubit,
-        child: BlocConsumer<CartCubit, CartState>(
-          listenWhen: (previous, current) =>
-              current ==
-              const CartState(
-                status: CartStatus.noAccess,
+      child: BlocConsumer<CartCubit, CartState>(
+        listenWhen: (previous, current) =>
+            current ==
+            CartState(
+              status: CartStatus.noAccess,
+            ),
+        listener: (context, state) {
+          if (state.status == CartStatus.noAccess) {
+            displayAlertDialog(
+              title: const Text(
+                'please login first',
               ),
-          listener: (context, state) {
-            if (state.status == CartStatus.noAccess) {
-              displayAlertDialog(
-                title: const Text(
-                  'please login first',
+              showOkButton: true,
+              onOkButtonClick: () => Navigator.pushReplacementNamed(
+                context,
+                DefinedRoutes.loginScreenRoute,
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state.status == CartStatus.loading) {
+            return const LoadingWidget();
+          } else if (state.status == CartStatus.error) {
+            return ErrorStateWidget(error: state.error!);
+          } else if (state.status == CartStatus.success) {
+            return Column(
+              children: [
+                TitleAndCartItems(
+                  cartItems:
+                      state.cartResponseEntity?.cartModelEntity?.cartItems ??
+                          [],
                 ),
-                showOkButton: true,
-                onOkButtonClick: () => Navigator.pushReplacementNamed(
-                  context,
-                  DefinedRoutes.loginScreenRoute,
+                SizedBox(
+                  height: screenHeight * 0.02,
                 ),
-              );
-            }
-          },
-          builder: (context, state) {
-            if (state.status == CartStatus.loading) {
-              return const LoadingWidget();
-            } else if (state.status == CartStatus.error) {
-              return ErrorStateWidget(error: state.error!);
-            } else if (state.status == CartStatus.success) {
-              return Column(
-                children: [
-                  TitleAndCartItems(
-                    cartItems:
-                        state.cartResponseEntity?.cartModelEntity?.cartItems ??
-                            [],
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  InvoiceSectionAndCheckoutButton(
-                    cartResponseEntity: state.cartResponseEntity!,
-                  ),
-                ],
-              );
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
+                InvoiceSectionAndCheckoutButton(
+                  cartResponseEntity: state.cartResponseEntity!,
+                ),
+              ],
+            );
+          }
+          return const SizedBox();
+        },
       ),
     );
   }

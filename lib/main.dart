@@ -4,17 +4,20 @@ import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/constants/l10n_constants.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/l10n_manager/localization_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'core/utilities/bloc_observer/bloc_observer.dart';
 import 'modules/authentication/domain/use_cases/login/login_use_case.dart';
 
 LoginResponseDto? storedLoginInfo;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -22,21 +25,24 @@ void main() async {
   await configureDependencies();
   storedLoginInfo = await getIt.get<LoginUseCase>().getStoredLoginInfo();
   LocalizationManager localizationManager = getIt.get<LocalizationManager>();
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(
-        create: (context) => localizationManager,
-      )
-    ],
-    child: EasyLocalization(
-        supportedLocales: [
-          Locale(LanguagesEnum.en.getLanguageCode()),
-          Locale(LanguagesEnum.ar.getLanguageCode())
-        ],
-        path: L10nConstants.jsonFilesPath,
-        fallbackLocale: Locale(LanguagesEnum.en.getLanguageCode()),
-        startLocale: Locale(localizationManager.currentLocale),
-        child: const MyApp()),
+  runApp(BlocProvider(
+    create: (context) => getIt<CartCubit>(),
+    child: MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => localizationManager,
+        ),
+      ],
+      child: EasyLocalization(
+          supportedLocales: [
+            Locale(LanguagesEnum.en.getLanguageCode()),
+            Locale(LanguagesEnum.ar.getLanguageCode())
+          ],
+          path: L10nConstants.jsonFilesPath,
+          fallbackLocale: Locale(LanguagesEnum.en.getLanguageCode()),
+          startLocale: Locale(localizationManager.currentLocale),
+          child: const MyApp()),
+    ),
   ));
 }
 

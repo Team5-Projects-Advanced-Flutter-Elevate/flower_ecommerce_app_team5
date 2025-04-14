@@ -6,16 +6,21 @@ import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/utilities/app_dialogs.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/product_card.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/view_model/best_seller_intent.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/view_model/best_seller_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/view_model/best_seller_view_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../../core/routing/defined_routes.dart';
 
 class BestSellerScreen extends StatefulWidget {
   const BestSellerScreen({super.key});
@@ -44,7 +49,8 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
-              }, icon: const Icon(Icons.arrow_back_ios)),
+              },
+              icon: const Icon(Icons.arrow_back_ios)),
           title: Column(
             crossAxisAlignment: Platform.isIOS
                 ? CrossAxisAlignment.center
@@ -89,59 +95,100 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
             onRefresh: () {
               return bestSellerViewModel.doIntent(GetBestSellerProducts());
             },
-            child: BlocBuilder<BestSellerViewModel, BestSellerState>(
-              builder: (context, state) {
-                switch (state.bestSellerStatus) {
-                  case BestSellerStatus.initial:
-                    return const SizedBox();
-                  case BestSellerStatus.loading:
-                    return const CustomScrollView(
-                        slivers: [SliverFillRemaining(child: LoadingWidget())]);
-                  case BestSellerStatus.success:
-                    var bestSellerProducts = state.bestSellerProducts ?? [];
-                    if (bestSellerProducts.isEmpty) {
-                      return Center(
-                          child: Text(
-                        LocaleKeys.noProducts.tr(),
-                        style: theme.textTheme.labelLarge!
-                            .copyWith(fontSize: 20 * (screenWidth / 375)),
-                      ));
-                    }
-                    return Material(
-                      color: AppColors.white,
-                      child: GridView.builder(
-                        itemCount: bestSellerProducts.length,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.04,
-                            vertical: screenHeight * 0.01),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 163 / 229,
-                                mainAxisSpacing: 17,
-                                crossAxisSpacing: 17),
-                        itemBuilder: (context, index) {
-                          return ProductCard(
-                              onProductCardClick: () {},
-                              width: screenWidth * 0.45,
-                              height: screenHeight * 0.25,
-                              productTitle:
-                                  bestSellerProducts[index].title ?? "",
-                              price: bestSellerProducts[index].price,
-                              priceAfterDiscountIfExist:
-                                  bestSellerProducts[index].priceAfterDiscount,
-                              imageUrl:
-                                  bestSellerProducts[index].imgCover ?? "");
-                        },
-                      ),
+            child: BlocListener<CartCubit, CartState>(
+              listener: (context, state) {
+                if (state.status == CartStatus.noAccess) {
+                  displayAlertDialog(
+                    title: const Text(
+                      'please login first',
+                    ),
+                    showOkButton: true,
+                    onOkButtonClick: () => Navigator.pushReplacementNamed(
+                      context,
+                      DefinedRoutes.loginScreenRoute,
+                    ),
+                  );
+                  return;
+                }
+                switch (state.addToCartStatus) {
+                  case AddToCartStatus.loading:
+                    displayAlertDialog(
+                      title: const LoadingWidget(),
                     );
-                  case BestSellerStatus.error:
-                    return CustomScrollView(slivers: [
-                      SliverFillRemaining(
-                          child: ErrorStateWidget(error: state.error!))
-                    ]);
+                  case AddToCartStatus.success:
+                    hideAlertDialog();
+                    AppDialogs.showMessage(
+                      context,
+                      message: 'Added to cart successfully',
+                      isSuccess: true,
+                    );
+                  case AddToCartStatus.error:
+                    hideAlertDialog();
+                    AppDialogs.showMessage(
+                      context,
+                      message: 'Sold out',
+                      isSuccess: false,
+                    );
+                  case AddToCartStatus.initial:
                 }
               },
+              child: BlocBuilder<BestSellerViewModel, BestSellerState>(
+                builder: (context, state) {
+                  switch (state.bestSellerStatus) {
+                    case BestSellerStatus.initial:
+                      return const SizedBox();
+                    case BestSellerStatus.loading:
+                      return const CustomScrollView(slivers: [
+                        SliverFillRemaining(child: LoadingWidget())
+                      ]);
+                    case BestSellerStatus.success:
+                      var bestSellerProducts = state.bestSellerProducts ?? [];
+                      if (bestSellerProducts.isEmpty) {
+                        return Center(
+                            child: Text(
+                          LocaleKeys.noProducts.tr(),
+                          style: theme.textTheme.labelLarge!
+                              .copyWith(fontSize: 20 * (screenWidth / 375)),
+                        ));
+                      }
+                      return Material(
+                        color: AppColors.white,
+                        child: GridView.builder(
+                          itemCount: bestSellerProducts.length,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.04,
+                              vertical: screenHeight * 0.01),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 163 / 229,
+                                  mainAxisSpacing: 17,
+                                  crossAxisSpacing: 17),
+                          itemBuilder: (context, index) {
+                            return ProductCard(
+                                onProductCardClick: () {},
+                                id: bestSellerProducts[index].id,
+                                width: screenWidth * 0.45,
+                                height: screenHeight * 0.25,
+                                productTitle:
+                                    bestSellerProducts[index].title ?? "",
+                                price: bestSellerProducts[index].price,
+                                priceAfterDiscountIfExist:
+                                    bestSellerProducts[index]
+                                        .priceAfterDiscount,
+                                imageUrl:
+                                    bestSellerProducts[index].imgCover ?? "");
+                          },
+                        ),
+                      );
+                    case BestSellerStatus.error:
+                      return CustomScrollView(slivers: [
+                        SliverFillRemaining(
+                            child: ErrorStateWidget(error: state.error!))
+                      ]);
+                  }
+                },
+              ),
             ),
           ),
         ),

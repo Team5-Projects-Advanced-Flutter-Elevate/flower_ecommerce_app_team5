@@ -11,26 +11,49 @@ enum CartStatus {
   noAccess,
 }
 
+enum CounterStatus {
+  increment,
+  decrement,
+}
+
+enum AddToCartStatus {
+  initial,
+  loading,
+  success,
+  error,
+}
+
 class CartState extends Equatable {
   final CartStatus status;
   final Object? error;
   final CartResponseEntity? cartResponseEntity;
+  final CounterStatus? counterStatus;
+  final AddToCartStatus addToCartStatus;
+  int totalPrice;
 
-  const CartState({
+  CartState({
     this.status = CartStatus.initial,
     this.error,
     this.cartResponseEntity,
+    this.totalPrice = 0,
+    this.counterStatus,
+    this.addToCartStatus = AddToCartStatus.initial,
   });
 
-  CartState copyWith({
-    CartStatus? state,
-    Object? error,
-    CartResponseEntity? cartResponseEntity,
-  }) {
+  CartState copyWith(
+      {CartStatus? state,
+      Object? error,
+      CartResponseEntity? cartResponseEntity,
+      int? totalPrice,
+      CounterStatus? counterStatus,
+      AddToCartStatus? addToCartStatus}) {
     return CartState(
       status: state ?? status,
       error: error ?? this.error,
       cartResponseEntity: cartResponseEntity ?? this.cartResponseEntity,
+      totalPrice: totalPrice ?? this.totalPrice,
+      counterStatus: counterStatus ?? this.counterStatus,
+      addToCartStatus: addToCartStatus ?? this.addToCartStatus,
     );
   }
 
@@ -39,5 +62,8 @@ class CartState extends Equatable {
         status,
         error,
         cartResponseEntity,
+        totalPrice,
+        counterStatus,
+        addToCartStatus,
       ];
 }

@@ -8,6 +8,8 @@ import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products
 import 'package:retrofit/retrofit.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/apis_endpoints/apis_endpoints.dart';
 
+import '../../models/cart_response/add_to_cart_request.dart';
+
 part 'home_api_client.g.dart';
 
 @RestApi(baseUrl: ApisEndpoints.baseUrl)
@@ -29,4 +31,7 @@ abstract class HomeApiClient {
 
   @GET(ApisEndpoints.getCartItems)
   Future<CartResponse> getCartItems();
+
+  @POST(ApisEndpoints.addToCart)
+  Future<CartResponse> addToCart(@Body() AddToCartRequest addToCartRequest);
 }
