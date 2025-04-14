@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
-import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/repositories_contracts/best_seller/best_seller_repository.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/use_cases/best_seller/get_best_seller_products_use_case.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -20,10 +22,10 @@ void main() {
       late GetBestSellerProductsUseCase getBestSellerProductsUseCase;
       late BestSellerRepository bestSellerRepository;
       BestSellerResponseEntity bestSellerResponseEntity =
-          BestSellerResponseEntity(
+          const BestSellerResponseEntity(
         message: "Success",
         bestSellerProducts: [
-          BestSellerDataEntity(
+          ProductEntity(
             id: "1",
             title: "Product 1",
             slug: "product-1",
@@ -44,7 +46,7 @@ void main() {
             rateCount: 100,
             bestSellerId: "bs1",
           ),
-          BestSellerDataEntity(
+          ProductEntity(
             id: "2",
             title: "Product 2",
             slug: "product-2",

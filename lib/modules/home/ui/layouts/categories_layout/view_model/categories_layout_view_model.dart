@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/all_product_response_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:injectable/injectable.dart';
 
@@ -18,7 +20,7 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
   final GetCategoriesUseCase _getCategoriesUseCase;
   final GetAllProductsUseCase _getAllProductsUseCase;
   List<CategoryEntity> categoriesList = [];
-  List<Products> productsList = [];
+  List<ProductEntity> productsList = [];
   String? selectedCategoryId;
   void _tabChange(String? categoryId) {
     if (categoryId == selectedCategoryId) return;
@@ -33,7 +35,7 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
     final result = await _getCategoriesUseCase.execute();
     switch (result) {
       case Success<List<CategoryEntity>?>():
-        categoriesList = result.data ??[];
+        categoriesList = result.data ?? [];
         emit(CategoriesLayoutViewModelSuccess());
       case Error<List<CategoryEntity>?>():
         emit(CategoriesLayoutViewModelError(error: result.error));
@@ -44,11 +46,11 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
     emit(CategoriesLayoutViewModelLoading());
     final result = await _getAllProductsUseCase.execute(categoryId: categoryId);
     switch (result) {
-      case Success<List<Products>?>():
-        productsList = result.data!;
+      case Success<AllProductResponseEntity>():
+        productsList = result.data.products ?? [];
         emit(CategoriesViewModelTabBarChanged());
         break;
-      case Error<List<Products>?>():
+      case Error<AllProductResponseEntity>():
         emit(CategoriesLayoutViewModelError(error: result.error));
         break;
     }

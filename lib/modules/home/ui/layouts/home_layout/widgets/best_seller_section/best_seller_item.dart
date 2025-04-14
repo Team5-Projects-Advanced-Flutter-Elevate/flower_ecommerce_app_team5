@@ -1,5 +1,5 @@
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/best_seller_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/cashed_image.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
@@ -22,7 +22,7 @@ class BestSellerItem extends BaseStatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: CashedImage(
+            child: CachedImage(
               fit: BoxFit.cover,
               url: bestSellerEntity.imgCover ?? '',
             ),

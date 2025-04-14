@@ -14,7 +14,7 @@ abstract class AppThemes {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
-    appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+    appBarTheme:  AppBarTheme(backgroundColor: AppColors.white),
     textTheme: TextTheme(
       // Body Text Styles
       labelMedium: GoogleFonts.inter(

@@ -6,6 +6,7 @@ import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/product_card.dart';
@@ -44,7 +45,8 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
-              }, icon: const Icon(Icons.arrow_back_ios)),
+              },
+              icon: const Icon(Icons.arrow_back_ios)),
           title: Column(
             crossAxisAlignment: Platform.isIOS
                 ? CrossAxisAlignment.center
@@ -122,7 +124,11 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
                                 crossAxisSpacing: 17),
                         itemBuilder: (context, index) {
                           return ProductCard(
-                              onProductCardClick: () {},
+                              onProductCardClick: () {
+                                Navigator.pushNamed(context,
+                                    DefinedRoutes.productDetailsScreenRoute,
+                                    arguments: bestSellerProducts[index]);
+                              },
                               width: screenWidth * 0.45,
                               height: screenHeight * 0.25,
                               productTitle:

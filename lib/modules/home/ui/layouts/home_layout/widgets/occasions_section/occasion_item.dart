@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../../core/colors/app_colors.dart';
-import '../cashed_image.dart';
+import '../../../../../../../core/widgets/cached_image.dart';
 
 class OccasionItem extends BaseStatelessWidget {
   OccasionItem({
@@ -23,7 +23,7 @@ class OccasionItem extends BaseStatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: CashedImage(
+            child: CachedImage(
               fit: BoxFit.cover,
               url: occasionEntity.image ?? '',
             ),

@@ -105,6 +105,8 @@ import '../../modules/occasion/domain/repositories_contracts/ocassion_repo.dart'
     as _i319;
 import '../../modules/occasion/domain/use_cases/occasion_usecase.dart' as _i41;
 import '../../modules/occasion/ui/occasion_cubit.dart' as _i855;
+import '../../modules/product_details/ui/view_model/product_details_view_model.dart'
+    as _i902;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -143,6 +145,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
+    gh.factory<_i902.ProductDetailsViewModel>(
+        () => _i902.ProductDetailsViewModel());
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
@@ -192,8 +196,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
         _i79.LoginAsGuestOfflineDataSourceImpl(
             gh<_i629.SecureStorageService<dynamic>>()));
-    gh.factory<_i855.OcassionViewModelCubit>(
-        () => _i855.OcassionViewModelCubit(gh<_i41.OccasionUseCase>()));
+    gh.factory<_i855.OccasionViewModelCubit>(
+        () => _i855.OccasionViewModelCubit(gh<_i41.OccasionUseCase>()));
     gh.factory<_i76.BestSellerRepository>(() =>
         _i911.BestSellerRepositoryImp(gh<_i23.BestSellerRemoteDataSource>()));
     gh.factory<_i496.RegisterRepo>(

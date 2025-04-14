@@ -1,4 +1,5 @@
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 
 import '../domain/entities/get_occasion.dart';
 
@@ -10,7 +11,7 @@ class OccasionLoading extends OccasionState {}
 
 class OccasionSuccess extends OccasionState {
   final List<Occasion> allOccasions;
-  final List<Products> filteredProducts;
+  final List<ProductEntity> filteredProducts;
   final  selectedSlug;
 
 
@@ -18,7 +19,7 @@ class OccasionSuccess extends OccasionState {
 }
 
 class OccasionProductsLoaded extends OccasionState {
-  final List<Products>? products;
+  final List<ProductEntity>? products;
 
   OccasionProductsLoaded(this.products);
 }

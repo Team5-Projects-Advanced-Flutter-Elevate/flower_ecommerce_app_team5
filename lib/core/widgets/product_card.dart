@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
@@ -43,16 +44,12 @@ class ProductCard extends BaseStatelessWidget {
           child: Column(
             children: [
               Expanded(
-                flex: 13,
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  fit: BoxFit.cover,
-                  width: width,
-                  placeholder: (context, downloadProgress) =>
-                      const LoadingWidget(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
+                  flex: 13,
+                  child: CachedImage(
+                    url: imageUrl,
+                    fit: BoxFit.cover,
+                    width: width,
+                  )),
               Expanded(
                   flex: 9,
                   child: Column(

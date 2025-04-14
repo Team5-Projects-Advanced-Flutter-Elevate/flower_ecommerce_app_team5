@@ -3,4 +3,5 @@ abstract class DefinedRoutes {
   static const String homeScreenRoute = "HomeScreen";
   static const String register = "/register";
   static const String bestSellerScreenRoute = "BestSellerScreen";
+  static const String productDetailsScreenRoute = "ProductDetailsScreen";
 }

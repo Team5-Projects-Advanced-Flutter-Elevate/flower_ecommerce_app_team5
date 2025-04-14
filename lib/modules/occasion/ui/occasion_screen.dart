@@ -21,12 +21,12 @@ class _OcassionListScreenState
     extends BaseStatefulWidgetState<OcassionListScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  late OcassionViewModelCubit viewModel;
+  late OccasionViewModelCubit viewModel;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        viewModel = getIt.get<OcassionViewModelCubit>();
+        viewModel = getIt.get<OccasionViewModelCubit>();
         viewModel.processIntent(LoadOccasionIntent());
         return viewModel;
       },
@@ -67,7 +67,7 @@ class _OcassionListScreenState
               ),
             ),
           ),
-          body: BlocBuilder<OcassionViewModelCubit, OccasionState>(
+          body: BlocBuilder<OccasionViewModelCubit, OccasionState>(
             builder: (context, state) {
               if (state is OccasionLoading) {
                 return const Center(child: CircularProgressIndicator());
@@ -101,7 +101,7 @@ class _OcassionListScreenState
                         }).toList(),
                         onTap: (index) {
                           final selectedOccasion = allOccasions[index];
-                          context.read<OcassionViewModelCubit>().processIntent(
+                          context.read<OccasionViewModelCubit>().processIntent(
                                 LoadFilterIntent(selectedOccasion.id),
                               );
                         },

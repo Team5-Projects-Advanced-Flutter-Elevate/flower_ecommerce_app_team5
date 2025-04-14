@@ -1,4 +1,5 @@
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/all_product_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/data/data_sources_contracts/occasion_data_source.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/data/models/get_occasion.dart';
 import 'package:injectable/injectable.dart';
@@ -26,13 +27,13 @@ class OccasionOnlineDataSourceImpl implements OccasionOnlineDataSource {
   }
 
   @override
-  Future<List<Products>?> execute({String? occasionId}) async {
+  Future<AllProductResponseEntity> execute({String? occasionId}) async {
     var result = await ApiExecutor.executeApi(() async =>
         await _occasionApiClient.getAllProductForOccasion());
 
     switch (result) {
       case Success<AllProductResponse>():
-        return result.data.products ?? [];
+        return result.data.convertIntoEntity();
       case Error<AllProductResponse>():
         throw Exception(result.error); // or handle it appropriately
     }

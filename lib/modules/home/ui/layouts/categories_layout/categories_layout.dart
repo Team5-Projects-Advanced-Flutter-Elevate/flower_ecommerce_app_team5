@@ -4,6 +4,7 @@ import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart'
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/view_model/categories_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/widgets/search_and_feature_row.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,7 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
 }
 
 class CategoryProductsView extends BaseStatelessWidget {
-  final List<Products> productList;
+  final List<ProductEntity> productList;
 
   CategoryProductsView(this.productList, {super.key});
 
