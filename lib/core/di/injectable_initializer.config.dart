@@ -96,6 +96,8 @@ import '../../modules/home/ui/layouts/categories_layout/view_model/categories_la
     as _i44;
 import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
     as _i692;
+import '../../modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart'
+    as _i901;
 import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
 import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
     as _i507;
@@ -234,6 +236,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i543.LoginUseCase>(),
           gh<_i421.LoginAsGuestUseCase>(),
         ));
+    gh.factory<_i901.ProfileViewModelCubit>(
+        () => _i901.ProfileViewModelCubit(gh<_i543.LoginUseCase>()));
     return this;
   }
 }

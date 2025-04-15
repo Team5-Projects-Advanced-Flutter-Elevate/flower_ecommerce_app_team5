@@ -55,12 +55,12 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           theme: AppThemes.lightTheme,
           themeMode: ThemeMode.light,
-          // onGenerateRoute: GenerateRoute.onGenerateRoute,
-          // onGenerateInitialRoutes: (initialRoute) =>
-          //     GenerateRoute.onGenerateInitialRoutes(
-          //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
+          onGenerateRoute: GenerateRoute.onGenerateRoute,
+          onGenerateInitialRoutes: (initialRoute) =>
+              GenerateRoute.onGenerateInitialRoutes(
+                  initialRoute: initialRoute, loginInfo: storedLoginInfo),
           //initialRoute: DefinedRoutes.bestSellerScreenRoute,
-          home: const ProfileLayout()
+          //home: const ProfileLayout()
           // onGenerateRoute: GenerateRoute.onGenerateRoute,
           // onGenerateInitialRoutes: (initialRoute) =>
           //     GenerateRoute.onGenerateInitialRoutes(
