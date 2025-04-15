@@ -112,23 +112,32 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
                 }
                 switch (state.addToCartStatus) {
                   case AddToCartStatus.loading:
-                    displayAlertDialog(
-                      title: const LoadingWidget(),
-                    );
+                    Future.delayed(Duration.zero, () {
+                      displayAlertDialog(
+                        title: const LoadingWidget(),
+                      );
+                    });
+
                   case AddToCartStatus.success:
-                    hideAlertDialog();
-                    AppDialogs.showMessage(
-                      context,
-                      message: 'Added to cart successfully',
-                      isSuccess: true,
-                    );
+                    Future.delayed(Duration.zero, () {
+                      hideAlertDialog();
+                      AppDialogs.showMessage(
+                        context,
+                        message: 'Added to cart successfully',
+                        isSuccess: true,
+                      );
+                    });
+
                   case AddToCartStatus.error:
-                    hideAlertDialog();
-                    AppDialogs.showMessage(
-                      context,
-                      message: 'Sold out',
-                      isSuccess: false,
-                    );
+                    Future.delayed(Duration.zero, () {
+                      hideAlertDialog();
+                      AppDialogs.showMessage(
+                        context,
+                        message: 'Sold out',
+                        isSuccess: false,
+                      );
+                    });
+
                   case AddToCartStatus.initial:
                 }
               },

@@ -81,6 +81,7 @@ import '../../modules/home/data/datasource_impl/home_data_source_impl.dart'
 import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
 import '../../modules/home/domain/repo_contract/home_repo.dart' as _i1003;
 import '../../modules/home/domain/use_cases/add_to_use_case.dart' as _i999;
+import '../../modules/home/domain/use_cases/delete_from_cart.dart' as _i828;
 import '../../modules/home/domain/use_cases/get_all_products_use_case.dart'
     as _i1019;
 import '../../modules/home/domain/use_cases/get_cart_items_use_case.dart'
@@ -188,6 +189,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i386.GetOccasionsUseCase>(
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
+    gh.factory<_i828.DeleteFromCartUseCase>(
+        () => _i828.DeleteFromCartUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i90.GetHomeDataUseCase>(
         () => _i90.GetHomeDataUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
@@ -240,6 +243,7 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i640.GetCartItemsUseCase>(),
           gh<_i543.LoginUseCase>(),
           gh<_i999.AddToCartUseCase>(),
+          gh<_i828.DeleteFromCartUseCase>(),
         ));
     return this;
   }

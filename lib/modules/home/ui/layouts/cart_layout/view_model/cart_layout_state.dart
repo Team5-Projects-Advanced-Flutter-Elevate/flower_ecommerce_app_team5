@@ -23,12 +23,21 @@ enum AddToCartStatus {
   error,
 }
 
+enum DeleteFromCartStatus {
+  initial,
+  loading,
+  success,
+  error,
+}
+
 class CartState extends Equatable {
   final CartStatus status;
   final Object? error;
-  final CartResponseEntity? cartResponseEntity;
+  CartResponseEntity? cartResponseEntity;
   final CounterStatus? counterStatus;
   final AddToCartStatus addToCartStatus;
+  final DeleteFromCartStatus deleteFromCartStatus;
+
   int totalPrice;
 
   CartState({
@@ -38,15 +47,18 @@ class CartState extends Equatable {
     this.totalPrice = 0,
     this.counterStatus,
     this.addToCartStatus = AddToCartStatus.initial,
+    this.deleteFromCartStatus = DeleteFromCartStatus.initial,
   });
 
-  CartState copyWith(
-      {CartStatus? state,
-      Object? error,
-      CartResponseEntity? cartResponseEntity,
-      int? totalPrice,
-      CounterStatus? counterStatus,
-      AddToCartStatus? addToCartStatus}) {
+  CartState copyWith({
+    CartStatus? state,
+    Object? error,
+    CartResponseEntity? cartResponseEntity,
+    int? totalPrice,
+    CounterStatus? counterStatus,
+    AddToCartStatus? addToCartStatus,
+    DeleteFromCartStatus? deleteFromCartStatus,
+  }) {
     return CartState(
       status: state ?? status,
       error: error ?? this.error,
@@ -54,6 +66,7 @@ class CartState extends Equatable {
       totalPrice: totalPrice ?? this.totalPrice,
       counterStatus: counterStatus ?? this.counterStatus,
       addToCartStatus: addToCartStatus ?? this.addToCartStatus,
+      deleteFromCartStatus: deleteFromCartStatus ?? this.deleteFromCartStatus,
     );
   }
 
@@ -65,5 +78,6 @@ class CartState extends Equatable {
         totalPrice,
         counterStatus,
         addToCartStatus,
+        deleteFromCartStatus,
       ];
 }

@@ -34,4 +34,7 @@ abstract class HomeApiClient {
 
   @POST(ApisEndpoints.addToCart)
   Future<CartResponse> addToCart(@Body() AddToCartRequest addToCartRequest);
+
+  @DELETE('api/v1/cart/{id}')
+  Future<CartResponse> deleteFromCart(@Path("id") String productId);
 }

@@ -1,13 +1,16 @@
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/cashed_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/constants/assets_paths.dart';
 import '../../../../../../core/constants/constants.dart';
 import '../../../../../../core/di/injectable_initializer.dart';
+import '../../../../../../core/utilities/app_dialogs.dart';
 import '../../../../domain/entities/cart_response_entity/cart_item_entity.dart';
 
 class CartItem extends StatefulWidget {
@@ -31,7 +34,7 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenHeight * 0.14,
+      height: screenHeight * 0.16,
       padding: EdgeInsets.symmetric(
         vertical: screenHeight * 0.011,
         horizontal: screenWidth * 0.025,
@@ -99,11 +102,30 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                           ],
                         ),
                       ),
-                      ImageIcon(
-                        AssetImage(
-                          AssetsPaths.deleteIcon,
+                      BlocListener<CartCubit, CartState>(
+                        listener: (context, state) {
+                          if (state.deleteFromCartStatus ==
+                              DeleteFromCartStatus.success) {
+                            AppDialogs.showMessage(
+                              context,
+                              message: 'Deleted Successfully',
+                              isSuccess: false,
+                            );
+                          }
+                        },
+                        child: InkWell(
+                          onTap: () {
+                            cartCubit.doIntent(DeleteFromCartIntent(
+                              id: widget.cartItemEntity.productEntity!.id!,
+                            ));
+                          },
+                          child: ImageIcon(
+                            AssetImage(
+                              AssetsPaths.deleteIcon,
+                            ),
+                            color: AppColors.red,
+                          ),
                         ),
-                        color: AppColors.red,
                       )
                     ],
                   ),
@@ -122,9 +144,10 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                                   ? "EGP ${widget.cartItemEntity.productEntity?.priceAfterDiscount?.toInt()}"
                                   : "EGP ${widget.cartItemEntity.price?.toInt()}",
                               style: theme.textTheme.labelMedium!.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14 *
-                                      (screenWidth / Constants.designWidth)),
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    12 * (screenWidth / Constants.designWidth),
+                              ),
                             ),
                             Text(
                               widget.cartItemEntity.productEntity
@@ -133,15 +156,15 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                                   ? "${widget.cartItemEntity.price!}"
                                   : "",
                               style: theme.textTheme.labelSmall!.copyWith(
-                                  fontSize: 12 *
-                                      (screenWidth / Constants.designWidth),
+                                  fontSize:
+                                      8 * (screenWidth / Constants.designWidth),
                                   fontWeight: FontWeight.w400,
                                   decoration: TextDecoration.lineThrough),
                             ),
                             Text(getPercentageOfDiscount(),
                                 style: theme.textTheme.labelSmall!.copyWith(
-                                  fontSize: 12 *
-                                      (screenWidth / Constants.designWidth),
+                                  fontSize:
+                                      8 * (screenWidth / Constants.designWidth),
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.green,
                                 ))
@@ -160,8 +183,10 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                                 if (counter.value <= 1) return;
                                 counter.value--;
                                 cartCubit.doIntent(DecrementIntent(
-                                  price:
-                                      widget.cartItemEntity.productEntity?.priceAfterDiscount?.toInt() ?? 0,
+                                  price: widget.cartItemEntity.productEntity
+                                          ?.priceAfterDiscount
+                                          ?.toInt() ??
+                                      0,
                                 ));
                               },
                               child: ImageIcon(
@@ -172,7 +197,7 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                               ),
                             ),
                             SizedBox(
-                              width: screenWidth * 0.02,
+                              width: screenWidth * 0.01,
                             ),
                             ValueListenableBuilder(
                               valueListenable: counter,
@@ -184,14 +209,16 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                               ),
                             ),
                             SizedBox(
-                              width: screenWidth * 0.02,
+                              width: screenWidth * 0.01,
                             ),
                             InkWell(
                               onTap: () {
                                 counter.value++;
                                 cartCubit.doIntent(IncrementIntent(
-                                  price:
-                                      widget.cartItemEntity.productEntity?.priceAfterDiscount?.toInt() ?? 0,
+                                  price: widget.cartItemEntity.productEntity
+                                          ?.priceAfterDiscount
+                                          ?.toInt() ??
+                                      0,
                                 ));
                               },
                               child: const Icon(

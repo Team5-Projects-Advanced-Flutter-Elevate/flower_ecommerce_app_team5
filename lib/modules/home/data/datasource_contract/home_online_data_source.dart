@@ -21,4 +21,6 @@ abstract interface class HomeDataSource {
   Future<ApiResult<CartResponseEntity>> getCartItems();
 
   Future<ApiResult<CartResponseEntity>> addToCart(AddToCartRequest request);
+
+  Future<ApiResult<CartResponseEntity>> deleteFromCart(String productId);
 }

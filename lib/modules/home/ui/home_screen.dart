@@ -2,15 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
-import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/cart_layout.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/categories_layout.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/home_layout.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/view_model/home_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/profile_layout.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

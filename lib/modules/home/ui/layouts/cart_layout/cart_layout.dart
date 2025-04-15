@@ -1,5 +1,6 @@
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/utilities/app_dialogs.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/widgets/invoice_section_and_checkout_button.dart';
@@ -59,6 +60,13 @@ class _CartLayoutState extends BaseStatefulWidgetState<CartLayout> {
           } else if (state.status == CartStatus.error) {
             return ErrorStateWidget(error: state.error!);
           } else if (state.status == CartStatus.success) {
+            if (state.cartResponseEntity!.cartModelEntity!.cartItems!.isEmpty) {
+              return const Center(
+                  child: Text(
+                'Cart is Empty \n Please add some items to cart',
+                    textAlign: TextAlign.center,
+              ));
+            }
             return Column(
               children: [
                 TitleAndCartItems(

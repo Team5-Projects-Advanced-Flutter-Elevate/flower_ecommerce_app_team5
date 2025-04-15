@@ -22,7 +22,7 @@ class BestSellerItem extends BaseStatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            flex: 3,
+            flex: 5,
             child: CashedImage(
               fit: BoxFit.cover,
               url: bestSellerEntity.imgCover ?? '',
@@ -32,7 +32,7 @@ class BestSellerItem extends BaseStatelessWidget {
             height: screenHeight * 0.01,
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -57,21 +57,22 @@ class BestSellerItem extends BaseStatelessWidget {
                           ? "EGP ${bestSellerEntity.priceAfterDiscount?.toInt()}"
                           : "EGP ${bestSellerEntity.price?.toInt()}",
                       style: theme.textTheme.labelMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14 * (screenWidth / Constants.designWidth)),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10 * (screenWidth / Constants.designWidth),
+                      ),
                     ),
                     Text(
                       bestSellerEntity.priceAfterDiscount != null
                           ? "${bestSellerEntity.price!}"
                           : "",
                       style: theme.textTheme.labelSmall!.copyWith(
-                          fontSize: 10 * (screenWidth / Constants.designWidth),
+                          fontSize: 8 * (screenWidth / Constants.designWidth),
                           fontWeight: FontWeight.w400,
                           decoration: TextDecoration.lineThrough),
                     ),
                     Text(getPercentageOfDiscount(),
                         style: theme.textTheme.labelSmall!.copyWith(
-                          fontSize: 10 * (screenWidth / Constants.designWidth),
+                          fontSize: 8 * (screenWidth / Constants.designWidth),
                           fontWeight: FontWeight.w400,
                           color: AppColors.green,
                         ))

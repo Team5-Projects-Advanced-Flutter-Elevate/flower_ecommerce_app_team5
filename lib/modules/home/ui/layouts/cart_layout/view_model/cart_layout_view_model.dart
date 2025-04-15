@@ -6,6 +6,7 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cas
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/add_to_use_case.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/delete_from_cart.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/get_cart_items_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:injectable/injectable.dart';
@@ -17,11 +18,13 @@ class CartCubit extends Cubit<CartState> {
     this.getCartItemsUseCase,
     this.loginUseCase,
     this.addToCartUseCase,
+    this.deleteFromCartUseCase,
   ) : super(CartState());
 
   GetCartItemsUseCase getCartItemsUseCase;
   LoginUseCase loginUseCase;
   AddToCartUseCase addToCartUseCase;
+  DeleteFromCartUseCase deleteFromCartUseCase;
 
   void doIntent(CartIntent intent) {
     switch (intent) {
@@ -33,6 +36,8 @@ class CartCubit extends Cubit<CartState> {
         _decrement(intent.price);
       case AddToCartIntent():
         _addToCart(intent.request);
+      case DeleteFromCartIntent():
+        _deleteFromCart(intent.id);
     }
   }
 
@@ -99,7 +104,6 @@ class CartCubit extends Cubit<CartState> {
     var result = await addToCartUseCase.execute(request);
     switch (result) {
       case Success<CartResponseEntity>():
-        _getCartItems();
         emit(state.copyWith(
           addToCartStatus: AddToCartStatus.success,
         ));
@@ -107,6 +111,27 @@ class CartCubit extends Cubit<CartState> {
         emit(
           state.copyWith(
             addToCartStatus: AddToCartStatus.error,
+            error: result.error,
+          ),
+        );
+    }
+  }
+
+  void _deleteFromCart(String id) async {
+    emit(CartState(
+      deleteFromCartStatus: DeleteFromCartStatus.loading,
+    ));
+    var result = await deleteFromCartUseCase.execute(id);
+    switch (result) {
+      case Success<CartResponseEntity>():
+        emit(state.copyWith(
+          deleteFromCartStatus: DeleteFromCartStatus.success,
+          cartResponseEntity: result.data,
+        ));
+      case Error<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            deleteFromCartStatus: DeleteFromCartStatus.error,
             error: result.error,
           ),
         );
@@ -134,4 +159,10 @@ class AddToCartIntent extends CartIntent {
   final AddToCartRequest request;
 
   AddToCartIntent({required this.request});
+}
+
+class DeleteFromCartIntent extends CartIntent {
+  final String id;
+
+  DeleteFromCartIntent({required this.id});
 }

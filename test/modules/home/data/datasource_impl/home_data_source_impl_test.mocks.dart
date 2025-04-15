@@ -194,4 +194,20 @@ class MockHomeApiClient extends _i1.Mock implements _i7.HomeApiClient {
           ),
         )),
       ) as _i8.Future<_i6.CartResponse>);
+
+  @override
+  _i8.Future<_i6.CartResponse> deleteFromCart(String? productId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteFromCart,
+          [productId],
+        ),
+        returnValue: _i8.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
+          this,
+          Invocation.method(
+            #deleteFromCart,
+            [productId],
+          ),
+        )),
+      ) as _i8.Future<_i6.CartResponse>);
 }
