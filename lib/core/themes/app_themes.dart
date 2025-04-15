@@ -1,5 +1,6 @@
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppThemes {
@@ -14,7 +15,9 @@ abstract class AppThemes {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
-    appBarTheme:  AppBarTheme(backgroundColor: AppColors.white),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.white,
+    ),
     textTheme: TextTheme(
       // Body Text Styles
       labelMedium: GoogleFonts.inter(
@@ -106,7 +109,6 @@ abstract class AppThemes {
       backgroundColor: AppColors.white,
     ),
     navigationBarTheme: NavigationBarThemeData(
-
       backgroundColor: AppColors.white,
       iconTheme: WidgetStateProperty.resolveWith(
         (states) {
@@ -123,7 +125,6 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
-      
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return GoogleFonts.inter(
@@ -153,8 +154,6 @@ abstract class AppThemes {
         fontSize: 14,
       ),
     ),
-
-
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,
       border: OutlineInputBorder(

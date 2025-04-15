@@ -42,7 +42,7 @@
   "confirmPassword": "تأكيد كلمة المرور",
   "phoneNumber": "رقم الهاتف",
   "noMatch": "غير متطابق!",
-  "appSections____________": "$$$ تعليق $$$",
+  "appSections": "$$$ تعليق $$$",
 
   "//appSections": "",
   "home": "الرئيسية",

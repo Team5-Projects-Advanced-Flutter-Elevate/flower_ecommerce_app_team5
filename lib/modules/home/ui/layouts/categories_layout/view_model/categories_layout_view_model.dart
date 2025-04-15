@@ -22,14 +22,35 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
   List<CategoryEntity> categoriesList = [];
   List<ProductEntity> productsList = [];
   String? selectedCategoryId;
+  int initialCategoryIndex = 0;
   void _tabChange(String? categoryId) {
+    print("Coming category Id: $categoryId");
+    print("selected category Id: $selectedCategoryId");
+    print(categoryId == selectedCategoryId);
+
     if (categoryId == selectedCategoryId) return;
 
     selectedCategoryId = categoryId;
     _getAllProduct(categoryId: selectedCategoryId);
   }
 
-  void _getCategories() async {
+  void _getInitialCategoryIndex() {
+    int? result;
+    for (int i = 0; i < categoriesList.length; i++) {
+      if (categoriesList[i].id == selectedCategoryId) {
+        result = i;
+        break;
+      }
+    }
+    if (result == 0) {
+      initialCategoryIndex = 1;
+    } else {
+      initialCategoryIndex = result != null ? result + 1 : 0;
+    }
+    print("Initial category index $initialCategoryIndex");
+  }
+
+  Future<void> _getCategories() async {
     categoriesList.clear();
     emit(CategoriesLayoutViewModelLoading());
     final result = await _getCategoriesUseCase.execute();
@@ -42,7 +63,9 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
     }
   }
 
-  void _getAllProduct({String? categoryId}) async {
+  Future<void> _getAllProduct({String? categoryId}) async {
+    print("category Id for getting products: $categoryId");
+
     emit(CategoriesLayoutViewModelLoading());
     final result = await _getAllProductsUseCase.execute(categoryId: categoryId);
     switch (result) {
@@ -56,16 +79,19 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
     }
   }
 
-  dynamic processIntent(CategoriesLayoutViewModelIntent intent) {
+  Future<void> processIntent(CategoriesLayoutViewModelIntent intent) async {
     switch (intent) {
       case GetCategoriesIntent():
-        _getCategories();
+        await _getCategories();
         break;
       case GetProductsIntent():
-        _getAllProduct(categoryId: intent.categoryId);
+        await _getAllProduct(categoryId: intent.categoryId);
         break;
       case TabBarChangedIntent():
         _tabChange(intent.categoryId);
+        break;
+      case GetInitialCategoryIndex():
+        _getInitialCategoryIndex();
         break;
     }
   }
@@ -74,6 +100,8 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
 sealed class CategoriesLayoutViewModelIntent {}
 
 final class GetCategoriesIntent extends CategoriesLayoutViewModelIntent {}
+
+final class GetInitialCategoryIndex extends CategoriesLayoutViewModelIntent {}
 
 final class GetProductsIntent extends CategoriesLayoutViewModelIntent {
   final String? categoryId;

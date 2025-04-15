@@ -22,7 +22,7 @@ abstract class DioService {
         responseHeader: true,
         responseBody: true,
         logPrint: (object) {
-          debugPrint(object.toString());
+          //debugPrint(object.toString());
         },
       ),
     );

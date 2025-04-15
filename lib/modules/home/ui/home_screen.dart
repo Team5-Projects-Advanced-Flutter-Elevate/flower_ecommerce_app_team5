@@ -8,9 +8,12 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_la
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/home_layout.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/view_model/home_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/profile_layout.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,8 +23,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
-  int selectedAppSectionIndex = 0;
-  final PageController pageController = PageController(initialPage: 0);
+  final HomeScreenViewModel homeScreenViewModel =
+      getIt.get<HomeScreenViewModel>();
+
   final homePages = [
     const HomeLayout(),
     const CategoriesLayout(),
@@ -31,50 +35,58 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: AppColors.white[60]!,
-                width: 1,
+    return ChangeNotifierProvider(
+      create: (context) => homeScreenViewModel,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarColor: AppColors.white,
+        ),
+        child: SafeArea(
+          child: Scaffold(
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: AppColors.white[60]!,
+                    width: 1,
+                  ),
+                ),
               ),
+              child: NavigationBar(
+                  selectedIndex: homeScreenViewModel.selectedAppSectionIndex,
+                  onDestinationSelected: (value) {
+                    setState(() {
+                      homeScreenViewModel.selectedAppSectionIndex = value;
+                      homeScreenViewModel
+                          .doIntent(AnimateToPage(pageIndex: value));
+                    });
+                  },
+                  destinations: [
+                    NavigationDestination(
+                        icon: ImageIcon(AssetImage(AssetsPaths.homeIcon)),
+                        label: tr(LocaleKeys.home)),
+                    NavigationDestination(
+                        icon:
+                            ImageIcon(AssetImage(AssetsPaths.categoriesIcon)),
+                        label: LocaleKeys.categories.tr()),
+                    NavigationDestination(
+                        icon: ImageIcon(AssetImage(AssetsPaths.cartIcon)),
+                        label: LocaleKeys.cart.tr()),
+                    NavigationDestination(
+                        icon: ImageIcon(AssetImage(AssetsPaths.profileIcon)),
+                        label: LocaleKeys.profile.tr()),
+                  ]),
             ),
-          ),
-          child: NavigationBar(
-              selectedIndex: selectedAppSectionIndex,
-              onDestinationSelected: (value) {
+            body: PageView(
+              controller: homeScreenViewModel.pageController,
+              onPageChanged: (value) {
                 setState(() {
-                  selectedAppSectionIndex = value;
-                  pageController.animateToPage(value,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut);
+                  homeScreenViewModel.selectedAppSectionIndex = value;
                 });
               },
-              destinations: [
-                NavigationDestination(
-                    icon: ImageIcon(AssetImage(AssetsPaths.homeIcon)),
-                    label: tr(LocaleKeys.home)),
-                NavigationDestination(
-                    icon: ImageIcon(AssetImage(AssetsPaths.categoriesIcon)),
-                    label: LocaleKeys.categories.tr()),
-                NavigationDestination(
-                    icon: ImageIcon(AssetImage(AssetsPaths.cartIcon)),
-                    label: LocaleKeys.cart.tr()),
-                NavigationDestination(
-                    icon: ImageIcon(AssetImage(AssetsPaths.profileIcon)),
-                    label: LocaleKeys.profile.tr()),
-              ]),
-        ),
-        body: PageView(
-          controller: pageController,
-          onPageChanged: (value) {
-            setState(() {
-              selectedAppSectionIndex = value;
-            });
-          },
-          children: homePages,
+              children: homePages,
+            ),
+          ),
         ),
       ),
     );

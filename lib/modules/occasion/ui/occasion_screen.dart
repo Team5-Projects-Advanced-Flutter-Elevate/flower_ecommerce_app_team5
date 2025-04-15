@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,7 +88,7 @@ class _OcassionListScreenState
                       TabBar(
                         isScrollable: true,
                         labelColor: Colors.pink,
-                        indicatorPadding: EdgeInsets.only(bottom: 7),
+                        indicatorPadding: const EdgeInsets.only(bottom: 7),
                         // labelPadding: EdgeInsets.symmetric(horizontal: 2), // optional
 
                         tabs: allOccasions.map((occasion) {
@@ -130,7 +131,9 @@ class _OcassionListScreenState
                                 itemBuilder: (context, index) {
                                   final product = filteredProduct[index];
                                   return ProductCard(
-                                    onProductCardClick: () {},
+                                    onProductCardClick: () {
+                                      Navigator.pushNamed(context, DefinedRoutes.productDetailsScreenRoute,arguments: product);
+                                    },
                                     onAddToCartButtonClick: () {},
                                     width: screenWidth * 0.45,
                                     height: screenHeight * 0.25,

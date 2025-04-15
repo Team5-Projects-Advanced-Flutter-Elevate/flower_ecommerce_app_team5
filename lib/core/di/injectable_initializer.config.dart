@@ -92,6 +92,7 @@ import '../../modules/home/ui/layouts/categories_layout/view_model/categories_la
     as _i44;
 import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
     as _i692;
+import '../../modules/home/ui/view_model/home_screen_view_model.dart' as _i867;
 import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
 import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
     as _i507;
@@ -225,6 +226,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
+    gh.factory<_i867.HomeScreenViewModel>(
+        () => _i867.HomeScreenViewModel(gh<_i44.CategoriesLayoutViewModel>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
     gh.factory<_i363.LoginViewModelCubit>(() => _i363.LoginViewModelCubit(

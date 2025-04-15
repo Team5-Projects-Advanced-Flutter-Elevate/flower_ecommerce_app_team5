@@ -69,5 +69,17 @@
   "checkGuest": "Please Log-in",
   "occsionScreenTitle": "Occasion",
   "occasionScreenSubTitle": "Bloom with our exquisite best sellers",
-  "noProductsFound": "No Products Found"
+  "noProductsFound": "No Products Found",
+
+  "//productDetailsScreen": "",
+  "egp": "EGP {}",
+  "status": "Status: ",
+  "inStock": "In stock",
+  "notInStock": "Not in stock",
+  "pricesIncludeTax": "All prices include tax",
+  "description": "Description: ",
+  "information": "Information: ",
+  "sold": "Sold: {}",
+  "rate": "Rate: {}",
+  "rateCount": "Rate Count: {}"
 }

@@ -3,13 +3,17 @@ import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/view_model/categories_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/widgets/search_and_feature_row.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/colors/app_colors.dart';
 import '../../../../../core/widgets/product_card.dart';
@@ -23,101 +27,119 @@ class CategoriesLayout extends StatefulWidget {
 }
 
 class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
-  CategoriesLayoutViewModel viewModel = getIt.get<CategoriesLayoutViewModel>();
+  late CategoriesLayoutViewModel viewModel;
+  late HomeScreenViewModel homeScreenViewModel;
   @override
   void initState() {
-    viewModel.processIntent(GetCategoriesIntent());
-
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    homeScreenViewModel = Provider.of(context);
+    viewModel = homeScreenViewModel.categoriesLayoutViewModel;
+    viewModel.processIntent(GetCategoriesIntent());
   }
 
   final List<String> tabs = [Constants.all];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        toolbarHeight: screenHeight * 0.1,
-        title: SearchAndFilterRow(),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight - 20),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: BlocConsumer<CategoriesLayoutViewModel,
-                    CategoriesLayoutViewModelState>(
-                bloc: viewModel,
-                listener: (context, state) {
-                  if (state is CategoriesLayoutViewModelError) {
-                    displayAlertDialog(
-                        showOkButton: true, title: ErrorWidget(state.error));
-                  }
-                },
-                buildWhen: (previous, current) =>
-                    current is CategoriesLayoutViewModelSuccess,
-                builder: (context, state) {
-                  if (state is CategoriesLayoutViewModelSuccess ||
-                      state is CategoriesViewModelTabBarChanged) {
-                    viewModel.processIntent(GetProductsIntent());
-                    tabs.addAll(viewModel.categoriesList.map((e) => e.name!));
-                    return DefaultTabController(
-                      length: tabs.length,
-                      child: TabBar(
-                        onTap: (value) {
-                          if (value == 0) {
-                            viewModel.processIntent(
-                                TabBarChangedIntent(categoryId: null));
-                          }
-
-                          viewModel.processIntent(TabBarChangedIntent(
-                              categoryId: ((value - 1) >= 0)
-                                  ? viewModel.categoriesList[value - 1].id
-                                  : null));
-                        },
-                        physics: const BouncingScrollPhysics(),
-                        tabAlignment: TabAlignment.start,
-                        isScrollable: true,
-                        indicatorColor: AppColors.mainColor,
-                        labelColor: AppColors.mainColor,
-                        unselectedLabelColor: AppColors.white[70],
-                        // Use your grey color
-                        labelStyle: theme.textTheme.bodyLarge,
-                        unselectedLabelStyle: GoogleFonts.inter(
-                            textStyle: theme.textTheme.bodyLarge),
-                        indicatorPadding: EdgeInsets.zero,
-                        labelPadding:
-                            const EdgeInsets.symmetric(horizontal: 12),
-                        indicatorWeight: 2,
-                        indicatorSize: TabBarIndicatorSize.label,
-                        tabs: tabs.map((title) => Text(title)).toList(),
-                      ),
-                    );
-                  } else {
-                    return const LoadingWidget();
-                  }
-                }),
+    return BlocProvider(
+      create: (context) => viewModel,
+      child: Scaffold(
+        appBar: AppBar(
+          forceMaterialTransparency: true,
+          toolbarHeight: screenHeight * 0.1,
+          title: SearchAndFilterRow(),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(kToolbarHeight - 20),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: BlocConsumer<CategoriesLayoutViewModel,
+                      CategoriesLayoutViewModelState>(
+                  listener: (context, state) {
+                    if (state is CategoriesLayoutViewModelError) {
+                      displayAlertDialog(
+                          showOkButton: true,
+                          title: ErrorStateWidget(error: state.error));
+                    }
+                  },
+                  buildWhen: (previous, current) =>
+                      current is CategoriesLayoutViewModelSuccess,
+                  builder: (context, state) {
+                    if (state is CategoriesLayoutViewModelSuccess ||
+                        state is CategoriesViewModelTabBarChanged) {
+                      viewModel.processIntent(GetProductsIntent(
+                          categoryId: viewModel.selectedCategoryId));
+                      viewModel.processIntent(GetInitialCategoryIndex());
+                      tabs.addAll(viewModel.categoriesList.map((e) => e.name!));
+                      return DefaultTabController(
+                        length: tabs.length,
+                        initialIndex: viewModel.initialCategoryIndex,
+                        child: TabBar(
+                          onTap: (value) {
+                            // if (value == 0) {
+                            //   viewModel.processIntent(
+                            //       TabBarChangedIntent(categoryId: null));
+                            // }
+                            viewModel.processIntent(TabBarChangedIntent(
+                                categoryId: ((value - 1) >= 0)
+                                    ? viewModel.categoriesList[value - 1].id
+                                    : null));
+                          },
+                          physics: const BouncingScrollPhysics(),
+                          tabAlignment: TabAlignment.start,
+                          isScrollable: true,
+                          indicatorColor: AppColors.mainColor,
+                          labelColor: AppColors.mainColor,
+                          unselectedLabelColor: AppColors.white[70],
+                          // Use your grey color
+                          labelStyle: theme.textTheme.bodyLarge,
+                          unselectedLabelStyle: GoogleFonts.inter(
+                              textStyle: theme.textTheme.bodyLarge),
+                          indicatorPadding: EdgeInsets.zero,
+                          labelPadding:
+                              const EdgeInsets.symmetric(horizontal: 12),
+                          indicatorWeight: 2,
+                          indicatorSize: TabBarIndicatorSize.label,
+                          tabs: tabs.map((title) => Text(title)).toList(),
+                        ),
+                      );
+                    } else {
+                      return const LoadingWidget();
+                    }
+                  }),
+            ),
           ),
         ),
+        body: BlocConsumer<CategoriesLayoutViewModel,
+            CategoriesLayoutViewModelState>(listener: (context, state) {
+          if (state is CategoriesLayoutViewModelError) {
+            displayAlertDialog(
+                showOkButton: true,
+                title: ErrorStateWidget(error: state.error));
+          }
+        }, builder: (context, state) {
+          if (state is CategoriesViewModelTabBarChanged) {
+            return CategoryProductsView(
+              viewModel.productsList,
+            );
+          } else {
+            return const LoadingWidget();
+          }
+        }),
       ),
-      body: BlocConsumer<CategoriesLayoutViewModel,
-              CategoriesLayoutViewModelState>(
-          bloc: viewModel,
-          listener: (context, state) {
-            if (state is CategoriesLayoutViewModelError) {
-              displayAlertDialog(
-                  showOkButton: true, title: ErrorWidget(state.error));
-            }
-          },
-          builder: (context, state) {
-            if (state is CategoriesViewModelTabBarChanged) {
-              return CategoryProductsView(
-                viewModel.productsList,
-              );
-            } else {
-              return const LoadingWidget();
-            }
-          }),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    homeScreenViewModel.categoriesLayoutViewModel.close();
+    homeScreenViewModel.categoriesLayoutViewModel =
+        getIt.get<CategoriesLayoutViewModel>();
   }
 }
 
@@ -156,7 +178,11 @@ class CategoryProductsView extends BaseStatelessWidget {
                         crossAxisSpacing: 17,
                       ),
                       itemBuilder: (context, index) => ProductCard(
-                        onProductCardClick: () {},
+                        onProductCardClick: () {
+                          Navigator.pushNamed(
+                              context, DefinedRoutes.productDetailsScreenRoute,
+                              arguments: productList[index]);
+                        },
                         onAddToCartButtonClick: () {},
                         width: screenWidth * 0.45,
                         height: screenHeight * 0.25,
