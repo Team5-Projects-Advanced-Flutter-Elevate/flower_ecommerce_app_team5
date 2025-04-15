@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/di/injectable_initializer.dart';
-import '../../../../../core/widgets/loading_state_widget.dart';
 import '../../../../../shared_layers/localization/enums/languages_enum.dart';
 
 class ProfileLayout extends StatefulWidget {
@@ -66,7 +65,7 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                         children: <Widget>[
                           CircleAvatar(
                             backgroundImage: state.photo == 'Guest'
-                                ? AssetImage('assets/icons/profile_icon.png')
+                                ? const AssetImage('assets/icons/profile_icon.png')
                                 : CachedNetworkImageProvider(state.photo),
                             radius: 70,
                           )
