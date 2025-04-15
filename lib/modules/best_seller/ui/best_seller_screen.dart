@@ -96,6 +96,8 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
               return bestSellerViewModel.doIntent(GetBestSellerProducts());
             },
             child: BlocListener<CartCubit, CartState>(
+              listenWhen: (previous, current) =>
+                  current.addToCartStatus != previous.addToCartStatus,
               listener: (context, state) {
                 if (state.status == CartStatus.noAccess) {
                   displayAlertDialog(

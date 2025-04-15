@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
@@ -102,29 +104,17 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                           ],
                         ),
                       ),
-                      BlocListener<CartCubit, CartState>(
-                        listener: (context, state) {
-                          if (state.deleteFromCartStatus ==
-                              DeleteFromCartStatus.success) {
-                            AppDialogs.showMessage(
-                              context,
-                              message: 'Deleted Successfully',
-                              isSuccess: false,
-                            );
-                          }
+                      InkWell(
+                        onTap: () {
+                          cartCubit.doIntent(DeleteFromCartIntent(
+                            id: widget.cartItemEntity.productEntity!.id!,
+                          ));
                         },
-                        child: InkWell(
-                          onTap: () {
-                            cartCubit.doIntent(DeleteFromCartIntent(
-                              id: widget.cartItemEntity.productEntity!.id!,
-                            ));
-                          },
-                          child: ImageIcon(
-                            AssetImage(
-                              AssetsPaths.deleteIcon,
-                            ),
-                            color: AppColors.red,
+                        child: ImageIcon(
+                          AssetImage(
+                            AssetsPaths.deleteIcon,
                           ),
+                          color: AppColors.red,
                         ),
                       )
                     ],

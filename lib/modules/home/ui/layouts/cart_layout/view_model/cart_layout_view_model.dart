@@ -77,6 +77,8 @@ class CartCubit extends Cubit<CartState> {
           state.copyWith(
             state: CartStatus.success,
             cartResponseEntity: result.data,
+            addToCartStatus: AddToCartStatus.initial,
+            deleteFromCartStatus: DeleteFromCartStatus.initial,
           ),
         );
       case Error<CartResponseEntity>():
@@ -118,7 +120,7 @@ class CartCubit extends Cubit<CartState> {
   }
 
   void _deleteFromCart(String id) async {
-    emit(CartState(
+    emit(state.copyWith(
       deleteFromCartStatus: DeleteFromCartStatus.loading,
     ));
     var result = await deleteFromCartUseCase.execute(id);
