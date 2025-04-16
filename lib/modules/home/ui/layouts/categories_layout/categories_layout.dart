@@ -136,8 +136,8 @@ class CategoryProductsView extends BaseStatelessWidget {
       listener: (context, state) {
         if (state.status == CartStatus.noAccess) {
           displayAlertDialog(
-            title: const Text(
-              'please login first',
+            title: Text(
+              LocaleKeys.pleaseLoginFirst.tr(),
             ),
             showOkButton: true,
             onOkButtonClick: () => Navigator.pushReplacementNamed(
@@ -158,14 +158,14 @@ class CategoryProductsView extends BaseStatelessWidget {
             hideAlertDialog(context);
             AppDialogs.showMessage(
               context,
-              message: 'Added to cart successfully',
+              message: LocaleKeys.addedToCartSuccessfully.tr(),
               isSuccess: true,
             );
           case AddToCartStatus.error:
             hideAlertDialog(context);
             AppDialogs.showMessage(
               context,
-              message: 'Sold out',
+              message: LocaleKeys.soldOut.tr(),
               isSuccess: false,
             );
           case AddToCartStatus.initial:

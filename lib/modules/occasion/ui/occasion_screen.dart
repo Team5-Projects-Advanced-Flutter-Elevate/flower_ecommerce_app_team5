@@ -120,42 +120,45 @@ class _OcassionListScreenState
                               ),
                             )
                           : BlocListener<CartCubit, CartState>(
-                        listener: (context, state) {
-                          if (state.status == CartStatus.noAccess) {
-                            displayAlertDialog(
-                              title: const Text(
-                                'please login first',
-                              ),
-                              showOkButton: true,
-                              onOkButtonClick: () => Navigator.pushReplacementNamed(
-                                context,
-                                DefinedRoutes.loginScreenRoute,
-                              ),
-                            );
-                            return;
-                          }
-                          switch (state.addToCartStatus) {
-                            case AddToCartStatus.loading:
-                              displayAlertDialog(
-                                title: const LoadingWidget(),
-                              );
-                            case AddToCartStatus.success:
-                              hideAlertDialog();
-                              AppDialogs.showMessage(
-                                context,
-                                message: 'Added to cart successfully',
-                                isSuccess: true,
-                              );
-                            case AddToCartStatus.error:
-                              hideAlertDialog();
-                              AppDialogs.showMessage(
-                                context,
-                                message: 'Sold out',
-                                isSuccess: false,
-                              );
-                            case AddToCartStatus.initial:
-                          }
-                        },
+                              listener: (context, state) {
+                                if (state.status == CartStatus.noAccess) {
+                                  displayAlertDialog(
+                                    title: Text(
+                                      LocaleKeys.pleaseLoginFirst.tr(),
+                                    ),
+                                    showOkButton: true,
+                                    onOkButtonClick: () =>
+                                        Navigator.pushReplacementNamed(
+                                      context,
+                                      DefinedRoutes.loginScreenRoute,
+                                    ),
+                                  );
+                                  return;
+                                }
+                                switch (state.addToCartStatus) {
+                                  case AddToCartStatus.loading:
+                                    displayAlertDialog(
+                                      title: const LoadingWidget(),
+                                    );
+                                  case AddToCartStatus.success:
+                                    hideAlertDialog();
+                                    AppDialogs.showMessage(
+                                      context,
+                                      message: LocaleKeys
+                                          .addedToCartSuccessfully
+                                          .tr(),
+                                      isSuccess: true,
+                                    );
+                                  case AddToCartStatus.error:
+                                    hideAlertDialog();
+                                    AppDialogs.showMessage(
+                                      context,
+                                      message: LocaleKeys.soldOut.tr(),
+                                      isSuccess: false,
+                                    );
+                                  case AddToCartStatus.initial:
+                                }
+                              },
                               child: Expanded(
                                 child: GridView.builder(
                                   itemCount: filteredProduct.length,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_item_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/utilities/app_dialogs.dart';
+import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import 'cart_list_view.dart';
 
 class TitleAndCartItems extends BaseStatelessWidget {
@@ -23,11 +25,11 @@ class TitleAndCartItems extends BaseStatelessWidget {
           Row(
             children: [
               Text(
-                'Cart ',
+                LocaleKeys.cart.tr(),
                 style: theme.textTheme.labelMedium,
               ),
               Text(
-                '(3 items)',
+                '(${cartItems.length} ${LocaleKeys.items.tr()})',
                 style: theme.textTheme.labelMedium?.copyWith(
                   color: AppColors.gray,
                 ),
@@ -45,7 +47,7 @@ class TitleAndCartItems extends BaseStatelessWidget {
                     DeleteFromCartStatus.success) {
                   AppDialogs.showMessage(
                     context,
-                    message: 'Deleted Successfully',
+                    message: LocaleKeys.deletedSuccessfully.tr(),
                     isSuccess: false,
                   );
                 }              },

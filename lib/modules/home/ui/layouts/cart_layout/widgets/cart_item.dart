@@ -6,13 +6,10 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/v
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/cashed_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/constants/assets_paths.dart';
 import '../../../../../../core/constants/constants.dart';
 import '../../../../../../core/di/injectable_initializer.dart';
-import '../../../../../../core/utilities/app_dialogs.dart';
 import '../../../../domain/entities/cart_response_entity/cart_item_entity.dart';
 
 class CartItem extends StatefulWidget {

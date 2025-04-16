@@ -65,7 +65,6 @@ class CartCubit extends Cubit<CartState> {
       ));
       return;
     }
-    DioServiceExtension.updateDioWithToken(userData.token!);
 
     emit(state.copyWith(state: CartStatus.loading));
     var result = await getCartItemsUseCase.execute();
@@ -101,7 +100,6 @@ class CartCubit extends Cubit<CartState> {
       ));
       return;
     }
-    DioServiceExtension.updateDioWithToken(userData.token!);
 
     var result = await addToCartUseCase.execute(request);
     switch (result) {

@@ -101,8 +101,8 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
               listener: (context, state) {
                 if (state.status == CartStatus.noAccess) {
                   displayAlertDialog(
-                    title: const Text(
-                      'please login first',
+                    title:  Text(
+                      LocaleKeys.pleaseLoginFirst.tr(),
                     ),
                     showOkButton: true,
                     onOkButtonClick: () => Navigator.pushReplacementNamed(
@@ -125,7 +125,7 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
                       hideAlertDialog();
                       AppDialogs.showMessage(
                         context,
-                        message: 'Added to cart successfully',
+                        message: LocaleKeys.addedToCartSuccessfully.tr(),
                         isSuccess: true,
                       );
                     });
@@ -135,7 +135,7 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
                       hideAlertDialog();
                       AppDialogs.showMessage(
                         context,
-                        message: 'Sold out',
+                        message: LocaleKeys.soldOut.tr(),
                         isSuccess: false,
                       );
                     });

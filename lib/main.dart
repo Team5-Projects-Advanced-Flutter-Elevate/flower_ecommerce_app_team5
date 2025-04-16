@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
+import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
@@ -24,6 +25,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await configureDependencies();
   storedLoginInfo = await getIt.get<LoginUseCase>().getStoredLoginInfo();
+  DioServiceExtension.updateDioWithToken(storedLoginInfo?.token ?? '');
   LocalizationManager localizationManager = getIt.get<LocalizationManager>();
   runApp(BlocProvider(
     create: (context) => getIt<CartCubit>(),
