@@ -1,16 +1,8 @@
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppThemes {
-  static final TextTheme _textTheme = TextTheme(
-    headlineMedium: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w500,
-      color: AppColors.gray,
-    ),
-  );
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
@@ -141,18 +133,24 @@ abstract class AppThemes {
         }
       }),
     ),
-    tabBarTheme: const TabBarTheme(
-      labelColor: Colors.pink,
-      unselectedLabelColor: Colors.grey,
-      indicatorColor: Colors.pink,
+    tabBarTheme: TabBarTheme(
+      labelColor: AppColors.mainColor,
+      unselectedLabelColor: AppColors.white[70],
+      indicatorColor: AppColors.mainColor,
+      labelPadding: const EdgeInsets.symmetric(horizontal: 12,vertical: 5),
+      indicatorSize: TabBarIndicatorSize.label,
+      tabAlignment: TabAlignment.start,
       labelStyle: TextStyle(
-        fontWeight: FontWeight.w600,
-        fontSize: 14,
+        fontSize: 16,
+        fontWeight: FontWeight.normal, // Regular weight
+        color: AppColors.black,
       ),
-      unselectedLabelStyle: TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: 14,
-      ),
+      unselectedLabelStyle: GoogleFonts.inter(
+          textStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.normal, // Regular weight
+        color: AppColors.black,
+      )),
     ),
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,

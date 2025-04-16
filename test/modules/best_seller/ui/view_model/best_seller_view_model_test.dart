@@ -32,7 +32,7 @@ void main() {
             slug: "product-1",
             description: "Description of Product 1",
             imgCover: "https://example.com/img/product1.jpg",
-            images: const [
+            images:  [
               "https://example.com/img/product1_1.jpg",
               "https://example.com/img/product1_2.jpg"
             ],
@@ -53,7 +53,7 @@ void main() {
             slug: "product-2",
             description: "Description of Product 2",
             imgCover: "https://example.com/img/product2.jpg",
-            images: const [
+            images:  [
               "https://example.com/img/product2_1.jpg",
               "https://example.com/img/product2_2.jpg"
             ],

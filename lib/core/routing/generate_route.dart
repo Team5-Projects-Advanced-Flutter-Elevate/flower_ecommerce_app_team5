@@ -1,5 +1,3 @@
-import 'package:flower_ecommerce_app_team5/core/routing/app_routes.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
@@ -7,6 +5,7 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/best_seller_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -21,12 +20,15 @@ class GenerateRoute {
         );
       case DefinedRoutes.loginScreenRoute:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
-        break;
       case DefinedRoutes.homeScreenRoute:
         return MaterialPageRoute(builder: (context) => const HomeScreen());
       case DefinedRoutes.bestSellerScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const BestSellerScreen(),
+        );
+      case DefinedRoutes.occasionScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const OccasionListScreen(),
         );
       case DefinedRoutes.productDetailsScreenRoute:
         return MaterialPageRoute(

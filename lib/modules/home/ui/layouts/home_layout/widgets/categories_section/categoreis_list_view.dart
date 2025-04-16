@@ -25,6 +25,8 @@ class CategoriesListView extends BaseStatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         itemBuilder: (context, index) => InkWell(
+          hoverColor: Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
           onTap: () {
             homeScreenViewModel.selectedAppSectionIndex = 1;
             homeScreenViewModel.doIntent(AnimateToPage(pageIndex: 1));

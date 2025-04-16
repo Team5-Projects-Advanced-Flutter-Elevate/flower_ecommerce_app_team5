@@ -5,7 +5,6 @@ import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart'
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/repositories_contracts/best_seller/best_seller_repository.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/use_cases/best_seller/get_best_seller_products_use_case.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -31,7 +30,7 @@ void main() {
             slug: "product-1",
             description: "Description of Product 1",
             imgCover: "https://example.com/img/product1.jpg",
-            images: const [
+            images:  [
               "https://example.com/img/product1_1.jpg",
               "https://example.com/img/product1_2.jpg"
             ],
@@ -52,7 +51,7 @@ void main() {
             slug: "product-2",
             description: "Description of Product 2",
             imgCover: "https://example.com/img/product2.jpg",
-            images: const [
+            images:  [
               "https://example.com/img/product2_1.jpg",
               "https://example.com/img/product2_2.jpg"
             ],

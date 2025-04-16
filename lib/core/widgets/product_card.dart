@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
-import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 

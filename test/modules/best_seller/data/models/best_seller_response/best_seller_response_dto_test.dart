@@ -1,16 +1,10 @@
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/models/best_seller_response/best_seller_response_dto.dart';
-import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_response_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group(
     "BestSellerResponseDto Class Testing",
     () {
-      setUpAll(
-        () {
-          print("In setUpAll funciton");
-        },
-      );
       test(
         "When calling convertIntoEntity() with BestSellerResponseDto with non-null values, it should return the entity form of the dto with also non-null values",
         () {

@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
-import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
@@ -18,7 +17,6 @@ import 'package:provider/provider.dart';
 import '../../../../../core/colors/app_colors.dart';
 import '../../../../../core/widgets/product_card.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
-import '../../../data/models/all_products_response/all_product_response.dart';
 
 class CategoriesLayout extends StatefulWidget {
   const CategoriesLayout({super.key});
@@ -42,7 +40,7 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
     viewModel.processIntent(GetCategoriesIntent());
   }
 
-  final List<String> tabs = [Constants.all];
+  //final List<String> tabs = [Constants.all];
 
   @override
   Widget build(BuildContext context) {
@@ -71,12 +69,12 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
                   builder: (context, state) {
                     if (state is CategoriesLayoutViewModelSuccess ||
                         state is CategoriesViewModelTabBarChanged) {
+                      viewModel.processIntent(GetInitialCategoryIndex());
                       viewModel.processIntent(GetProductsIntent(
                           categoryId: viewModel.selectedCategoryId));
-                      viewModel.processIntent(GetInitialCategoryIndex());
-                      tabs.addAll(viewModel.categoriesList.map((e) => e.name!));
+                      //tabs.addAll(viewModel.categoriesList.map((e) => e.name!));
                       return DefaultTabController(
-                        length: tabs.length,
+                        length: viewModel.categoriesList.length,
                         initialIndex: viewModel.initialCategoryIndex,
                         child: TabBar(
                           onTap: (value) {
@@ -85,26 +83,16 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
                             //       TabBarChangedIntent(categoryId: null));
                             // }
                             viewModel.processIntent(TabBarChangedIntent(
-                                categoryId: ((value - 1) >= 0)
-                                    ? viewModel.categoriesList[value - 1].id
-                                    : null));
+                                categoryId:
+                                    viewModel.categoriesList[value].id));
                           },
                           physics: const BouncingScrollPhysics(),
-                          tabAlignment: TabAlignment.start,
                           isScrollable: true,
-                          indicatorColor: AppColors.mainColor,
-                          labelColor: AppColors.mainColor,
-                          unselectedLabelColor: AppColors.white[70],
-                          // Use your grey color
-                          labelStyle: theme.textTheme.bodyLarge,
-                          unselectedLabelStyle: GoogleFonts.inter(
-                              textStyle: theme.textTheme.bodyLarge),
                           indicatorPadding: EdgeInsets.zero,
-                          labelPadding:
-                              const EdgeInsets.symmetric(horizontal: 12),
                           indicatorWeight: 2,
-                          indicatorSize: TabBarIndicatorSize.label,
-                          tabs: tabs.map((title) => Text(title)).toList(),
+                          tabs: viewModel.categoriesList
+                              .map((title) => Text(title.name ?? ""))
+                              .toList(),
                         ),
                       );
                     } else {

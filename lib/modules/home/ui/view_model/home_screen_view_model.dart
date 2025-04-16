@@ -1,4 +1,5 @@
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/view_model/categories_layout_view_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -8,7 +9,9 @@ class HomeScreenViewModel extends ChangeNotifier {
   final PageController pageController = PageController(initialPage: 0);
 
   CategoriesLayoutViewModel categoriesLayoutViewModel;
-  HomeScreenViewModel(this.categoriesLayoutViewModel);
+  OccasionViewModelCubit occasionViewModelCubit;
+  HomeScreenViewModel(
+      this.categoriesLayoutViewModel, this.occasionViewModelCubit);
 
   void doIntent(HomeScreenIntent intent) {
     switch (intent) {

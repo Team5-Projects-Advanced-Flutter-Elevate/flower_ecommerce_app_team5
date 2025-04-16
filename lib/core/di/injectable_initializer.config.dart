@@ -155,7 +155,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i293.HomeApiClient>(
         () => homeApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i941.OccasionApiClient>(
-        () => occasionApiClientProvider.ApiClient(gh<_i361.Dio>()));
+        () => occasionApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
@@ -226,10 +226,12 @@ extension GetItInjectableX on _i174.GetIt {
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
-    gh.factory<_i867.HomeScreenViewModel>(
-        () => _i867.HomeScreenViewModel(gh<_i44.CategoriesLayoutViewModel>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
+    gh.factory<_i867.HomeScreenViewModel>(() => _i867.HomeScreenViewModel(
+          gh<_i44.CategoriesLayoutViewModel>(),
+          gh<_i855.OccasionViewModelCubit>(),
+        ));
     gh.factory<_i363.LoginViewModelCubit>(() => _i363.LoginViewModelCubit(
           gh<_i543.LoginUseCase>(),
           gh<_i421.LoginAsGuestUseCase>(),

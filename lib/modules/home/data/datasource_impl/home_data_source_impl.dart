@@ -7,7 +7,6 @@ import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_re
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/all_product_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/entities/home_data_response_entity.dart';
 import '../datasource_contract/home_online_data_source.dart';
