@@ -4,11 +4,11 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_
 enum BestSellerStatus { initial, loading, success, error }
 
 class BestSellerState extends Equatable {
-  BestSellerStatus bestSellerStatus;
-  List<ProductEntity>? bestSellerProducts;
-  Object? error;
+  final BestSellerStatus bestSellerStatus;
+  final List<ProductEntity>? bestSellerProducts;
+  final Object? error;
 
-  BestSellerState(
+  const BestSellerState(
       {this.bestSellerStatus = BestSellerStatus.initial,
       this.bestSellerProducts,
       this.error});

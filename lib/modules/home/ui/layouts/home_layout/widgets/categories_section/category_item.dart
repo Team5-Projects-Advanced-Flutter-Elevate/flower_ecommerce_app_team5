@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../../core/colors/app_colors.dart';
 
 class CategoryItem extends BaseStatelessWidget {
-  CategoryItem({
+  const CategoryItem({
     super.key,
     required this.categoryEntity,
   });

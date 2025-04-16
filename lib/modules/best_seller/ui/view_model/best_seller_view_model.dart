@@ -11,7 +11,7 @@ class BestSellerViewModel extends Cubit<BestSellerState> {
   GetBestSellerProductsUseCase getBestSellerProductsUseCase;
 
   BestSellerViewModel(this.getBestSellerProductsUseCase)
-      : super(BestSellerState());
+      : super(const BestSellerState());
 
   Future<void> doIntent(BestSellerIntent intent) {
     switch (intent) {
@@ -21,7 +21,7 @@ class BestSellerViewModel extends Cubit<BestSellerState> {
   }
 
   Future<void> _getBestSellerProducts() async {
-    emit(BestSellerState(bestSellerStatus: BestSellerStatus.loading));
+    emit(const BestSellerState(bestSellerStatus: BestSellerStatus.loading));
     var useCaseResult = await getBestSellerProductsUseCase();
     switch (useCaseResult) {
       case Success<BestSellerResponseEntity>():

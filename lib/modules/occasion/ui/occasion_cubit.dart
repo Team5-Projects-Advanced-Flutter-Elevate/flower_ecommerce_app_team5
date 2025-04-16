@@ -37,7 +37,7 @@ class OccasionViewModelCubit extends Cubit<OccasionState> {
       emit(OccasionSuccess(
         _allOccasions,
         filtered,
-        _initialOccasionId,
+        _initialOccasionId ?? "",
       ));
     } catch (e) {
       emit(OccasionError(e));

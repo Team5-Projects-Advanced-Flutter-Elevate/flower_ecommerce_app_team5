@@ -70,7 +70,7 @@ class _OccasionListScreenState
               } else if (state is OccasionSuccess) {
                 final allOccasions = state.allOccasions;
                 final filteredProduct = state.filteredProducts;
-                final selectedOccasionId = state.selectedSlug;
+                final selectedOccasionId = state.selectedId;
 
                 final selectedIndex =
                     allOccasions.indexWhere((e) => e.id == selectedOccasionId);

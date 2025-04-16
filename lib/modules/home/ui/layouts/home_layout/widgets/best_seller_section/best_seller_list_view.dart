@@ -5,7 +5,7 @@ import '../../../../../../../core/bases/base_statless_widget.dart';
 import 'best_seller_item.dart';
 
 class BestSellerListView extends BaseStatelessWidget {
-  BestSellerListView({super.key, required this.bestSellers});
+  const BestSellerListView({super.key, required this.bestSellers});
 
   final List<ProductEntity> bestSellers;
 

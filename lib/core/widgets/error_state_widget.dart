@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class ErrorStateWidget extends BaseStatelessWidget {
   final Object error;
 
-  ErrorStateWidget({super.key, required this.error});
+  const ErrorStateWidget({super.key, required this.error});
 
   @override
   Widget customBuild(BuildContext context) {

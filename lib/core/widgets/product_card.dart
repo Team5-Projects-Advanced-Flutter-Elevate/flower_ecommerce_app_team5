@@ -13,7 +13,7 @@ class ProductCard extends BaseStatelessWidget {
   final num? price;
   final num? priceAfterDiscountIfExist;
   final void Function()? onAddToCartButtonClick, onProductCardClick;
-  ProductCard(
+  const ProductCard(
       {super.key,
       required this.productTitle,
       required this.imageUrl,

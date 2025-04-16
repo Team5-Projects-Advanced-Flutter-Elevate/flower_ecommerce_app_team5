@@ -8,7 +8,7 @@ import '../../../../../../../core/bases/base_statless_widget.dart';
 import '../occasions_section/occasion_item.dart';
 
 class OccasionsListView extends BaseStatelessWidget {
-  OccasionsListView({super.key, required this.occasions});
+  const OccasionsListView({super.key, required this.occasions});
 
   final List<OccasionEntity> occasions;
 

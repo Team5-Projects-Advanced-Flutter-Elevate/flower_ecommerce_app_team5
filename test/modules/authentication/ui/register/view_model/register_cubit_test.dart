@@ -37,8 +37,8 @@ void main() {
       },
       act: (cubit) => cubit.doIntent(OnSignUpClick(RegisterRequest())),
       expect: () => [
-        RegisterState(state: RegisterStatus.loading),
-        RegisterState(state: RegisterStatus.success),
+        const RegisterState(state: RegisterStatus.loading),
+        const RegisterState(state: RegisterStatus.success),
       ],
     );
 
@@ -59,8 +59,8 @@ void main() {
       },
       act: (cubit) => cubit.doIntent(OnSignUpClick(RegisterRequest())),
       expect: () => [
-        RegisterState(state: RegisterStatus.loading),
-        RegisterState(state: RegisterStatus.error),
+        const RegisterState(state: RegisterStatus.loading),
+        const RegisterState(state: RegisterStatus.error),
       ],
     );
   });

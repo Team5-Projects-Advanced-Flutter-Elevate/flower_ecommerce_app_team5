@@ -12,17 +12,16 @@ import 'categoreis_list_view.dart';
 import '../headline_section.dart';
 
 class CategoriesSection extends StatelessWidget {
-  CategoriesSection({
+  const CategoriesSection({
     super.key,
     required this.screenHeight,
   });
 
   final double screenHeight;
-  late HomeScreenViewModel homeScreenViewModel;
 
   @override
   Widget build(BuildContext context) {
-    homeScreenViewModel = Provider.of(context);
+    HomeScreenViewModel homeScreenViewModel = Provider.of(context);
     return Expanded(
       flex: 2,
       child: Column(

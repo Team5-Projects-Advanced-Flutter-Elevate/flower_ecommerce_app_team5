@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 
 class BestSellerItem extends BaseStatelessWidget {
-  BestSellerItem({
+  const BestSellerItem({
     super.key,
     required this.bestSellerEntity,
   });

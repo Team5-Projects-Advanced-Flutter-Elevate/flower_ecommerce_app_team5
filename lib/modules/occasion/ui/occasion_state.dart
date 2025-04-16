@@ -10,9 +10,9 @@ class OccasionLoading extends OccasionState {}
 class OccasionSuccess extends OccasionState {
   final List<OccasionEntity> allOccasions;
   final List<ProductEntity> filteredProducts;
-  final String selectedSlug;
+  final String selectedId;
 
-  OccasionSuccess(this.allOccasions, this.filteredProducts, this.selectedSlug);
+  OccasionSuccess(this.allOccasions, this.filteredProducts, this.selectedId);
 }
 
 class OccasionProductsLoaded extends OccasionState {

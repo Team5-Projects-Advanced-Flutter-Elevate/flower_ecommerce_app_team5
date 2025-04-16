@@ -106,7 +106,7 @@ void main() {
           bestSellerViewModel.doIntent(GetBestSellerProducts());
         },
         expect: () => [
-          BestSellerState(bestSellerStatus: BestSellerStatus.loading),
+          const BestSellerState(bestSellerStatus: BestSellerStatus.loading),
           BestSellerState(
               bestSellerStatus: BestSellerStatus.success,
               bestSellerProducts: bestSellerResponseEntity.bestSellerProducts)
@@ -124,7 +124,7 @@ void main() {
           bestSellerViewModel.doIntent(GetBestSellerProducts());
         },
         expect: () => [
-          BestSellerState(bestSellerStatus: BestSellerStatus.loading),
+          const BestSellerState(bestSellerStatus: BestSellerStatus.loading),
           BestSellerState(
               bestSellerStatus: BestSellerStatus.error,
               error: noNetworkConnection)
