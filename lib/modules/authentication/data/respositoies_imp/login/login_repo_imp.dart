@@ -38,4 +38,8 @@ class LoginRepoImp implements LoginRepo {
   Future<LoginResponseDto?> getStoredLoginInfo() {
     return _loginLocalDataSource.getCashedUser();
   }
+
+  cashUser({required LoginResponseDto loginResponseDto}) {
+    _loginLocalDataSource.cashUser(loginResponseDto: loginResponseDto);
+  }
 }

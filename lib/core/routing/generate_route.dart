@@ -48,7 +48,7 @@ class GenerateRoute {
       if (loginInfo != null)
         MaterialPageRoute(
             builder: (context) =>
-                const EditeProfileLayoutView() //HomeScreen(authEntity: storedAuthEntity),
+                const HomeScreen() //HomeScreen(authEntity: storedAuthEntity),
             )
       else
         MaterialPageRoute(

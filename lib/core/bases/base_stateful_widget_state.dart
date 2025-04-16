@@ -36,6 +36,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
       VoidFunction onOkButtonClick,
       VoidFunction onConfirmButtonClick}) {
     return showDialog(
+      barrierColor: Colors.transparent,
       context: context,
       barrierDismissible: isDismissible,
       builder: (context) {
@@ -75,7 +76,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
   }
 
   Future<void> setLocaleOfEasyLocalization(String newLocale) {
-    if(!mounted) return Future.value();
+    if (!mounted) return Future.value();
     return context.setLocale(Locale(newLocale));
   }
 }

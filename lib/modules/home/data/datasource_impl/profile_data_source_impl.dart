@@ -10,6 +10,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/apis/api_executor/api_executor.dart';
 import '../datasource_contract/profile_online_data_source.dart';
+import '../models/edite_profile/change_password_input_model.dart';
 
 @Injectable(as: ProfileOnlineDataSource)
 class ProfileOnlineDataSourceImpl implements ProfileOnlineDataSource {
@@ -19,9 +20,12 @@ class ProfileOnlineDataSourceImpl implements ProfileOnlineDataSource {
   @override
   Future<ApiResult<ChangePasswordResponse?>> changePassword(
       {required String password, required String newPassword}) async {
-    var result = await ApiExecutor.executeApi(() async =>
-        await _profileApiClient.changePassword(
-            password: password, newPassword: newPassword));
+    var result = await ApiExecutor.executeApi(
+        () async => await _profileApiClient.changePassword(
+                changePasswordInputModel: ChangePasswordInputModel(
+              password: password,
+              newPassword: newPassword,
+            )));
     switch (result) {
       case Success<ChangePasswordResponse>():
         return Success(

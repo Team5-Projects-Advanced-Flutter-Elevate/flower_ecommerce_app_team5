@@ -8,4 +8,5 @@ abstract interface class LoginRepo {
   Future<LoginResponseDto?> getStoredLoginInfo();
 
   Future<void> deleteLoginInfo();
+  void cashUser({required LoginResponseDto loginResponseDto});
 }

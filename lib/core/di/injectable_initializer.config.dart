@@ -158,8 +158,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => dioService.provideDio(),
       preResolve: true,
     );
-    gh.factory<_i901.ProfileViewModelCubit>(
-        () => _i901.ProfileViewModelCubit());
     await gh.factoryAsync<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
@@ -259,6 +257,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i363.LoginViewModelCubit>(() => _i363.LoginViewModelCubit(
           gh<_i543.LoginUseCase>(),
           gh<_i421.LoginAsGuestUseCase>(),
+        ));
+    gh.factory<_i901.ProfileViewModelCubit>(() => _i901.ProfileViewModelCubit(
+          gh<_i543.LoginUseCase>(),
+          gh<_i411.EditeProfileUseCase>(),
+          gh<_i208.EditeProfileImageUseCase>(),
+          gh<_i1029.ChangePasswordUseCase>(),
         ));
     return this;
   }

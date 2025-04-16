@@ -7,6 +7,7 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cas
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../core/utilities/dio/dio_service/dio_service.dart';
 import '../../../domain/use_cases/login_as_guest/login_as_gust_use_case.dart';
 
 part 'login_view_model_state.dart';
@@ -21,10 +22,12 @@ class LoginViewModelCubit extends Cubit<LoginViewModelState> {
   bool checkBoxValue = false;
   bool obscurePassword = true;
   _login(LoginInputModel loginInputModel) async {
+    _loginUseCase.deleteLoginInfo();
     emit(const LoginViewModelLoading());
     var result = await _loginUseCase.call(loginInputModel, checkBoxValue);
     switch (result) {
       case Success():
+        DioServiceExtension.updateDioWithToken(result.data.token!);
         emit(LoginViewModelSuccess(result.data));
       case Error():
         emit(LoginViewModelError(error: result.error));

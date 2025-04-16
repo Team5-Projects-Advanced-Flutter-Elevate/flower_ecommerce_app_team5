@@ -100,18 +100,13 @@ class _ProfileApiClient implements ProfileApiClient {
   }
 
   @override
-  Future<ChangePasswordResponse> changePassword({
-    String? password,
-    String? newPassword,
-  }) async {
+  Future<ChangePasswordResponse> changePassword(
+      {required ChangePasswordInputModel changePasswordInputModel}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'password': password,
-      r'newPassword': newPassword,
-    };
-    queryParameters.removeWhere((k, v) => v == null);
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(changePasswordInputModel.toJson());
     final _options = _setStreamType<ChangePasswordResponse>(Options(
       method: 'PATCH',
       headers: _headers,

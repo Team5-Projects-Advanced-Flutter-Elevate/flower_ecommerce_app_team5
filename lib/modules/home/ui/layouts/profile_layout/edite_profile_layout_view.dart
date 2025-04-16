@@ -5,8 +5,9 @@ import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view_model/register_cubit.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view_model/register_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/edite_profile_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,7 @@ class _EditeProfileLayoutViewState
   late FocusNode phoneNumberFocusNode;
 
   final GlobalKey<FormState> _formKey = GlobalKey();
-  String selectedGender = Gender.female.getValue();
+  String selectedGender = Gender.values.first.getValue();
 
   @override
   void initState() {
@@ -44,11 +45,12 @@ class _EditeProfileLayoutViewState
     lastNameController = TextEditingController();
     emailController = TextEditingController();
     phoneNumberController = TextEditingController();
-    passwordController = TextEditingController(text: '123456');
+    passwordController = TextEditingController(text: '123456789');
     firstNameFocusNode = FocusNode();
     lastNameFocusNode = FocusNode();
     emailFocusNode = FocusNode();
     phoneNumberFocusNode = FocusNode();
+    cubit.processIntent(LoadProfileIntent());
   }
 
   @override
@@ -65,280 +67,305 @@ class _EditeProfileLayoutViewState
     super.dispose();
   }
 
-  final cubit = getIt<RegisterCubit>();
+  final cubit = getIt<ProfileViewModelCubit>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        titleSpacing: 0.0,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        title: Text(
-          LocaleKeys.editProfile.tr(),
-          style: theme.textTheme.labelMedium,
-        ),
-        actions: [
-          Padding(
-            padding:
-                EdgeInsets.all(12.0 * (screenWidth / Constants.designWidth)),
-            child: Badge(
-              backgroundColor: AppColors.mainColor,
-              label: Text('3',
-                  style: theme.textTheme.bodySmall!
-                      .copyWith(color: AppColors.white)),
-              child: Icon(Icons.notifications_none_outlined,
-                  size: 24 * (screenWidth / Constants.designWidth)),
-            ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          forceMaterialTransparency: true,
+          titleSpacing: 0.0,
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back_ios),
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: BlocProvider(
-            create: (context) => cubit,
-            child: BlocListener<RegisterCubit, RegisterState>(
-              listener: (context, state) {
-                switch (state.state) {
-                  case RegisterStatus.initial:
-                    break;
-                  case RegisterStatus.loading:
-                    displayAlertDialog(title: const LoadingWidget());
-                  case RegisterStatus.success:
-                    hideAlertDialog();
-                    displayAlertDialog(
-                      showOkButton: true,
-                      title: Text(LocaleKeys.registeredSuccessfully.tr()),
-                    );
-                  case RegisterStatus.error:
-                    hideAlertDialog();
-                    displayAlertDialog(
-                      showOkButton: true,
-                      title: ErrorStateWidget(
-                        error: state.error!,
-                      ),
-                    );
-                }
-              },
-              listenWhen: (previous, current) =>
-                  current != RegisterState(state: RegisterStatus.initial),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Stack(
-                          alignment: Alignment.bottomRight,
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: const AssetImage(
-                                  'assets/images/profile_test.jpg'),
-                              radius:
-                                  40 * (screenWidth / Constants.designWidth),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(3.0),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppColors.lightPink,
-                              ),
-                              child: Icon(
-                                Icons.camera_alt_outlined,
-                                color: AppColors.gray,
-                                size:
-                                    18 * (screenWidth / Constants.designWidth),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    SizedBox(height: screenHeight * 0.03),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: firstNameController,
-                            validator: (inputText) => validateFunctions
-                                .validationOfFirstOrLastName(inputText),
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            keyboardType: TextInputType.name,
-                            focusNode: firstNameFocusNode,
-                            onTap: () => FocusScope.of(context)
-                                .requestFocus(firstNameFocusNode),
-                            onFieldSubmitted: (_) => FocusScope.of(context)
-                                .requestFocus(lastNameFocusNode),
-                            decoration: InputDecoration(
-                              labelText: LocaleKeys.firstName.tr(),
-                              hintText: LocaleKeys.pleaseEnterFirstName.tr(),
-                            ),
-                          ),
+          title: Text(
+            LocaleKeys.editProfile.tr(),
+            style: theme.textTheme.labelMedium,
+          ),
+          actions: [
+            Padding(
+              padding:
+                  EdgeInsets.all(12.0 * (screenWidth / Constants.designWidth)),
+              child: Badge(
+                backgroundColor: AppColors.mainColor,
+                label: Text('3',
+                    style: theme.textTheme.bodySmall!
+                        .copyWith(color: AppColors.white)),
+                child: Icon(Icons.notifications_none_outlined,
+                    size: 24 * (screenWidth / Constants.designWidth)),
+              ),
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: BlocProvider(
+              create: (context) => cubit,
+              child: BlocListener<ProfileViewModelCubit, ProfileState>(
+                listener: (context, state) {
+                  switch (state) {
+                    case ProfileEnableChangePasswordButton():
+                    case ProfileInitial():
+                      break;
+                    case ProfileLoading():
+                      displayAlertDialog(title: const LoadingWidget());
+                    case ProfileDataSuccess():
+                      firstNameController.text = state.name;
+                      lastNameController.text = state.lastName;
+                      emailController.text = state.email;
+                      phoneNumberController.text = state.phone;
+                      selectedGender = state.gender == 'male'
+                          ? Gender.male.getValue()
+                          : Gender.female.getValue();
+                      /*[male, female]*/
+                      break;
+                    case ProfileSuccess():
+                      hideAlertDialog();
+                      displayAlertDialog(
+                        showOkButton: true,
+                        title: const Text('Profile updated successfully'),
+                      );
+                    case ProfileError():
+                      hideAlertDialog();
+                      displayAlertDialog(
+                        showOkButton: true,
+                        title: ErrorStateWidget(
+                          error: state.error,
                         ),
-                        SizedBox(width: screenWidth * 0.05),
-                        Expanded(
-                          child: TextFormField(
-                            controller: lastNameController,
-                            validator: (inputText) => validateFunctions
-                                .validationOfFirstOrLastName(inputText),
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            keyboardType: TextInputType.name,
-                            focusNode: lastNameFocusNode,
-                            onTap: () => FocusScope.of(context)
-                                .requestFocus(lastNameFocusNode),
-                            onFieldSubmitted: (_) => FocusScope.of(context)
-                                .requestFocus(emailFocusNode),
-                            decoration: InputDecoration(
-                              labelText: LocaleKeys.lastName.tr(),
-                              hintText: LocaleKeys.pleaseEnterLastName.tr(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: screenHeight * 0.03),
-                    TextFormField(
-                      controller: emailController,
-                      validator: (inputText) =>
-                          validateFunctions.validationOfEmail(inputText),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      keyboardType: TextInputType.emailAddress,
-                      focusNode: emailFocusNode,
-                      onTap: () =>
-                          FocusScope.of(context).requestFocus(emailFocusNode),
-                      decoration: InputDecoration(
-                        labelText: LocaleKeys.email.tr(),
-                        hintText: LocaleKeys.pleaseEnterEmail.tr(),
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.03),
-                    TextFormField(
-                      controller: phoneNumberController,
-                      validator: (inputText) =>
-                          validateFunctions.validationOfPhoneNumber(inputText),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      keyboardType: TextInputType.phone,
-                      focusNode: phoneNumberFocusNode,
-                      onTap: () => FocusScope.of(context)
-                          .requestFocus(phoneNumberFocusNode),
-                      decoration: InputDecoration(
-                        labelText: LocaleKeys.phoneNumber.tr(),
-                        hintText: LocaleKeys.pleaseEnterPhoneNumber.tr(),
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.03),
-                    Stack(
-                      children: [
-                        TextFormField(
-                          readOnly: true,
-                          controller: passwordController,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          keyboardType: TextInputType.visiblePassword,
-                          obscuringCharacter: '*',
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            suffix: InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context,
-                                    DefinedRoutes.changePasswordScreenRoute);
-                              },
-                              child: Text(
-                                'Change ',
-                                style: GoogleFonts.inter(
-                                  textStyle: theme.textTheme.bodyMedium
-                                      ?.copyWith(color: AppColors.mainColor),
-                                ),
-                              ),
-                            ),
-                            labelText: LocaleKeys.password.tr(),
-                            hintText: LocaleKeys.pleaseEnterPassword.tr(),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: screenHeight * 0.03),
-                    Row(
-                      children: [
-                        Text(
-                          LocaleKeys.gender.tr(),
-                          style: theme.textTheme.labelMedium?.copyWith(
-                            fontSize: 18,
-                            color: AppColors.white[90],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
+                      );
+                  }
+                },
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Stack(
+                            alignment: Alignment.bottomRight,
                             children: [
-                              Expanded(
-                                child: RadioListTile<String>(
-                                  contentPadding: EdgeInsets.zero,
-                                  hoverColor: AppColors.transparent,
-                                  title: Text(
-                                    LocaleKeys.genderFemale.tr(),
-                                    style: theme.textTheme.labelSmall?.copyWith(
-                                      color: selectedGender ==
-                                              Gender.female.getValue()
-                                          ? AppColors.black
-                                          : AppColors.white[90],
-                                    ),
-                                  ),
-                                  value: Gender.female.getValue(),
-                                  groupValue: selectedGender,
-                                  onChanged: (value) => setState(() {
-                                    selectedGender = value ?? selectedGender;
-                                  }),
-                                ),
+                              CircleAvatar(
+                                radius:
+                                    40 * (screenWidth / Constants.designWidth),
+                                backgroundImage:
+                                    cubit.profilePhoto.isNotEmpty == true
+                                        ? NetworkImage(cubit.profilePhoto)
+                                        : null,
+                                child: cubit.profilePhoto.isNotEmpty == true
+                                    ? null
+                                    : const Icon(Icons.person),
                               ),
-                              Expanded(
-                                child: RadioListTile<String>(
-                                  contentPadding: EdgeInsets.zero,
-                                  title: Text(
-                                    LocaleKeys.genderMale.tr(),
-                                    style: theme.textTheme.labelSmall?.copyWith(
-                                      color: selectedGender ==
-                                              Gender.male.getValue()
-                                          ? AppColors.black
-                                          : AppColors.white[90],
-                                    ),
-                                  ),
-                                  value: Gender.male.getValue(),
-                                  groupValue: selectedGender,
-                                  onChanged: (value) => setState(() {
-                                    selectedGender = value ?? selectedGender;
-                                  }),
+                              Container(
+                                padding: const EdgeInsets.all(3.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.lightPink,
+                                ),
+                                child: Icon(
+                                  Icons.camera_alt_outlined,
+                                  color: AppColors.gray,
+                                  size: 18 *
+                                      (screenWidth / Constants.designWidth),
                                 ),
                               ),
                             ],
+                          )
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: firstNameController,
+                              validator: (inputText) => validateFunctions
+                                  .validationOfFirstOrLastName(inputText),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              keyboardType: TextInputType.name,
+                              focusNode: firstNameFocusNode,
+                              onTap: () => FocusScope.of(context)
+                                  .requestFocus(firstNameFocusNode),
+                              onFieldSubmitted: (_) => FocusScope.of(context)
+                                  .requestFocus(lastNameFocusNode),
+                              decoration: InputDecoration(
+                                labelText: LocaleKeys.firstName.tr(),
+                                hintText: LocaleKeys.pleaseEnterFirstName.tr(),
+                              ),
+                            ),
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    SizedBox(
-                      height: screenHeight * 0.06,
-                      child: FilledButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // Handle form submission
-                          }
-                        },
-                        child: Text(
-                          'Update',
-                          style: theme.textTheme.labelSmall
-                              ?.copyWith(fontSize: 16, color: AppColors.white),
+                          SizedBox(width: screenWidth * 0.05),
+                          Expanded(
+                            child: TextFormField(
+                              controller: lastNameController,
+                              validator: (inputText) => validateFunctions
+                                  .validationOfFirstOrLastName(inputText),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              keyboardType: TextInputType.name,
+                              focusNode: lastNameFocusNode,
+                              onTap: () => FocusScope.of(context)
+                                  .requestFocus(lastNameFocusNode),
+                              onFieldSubmitted: (_) => FocusScope.of(context)
+                                  .requestFocus(emailFocusNode),
+                              decoration: InputDecoration(
+                                labelText: LocaleKeys.lastName.tr(),
+                                hintText: LocaleKeys.pleaseEnterLastName.tr(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      TextFormField(
+                        controller: emailController,
+                        validator: (inputText) =>
+                            validateFunctions.validationOfEmail(inputText),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        keyboardType: TextInputType.emailAddress,
+                        focusNode: emailFocusNode,
+                        onTap: () =>
+                            FocusScope.of(context).requestFocus(emailFocusNode),
+                        decoration: InputDecoration(
+                          labelText: LocaleKeys.email.tr(),
+                          hintText: LocaleKeys.pleaseEnterEmail.tr(),
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: screenHeight * 0.03),
+                      TextFormField(
+                        controller: phoneNumberController,
+                        validator: (inputText) => validateFunctions
+                            .validationOfPhoneNumber(inputText),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        keyboardType: TextInputType.phone,
+                        focusNode: phoneNumberFocusNode,
+                        onTap: () => FocusScope.of(context)
+                            .requestFocus(phoneNumberFocusNode),
+                        decoration: InputDecoration(
+                          labelText: LocaleKeys.phoneNumber.tr(),
+                          hintText: LocaleKeys.pleaseEnterPhoneNumber.tr(),
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      Stack(
+                        children: [
+                          TextFormField(
+                            readOnly: true,
+                            controller: passwordController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            keyboardType: TextInputType.visiblePassword,
+                            obscuringCharacter: '*',
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              suffix: InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context,
+                                      DefinedRoutes.changePasswordScreenRoute);
+                                },
+                                child: Text(
+                                  'Change ',
+                                  style: GoogleFonts.inter(
+                                    textStyle: theme.textTheme.bodyMedium
+                                        ?.copyWith(color: AppColors.mainColor),
+                                  ),
+                                ),
+                              ),
+                              labelText: LocaleKeys.password.tr(),
+                              hintText: LocaleKeys.pleaseEnterPassword.tr(),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      Row(
+                        children: [
+                          Text(
+                            LocaleKeys.gender.tr(),
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              fontSize: 18,
+                              color: AppColors.white[90],
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: RadioListTile<String>(
+                                    selected: false,
+                                    contentPadding: EdgeInsets.zero,
+                                    hoverColor: AppColors.transparent,
+                                    title: Text(
+                                      LocaleKeys.genderFemale.tr(),
+                                      style:
+                                          theme.textTheme.labelSmall?.copyWith(
+                                        color: selectedGender ==
+                                                Gender.female.getValue()
+                                            ? AppColors.black
+                                            : AppColors.white[90],
+                                      ),
+                                    ),
+                                    value: Gender.female.getValue(),
+                                    groupValue: selectedGender,
+                                    onChanged: (String? value) {},
+                                  ),
+                                ),
+                                Expanded(
+                                  child: RadioListTile<String>(
+                                    selected: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text(
+                                      LocaleKeys.genderMale.tr(),
+                                      style:
+                                          theme.textTheme.labelSmall?.copyWith(
+                                        color: selectedGender ==
+                                                Gender.male.getValue()
+                                            ? AppColors.black
+                                            : AppColors.white[90],
+                                      ),
+                                    ),
+                                    value: Gender.male.getValue(),
+                                    groupValue: selectedGender,
+                                    onChanged: (value) {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      SizedBox(
+                        height: screenHeight * 0.06,
+                        child: FilledButton(
+                          onPressed: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            if (_formKey.currentState!.validate()) {
+                              cubit.processIntent(
+                                  EditeProfileIntent(EditProfileInputModel(
+                                firstName: firstNameController.text,
+                                lastName: lastNameController.text,
+                                phone: phoneNumberController.text,
+                                email: emailController.text,
+                              )));
+                            }
+                          },
+                          child: Text(
+                            'Update',
+                            style: theme.textTheme.labelSmall?.copyWith(
+                                fontSize: 16, color: AppColors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

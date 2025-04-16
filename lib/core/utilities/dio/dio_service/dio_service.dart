@@ -36,7 +36,9 @@ extension DioServiceExtension on DioService {
     BaseOptions newBaseOptions = BaseOptions(
         connectTimeout: const Duration(seconds: 30),
         baseUrl: ApisEndpoints.baseUrl,
-        headers: {"token": token});
+        headers: {
+          "Authorization": "Bearer $token",
+        });
     dio.options = newBaseOptions;
   }
 }
