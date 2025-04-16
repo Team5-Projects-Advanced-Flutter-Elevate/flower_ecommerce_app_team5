@@ -17,7 +17,7 @@ class AuthenticationResponse {
       _$AuthenticationResponseFromJson(json);
 
   String? message;
-  UserDM? user;
+  UserDm? user;
   String? token;
 
   Map<String, dynamic> toJson() => _$AuthenticationResponseToJson(this);

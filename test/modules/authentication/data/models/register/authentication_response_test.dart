@@ -11,7 +11,7 @@ void main() {
         // arrange
         var authenticationResponse = AuthenticationResponse(
           message: 'message',
-          user: UserDM(
+          user: UserDm(
             email: 'email',
             firstName: 'firstName',
             lastName: 'lastName',

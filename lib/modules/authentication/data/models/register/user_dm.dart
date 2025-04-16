@@ -4,8 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user_dm.g.dart';
 
 @JsonSerializable()
-class UserDM {
-  UserDM({
+class UserDm {
+  UserDm({
     this.firstName,
     this.lastName,
     this.email,
@@ -17,7 +17,7 @@ class UserDM {
     this.createdAt,
   });
 
-  factory UserDM.fromJson(dynamic json) => _$UserDMFromJson(json);
+  factory UserDm.fromJson(dynamic json) => _$UserDMFromJson(json);
 
   String? firstName;
   String? lastName;
