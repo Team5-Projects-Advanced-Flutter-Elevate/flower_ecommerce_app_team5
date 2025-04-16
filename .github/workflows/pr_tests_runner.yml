@@ -1,6 +1,7 @@
 name: Flutter Running PR Tests
 on:
   pull_request:
+    types: [opened, edited]
     branches:
       - '**'
 jobs:
