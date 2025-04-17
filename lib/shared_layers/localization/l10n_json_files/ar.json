@@ -69,5 +69,14 @@
   "checkGuest": "الرجاء تسجيل الدخول",
   "occsionScreenTitle": "المناسبة",
   "occasionScreenSubTitle": "ازدهر مع أفضل مبيعاتنا الرائعة",
-  "noProductsFound": "لم يتم العثور على منتجات"
+  "noProductsFound": "لم يتم العثور على منتجات",
+  "myOrders": "طلباتي",
+  "savedAddress": "العنوان المحفوظ",
+  "notification": "الإشعارات",
+  "language": "اللغة",
+  "aboutUs": "من نحن",
+  "termsConditions": "الشروط والأحكام",
+  "logout": "تسجيل الخروج",
+   "languageKey": "العربية",
+  "confirmLogout": "تأكيد تسجيل الخروج"
 }
