@@ -7,7 +7,7 @@ import '../../../../../../core/constants/constants.dart';
 import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 
 class SearchAndFilterRow extends BaseStatelessWidget {
-  const SearchAndFilterRow({super.key});
+   SearchAndFilterRow({super.key});
   @override
   Widget customBuild(BuildContext context) {
     return Row(

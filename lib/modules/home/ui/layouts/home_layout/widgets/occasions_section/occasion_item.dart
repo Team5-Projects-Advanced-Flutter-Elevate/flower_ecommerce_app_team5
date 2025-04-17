@@ -6,7 +6,7 @@ import '../../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../../core/widgets/cached_image.dart';
 
 class OccasionItem extends BaseStatelessWidget {
-  const OccasionItem({
+   OccasionItem({
     super.key,
     required this.occasionEntity,
   });

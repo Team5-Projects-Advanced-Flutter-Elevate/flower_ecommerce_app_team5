@@ -14,16 +14,17 @@ class ProductDetailsViewModel extends Cubit<ProductDetailsState> {
   int _activeIndex = 0;
   double _previousPixel = 0;
   bool _scrollGoingForward = false;
-  final ScrollController imageListController = ScrollController();
+  ScrollController imageListController = ScrollController();
   late PaletteGenerator _paletteGenerator;
-  final List<Color> _imagesMainColor = [];
+  final List<Color> imagesDominantColors = [];
 
   ProductDetailsViewModel() : super(const ProductDetailsState());
-
   void doIntent(ProductDetailsIntent intent) {
     switch (intent) {
       case InitOnScrollListener():
-        _initOnScrollListener();
+        _initOnScrollListener(intent.functionAddedToListener == null
+            ? _onImageScroll
+            : intent.functionAddedToListener!);
         break;
       case InitScrollStep():
         _initScrollStep();
@@ -35,7 +36,9 @@ class ProductDetailsViewModel extends Cubit<ProductDetailsState> {
         _jumpToImageIndex(intent.index);
         break;
       case DisposeScrollController():
-        _disposeScrollController();
+        _disposeScrollController(intent.functionDisposed == null
+            ? _onImageScroll
+            : intent.functionDisposed!);
         break;
       case ExtractColorPalettes():
         _extractColorPalettes(intent.imageUrls);
@@ -51,24 +54,30 @@ class ProductDetailsViewModel extends Cubit<ProductDetailsState> {
         _paletteGenerator = await PaletteGenerator.fromImageProvider(
             NetworkImage(images[i]),
             size: const Size(50, 30));
-        _imagesMainColor
+        imagesDominantColors
             .add(_paletteGenerator.dominantColor?.color ?? AppColors.white);
       } catch (e) {
-        _imagesMainColor.add(AppColors.white);
+        imagesDominantColors.add(AppColors.white);
       }
     }
-    _setSystemStatusBarColor(_imagesMainColor.first);
+    _setSystemStatusBarColor(imagesDominantColors.first);
     emit(ProductDetailsState(
         colorPalettesStatus: ColorPalettesStatus.loaded,
-        imagesMainColor: _imagesMainColor));
+        imagesMainColor: imagesDominantColors));
   }
 
   void _setActiveIndexOfSmoothIndicator(int index) {
     activeIndexOfSmoothIndicatorNotifier.value = index;
-    _setSystemStatusBarColor(_imagesMainColor[index]);
+    _setSystemStatusBarColor(imagesDominantColors[index]);
   }
 
   void _setSystemStatusBarColor([Color? newColor]) {
+    try {
+      WidgetsFlutterBinding.ensureInitialized();
+    } catch (e) {
+      debugPrint("Widget Flutter Binding not Initialized");
+      return;
+    }
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: newColor ?? AppColors.white),
     );
@@ -80,8 +89,8 @@ class ProductDetailsViewModel extends Cubit<ProductDetailsState> {
     }
   }
 
-  void _initOnScrollListener() {
-    imageListController.addListener(_onImageScroll);
+  void _initOnScrollListener(void Function() functionAddedToListener) {
+    imageListController.addListener(functionAddedToListener);
   }
 
   void _onImageScroll() {
@@ -115,8 +124,8 @@ class ProductDetailsViewModel extends Cubit<ProductDetailsState> {
     imageListController.jumpTo((index * scrollStep).toDouble());
   }
 
-  void _disposeScrollController() {
-    imageListController.removeListener(_onImageScroll);
+  void _disposeScrollController(void Function() functionRemoved) {
+    imageListController.removeListener(functionRemoved);
     imageListController.dispose();
   }
 }

@@ -6,7 +6,7 @@ import '../../../../../../../core/bases/base_statless_widget.dart';
 import 'category_item.dart';
 
 class CategoriesListView extends BaseStatelessWidget {
-  const CategoriesListView({
+   CategoriesListView({
     super.key,
     required this.categories,
   });

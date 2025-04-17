@@ -50,7 +50,7 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
         appBar: AppBar(
           forceMaterialTransparency: true,
           toolbarHeight: screenHeight * 0.1,
-          title: const SearchAndFilterRow(),
+          title:  SearchAndFilterRow(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight - 20),
             child: Align(
@@ -134,7 +134,7 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
 class CategoryProductsView extends BaseStatelessWidget {
   final List<ProductEntity> productList;
 
-  const CategoryProductsView(this.productList, {super.key});
+   CategoryProductsView(this.productList, {super.key});
 
   @override
   Widget customBuild(BuildContext context) {

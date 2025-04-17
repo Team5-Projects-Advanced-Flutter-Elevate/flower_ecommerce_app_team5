@@ -17,7 +17,7 @@ class UserDm {
     this.createdAt,
   });
 
-  factory UserDm.fromJson(dynamic json) => _$UserDMFromJson(json);
+  factory UserDm.fromJson(dynamic json) => _$UserDmFromJson(json);
 
   String? firstName;
   String? lastName;
@@ -29,7 +29,7 @@ class UserDm {
   String? id;
   String? createdAt;
 
-  Map<String, dynamic> toJson() => _$UserDMToJson(this);
+  Map<String, dynamic> toJson() => _$UserDmToJson(this);
 
   UserEntity toEntity() => UserEntity(
         firstName: firstName,

@@ -1,10 +1,18 @@
 sealed class ProductDetailsIntent {}
 
-class InitOnScrollListener extends ProductDetailsIntent {}
+class InitOnScrollListener extends ProductDetailsIntent {
+  void Function()? functionAddedToListener;
+
+  InitOnScrollListener({this.functionAddedToListener});
+}
 
 class InitScrollStep extends ProductDetailsIntent {}
 
-class DisposeScrollController extends ProductDetailsIntent {}
+class DisposeScrollController extends ProductDetailsIntent {
+  void Function()? functionDisposed;
+
+  DisposeScrollController({this.functionDisposed});
+}
 
 class ExtractColorPalettes extends ProductDetailsIntent {
   List<String> imageUrls;

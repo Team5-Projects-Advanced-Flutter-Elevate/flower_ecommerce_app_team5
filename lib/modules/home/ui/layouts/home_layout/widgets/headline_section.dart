@@ -7,7 +7,7 @@ import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
 
 class HeadLineSection extends BaseStatelessWidget {
-  const HeadLineSection(this.title, {super.key, this.onTap});
+   HeadLineSection(this.title, {super.key, this.onTap});
 
   final String title;
   final VoidCallback? onTap;

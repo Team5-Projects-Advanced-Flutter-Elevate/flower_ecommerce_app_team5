@@ -15,6 +15,7 @@ import 'register_cubit_test.mocks.dart';
 void main() {
   late MockRegisterUseCase mockRegisterUseCase;
   late RegisterCubit registerCubit;
+  late Object exception;
   group('RegisterCubit', () {
     setUp(() {
       mockRegisterUseCase = MockRegisterUseCase();
@@ -46,21 +47,22 @@ void main() {
       'register error',
       build: () => registerCubit,
       setUp: () {
+        exception = Exception();
         provideDummy<ApiResult<AuthenticationResponseEntity>>(
           Error<AuthenticationResponseEntity>(
-            error: Exception(),
+            error: exception,
           ),
         );
         when(mockRegisterUseCase.execute(any)).thenAnswer(
           (_) async => Error<AuthenticationResponseEntity>(
-            error: Exception(),
+            error: exception,
           ),
         );
       },
       act: (cubit) => cubit.doIntent(OnSignUpClick(RegisterRequest())),
       expect: () => [
         const RegisterState(state: RegisterStatus.loading),
-        const RegisterState(state: RegisterStatus.error),
+        RegisterState(state: RegisterStatus.error, error: exception),
       ],
     );
   });
