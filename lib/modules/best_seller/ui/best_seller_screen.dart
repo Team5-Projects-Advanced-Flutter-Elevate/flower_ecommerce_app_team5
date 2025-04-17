@@ -99,7 +99,7 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
               listenWhen: (previous, current) =>
                   current.addToCartStatus != previous.addToCartStatus,
               listener: (context, state) {
-                if (state.status == CartStatus.noAccess) {
+                if (state.addToCartStatus == AddToCartStatus.noAccess) {
                   displayAlertDialog(
                     title:  Text(
                       LocaleKeys.pleaseLoginFirst.tr(),
@@ -141,6 +141,7 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
                     });
 
                   case AddToCartStatus.initial:
+                  case AddToCartStatus.noAccess:
                 }
               },
               child: BlocBuilder<BestSellerViewModel, BestSellerState>(

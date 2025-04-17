@@ -21,6 +21,7 @@ enum AddToCartStatus {
   loading,
   success,
   error,
+  noAccess,
 }
 
 enum DeleteFromCartStatus {

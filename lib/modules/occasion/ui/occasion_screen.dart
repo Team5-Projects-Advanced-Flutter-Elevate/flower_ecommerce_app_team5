@@ -121,7 +121,8 @@ class _OcassionListScreenState
                             )
                           : BlocListener<CartCubit, CartState>(
                               listener: (context, state) {
-                                if (state.status == CartStatus.noAccess) {
+                                if (state.addToCartStatus ==
+                                    AddToCartStatus.noAccess) {
                                   displayAlertDialog(
                                     title: Text(
                                       LocaleKeys.pleaseLoginFirst.tr(),
@@ -157,6 +158,7 @@ class _OcassionListScreenState
                                       isSuccess: false,
                                     );
                                   case AddToCartStatus.initial:
+                                  case AddToCartStatus.noAccess:
                                 }
                               },
                               child: Expanded(

@@ -134,7 +134,7 @@ class CategoryProductsView extends BaseStatelessWidget {
   Widget customBuild(BuildContext context) {
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
-        if (state.status == CartStatus.noAccess) {
+        if (state.addToCartStatus == AddToCartStatus.noAccess) {
           displayAlertDialog(
             title: Text(
               LocaleKeys.pleaseLoginFirst.tr(),
@@ -169,6 +169,7 @@ class CategoryProductsView extends BaseStatelessWidget {
               isSuccess: false,
             );
           case AddToCartStatus.initial:
+          case AddToCartStatus.noAccess:
         }
       },
       child: Column(
