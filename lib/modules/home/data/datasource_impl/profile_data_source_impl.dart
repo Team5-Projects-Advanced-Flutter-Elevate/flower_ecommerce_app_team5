@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/api/api_client/profile_api_client.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/change_password/change_password_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/edite_profile_input_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/edite_profile_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/upload_image_response.dart';
+import 'package:http_parser/http_parser.dart'; // For MediaType
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/apis/api_executor/api_executor.dart';
@@ -52,12 +54,20 @@ class ProfileOnlineDataSourceImpl implements ProfileOnlineDataSource {
   }
 
   @override
+  @override
   Future<ApiResult<UploadImageResponse?>> uploadProfileImage(
       {required File imageFile}) async {
-    var result = await ApiExecutor.executeApi(
+    final photo = await MultipartFile.fromFile(
+      imageFile.path,
+      filename: 'user_${DateTime.now().millisecondsSinceEpoch}.jpg',
+      contentType: MediaType('image', 'jpeg'),
+    );
+
+    final result = await ApiExecutor.executeApi(
         () async => await _profileApiClient.uploadProfileImage(
-              imageFile: imageFile,
+              imageFile,
             ));
+
     switch (result) {
       case Success<UploadImageResponse>():
         return Success(

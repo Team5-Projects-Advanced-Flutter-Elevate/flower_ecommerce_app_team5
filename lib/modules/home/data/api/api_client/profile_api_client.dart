@@ -17,10 +17,10 @@ abstract class ProfileApiClient {
   factory ProfileApiClient(Dio dio) = _ProfileApiClient;
 
   @PUT(ApisEndpoints.uploadProfileImage)
-  Future<UploadImageResponse> uploadProfileImage({
-    @Part() required File imageFile,
-  } // Add this
-      );
+  @MultiPart()
+  Future<UploadImageResponse> uploadProfileImage(
+    @Part(name: "photo") File photo,
+  );
   @PUT(ApisEndpoints.editProfile)
   Future<EditProfileResponse> editeProfile(
       @Body() EditProfileInputModel editProfileInputModel);

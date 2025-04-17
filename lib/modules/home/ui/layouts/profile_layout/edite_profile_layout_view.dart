@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/utilities/extensions/gender_ex.dart';
+import '../../../../../core/utilities/image_picker/image_picker_service.dart';
 import '../../../../../core/widgets/loading_state_widget.dart';
 
 class EditeProfileLayoutView extends StatefulWidget {
@@ -148,35 +149,71 @@ class _EditeProfileLayoutViewState
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Stack(
-                            alignment: Alignment.bottomRight,
-                            children: [
-                              CircleAvatar(
-                                radius:
-                                    40 * (screenWidth / Constants.designWidth),
-                                backgroundImage:
-                                    cubit.profilePhoto.isNotEmpty == true
-                                        ? NetworkImage(cubit.profilePhoto)
-                                        : null,
-                                child: cubit.profilePhoto.isNotEmpty == true
-                                    ? null
-                                    : const Icon(Icons.person),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(3.0),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppColors.lightPink,
+                          GestureDetector(
+                            onTap: () =>
+                                ImagePickerService().showImageSourceDialog(
+                              context,
+                              onImageSelected: (image) {
+                                cubit.uploadProfileImage(image);
+                              },
+                            ),
+                            child: Stack(
+                              alignment: Alignment.bottomRight,
+                              children: [
+                                BlocConsumer<ProfileViewModelCubit,
+                                        ProfileState>(
+                                    listener: (context, state) {
+                                      if (state is ProfileSuccess) {
+                                        displayAlertDialog(
+                                          showOkButton: true,
+                                          title: const Text(
+                                              'Profile Image updated successfully'),
+                                        );
+                                      } else if (state is ProfileError) {
+                                        displayAlertDialog(
+                                          showOkButton: true,
+                                          title: ErrorStateWidget(
+                                            error: state.error,
+                                          ),
+                                        );
+                                      } else if (state is ProfileLoading) {
+                                        displayAlertDialog(
+                                            title: const LoadingWidget());
+                                      }
+                                    },
+                                    bloc: cubit,
+                                    buildWhen: (previous, current) =>
+                                        current is ProfileDataSuccess,
+                                    builder: (context, state) {
+                                      return CircleAvatar(
+                                        radius: 40 *
+                                            (screenWidth /
+                                                Constants.designWidth),
+                                        backgroundImage: cubit
+                                                .profilePhoto.isNotEmpty
+                                            ? NetworkImage(cubit.profilePhoto)
+                                            : null,
+                                        child: cubit.profilePhoto.isNotEmpty
+                                            ? null
+                                            : const Icon(Icons.person),
+                                      );
+                                    }),
+                                Container(
+                                  padding: const EdgeInsets.all(3.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColors.lightPink,
+                                  ),
+                                  child: Icon(
+                                    Icons.camera_alt_outlined,
+                                    color: AppColors.gray,
+                                    size: 18 *
+                                        (screenWidth / Constants.designWidth),
+                                  ),
                                 ),
-                                child: Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: AppColors.gray,
-                                  size: 18 *
-                                      (screenWidth / Constants.designWidth),
-                                ),
-                              ),
-                            ],
-                          )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(height: screenHeight * 0.03),

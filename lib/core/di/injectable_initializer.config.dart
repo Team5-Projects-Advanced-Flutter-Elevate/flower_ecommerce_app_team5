@@ -221,12 +221,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i855.OcassionViewModelCubit(gh<_i41.OccasionUseCase>()));
     gh.factory<_i76.BestSellerRepository>(() =>
         _i911.BestSellerRepositoryImp(gh<_i23.BestSellerRemoteDataSource>()));
-    gh.factory<_i411.EditeProfileUseCase>(
-        () => _i411.EditeProfileUseCase(gh<_i329.ProfileRepo>()));
-    gh.factory<_i208.EditeProfileImageUseCase>(
-        () => _i208.EditeProfileImageUseCase(gh<_i329.ProfileRepo>()));
     gh.factory<_i1029.ChangePasswordUseCase>(
         () => _i1029.ChangePasswordUseCase(gh<_i329.ProfileRepo>()));
+    gh.factory<_i208.EditeProfileImageUseCase>(
+        () => _i208.EditeProfileImageUseCase(gh<_i329.ProfileRepo>()));
+    gh.factory<_i411.EditeProfileUseCase>(
+        () => _i411.EditeProfileUseCase(gh<_i329.ProfileRepo>()));
     gh.factory<_i496.RegisterRepo>(
         () => _i161.RegisterRepoImpl(gh<_i871.RegisterOnlineDataSource>()));
     gh.factory<_i782.RegisterUseCase>(

@@ -11,7 +11,7 @@ import '../../modules/home/ui/layouts/profile_layout/change_password_layout_view
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    var args = settings.arguments;
+    // var args = settings.arguments;
     var name = settings.name;
     switch (name) {
       case DefinedRoutes.register:
@@ -20,7 +20,7 @@ class GenerateRoute {
         );
       case DefinedRoutes.loginScreenRoute:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
-        break;
+
       case DefinedRoutes.homeScreenRoute:
         return MaterialPageRoute(builder: (context) => const HomeScreen());
       case DefinedRoutes.bestSellerScreenRoute:

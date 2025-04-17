@@ -36,7 +36,6 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
       VoidFunction onOkButtonClick,
       VoidFunction onConfirmButtonClick}) {
     return showDialog(
-      barrierColor: Colors.transparent,
       context: context,
       barrierDismissible: isDismissible,
       builder: (context) {

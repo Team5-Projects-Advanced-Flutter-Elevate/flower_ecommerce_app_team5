@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/login/login_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/edite_profile_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/upload_image_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/change_password_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/edite_profile_image_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/edite_profile_use_case.dart';
@@ -39,6 +42,22 @@ class ProfileViewModelCubit extends Cubit<ProfileState> {
       case EditeProfileIntent():
         _updateProfileData(intent.editProfileInputModel);
         break;
+    }
+  }
+
+  uploadProfileImage(File imageFile) async {
+    emit(ProfileLoading());
+
+    // No need for manual size check - already handled by ImagePickerService
+    final uploadResult =
+        await _editeProfileImageUseCase.execute(imageFile: imageFile);
+
+    if (uploadResult is Success<UploadImageResponse>) {
+      profilePhoto = imageFile.path;
+      emit(ProfileSuccess());
+      //await _updateProfileData();
+    } else if (uploadResult is Error<UploadImageResponse>) {
+      emit(ProfileError(uploadResult.error));
     }
   }
 
