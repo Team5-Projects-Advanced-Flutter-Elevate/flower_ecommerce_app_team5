@@ -3,7 +3,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_
 import 'package:flutter/material.dart';
 import '../../../../../../../core/bases/base_statless_widget.dart';
 import 'best_seller_item.dart';
-
+// ignore: must_be_immutable
 class BestSellerListView extends BaseStatelessWidget {
    BestSellerListView({super.key, required this.bestSellers});
 

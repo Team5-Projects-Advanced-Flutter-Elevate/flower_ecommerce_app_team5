@@ -7,8 +7,9 @@ import 'package:provider/provider.dart';
 import '../../../../../../../core/bases/base_statless_widget.dart';
 import '../occasions_section/occasion_item.dart';
 
+// ignore: must_be_immutable
 class OccasionsListView extends BaseStatelessWidget {
-   OccasionsListView({super.key, required this.occasions});
+  OccasionsListView({super.key, required this.occasions});
 
   final List<OccasionEntity> occasions;
 

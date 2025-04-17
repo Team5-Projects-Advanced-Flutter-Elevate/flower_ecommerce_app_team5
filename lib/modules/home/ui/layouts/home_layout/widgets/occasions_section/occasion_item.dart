@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../../core/widgets/cached_image.dart';
-
+// ignore: must_be_immutable
 class OccasionItem extends BaseStatelessWidget {
    OccasionItem({
     super.key,

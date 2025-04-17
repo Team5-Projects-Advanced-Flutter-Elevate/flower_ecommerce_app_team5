@@ -5,7 +5,7 @@ import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-
+// ignore: must_be_immutable
 class ProductCard extends BaseStatelessWidget {
   final String imageUrl;
   final String productTitle;
@@ -26,6 +26,7 @@ class ProductCard extends BaseStatelessWidget {
 
   @override
   Widget customBuild(BuildContext context) {
+
     return InkWell(
       onTap: onProductCardClick,
       splashColor: Colors.transparent,

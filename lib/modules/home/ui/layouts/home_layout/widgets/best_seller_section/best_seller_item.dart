@@ -3,7 +3,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
-
+// ignore: must_be_immutable
 class BestSellerItem extends BaseStatelessWidget {
    BestSellerItem({
     super.key,

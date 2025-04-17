@@ -130,7 +130,7 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
         getIt.get<CategoriesLayoutViewModel>();
   }
 }
-
+// ignore: must_be_immutable
 class CategoryProductsView extends BaseStatelessWidget {
   final List<ProductEntity> productList;
 

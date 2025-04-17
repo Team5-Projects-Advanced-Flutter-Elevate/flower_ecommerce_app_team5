@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../../core/bases/base_statless_widget.dart';
 import 'category_item.dart';
-
+// ignore: must_be_immutable
 class CategoriesListView extends BaseStatelessWidget {
    CategoriesListView({
     super.key,
