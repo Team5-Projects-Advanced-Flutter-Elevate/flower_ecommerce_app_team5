@@ -57,6 +57,8 @@ dependencies:
   cached_network_image: ^3.4.1
   # refresh indicator
   custom_refresh_indicator: ^4.0.1
+  # page indicator
+  smooth_page_indicator: ^1.2.1
   # animations
   lottie: any
 
@@ -71,6 +73,8 @@ dependencies:
   bloc_test: ^10.0.0
   mockito: ^5.4.4
   mocktail: ^1.0.4
+  # color palettes generator
+  palette_generator: ^0.3.3+6
   image_picker: ^1.1.2
   permission_handler: ^12.0.0+1
   flutter_image_compress: ^2.4.0
@@ -89,7 +93,7 @@ dev_dependencies:
   # API dev_dependencies
   retrofit_generator: any # for Dart 3.3 use ^9.0.0
   build_runner: any
-  json_serializable: ^6.9.0
+  json_serializable: any
 
   # dependency injection
   injectable_generator: any

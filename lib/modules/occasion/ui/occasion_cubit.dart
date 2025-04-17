@@ -1,43 +1,56 @@
 import 'package:bloc/bloc.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/domain/use_cases/occasion_usecase.dart';
 import 'package:injectable/injectable.dart';
-import '../../home/data/models/all_products_response/all_product_response.dart';
-import '../domain/entities/get_occasion.dart';
 import 'occasion_state.dart';
 
 @injectable
-class OcassionViewModelCubit extends Cubit<OccasionState> {
-  OcassionViewModelCubit(this.occasionUseCase) : super(OccasionInitial());
+class OccasionViewModelCubit extends Cubit<OccasionState> {
+  OccasionViewModelCubit(this.occasionUseCase) : super(OccasionInitial());
   final OccasionUseCase occasionUseCase;
 
-  List<Occasion> _allOccasions = [];
-  List<Products>? _allProducts = [];
+  List<OccasionEntity> _allOccasions = [];
+  List<ProductEntity> _allProducts = [];
+  String? _initialOccasionId;
+  String? initialOccasionSlug;
 
   Future<void> _handleOccasionList() async {
     try {
       emit(OccasionLoading());
       _allOccasions = await occasionUseCase.getOccasion();
-      _allProducts = await occasionUseCase.execute();
-      final defaultID = _allOccasions.first.id;
+      final productResponseEntity = await occasionUseCase.execute();
+      _allProducts = productResponseEntity.products ?? [];
+      if (initialOccasionSlug != null) {
+        final occasionList = _allOccasions
+            .where(
+              (occasion) => occasion.slug == initialOccasionSlug,
+            )
+            .toList();
+        _initialOccasionId =
+            occasionList.isEmpty ? _allOccasions.first.id : occasionList[0].id;
+      } else {
+        _initialOccasionId = _allOccasions.first.id;
+      }
       final filtered =
-          _allProducts?.where((e) => e.occasion == defaultID).toList();
+          _allProducts.where((e) => e.occasion == _initialOccasionId).toList();
       emit(OccasionSuccess(
         _allOccasions,
-        filtered!,
-        defaultID,
+        filtered,
+        _initialOccasionId ?? "",
       ));
     } catch (e) {
-      emit(OccasionError(e.toString()));
+      emit(OccasionError(e));
     }
   }
 
   Future<void> _filterProductById(String occasionId) async {
     try {
       final filtered =
-          _allProducts?.where((e) => e.occasion == occasionId).toList();
+          _allProducts.where((e) => e.occasion == occasionId).toList();
       emit(OccasionSuccess(
         _allOccasions,
-        filtered!,
+        filtered,
         occasionId,
       ));
     } catch (e) {

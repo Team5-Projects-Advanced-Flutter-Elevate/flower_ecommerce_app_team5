@@ -1,12 +1,12 @@
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/cashed_image.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../../core/colors/app_colors.dart';
-
+// ignore: must_be_immutable
 class CategoryItem extends BaseStatelessWidget {
-  CategoryItem({
+   CategoryItem({
     super.key,
     required this.categoryEntity,
   });
@@ -28,7 +28,7 @@ class CategoryItem extends BaseStatelessWidget {
           child: SizedBox(
             width: screenWidth * 0.1 / 1.5,
             height: screenHeight * 0.1 / 1.5,
-            child: CashedImage(
+            child: CachedImage(
               url: categoryEntity.image ?? '',
             ),
           ),

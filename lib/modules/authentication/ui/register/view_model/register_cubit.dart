@@ -8,7 +8,7 @@ import '../../../data/models/register/register_request.dart';
 
 @injectable
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit(this.registerUseCase) : super(RegisterState());
+  RegisterCubit(this.registerUseCase) : super(const RegisterState());
   RegisterUseCase registerUseCase;
 
   void doIntent(RegisterIntent intent) {

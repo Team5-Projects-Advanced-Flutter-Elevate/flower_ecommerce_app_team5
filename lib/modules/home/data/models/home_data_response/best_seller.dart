@@ -1,4 +1,4 @@
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/best_seller_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'best_seller.g.dart';
@@ -49,7 +49,7 @@ class BestSellerDM {
 
   Map<String, dynamic> toJson() => _$BestSellerDMToJson(this);
 
-  BestSellerEntity toEntity() => BestSellerEntity(
+  ProductEntity toEntity() => ProductEntity(
         id: id,
         title: title,
         slug: slug,

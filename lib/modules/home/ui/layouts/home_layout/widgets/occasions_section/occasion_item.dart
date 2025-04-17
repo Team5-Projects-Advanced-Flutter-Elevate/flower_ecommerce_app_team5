@@ -1,13 +1,12 @@
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../../../../core/bases/base_statless_widget.dart';
-import '../../../../../../../core/colors/app_colors.dart';
-import '../cashed_image.dart';
 
+import '../../../../../../../core/widgets/cached_image.dart';
+// ignore: must_be_immutable
 class OccasionItem extends BaseStatelessWidget {
-  OccasionItem({
+   OccasionItem({
     super.key,
     required this.occasionEntity,
   });
@@ -23,7 +22,7 @@ class OccasionItem extends BaseStatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: CashedImage(
+            child: CachedImage(
               fit: BoxFit.cover,
               url: occasionEntity.image ?? '',
             ),

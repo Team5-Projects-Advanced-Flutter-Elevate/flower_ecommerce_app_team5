@@ -47,7 +47,7 @@ class LoginViewModelCubit extends Cubit<LoginViewModelState> {
   Future<void> _handleLoginGuest() async {
     try {
       emit(const LoginViewModelLoading());
-      var guestLogin = await loginAsGuestUseCase.isGuest();
+      // var guestLogin = await loginAsGuestUseCase.isGuest();
       emit(IsGuestSuccess());
     } on Exception catch (e) {
       emit(LoginViewModelError(error: e));

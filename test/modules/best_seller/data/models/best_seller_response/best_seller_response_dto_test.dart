@@ -1,16 +1,12 @@
+import 'dart:developer';
+
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/models/best_seller_response/best_seller_response_dto.dart';
-import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group(
     "BestSellerResponseDto Class Testing",
     () {
-      setUpAll(
-        () {
-          print("In setUpAll funciton");
-        },
-      );
       test(
         "When calling convertIntoEntity() with BestSellerResponseDto with non-null values, it should return the entity form of the dto with also non-null values",
         () {
@@ -40,7 +36,6 @@ void main() {
                 sold: 10,
                 rateAvg: 4.5,
                 rateCount: 100,
-                bestSellerId: "bs1",
               ),
               BestSellerDataDto(
                 id: "2",
@@ -64,7 +59,7 @@ void main() {
                 sold: 20,
                 rateAvg: 4.0,
                 rateCount: 50,
-                bestSellerId: "bs2",
+
               ),
             ],
           );
@@ -74,8 +69,6 @@ void main() {
           expect(actualResult.bestSellerProducts?.length,
               bestSellerResponseDto.bestSellerProducts?.length);
           for (int i = 0; i < (actualResult.bestSellerProducts?.length ?? 0); i++) {
-            actualResult.bestSellerProducts?[i].bestSellerId ==
-                bestSellerResponseDto.bestSellerProducts?[i].bestSellerId;
             actualResult.bestSellerProducts?[i].category ==
                 bestSellerResponseDto.bestSellerProducts?[i].category;
             actualResult.bestSellerProducts?[i].description ==

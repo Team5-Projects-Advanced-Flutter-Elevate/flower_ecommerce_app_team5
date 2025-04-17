@@ -1,11 +1,11 @@
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user_DM.g.dart';
+part 'user_dm.g.dart';
 
 @JsonSerializable()
-class UserDM {
-  UserDM({
+class UserDm {
+  UserDm({
     this.firstName,
     this.lastName,
     this.email,
@@ -17,7 +17,7 @@ class UserDM {
     this.createdAt,
   });
 
-  factory UserDM.fromJson(dynamic json) => _$UserDMFromJson(json);
+  factory UserDm.fromJson(dynamic json) => _$UserDmFromJson(json);
 
   String? firstName;
   String? lastName;
@@ -29,7 +29,7 @@ class UserDM {
   String? id;
   String? createdAt;
 
-  Map<String, dynamic> toJson() => _$UserDMToJson(this);
+  Map<String, dynamic> toJson() => _$UserDmToJson(this);
 
   UserEntity toEntity() => UserEntity(
         firstName: firstName,

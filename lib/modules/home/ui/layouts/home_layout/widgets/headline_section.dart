@@ -1,15 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/main.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
-import '../../../../../occasion/ui/occasion_screen.dart';
-
+// ignore: must_be_immutable
 class HeadLineSection extends BaseStatelessWidget {
-  HeadLineSection(this.title, {this.onTap, Key? key});
+   HeadLineSection(this.title, {super.key, this.onTap});
 
   final String title;
   final VoidCallback? onTap;

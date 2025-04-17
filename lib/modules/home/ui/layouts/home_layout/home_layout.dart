@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/view_model/home_cubit.dart';
@@ -17,7 +15,8 @@ class HomeLayout extends StatefulWidget {
   State<HomeLayout> createState() => _HomeLayoutState();
 }
 
-class _HomeLayoutState extends BaseStatefulWidgetState<HomeLayout> {
+class _HomeLayoutState extends BaseStatefulWidgetState<HomeLayout>
+    with TickerProviderStateMixin {
   late TextEditingController searchController;
   late FocusNode searchFocusNode;
   var cubit = getIt<HomeCubit>();

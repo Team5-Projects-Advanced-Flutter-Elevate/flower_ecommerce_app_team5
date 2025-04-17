@@ -3,16 +3,20 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i7;
+import 'dart:async' as _i8;
 
 import 'package:flower_ecommerce_app_team5/modules/home/data/api/api_client/home_api_client.dart'
-    as _i6;
+    as _i7;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_gategories_reponse/all_categories_response.dart'
     as _i2;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_occasions_response/all_occasions_response.dart'
     as _i3;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart'
     as _i5;
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart'
+    as _i9;
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/cart_response_model.dart'
+    as _i6;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart'
     as _i4;
 import 'package:mockito/mockito.dart' as _i1;
@@ -74,21 +78,31 @@ class _FakeAllProductResponse_3 extends _i1.SmartFake
         );
 }
 
+class _FakeCartResponse_4 extends _i1.SmartFake implements _i6.CartResponse {
+  _FakeCartResponse_4(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [HomeApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHomeApiClient extends _i1.Mock implements _i6.HomeApiClient {
+class MockHomeApiClient extends _i1.Mock implements _i7.HomeApiClient {
   MockHomeApiClient() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i7.Future<_i2.AllCategoriesResponse> getCategories() => (super.noSuchMethod(
+  _i8.Future<_i2.AllCategoriesResponse> getCategories() => (super.noSuchMethod(
         Invocation.method(
           #getCategories,
           [],
         ),
-        returnValue: _i7.Future<_i2.AllCategoriesResponse>.value(
+        returnValue: _i8.Future<_i2.AllCategoriesResponse>.value(
             _FakeAllCategoriesResponse_0(
           this,
           Invocation.method(
@@ -96,15 +110,15 @@ class MockHomeApiClient extends _i1.Mock implements _i6.HomeApiClient {
             [],
           ),
         )),
-      ) as _i7.Future<_i2.AllCategoriesResponse>);
+      ) as _i8.Future<_i2.AllCategoriesResponse>);
 
   @override
-  _i7.Future<_i3.AllOccasionsResponse> getOccasions() => (super.noSuchMethod(
+  _i8.Future<_i3.AllOccasionsResponse> getOccasions() => (super.noSuchMethod(
         Invocation.method(
           #getOccasions,
           [],
         ),
-        returnValue: _i7.Future<_i3.AllOccasionsResponse>.value(
+        returnValue: _i8.Future<_i3.AllOccasionsResponse>.value(
             _FakeAllOccasionsResponse_1(
           this,
           Invocation.method(
@@ -112,26 +126,26 @@ class MockHomeApiClient extends _i1.Mock implements _i6.HomeApiClient {
             [],
           ),
         )),
-      ) as _i7.Future<_i3.AllOccasionsResponse>);
+      ) as _i8.Future<_i3.AllOccasionsResponse>);
 
   @override
-  _i7.Future<_i4.HomeDataResponse> getHomeData() => (super.noSuchMethod(
+  _i8.Future<_i4.HomeDataResponse> getHomeData() => (super.noSuchMethod(
         Invocation.method(
           #getHomeData,
           [],
         ),
         returnValue:
-            _i7.Future<_i4.HomeDataResponse>.value(_FakeHomeDataResponse_2(
+            _i8.Future<_i4.HomeDataResponse>.value(_FakeHomeDataResponse_2(
           this,
           Invocation.method(
             #getHomeData,
             [],
           ),
         )),
-      ) as _i7.Future<_i4.HomeDataResponse>);
+      ) as _i8.Future<_i4.HomeDataResponse>);
 
   @override
-  _i7.Future<_i5.AllProductResponse> getAllProduct({String? categoryId}) =>
+  _i8.Future<_i5.AllProductResponse> getAllProduct({String? categoryId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getAllProduct,
@@ -139,7 +153,7 @@ class MockHomeApiClient extends _i1.Mock implements _i6.HomeApiClient {
           {#categoryId: categoryId},
         ),
         returnValue:
-            _i7.Future<_i5.AllProductResponse>.value(_FakeAllProductResponse_3(
+            _i8.Future<_i5.AllProductResponse>.value(_FakeAllProductResponse_3(
           this,
           Invocation.method(
             #getAllProduct,
@@ -147,5 +161,53 @@ class MockHomeApiClient extends _i1.Mock implements _i6.HomeApiClient {
             {#categoryId: categoryId},
           ),
         )),
-      ) as _i7.Future<_i5.AllProductResponse>);
+      ) as _i8.Future<_i5.AllProductResponse>);
+
+  @override
+  _i8.Future<_i6.CartResponse> getCartItems() => (super.noSuchMethod(
+        Invocation.method(
+          #getCartItems,
+          [],
+        ),
+        returnValue: _i8.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
+          this,
+          Invocation.method(
+            #getCartItems,
+            [],
+          ),
+        )),
+      ) as _i8.Future<_i6.CartResponse>);
+
+  @override
+  _i8.Future<_i6.CartResponse> addToCart(
+          _i9.AddToCartRequest? addToCartRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addToCart,
+          [addToCartRequest],
+        ),
+        returnValue: _i8.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
+          this,
+          Invocation.method(
+            #addToCart,
+            [addToCartRequest],
+          ),
+        )),
+      ) as _i8.Future<_i6.CartResponse>);
+
+  @override
+  _i8.Future<_i6.CartResponse> deleteFromCart(String? productId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteFromCart,
+          [productId],
+        ),
+        returnValue: _i8.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
+          this,
+          Invocation.method(
+            #deleteFromCart,
+            [productId],
+          ),
+        )),
+      ) as _i8.Future<_i6.CartResponse>);
 }
