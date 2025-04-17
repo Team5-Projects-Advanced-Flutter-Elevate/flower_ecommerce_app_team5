@@ -69,5 +69,15 @@
   "checkGuest": "Please Log-in",
   "occsionScreenTitle": "Occasion",
   "occasionScreenSubTitle": "Bloom with our exquisite best sellers",
-  "noProductsFound": "No Products Found"
+  "noProductsFound": "No Products Found",
+  "myOrders": "My orders",
+  "savedAddress": "Saved address",
+  "notification": "Notification",
+  "language": "Language",
+  "aboutUs": "About us",
+  "termsConditions": "Terms & conditions",
+  "logout": "Logout",
+  "languageKey": "English",
+  "confirmLogout": "Confirm Logout"
+
 }

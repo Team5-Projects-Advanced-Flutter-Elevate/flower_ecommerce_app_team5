@@ -72,8 +72,12 @@ import '../../modules/best_seller/domain/use_cases/best_seller/get_best_seller_p
 import '../../modules/best_seller/ui/view_model/best_seller_view_model.dart'
     as _i460;
 import '../../modules/home/data/api/api_client/home_api_client.dart' as _i293;
+import '../../modules/home/data/api/api_client/profile_api_client.dart'
+    as _i486;
 import '../../modules/home/data/api/api_client_provider/home_api_client_provider.dart'
     as _i939;
+import '../../modules/home/data/api/api_client_provider/profile_api_client_provider.dart'
+    as _i911;
 import '../../modules/home/data/datasource_contract/home_online_data_source.dart'
     as _i274;
 import '../../modules/home/data/datasource_impl/home_data_source_impl.dart'
@@ -92,6 +96,8 @@ import '../../modules/home/ui/layouts/categories_layout/view_model/categories_la
     as _i44;
 import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
     as _i692;
+import '../../modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart'
+    as _i901;
 import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
 import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
     as _i507;
@@ -134,6 +140,7 @@ extension GetItInjectableX on _i174.GetIt {
     final authApiClientProvider = _$AuthApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
     final occasionApiClientProvider = _$OccasionApiClientProvider();
+    final profileApiClientProvider = _$ProfileApiClientProvider();
     final localeInitializer = _$LocaleInitializer();
     await gh.factoryAsync<_i361.Dio>(
       () => dioService.provideDio(),
@@ -151,6 +158,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => homeApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i941.OccasionApiClient>(
         () => occasionApiClientProvider.ApiClient(gh<_i361.Dio>()));
+    gh.singleton<_i486.ProfileApiClient>(
+        () => profileApiClientProvider.ApiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
@@ -227,6 +236,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i543.LoginUseCase>(),
           gh<_i421.LoginAsGuestUseCase>(),
         ));
+    gh.factory<_i901.ProfileViewModelCubit>(
+        () => _i901.ProfileViewModelCubit(gh<_i543.LoginUseCase>()));
     return this;
   }
 }
@@ -242,5 +253,7 @@ class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 class _$HomeApiClientProvider extends _i939.HomeApiClientProvider {}
 
 class _$OccasionApiClientProvider extends _i507.OccasionApiClientProvider {}
+
+class _$ProfileApiClientProvider extends _i911.ProfileApiClientProvider {}
 
 class _$LocaleInitializer extends _i631.LocaleInitializer {}
