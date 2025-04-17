@@ -7,7 +7,7 @@ import 'dart:async' as _i3;
 
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart'
     as _i4;
-import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_entity.dart'
+import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_response_entity.dart'
     as _i5;
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/repositories_contracts/best_seller/best_seller_repository.dart'
     as _i2;

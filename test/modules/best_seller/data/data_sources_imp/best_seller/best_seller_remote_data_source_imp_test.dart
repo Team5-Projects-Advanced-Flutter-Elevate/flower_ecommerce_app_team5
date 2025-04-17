@@ -6,7 +6,7 @@ import 'package:flower_ecommerce_app_team5/modules/best_seller/data/api/api_clie
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/data_sources_contract/best_seller/best_seller_remote_data_source.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/data_sources_imp/best_seller/best_seller_remote_data_source_imp.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/models/best_seller_response/best_seller_response_dto.dart';
-import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_response_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -45,7 +45,7 @@ void main() {
             sold: 10,
             rateAvg: 4.5,
             rateCount: 100,
-            bestSellerId: "bs1",
+
           ),
           BestSellerDataDto(
             id: "2",
@@ -69,7 +69,7 @@ void main() {
             sold: 20,
             rateAvg: 4.0,
             rateCount: 50,
-            bestSellerId: "bs2",
+
           ),
         ],
       );

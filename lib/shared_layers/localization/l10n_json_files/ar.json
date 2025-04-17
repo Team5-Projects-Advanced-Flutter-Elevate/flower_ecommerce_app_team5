@@ -78,5 +78,18 @@
   "termsConditions": "الشروط والأحكام",
   "logout": "تسجيل الخروج",
    "languageKey": "العربية",
-  "confirmLogout": "تأكيد تسجيل الخروج"
+  "confirmLogout": "تأكيد تسجيل الخروج",
+
+  "//productDetailsScreen": "",
+  "egp": "ج.م {}",
+  "status": "الحالة: ",
+  "inStock": "متوفر في المخزون",
+  "notInStock": "غير متوفر في المخزون",
+  "pricesIncludeTax": "جميع الأسعار تشمل الضريبة",
+  "description": "الوصف: ",
+  "information": "المعلومات: ",
+  "sold": "تم بيعه: {}",
+  "rate": "التقييم: {}",
+  "rateCount": "عدد التقييمات: {}"
+
 }

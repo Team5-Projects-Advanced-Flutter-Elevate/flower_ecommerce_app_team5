@@ -1,5 +1,5 @@
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/best_seller.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/best_seller_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -36,7 +36,7 @@ void main() {
           expect(value, isNotNull);
         });
         // assert
-        expect(result, isA<BestSellerEntity>());
+        expect(result, isA<ProductEntity>());
       },
     );
 
@@ -53,7 +53,7 @@ void main() {
           expect(value, isNull);
         });
         // assert
-        expect(result, isA<BestSellerEntity?>());
+        expect(result, isA<ProductEntity?>());
       },
     );
   });

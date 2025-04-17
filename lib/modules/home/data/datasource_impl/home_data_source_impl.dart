@@ -4,6 +4,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/data/api/api_client/home
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_gategories_reponse/all_categories_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/all_product_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
 import 'package:injectable/injectable.dart';
@@ -20,7 +21,7 @@ class HomeDataSourceImpl implements HomeDataSource {
   @override
   Future<ApiResult<List<CategoryEntity>?>> getAllCategories() async {
     var result = await ApiExecutor.executeApi(
-            () async => await _homeApiClient.getCategories());
+        () async => await _homeApiClient.getCategories());
     switch (result) {
       case Success<AllCategoriesResponse>():
         return Success(
@@ -34,7 +35,7 @@ class HomeDataSourceImpl implements HomeDataSource {
   @override
   Future<ApiResult<List<OccasionEntity>?>> getAllOccasions() async {
     var result = await ApiExecutor.executeApi(
-            () async => await _homeApiClient.getOccasions());
+        () async => await _homeApiClient.getOccasions());
     switch (result) {
       case Success<AllOccasionsResponse>():
         return Success(
@@ -48,7 +49,7 @@ class HomeDataSourceImpl implements HomeDataSource {
   @override
   Future<ApiResult<HomeDataResponseEntity>> getHomeData() async {
     var result = await ApiExecutor.executeApi(
-            () async => await _homeApiClient.getHomeData());
+        () async => await _homeApiClient.getHomeData());
     switch (result) {
       case Success<HomeDataResponse>():
         return Success(data: result.data.toEntity());
@@ -58,13 +59,14 @@ class HomeDataSourceImpl implements HomeDataSource {
   }
 
   @override
-  Future<ApiResult<List<Products>>> getAllProduct({String? categoryId}) async {
+  Future<ApiResult<AllProductResponseEntity>> getAllProduct(
+      {String? categoryId}) async {
     var result = await ApiExecutor.executeApi(
-            () async => await _homeApiClient.getAllProduct(categoryId: categoryId));
+        () async => await _homeApiClient.getAllProduct(categoryId: categoryId));
     switch (result) {
       case Success<AllProductResponse>():
         return Success(
-          data: result.data.products ?? [],
+          data: result.data.convertIntoEntity()
         );
       case Error<AllProductResponse>():
         return Error(error: result.error);

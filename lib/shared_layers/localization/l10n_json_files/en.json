@@ -78,6 +78,17 @@
   "termsConditions": "Terms & conditions",
   "logout": "Logout",
   "languageKey": "English",
-  "confirmLogout": "Confirm Logout"
+  "confirmLogout": "Confirm Logout",
 
+  "//productDetailsScreen": "",
+  "egp": "EGP {}",
+  "status": "Status: ",
+  "inStock": "In stock",
+  "notInStock": "Not in stock",
+  "pricesIncludeTax": "All prices include tax",
+  "description": "Description: ",
+  "information": "Information: ",
+  "sold": "Sold: {}",
+  "rate": "Rate: {}",
+  "rateCount": "Rate Count: {}"
 }

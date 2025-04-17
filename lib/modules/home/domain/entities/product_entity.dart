@@ -1,25 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class BestSellerResponseEntity extends Equatable {
-  BestSellerResponseEntity({
-    this.message,
-    this.bestSellerProducts,
-  });
-
-  final String? message;
-  final List<BestSellerDataEntity>? bestSellerProducts;
-
-  @override
-  String toString() {
-    return "$message, $bestSellerProducts, ";
-  }
-
-  @override
-  List<Object?> get props => [message, bestSellerProducts];
-}
-
-class BestSellerDataEntity extends Equatable {
-  BestSellerDataEntity({
+class ProductEntity extends Equatable {
+  const ProductEntity({
     this.id,
     this.title,
     this.slug,
@@ -69,21 +51,21 @@ class BestSellerDataEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        title,
-        slug,
-        description,
-        imgCover,
-        images,
-        price,
-        priceAfterDiscount,
-        quantity,
-        category,
-        occasion,
-        discount,
-        sold,
-        rateAvg,
-        rateCount,
-        bestSellerId
-      ];
+    id,
+    title,
+    slug,
+    description,
+    imgCover,
+    images,
+    price,
+    priceAfterDiscount,
+    quantity,
+    category,
+    occasion,
+    discount,
+    sold,
+    rateAvg,
+    rateCount,
+    bestSellerId
+  ];
 }

@@ -4,8 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/data_sources_contract/best_seller/best_seller_remote_data_source.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/respositories_imp/best_seller/best_seller_repositories_imp.dart';
-import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/repositories_contracts/best_seller/best_seller_repository.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -21,16 +22,16 @@ void main() {
       late BestSellerRepository bestSellerRepository;
       late BestSellerRemoteDataSource bestSellerRemoteDataSource;
       BestSellerResponseEntity bestSellerResponseEntity =
-          BestSellerResponseEntity(
+          const BestSellerResponseEntity(
         message: "Success",
         bestSellerProducts: [
-          BestSellerDataEntity(
+          ProductEntity(
             id: "1",
             title: "Product 1",
             slug: "product-1",
             description: "Description of Product 1",
             imgCover: "https://example.com/img/product1.jpg",
-            images: const [
+            images:  [
               "https://example.com/img/product1_1.jpg",
               "https://example.com/img/product1_2.jpg"
             ],
@@ -45,13 +46,13 @@ void main() {
             rateCount: 100,
             bestSellerId: "bs1",
           ),
-          BestSellerDataEntity(
+          ProductEntity(
             id: "2",
             title: "Product 2",
             slug: "product-2",
             description: "Description of Product 2",
             imgCover: "https://example.com/img/product2.jpg",
-            images: const [
+            images:  [
               "https://example.com/img/product2_1.jpg",
               "https://example.com/img/product2_2.jpg"
             ],

@@ -3,18 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppThemes {
-  static final TextTheme _textTheme = TextTheme(
-    headlineMedium: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w500,
-      color: AppColors.gray,
-    ),
-  );
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
-    appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.white,
+    ),
     textTheme: TextTheme(
       // Body Text Styles
       labelMedium: GoogleFonts.inter(
@@ -106,7 +101,6 @@ abstract class AppThemes {
       backgroundColor: AppColors.white,
     ),
     navigationBarTheme: NavigationBarThemeData(
-
       backgroundColor: AppColors.white,
       iconTheme: WidgetStateProperty.resolveWith(
         (states) {
@@ -123,7 +117,6 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
-      
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return GoogleFonts.inter(
@@ -140,21 +133,25 @@ abstract class AppThemes {
         }
       }),
     ),
-    tabBarTheme: const TabBarTheme(
-      labelColor: Colors.pink,
-      unselectedLabelColor: Colors.grey,
-      indicatorColor: Colors.pink,
+    tabBarTheme: TabBarTheme(
+      labelColor: AppColors.mainColor,
+      unselectedLabelColor: AppColors.white[70],
+      indicatorColor: AppColors.mainColor,
+      labelPadding: const EdgeInsets.symmetric(horizontal: 12,vertical: 5),
+      indicatorSize: TabBarIndicatorSize.label,
+      tabAlignment: TabAlignment.start,
       labelStyle: TextStyle(
-        fontWeight: FontWeight.w600,
-        fontSize: 14,
+        fontSize: 16,
+        fontWeight: FontWeight.normal, // Regular weight
+        color: AppColors.black,
       ),
-      unselectedLabelStyle: TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: 14,
-      ),
+      unselectedLabelStyle: GoogleFonts.inter(
+          textStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.normal, // Regular weight
+        color: AppColors.black,
+      )),
     ),
-
-
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,
       border: OutlineInputBorder(
