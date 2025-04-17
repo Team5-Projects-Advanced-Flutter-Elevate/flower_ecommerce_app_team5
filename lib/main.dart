@@ -5,6 +5,7 @@ import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/constants/l10n_constants.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/l10n_manager/localization_manager.dart';
@@ -32,7 +33,9 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => localizationManager,
         ),
-      ],
+      ChangeNotifierProvider(
+        create: (context) => getIt.get<HomeScreenViewModel>(),
+      )],
       child: EasyLocalization(
           supportedLocales: [
             Locale(LanguagesEnum.en.getLanguageCode()),

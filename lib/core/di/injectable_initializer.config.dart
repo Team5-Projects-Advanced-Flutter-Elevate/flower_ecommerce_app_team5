@@ -72,32 +72,33 @@ import '../../modules/best_seller/domain/use_cases/best_seller/get_best_seller_p
 import '../../modules/best_seller/ui/view_model/best_seller_view_model.dart'
     as _i460;
 import '../../modules/home/data/api/api_client/home_api_client.dart' as _i293;
+import '../../modules/home/data/api/api_client/profile_api_client.dart'
+    as _i486;
 import '../../modules/home/data/api/api_client_provider/home_api_client_provider.dart'
     as _i939;
+import '../../modules/home/data/api/api_client_provider/profile_api_client_provider.dart'
+    as _i911;
 import '../../modules/home/data/datasource_contract/home_online_data_source.dart'
     as _i274;
 import '../../modules/home/data/datasource_impl/home_data_source_impl.dart'
     as _i524;
 import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
 import '../../modules/home/domain/repo_contract/home_repo.dart' as _i1003;
-import '../../modules/home/domain/use_cases/add_to_use_case.dart' as _i999;
-import '../../modules/home/domain/use_cases/delete_from_cart.dart' as _i828;
 import '../../modules/home/domain/use_cases/get_all_products_use_case.dart'
     as _i1019;
-import '../../modules/home/domain/use_cases/get_cart_items_use_case.dart'
-    as _i640;
 import '../../modules/home/domain/use_cases/get_categories_use_case.dart'
     as _i369;
 import '../../modules/home/domain/use_cases/get_home_data_use_case.dart'
     as _i90;
 import '../../modules/home/domain/use_cases/get_occasions_use_case.dart'
     as _i386;
-import '../../modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart'
-    as _i671;
 import '../../modules/home/ui/layouts/categories_layout/view_model/categories_layout_view_model.dart'
     as _i44;
 import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
     as _i692;
+import '../../modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart'
+    as _i901;
+import '../../modules/home/ui/view_model/home_screen_view_model.dart' as _i867;
 import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
 import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
     as _i507;
@@ -111,6 +112,8 @@ import '../../modules/occasion/domain/repositories_contracts/ocassion_repo.dart'
     as _i319;
 import '../../modules/occasion/domain/use_cases/occasion_usecase.dart' as _i41;
 import '../../modules/occasion/ui/occasion_cubit.dart' as _i855;
+import '../../modules/product_details/ui/view_model/product_details_view_model.dart'
+    as _i902;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -139,6 +142,7 @@ extension GetItInjectableX on _i174.GetIt {
     final bestSellerClientProvider = _$BestSellerClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
+    final profileApiClientProvider = _$ProfileApiClientProvider();
     final occasionApiClientProvider = _$OccasionApiClientProvider();
     final localeInitializer = _$LocaleInitializer();
     await gh.factoryAsync<_i361.Dio>(
@@ -149,12 +153,16 @@ extension GetItInjectableX on _i174.GetIt {
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
+    gh.factory<_i902.ProductDetailsViewModel>(
+        () => _i902.ProductDetailsViewModel());
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i293.HomeApiClient>(
         () => homeApiClientProvider.provideApiClient(gh<_i361.Dio>()));
+    gh.singleton<_i486.ProfileApiClient>(
+        () => profileApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.singleton<_i941.OccasionApiClient>(
         () => occasionApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
@@ -189,8 +197,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i386.GetOccasionsUseCase>(
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
-    gh.factory<_i828.DeleteFromCartUseCase>(
-        () => _i828.DeleteFromCartUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i90.GetHomeDataUseCase>(
         () => _i90.GetHomeDataUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
@@ -200,12 +206,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
         _i79.LoginAsGuestOfflineDataSourceImpl(
             gh<_i629.SecureStorageService<dynamic>>()));
-    gh.factory<_i640.GetCartItemsUseCase>(
-        () => _i640.GetCartItemsUseCase(homeRepo: gh<_i1003.HomeRepo>()));
-    gh.factory<_i999.AddToCartUseCase>(
-        () => _i999.AddToCartUseCase(homeRepo: gh<_i1003.HomeRepo>()));
-    gh.factory<_i855.OcassionViewModelCubit>(
-        () => _i855.OcassionViewModelCubit(gh<_i41.OccasionUseCase>()));
+    gh.factory<_i855.OccasionViewModelCubit>(
+        () => _i855.OccasionViewModelCubit(gh<_i41.OccasionUseCase>()));
     gh.factory<_i76.BestSellerRepository>(() =>
         _i911.BestSellerRepositoryImp(gh<_i23.BestSellerRemoteDataSource>()));
     gh.factory<_i496.RegisterRepo>(
@@ -235,16 +237,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
+    gh.factory<_i867.HomeScreenViewModel>(() => _i867.HomeScreenViewModel(
+          gh<_i44.CategoriesLayoutViewModel>(),
+          gh<_i855.OccasionViewModelCubit>(),
+        ));
     gh.factory<_i363.LoginViewModelCubit>(() => _i363.LoginViewModelCubit(
           gh<_i543.LoginUseCase>(),
           gh<_i421.LoginAsGuestUseCase>(),
         ));
-    gh.singleton<_i671.CartCubit>(() => _i671.CartCubit(
-          gh<_i640.GetCartItemsUseCase>(),
-          gh<_i543.LoginUseCase>(),
-          gh<_i999.AddToCartUseCase>(),
-          gh<_i828.DeleteFromCartUseCase>(),
-        ));
+    gh.factory<_i901.ProfileViewModelCubit>(
+        () => _i901.ProfileViewModelCubit(gh<_i543.LoginUseCase>()));
     return this;
   }
 }
@@ -258,6 +260,8 @@ class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 
 class _$HomeApiClientProvider extends _i939.HomeApiClientProvider {}
+
+class _$ProfileApiClientProvider extends _i911.ProfileApiClientProvider {}
 
 class _$OccasionApiClientProvider extends _i507.OccasionApiClientProvider {}
 

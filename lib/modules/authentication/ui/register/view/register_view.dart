@@ -127,7 +127,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                 },
                 listenWhen: (previous, current) =>
                     current !=
-                    RegisterState(
+                    const RegisterState(
                       state: RegisterStatus.initial,
                     ),
                 child: Form(

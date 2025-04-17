@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
+import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/all_product_response_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:injectable/injectable.dart';
 
@@ -18,13 +20,28 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
   final GetCategoriesUseCase _getCategoriesUseCase;
   final GetAllProductsUseCase _getAllProductsUseCase;
   List<CategoryEntity> categoriesList = [];
-  List<Products> productsList = [];
+  List<ProductEntity> productsList = [];
   String? selectedCategoryId;
+  int initialCategoryIndex = 0;
   void _tabChange(String? categoryId) {
     if (categoryId == selectedCategoryId) return;
 
     selectedCategoryId = categoryId;
     _getAllProduct(categoryId: selectedCategoryId);
+  }
+
+  void _getInitialCategoryIndex() {
+    int? result;
+    for (int i = 0; i < categoriesList.length; i++) {
+      if (categoriesList[i].id == selectedCategoryId) {
+        result = i;
+        break;
+      }
+    }
+    initialCategoryIndex = result ?? 0;
+    if (categoriesList[initialCategoryIndex].id != selectedCategoryId) {
+      selectedCategoryId = categoriesList[initialCategoryIndex].id;
+    }
   }
 
   void _getCategories() async {
@@ -33,7 +50,9 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
     final result = await _getCategoriesUseCase.execute();
     switch (result) {
       case Success<List<CategoryEntity>?>():
-        categoriesList = result.data ??[];
+        categoriesList = result.data ?? [];
+        // Doing this insertion saved us a lot of work on managing what is the initialCategoryIndex will be
+        categoriesList.insert(0, CategoryEntity(name: Constants.all, id: null));
         emit(CategoriesLayoutViewModelSuccess());
       case Error<List<CategoryEntity>?>():
         emit(CategoriesLayoutViewModelError(error: result.error));
@@ -44,17 +63,17 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
     emit(CategoriesLayoutViewModelLoading());
     final result = await _getAllProductsUseCase.execute(categoryId: categoryId);
     switch (result) {
-      case Success<List<Products>?>():
-        productsList = result.data!;
+      case Success<AllProductResponseEntity>():
+        productsList = result.data.products ?? [];
         emit(CategoriesViewModelTabBarChanged());
         break;
-      case Error<List<Products>?>():
+      case Error<AllProductResponseEntity>():
         emit(CategoriesLayoutViewModelError(error: result.error));
         break;
     }
   }
 
-  dynamic processIntent(CategoriesLayoutViewModelIntent intent) {
+  void processIntent(CategoriesLayoutViewModelIntent intent) async {
     switch (intent) {
       case GetCategoriesIntent():
         _getCategories();
@@ -65,6 +84,9 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
       case TabBarChangedIntent():
         _tabChange(intent.categoryId);
         break;
+      case GetInitialCategoryIndex():
+        _getInitialCategoryIndex();
+        break;
     }
   }
 }
@@ -72,6 +94,8 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
 sealed class CategoriesLayoutViewModelIntent {}
 
 final class GetCategoriesIntent extends CategoriesLayoutViewModelIntent {}
+
+final class GetInitialCategoryIndex extends CategoriesLayoutViewModelIntent {}
 
 final class GetProductsIntent extends CategoriesLayoutViewModelIntent {
   final String? categoryId;

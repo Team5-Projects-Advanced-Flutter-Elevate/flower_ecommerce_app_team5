@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 
 void main() {
   const translationClassPath =
@@ -30,7 +31,7 @@ void main() {
 Map<String, dynamic> loadJson(String path) {
   final file = File(path);
   if (!file.existsSync()) {
-    log('Error: File not found - $path');
+    debugPrint('Error: File not found - $path');
     return {};
   }
   return json.decode(file.readAsStringSync()) as Map<String, dynamic>;
@@ -40,7 +41,7 @@ Map<String, dynamic> loadJson(String path) {
 void extractKeys(Map<String, dynamic> json, String prefix, Set<String> keys) {
   json.forEach((key, value) {
     // ignoring comment keys
-    if(key.startsWith('//')) return;
+    if (key.startsWith('//')) return;
     final formattedKey = prefix.isEmpty ? key : '$prefix.$key';
     keys.add(formattedKey);
     if (value is Map<String, dynamic>) {
@@ -77,11 +78,11 @@ void updateLocaleKeysClass(
   final newKeys = jsonKeys.difference(existingKeys);
 
   if (newKeys.isEmpty) {
-    log('No new keys to add. LocaleKeys is up to date.');
+    debugPrint('No new keys to add. LocaleKeys is up to date.');
     return;
   }
 
-  log('Adding ${newKeys.length} new keys...');
+  debugPrint('Adding ${newKeys.length} new keys...');
 
   final buffer = StringBuffer();
   buffer.writeln('abstract class LocaleKeys {');
@@ -100,7 +101,7 @@ void updateLocaleKeysClass(
 
   // Write updated class back to file
   file.writeAsStringSync(buffer.toString());
-  log('LocaleKeys updated successfully!');
+  debugPrint('LocaleKeys updated successfully!');
 }
 
 /// Format JSON key into a valid Dart constant name (LowerCamelCase)
@@ -119,10 +120,10 @@ String formatKeyName(String key) {
   String camelCaseName = parts.join('');
   camelCaseName = camelCaseName[0].toLowerCase() + camelCaseName.substring(1);
 
- // If there's no scope, prefix with 'general'
- //  if (parts.length == 1) {
- //    return 'general${camelCaseName[0].toUpperCase()}${camelCaseName.substring(1)}';
- //  }
+  // If there's no scope, prefix with 'general'
+  //  if (parts.length == 1) {
+  //    return 'general${camelCaseName[0].toUpperCase()}${camelCaseName.substring(1)}';
+  //  }
 
   return camelCaseName;
 }

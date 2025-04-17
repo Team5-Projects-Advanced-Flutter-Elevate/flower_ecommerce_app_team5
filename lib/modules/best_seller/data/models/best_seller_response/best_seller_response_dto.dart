@@ -1,4 +1,5 @@
-import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_response_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'best_seller_response_dto.g.dart';
 
@@ -54,9 +55,8 @@ class BestSellerDataDto {
     this.sold,
     this.rateAvg,
     this.rateCount,
-    this.bestSellerId,
   });
-
+  @JsonKey(name: '_id')
   final String? id;
   final String? title;
   final String? slug;
@@ -70,23 +70,23 @@ class BestSellerDataDto {
   final String? occasion;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  @JsonKey(name: '__v')
   final num? v;
   final num? discount;
   final num? sold;
   final num? rateAvg;
   final num? rateCount;
-  final String? bestSellerId;
 
   factory BestSellerDataDto.fromJson(Map<String, dynamic> json) =>
       _$BestSellerDataDtoFromJson(json);
 
   @override
   String toString() {
-    return "$id, $title, $slug, $description, $imgCover, $images, $price, $priceAfterDiscount, $quantity, $category, $occasion, $createdAt, $updatedAt, $v, $discount, $sold, $rateAvg, $rateCount, $bestSellerId, ";
+    return "$id, $title, $slug, $description, $imgCover, $images, $price, $priceAfterDiscount, $quantity, $category, $occasion, $createdAt, $updatedAt, $v, $discount, $sold, $rateAvg, $rateCount, ";
   }
 
-  BestSellerDataEntity convertIntoEntity() {
-    return BestSellerDataEntity(
+  ProductEntity convertIntoEntity() {
+    return ProductEntity(
       id: id,
       title: title,
       slug: slug,
@@ -101,7 +101,6 @@ class BestSellerDataDto {
       discount: discount,
       sold: sold,
       rateAvg: rateAvg,
-      bestSellerId: bestSellerId,
       rateCount: rateCount,
     );
   }

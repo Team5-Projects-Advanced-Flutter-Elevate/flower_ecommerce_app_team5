@@ -5,6 +5,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_gategori
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/all_product_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
@@ -61,13 +62,14 @@ class HomeDataSourceImpl implements HomeDataSource {
   }
 
   @override
-  Future<ApiResult<List<Products>>> getAllProduct({String? categoryId}) async {
+  Future<ApiResult<AllProductResponseEntity>> getAllProduct(
+      {String? categoryId}) async {
     var result = await ApiExecutor.executeApi(
         () async => await _homeApiClient.getAllProduct(categoryId: categoryId));
     switch (result) {
       case Success<AllProductResponse>():
         return Success(
-          data: result.data.products ?? [],
+          data: result.data.convertIntoEntity()
         );
       case Error<AllProductResponse>():
         return Error(error: result.error);

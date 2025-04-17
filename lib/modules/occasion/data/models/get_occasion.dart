@@ -1,21 +1,20 @@
-import '../../domain/entities/get_occasion.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
 
 class GetOccasionDTO {
   String? message;
   Metadata? metadata;
-  List<Occasions>? occasions;
+  List<OccasionDto>? occasions;
 
   GetOccasionDTO({this.message, this.metadata, this.occasions});
 
   GetOccasionDTO.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    metadata = json['metadata'] != null
-        ? Metadata.fromJson(json['metadata'])
-        : null;
+    metadata =
+        json['metadata'] != null ? Metadata.fromJson(json['metadata']) : null;
     if (json['occasions'] != null) {
-      occasions = <Occasions>[];
+      occasions = <OccasionDto>[];
       json['occasions'].forEach((v) {
-        occasions!.add(Occasions.fromJson(v));
+        occasions!.add( OccasionDto.fromJson(v));
       });
     }
   }
@@ -58,7 +57,7 @@ class Metadata {
   }
 }
 
-class Occasions {
+class OccasionDto {
   String? sId;
   String? name;
   String? slug;
@@ -67,16 +66,16 @@ class Occasions {
   String? updatedAt;
   int? productsCount;
 
-  Occasions(
+  OccasionDto(
       {this.sId,
-        this.name,
-        this.slug,
-        this.image,
-        this.createdAt,
-        this.updatedAt,
-        this.productsCount});
+      this.name,
+      this.slug,
+      this.image,
+      this.createdAt,
+      this.updatedAt,
+      this.productsCount});
 
-  Occasions.fromJson(Map<String, dynamic> json) {
+  OccasionDto.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     slug = json['slug'];
@@ -98,14 +97,11 @@ class Occasions {
     return data;
   }
 
-  Occasion toEntity() => Occasion(
-    id: sId ?? '',
-    name: name ?? '',
-    slug: slug ?? '',
-    image: image ?? '',
-    productsCount: productsCount ?? 0,
-  );
+  OccasionEntity toEntity() => OccasionEntity(
+        id: sId ?? '',
+        name: name ?? '',
+        slug: slug ?? '',
+        image: image ?? '',
+        productsCount: productsCount ?? 0,
+      );
 }
-
-
-

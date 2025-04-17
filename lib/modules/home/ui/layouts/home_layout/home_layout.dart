@@ -15,7 +15,8 @@ class HomeLayout extends StatefulWidget {
   State<HomeLayout> createState() => _HomeLayoutState();
 }
 
-class _HomeLayoutState extends BaseStatefulWidgetState<HomeLayout> {
+class _HomeLayoutState extends BaseStatefulWidgetState<HomeLayout>
+    with TickerProviderStateMixin {
   late TextEditingController searchController;
   late FocusNode searchFocusNode;
   var cubit = getIt<HomeCubit>();

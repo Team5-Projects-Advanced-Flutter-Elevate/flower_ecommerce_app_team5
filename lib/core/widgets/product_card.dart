@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../modules/home/data/models/cart_response/add_to_cart_request.dart';
 
+// ignore: must_be_immutable
 class ProductCard extends BaseStatelessWidget {
   final String imageUrl;
   final String productTitle;
@@ -22,7 +23,7 @@ class ProductCard extends BaseStatelessWidget {
   final num? priceAfterDiscountIfExist;
   final void Function()? onProductCardClick;
 
-  ProductCard({
+   ProductCard({
     super.key,
     required this.productTitle,
     required this.imageUrl,
@@ -36,6 +37,7 @@ class ProductCard extends BaseStatelessWidget {
 
   @override
   Widget customBuild(BuildContext context) {
+
     return InkWell(
       onTap: onProductCardClick,
       splashColor: Colors.transparent,
@@ -52,16 +54,12 @@ class ProductCard extends BaseStatelessWidget {
           child: Column(
             children: [
               Expanded(
-                flex: 13,
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  fit: BoxFit.cover,
-                  width: width,
-                  placeholder: (context, downloadProgress) =>
-                      const LoadingWidget(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
+                  flex: 13,
+                  child: CachedImage(
+                    url: imageUrl,
+                    fit: BoxFit.cover,
+                    width: width,
+                  )),
               Expanded(
                   flex: 9,
                   child: Column(

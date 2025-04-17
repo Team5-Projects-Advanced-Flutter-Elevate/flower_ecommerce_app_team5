@@ -17,7 +17,7 @@ BestSellerResponseDto _$BestSellerResponseDtoFromJson(
 
 BestSellerDataDto _$BestSellerDataDtoFromJson(Map<String, dynamic> json) =>
     BestSellerDataDto(
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
       title: json['title'] as String?,
       slug: json['slug'] as String?,
       description: json['description'] as String?,
@@ -35,10 +35,9 @@ BestSellerDataDto _$BestSellerDataDtoFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      v: json['v'] as num?,
+      v: json['__v'] as num?,
       discount: json['discount'] as num?,
       sold: json['sold'] as num?,
       rateAvg: json['rateAvg'] as num?,
       rateCount: json['rateCount'] as num?,
-      bestSellerId: json['bestSellerId'] as String?,
     );

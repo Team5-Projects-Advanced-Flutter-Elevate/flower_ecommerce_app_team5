@@ -8,6 +8,7 @@ import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/use_cases/
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/view_model/best_seller_intent.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/view_model/best_seller_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/view_model/best_seller_view_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -22,10 +23,10 @@ void main() {
       late BestSellerViewModel bestSellerViewModel;
       late GetBestSellerProductsUseCase getBestSellerProductsUseCase;
       BestSellerResponseEntity bestSellerResponseEntity =
-         const  BestSellerResponseEntity(
+          const  BestSellerResponseEntity(
         message: "Success",
         bestSellerProducts: [
-          BestSellerDataEntity(
+          ProductEntity(
             id: "1",
             title: "Product 1",
             slug: "product-1",
@@ -46,7 +47,7 @@ void main() {
             rateCount: 100,
             bestSellerId: "bs1",
           ),
-          BestSellerDataEntity(
+          ProductEntity(
             id: "2",
             title: "Product 2",
             slug: "product-2",
@@ -105,7 +106,7 @@ void main() {
           bestSellerViewModel.doIntent(GetBestSellerProducts());
         },
         expect: () => [
-          BestSellerState(bestSellerStatus: BestSellerStatus.loading),
+          const BestSellerState(bestSellerStatus: BestSellerStatus.loading),
           BestSellerState(
               bestSellerStatus: BestSellerStatus.success,
               bestSellerProducts: bestSellerResponseEntity.bestSellerProducts)
@@ -123,7 +124,7 @@ void main() {
           bestSellerViewModel.doIntent(GetBestSellerProducts());
         },
         expect: () => [
-          BestSellerState(bestSellerStatus: BestSellerStatus.loading),
+          const BestSellerState(bestSellerStatus: BestSellerStatus.loading),
           BestSellerState(
               bestSellerStatus: BestSellerStatus.error,
               error: noNetworkConnection)

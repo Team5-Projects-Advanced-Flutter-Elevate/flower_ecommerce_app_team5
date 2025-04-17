@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
-import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 
 enum BestSellerStatus { initial, loading, success, error }
 
 class BestSellerState extends Equatable {
-  BestSellerStatus bestSellerStatus;
-  List<BestSellerDataEntity>? bestSellerProducts;
-  Object? error;
+  final BestSellerStatus bestSellerStatus;
+  final List<ProductEntity>? bestSellerProducts;
+  final Object? error;
 
-  BestSellerState(
+  const BestSellerState(
       {this.bestSellerStatus = BestSellerStatus.initial,
       this.bestSellerProducts,
       this.error});

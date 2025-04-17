@@ -1,5 +1,5 @@
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/authentication_response.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/user_DM.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/user_dm.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -11,7 +11,7 @@ void main() {
         // arrange
         var authenticationResponse = AuthenticationResponse(
           message: 'message',
-          user: UserDM(
+          user: UserDm(
             email: 'email',
             firstName: 'firstName',
             lastName: 'lastName',

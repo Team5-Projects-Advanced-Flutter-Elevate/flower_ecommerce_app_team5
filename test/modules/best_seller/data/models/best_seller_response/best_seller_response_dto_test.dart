@@ -7,11 +7,6 @@ void main() {
   group(
     "BestSellerResponseDto Class Testing",
     () {
-      setUpAll(
-        () {
-          log("In setUpAll funciton");
-        },
-      );
       test(
         "When calling convertIntoEntity() with BestSellerResponseDto with non-null values, it should return the entity form of the dto with also non-null values",
         () {
@@ -41,7 +36,6 @@ void main() {
                 sold: 10,
                 rateAvg: 4.5,
                 rateCount: 100,
-                bestSellerId: "bs1",
               ),
               BestSellerDataDto(
                 id: "2",
@@ -65,7 +59,7 @@ void main() {
                 sold: 20,
                 rateAvg: 4.0,
                 rateCount: 50,
-                bestSellerId: "bs2",
+
               ),
             ],
           );
@@ -75,8 +69,6 @@ void main() {
           expect(actualResult.bestSellerProducts?.length,
               bestSellerResponseDto.bestSellerProducts?.length);
           for (int i = 0; i < (actualResult.bestSellerProducts?.length ?? 0); i++) {
-            actualResult.bestSellerProducts?[i].bestSellerId ==
-                bestSellerResponseDto.bestSellerProducts?[i].bestSellerId;
             actualResult.bestSellerProducts?[i].category ==
                 bestSellerResponseDto.bestSellerProducts?[i].category;
             actualResult.bestSellerProducts?[i].description ==

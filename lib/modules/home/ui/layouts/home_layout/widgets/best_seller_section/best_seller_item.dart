@@ -1,18 +1,18 @@
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/best_seller_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/cashed_image.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import '../../../../../../../core/colors/app_colors.dart';
 import '../../../../../../../core/constants/constants.dart';
-
+// ignore: must_be_immutable
 class BestSellerItem extends BaseStatelessWidget {
-  BestSellerItem({
+   BestSellerItem({
     super.key,
     required this.bestSellerEntity,
   });
 
-  final BestSellerEntity bestSellerEntity;
+  final ProductEntity bestSellerEntity;
 
   @override
   Widget customBuild(BuildContext context) {
@@ -23,7 +23,7 @@ class BestSellerItem extends BaseStatelessWidget {
         children: [
           Expanded(
             flex: 5,
-            child: CashedImage(
+            child: CachedImage(
               fit: BoxFit.cover,
               url: bestSellerEntity.imgCover ?? '',
             ),
@@ -49,6 +49,12 @@ class BestSellerItem extends BaseStatelessWidget {
                 SizedBox(
                   height: screenHeight * 0.003,
                 ),
+                Text(
+                  '${bestSellerEntity.price ?? ''} EGP',
+                  style: GoogleFonts.inter(
+                    textStyle: theme.textTheme.bodySmall?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
