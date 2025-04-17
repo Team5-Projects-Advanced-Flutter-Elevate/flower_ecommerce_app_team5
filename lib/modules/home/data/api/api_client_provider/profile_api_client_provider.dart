@@ -7,7 +7,7 @@ import '../api_client/profile_api_client.dart';
 @module
 abstract class ProfileApiClientProvider {
   @singleton
-  ProfileApiClient ApiClient(Dio dio) {
+  ProfileApiClient apiClient(Dio dio) {
     return ProfileApiClient(dio);
   }
 }
