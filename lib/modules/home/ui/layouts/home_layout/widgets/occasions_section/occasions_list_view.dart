@@ -9,16 +9,16 @@ import '../occasions_section/occasion_item.dart';
 
 // ignore: must_be_immutable
 class OccasionsListView extends BaseStatelessWidget {
-  OccasionsListView({super.key, required this.occasions});
+  const OccasionsListView({super.key, required this.occasions});
 
   final List<OccasionEntity> occasions;
 
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context,  inherit) {
     HomeScreenViewModel homeScreenViewModel = Provider.of(context);
     return Padding(
       padding: EdgeInsets.only(
-        left: screenWidth * 0.05,
+        left: inherit.screenWidth * 0.05,
       ),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
@@ -34,7 +34,7 @@ class OccasionsListView extends BaseStatelessWidget {
           ),
         ),
         separatorBuilder: (context, index) => SizedBox(
-          width: screenWidth * 0.04,
+          width: inherit.screenWidth * 0.04,
         ),
         itemCount: occasions.length,
       ),

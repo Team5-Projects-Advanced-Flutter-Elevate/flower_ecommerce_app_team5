@@ -5,23 +5,23 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
-// ignore: must_be_immutable
+
 class HeadLineSection extends BaseStatelessWidget {
-   HeadLineSection(this.title, {super.key, this.onTap});
+   const HeadLineSection(this.title, {super.key, this.onTap});
 
   final String title;
   final VoidCallback? onTap;
 
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context,  inherit) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+      padding: EdgeInsets.symmetric(horizontal: inherit.screenWidth * 0.05),
       child: Row(
         children: [
           Text(
             title,
             style: GoogleFonts.inter(
-              textStyle: theme.textTheme.titleLarge?.copyWith(
+              textStyle: inherit.theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -35,7 +35,7 @@ class HeadLineSection extends BaseStatelessWidget {
               style: GoogleFonts.inter(
                 decoration: TextDecoration.underline,
                 decorationColor: AppColors.mainColor,
-                textStyle: theme.textTheme.bodySmall?.copyWith(
+                textStyle: inherit.theme.textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: 12,
                   color: AppColors.mainColor,

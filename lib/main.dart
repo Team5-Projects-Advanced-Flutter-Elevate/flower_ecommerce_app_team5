@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/bases/base_inherited_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
+import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
@@ -34,9 +35,10 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => localizationManager,
         ),
-      ChangeNotifierProvider(
-        create: (context) => getIt.get<HomeScreenViewModel>(),
-      )],
+        ChangeNotifierProvider(
+          create: (context) => getIt.get<HomeScreenViewModel>(),
+        )
+      ],
       child: EasyLocalization(
           supportedLocales: [
             Locale(LanguagesEnum.en.getLanguageCode()),
@@ -57,23 +59,31 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LocalizationManager>(
       builder: (context, localizationManager, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          theme: AppThemes.lightTheme,
-          themeMode: ThemeMode.light,
-          onGenerateRoute: GenerateRoute.onGenerateRoute,
-          onGenerateInitialRoutes: (initialRoute) =>
-              GenerateRoute.onGenerateInitialRoutes(
-                  initialRoute: initialRoute, loginInfo: storedLoginInfo),
-          //initialRoute: DefinedRoutes.bestSellerScreenRoute,
-          // home: const OcassionListScreen(),
-          // onGenerateRoute: GenerateRoute.onGenerateRoute,
-          // onGenerateInitialRoutes: (initialRoute) =>
-          //     GenerateRoute.onGenerateInitialRoutes(
-          //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
+        return BaseInheritedWidget(
+          theme: Theme.of(context),
+          screenWidth: MediaQuery.of(context).size.width,
+          screenHeight: MediaQuery.of(context).size.height,
+          easyLocalization: EasyLocalization.of(context)!,
+          localizationManager: getIt.get<LocalizationManager>(),
+          validateFunctions: ValidateFunctions.getInstance(),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            theme: AppThemes.lightTheme,
+            themeMode: ThemeMode.light,
+            onGenerateRoute: GenerateRoute.onGenerateRoute,
+            onGenerateInitialRoutes: (initialRoute) =>
+                GenerateRoute.onGenerateInitialRoutes(
+                    initialRoute: initialRoute, loginInfo: storedLoginInfo),
+            //initialRoute: DefinedRoutes.bestSellerScreenRoute,
+            // home: const OcassionListScreen(),
+            // onGenerateRoute: GenerateRoute.onGenerateRoute,
+            // onGenerateInitialRoutes: (initialRoute) =>
+            //     GenerateRoute.onGenerateInitialRoutes(
+            //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
+          ),
         );
       },
     );

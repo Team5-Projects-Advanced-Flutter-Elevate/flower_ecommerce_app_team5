@@ -5,7 +5,6 @@ import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_se
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/login/login_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_input_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_response.dart';
-import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/upload_image_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/entities/upload_image_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/use_cases/change_password_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/use_cases/upload_image_use_case.dart';
@@ -14,7 +13,6 @@ import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/view_model/ed
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/apis/api_result/api_result.dart';
-import '../../data/api/api_client/upload_image_api_client.dart';
 import '../../../authentication/data/models/login/login_response_dto.dart';
 import '../../../home/data/models/change_password/change_password_response.dart';
 

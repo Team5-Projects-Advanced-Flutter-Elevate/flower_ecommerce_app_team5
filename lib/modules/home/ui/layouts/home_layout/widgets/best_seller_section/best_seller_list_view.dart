@@ -3,17 +3,16 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_
 import 'package:flutter/material.dart';
 import '../../../../../../../core/bases/base_statless_widget.dart';
 import 'best_seller_item.dart';
-// ignore: must_be_immutable
 class BestSellerListView extends BaseStatelessWidget {
-   BestSellerListView({super.key, required this.bestSellers});
+   const BestSellerListView({super.key, required this.bestSellers});
 
   final List<ProductEntity> bestSellers;
 
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context,  inherit) {
     return Padding(
       padding: EdgeInsets.only(
-        left: screenWidth * 0.05,
+        left: inherit.screenWidth * 0.05,
       ),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
@@ -29,7 +28,7 @@ class BestSellerListView extends BaseStatelessWidget {
           ),
         ),
         separatorBuilder: (context, index) => SizedBox(
-          width: screenWidth * 0.04,
+          width: inherit.screenWidth * 0.04,
         ),
         itemCount: bestSellers.length,
       ),

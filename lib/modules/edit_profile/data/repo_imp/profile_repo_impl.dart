@@ -4,7 +4,6 @@ import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart'
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/datasource_contract/edit_profile_online_data_source.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_input_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_response.dart';
-import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/upload_image_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/entities/upload_image_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/change_password/change_password_response.dart';
 import 'package:injectable/injectable.dart';

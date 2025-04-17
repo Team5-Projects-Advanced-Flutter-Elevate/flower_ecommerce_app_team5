@@ -12,12 +12,12 @@ import '../../../../../../shared_layers/localization/generated/locale_keys.g.dar
 import 'cart_list_view.dart';
 
 class TitleAndCartItems extends BaseStatelessWidget {
-  TitleAndCartItems({super.key, required this.cartItems});
+  const TitleAndCartItems({super.key, required this.cartItems});
 
   final List<CartItemEntity> cartItems;
 
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context, inherit) {
     return Expanded(
       flex: 4,
       child: Column(
@@ -26,22 +26,23 @@ class TitleAndCartItems extends BaseStatelessWidget {
             children: [
               Text(
                 LocaleKeys.cart.tr(),
-                style: theme.textTheme.labelMedium,
+                style: inherit.theme.textTheme.labelMedium,
               ),
               Text(
                 '(${cartItems.length} ${LocaleKeys.items.tr()})',
-                style: theme.textTheme.labelMedium?.copyWith(
+                style: inherit.theme.textTheme.labelMedium?.copyWith(
                   color: AppColors.gray,
                 ),
               )
             ],
           ),
           SizedBox(
-            height: screenHeight * 0.02,
+            height: inherit.screenHeight * 0.02,
           ),
           Expanded(
             child: BlocListener<CartCubit, CartState>(
-              listenWhen: (previous, current) => current.deleteFromCartStatus !=previous.deleteFromCartStatus,
+              listenWhen: (previous, current) =>
+                  current.deleteFromCartStatus != previous.deleteFromCartStatus,
               listener: (context, state) {
                 if (state.deleteFromCartStatus ==
                     DeleteFromCartStatus.success) {
@@ -50,7 +51,8 @@ class TitleAndCartItems extends BaseStatelessWidget {
                     message: LocaleKeys.deletedSuccessfully.tr(),
                     isSuccess: false,
                   );
-                }              },
+                }
+              },
               child: CartListView(
                 cartItems: cartItems,
               ),

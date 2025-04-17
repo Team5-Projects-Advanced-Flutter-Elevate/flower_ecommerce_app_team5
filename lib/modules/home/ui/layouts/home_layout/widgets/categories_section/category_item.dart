@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../../core/colors/app_colors.dart';
 // ignore: must_be_immutable
 class CategoryItem extends BaseStatelessWidget {
-   CategoryItem({
+   const CategoryItem({
     super.key,
     required this.categoryEntity,
   });
@@ -14,32 +14,32 @@ class CategoryItem extends BaseStatelessWidget {
   final CategoryEntity categoryEntity;
 
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context,  inherit) {
     return Column(
       children: [
         Container(
           alignment: Alignment.center,
-          height: screenHeight * 0.08,
-          width: screenWidth * 0.19,
+          height: inherit.screenHeight * 0.08,
+          width: inherit.screenWidth * 0.19,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: AppColors.lightPink,
           ),
           child: SizedBox(
-            width: screenWidth * 0.1 / 1.5,
-            height: screenHeight * 0.1 / 1.5,
+            width: inherit.screenWidth * 0.1 / 1.5,
+            height: inherit.screenHeight * 0.1 / 1.5,
             child: CachedImage(
               url: categoryEntity.image ?? '',
             ),
           ),
         ),
         SizedBox(
-          height: screenHeight * 0.005,
+          height: inherit.screenHeight * 0.005,
         ),
         Text(
           categoryEntity.name ?? '',
           style: GoogleFonts.inter(
-            textStyle: theme.textTheme.bodyMedium,
+            textStyle: inherit.theme.textTheme.bodyMedium,
           ),
         ),
       ],

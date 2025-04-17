@@ -37,7 +37,7 @@ class ImagePickerService {
         source: ImageSource.gallery,
         requestFullMetadata: false, // For privacy-safe access
       );
-      print('pickedFile: ${pickedFile?.path}');
+      debugPrint('pickedFile: ${pickedFile?.path}');
       if (pickedFile == null) return null;
 
       // Process the image to meet requirements

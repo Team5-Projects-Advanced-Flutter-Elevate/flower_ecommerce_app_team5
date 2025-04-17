@@ -32,7 +32,7 @@ enum DeleteFromCartStatus {
 class CartState extends Equatable {
   final CartStatus status;
   final Object? error;
-  CartResponseEntity? cartResponseEntity;
+  final CartResponseEntity? cartResponseEntity;
   final CounterStatus? counterStatus;
   final AddToCartStatus addToCartStatus;
   final DeleteFromCartStatus deleteFromCartStatus;

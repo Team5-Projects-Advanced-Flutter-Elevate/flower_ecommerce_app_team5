@@ -4,19 +4,19 @@ import 'package:flutter/cupertino.dart';
 import '../../../../../../core/bases/base_statless_widget.dart';
 
 class CartListView extends BaseStatelessWidget {
-  CartListView({super.key, required this.cartItems});
+  const CartListView({super.key, required this.cartItems});
 
   final List<CartItemEntity> cartItems;
 
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context, inherit) {
     return ListView.separated(
       itemBuilder: (context, index) => CartItem(
         cartItemEntity: cartItems[index],
       ),
       itemCount: cartItems.length,
       separatorBuilder: (context, index) => SizedBox(
-        height: screenHeight * 0.025,
+        height: inherit.screenHeight * 0.025,
       ),
     );
   }

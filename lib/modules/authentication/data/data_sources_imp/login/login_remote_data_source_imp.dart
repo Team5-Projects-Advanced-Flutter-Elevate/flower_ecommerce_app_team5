@@ -6,7 +6,6 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/lo
 import 'package:injectable/injectable.dart';
 
 import '../../../../../core/apis/api_result/api_result.dart';
-import '../../../../../core/utilities/dio/dio_service/dio_service.dart';
 import '../../models/login/login_input_model.dart';
 
 @Injectable(as: LoginRemoteDataSource)

@@ -78,7 +78,9 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                         GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, DefinedRoutes.editProfileScreenRoute);
+                            },
                             child: Icon(
                               Icons.edit,
                               color: AppColors.mainColor,

@@ -28,7 +28,6 @@ class OccasionsSection extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, DefinedRoutes.occasionScreenRoute);
             },
-
           ),
           SizedBox(
             height: screenHeight * 0.02,

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dio/src/response.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/api/api_client/profile_api_client.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/api/api_client/upload_image_api_client.dart';

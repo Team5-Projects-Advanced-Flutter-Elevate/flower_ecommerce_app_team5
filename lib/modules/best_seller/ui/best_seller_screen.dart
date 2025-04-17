@@ -21,7 +21,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../core/routing/defined_routes.dart';
 
 class BestSellerScreen extends StatefulWidget {
   const BestSellerScreen({super.key});

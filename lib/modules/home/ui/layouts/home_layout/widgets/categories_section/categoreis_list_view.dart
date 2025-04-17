@@ -6,7 +6,7 @@ import '../../../../../../../core/bases/base_statless_widget.dart';
 import 'category_item.dart';
 // ignore: must_be_immutable
 class CategoriesListView extends BaseStatelessWidget {
-   CategoriesListView({
+   const CategoriesListView({
     super.key,
     required this.categories,
   });
@@ -14,11 +14,11 @@ class CategoriesListView extends BaseStatelessWidget {
   final List<CategoryEntity> categories;
 
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context,  inherit) {
     HomeScreenViewModel homeScreenViewModel = Provider.of(context);
     return Padding(
       padding: EdgeInsets.only(
-        left: screenWidth * 0.05,
+        left: inherit.screenWidth * 0.05,
       ),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
@@ -37,7 +37,7 @@ class CategoriesListView extends BaseStatelessWidget {
           ),
         ),
         separatorBuilder: (context, index) => SizedBox(
-          width: screenWidth * 0.04,
+          width: inherit.screenWidth * 0.04,
         ),
       ),
     );
