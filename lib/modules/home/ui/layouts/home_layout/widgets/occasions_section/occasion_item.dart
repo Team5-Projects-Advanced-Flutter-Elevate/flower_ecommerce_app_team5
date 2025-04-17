@@ -1,8 +1,8 @@
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../../../../core/bases/base_statless_widget.dart';
+
 import '../../../../../../../core/widgets/cached_image.dart';
 // ignore: must_be_immutable
 class OccasionItem extends BaseStatelessWidget {

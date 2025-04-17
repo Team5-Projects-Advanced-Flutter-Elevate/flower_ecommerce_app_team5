@@ -22,7 +22,7 @@ void main() {
       late BestSellerRepository bestSellerRepository;
       late BestSellerRemoteDataSource bestSellerRemoteDataSource;
       BestSellerResponseEntity bestSellerResponseEntity =
-          const BestSellerResponseEntity(
+          const  BestSellerResponseEntity(
         message: "Success",
         bestSellerProducts: [
           ProductEntity(

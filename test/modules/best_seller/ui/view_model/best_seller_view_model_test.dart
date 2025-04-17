@@ -23,7 +23,7 @@ void main() {
       late BestSellerViewModel bestSellerViewModel;
       late GetBestSellerProductsUseCase getBestSellerProductsUseCase;
       BestSellerResponseEntity bestSellerResponseEntity =
-          const BestSellerResponseEntity(
+          const  BestSellerResponseEntity(
         message: "Success",
         bestSellerProducts: [
           ProductEntity(

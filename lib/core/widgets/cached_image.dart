@@ -7,9 +7,10 @@ class CachedImage extends StatelessWidget {
     super.key,
     required this.url,
     this.fit,
-    this.width
+    this.width, this.imageBuilder
   });
 
+  final Widget Function(BuildContext, ImageProvider<Object>)? imageBuilder;
   final String url;
   final BoxFit? fit;
   final double? width;
@@ -19,6 +20,7 @@ class CachedImage extends StatelessWidget {
     return CachedNetworkImage(
       fit: fit,
       imageUrl: url,
+      imageBuilder: imageBuilder,
       width: width,
       placeholder: (context, url) => const LoadingWidget(),
       errorWidget: (context, url, error) => const Icon(Icons.error),
