@@ -19,6 +19,7 @@ class ProfileViewModelCubit extends Cubit<ProfileState> {
   }
 
   Future<void> clearSecureStorage(BuildContext context) async {
+    // Todo: use logout api
     const storage = FlutterSecureStorage();
     await storage.deleteAll();
     Navigator.push(
@@ -42,20 +43,7 @@ class ProfileViewModelCubit extends Cubit<ProfileState> {
     }
   }
 
-  // Future<void> _checkIfGuest() async {
-  //   try {
-  //     emit(ProfileLoading());
-  //     var isGuest = await loginAsGuestUseCase.isGuest();
-  //     var name = profileData?.user?.firstName;
-  //     var email = profileData?.user?.email;
-  //     var id = profileData?.user?.sId;
-  //     var image=profileData?.user?.photo;
-  //     print('userName$image');
-  //     emit(ProfileDataSuccess(name!, email!, id!,image!));
-  //   } catch (e) {
-  //     emit(ProfileError(e.toString()));
-  //   }
-  // }
+
 }
 
 sealed class ProfileOnIntent {}
