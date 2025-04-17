@@ -133,6 +133,7 @@ import '../../shared_layers/storage/implementation/flutter_secure_storage_servic
     as _i701;
 import '../../shared_layers/storage/initializer/storage_initializer.dart'
     as _i241;
+import '../apis/api_manager.dart' as _i669;
 import '../utilities/dio/dio_service/dio_service.dart' as _i738;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -162,6 +163,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
+    gh.factory<_i669.ApiManager>(() => _i669.ApiManager());
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
@@ -192,10 +194,13 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i23.BestSellerRemoteDataSource>(() =>
         _i393.BestSellerRemoteDataSourceImp(gh<_i41.BestSellerApiClient>()));
-    gh.factory<_i896.ProfileOnlineDataSource>(
-        () => _i846.ProfileOnlineDataSourceImpl(gh<_i486.ProfileApiClient>()));
     gh.factory<_i319.OccasionRepo>(
         () => _i276.OccasionRepoImpl(gh<_i362.OccasionOnlineDataSource>()));
+    gh.factory<_i896.ProfileOnlineDataSource>(
+        () => _i846.ProfileOnlineDataSourceImpl(
+              gh<_i486.ProfileApiClient>(),
+              gh<_i669.ApiManager>(),
+            ));
     gh.factory<_i1003.HomeRepo>(
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
     gh.factory<_i871.RegisterOnlineDataSource>(

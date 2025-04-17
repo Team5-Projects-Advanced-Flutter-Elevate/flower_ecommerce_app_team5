@@ -6,6 +6,7 @@ import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/edite_profile_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/upload_image_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/utilities/extensions/gender_ex.dart';
+import '../../../../../core/utilities/image_picker/api_pick.dart';
 import '../../../../../core/utilities/image_picker/image_picker_service.dart';
 import '../../../../../core/widgets/loading_state_widget.dart';
 
@@ -154,7 +156,24 @@ class _EditeProfileLayoutViewState
                                 ImagePickerService().showImageSourceDialog(
                               context,
                               onImageSelected: (image) {
-                                cubit.uploadProfileImage(image);
+                                Api.uploadProfileImageWithDio(image,
+                                        cubit.loginResponseDto?.token ?? '')
+                                    .then(
+                                  (value) {
+                                    return displayAlertDialog(
+                                      showOkButton: true,
+                                      title: Text(UploadImageResponse.fromJson(
+                                                      value.data)
+                                                  .message ==
+                                              'success'
+                                          ? 'Profile Image updated successfully'
+                                          : UploadImageResponse.fromJson(
+                                                      value.data)
+                                                  .message ??
+                                              ''),
+                                    );
+                                  },
+                                );
                               },
                             ),
                             child: Stack(

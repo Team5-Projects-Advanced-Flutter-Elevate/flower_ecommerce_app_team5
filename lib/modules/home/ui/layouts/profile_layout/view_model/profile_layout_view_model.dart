@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/login/login_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/edite_profile_input_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/upload_image_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/change_password_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/edite_profile_image_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/edite_profile_use_case.dart';
@@ -12,9 +11,11 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layou
 import 'package:injectable/injectable.dart';
 
 import '../../../../../../core/apis/api_result/api_result.dart';
+import '../../../../../../core/utilities/image_picker/api_pick.dart';
 import '../../../../../authentication/data/models/login/login_response_dto.dart';
 import '../../../../data/models/change_password/change_password_response.dart';
 import '../../../../data/models/edite_profile/edite_profile_response.dart';
+import '../../../../data/models/edite_profile/upload_image_response.dart';
 
 @injectable
 class ProfileViewModelCubit extends Cubit<ProfileState> {
@@ -48,17 +49,14 @@ class ProfileViewModelCubit extends Cubit<ProfileState> {
   uploadProfileImage(File imageFile) async {
     emit(ProfileLoading());
 
-    // No need for manual size check - already handled by ImagePickerService
-    final uploadResult =
-        await _editeProfileImageUseCase.execute(imageFile: imageFile);
-
-    if (uploadResult is Success<UploadImageResponse>) {
-      profilePhoto = imageFile.path;
-      emit(ProfileSuccess());
-      //await _updateProfileData();
-    } else if (uploadResult is Error<UploadImageResponse>) {
-      emit(ProfileError(uploadResult.error));
-    }
+    Api.uploadProfileImageWithDio(imageFile, loginResponseDto?.token ?? '')
+        .then(
+      (value) {
+        return UploadImageResponse.fromJson(value.data).message == 'success'
+            ? 'Profile Image updated successfully'
+            : UploadImageResponse.fromJson(value.data).message ?? '';
+      },
+    );
   }
 
   void changeButtonState(String? confirmPassword, String? newPassword) {

@@ -70,9 +70,10 @@ class _ChangePasswordLayoutViewState
                   break;
                 case ProfileSuccess():
                   hideAlertDialog();
+                  Navigator.pop(context);
                   displayAlertDialog(
                     showOkButton: true,
-                    title: const Text('Profile updated successfully'),
+                    title: const Text('Password updated successfully'),
                   );
                 case ProfileError():
                   hideAlertDialog();
