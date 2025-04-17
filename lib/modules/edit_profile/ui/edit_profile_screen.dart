@@ -5,29 +5,28 @@ import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/edite_profile_input_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/upload_image_response.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/upload_image_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/view_model/edit_profile_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/view_model/edit_profile_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/utilities/extensions/gender_ex.dart';
-import '../../../../../core/utilities/image_picker/api_pick.dart';
 import '../../../../../core/utilities/image_picker/image_picker_service.dart';
 import '../../../../../core/widgets/loading_state_widget.dart';
 
-class EditeProfileLayoutView extends StatefulWidget {
-  const EditeProfileLayoutView({super.key});
+class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
 
   @override
-  State<EditeProfileLayoutView> createState() => _EditeProfileLayoutViewState();
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditeProfileLayoutViewState
-    extends BaseStatefulWidgetState<EditeProfileLayoutView> {
+class _EditProfileScreenState
+    extends BaseStatefulWidgetState<EditProfileScreen> {
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
   late TextEditingController emailController;
@@ -70,7 +69,7 @@ class _EditeProfileLayoutViewState
     super.dispose();
   }
 
-  final cubit = getIt<ProfileViewModelCubit>();
+  final cubit = getIt<EditProfileViewModelCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +108,7 @@ class _EditeProfileLayoutViewState
             padding: const EdgeInsets.all(16),
             child: BlocProvider(
               create: (context) => cubit,
-              child: BlocListener<ProfileViewModelCubit, ProfileState>(
+              child: BlocListener<EditProfileViewModelCubit, EditProfileState>(
                 listener: (context, state) {
                   switch (state) {
                     case ProfileEnableChangePasswordButton():
@@ -156,31 +155,14 @@ class _EditeProfileLayoutViewState
                                 ImagePickerService().showImageSourceDialog(
                               context,
                               onImageSelected: (image) {
-                                Api.uploadProfileImageWithDio(image,
-                                        cubit.loginResponseDto?.token ?? '')
-                                    .then(
-                                  (value) {
-                                    return displayAlertDialog(
-                                      showOkButton: true,
-                                      title: Text(UploadImageResponse.fromJson(
-                                                      value.data)
-                                                  .message ==
-                                              'success'
-                                          ? 'Profile Image updated successfully'
-                                          : UploadImageResponse.fromJson(
-                                                      value.data)
-                                                  .message ??
-                                              ''),
-                                    );
-                                  },
-                                );
+                                  cubit.processIntent(LoadProfileImageIntent(image));
                               },
                             ),
                             child: Stack(
                               alignment: Alignment.bottomRight,
                               children: [
-                                BlocConsumer<ProfileViewModelCubit,
-                                        ProfileState>(
+                                BlocConsumer<EditProfileViewModelCubit,
+                                        EditProfileState>(
                                     listener: (context, state) {
                                       if (state is ProfileSuccess) {
                                         displayAlertDialog(

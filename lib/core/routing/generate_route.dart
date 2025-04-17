@@ -3,11 +3,11 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/lo
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/best_seller_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/edite_profile_layout_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../modules/home/ui/layouts/profile_layout/change_password_layout_view.dart';
+import '../../modules/edit_profile/ui/change_password_screen.dart';
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -29,11 +29,11 @@ class GenerateRoute {
         );
       case DefinedRoutes.editProfileScreenRoute:
         return MaterialPageRoute(
-          builder: (context) => const EditeProfileLayoutView(),
+          builder: (context) => const EditProfileScreen(),
         );
       case DefinedRoutes.changePasswordScreenRoute:
         return MaterialPageRoute(
-          builder: (context) => const ChangePasswordLayoutView(),
+          builder: (context) => const ChangePasswordScreen(),
         );
       default:
         return _errorRoute();

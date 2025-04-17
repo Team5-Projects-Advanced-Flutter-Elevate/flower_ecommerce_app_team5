@@ -2,33 +2,33 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/view_model/edit_profile_view_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/view_model/edit_profile_state.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../core/widgets/error_state_widget.dart';
-import '../../../../../core/widgets/loading_state_widget.dart';
+import '../../../core/widgets/error_state_widget.dart';
+import '../../../core/widgets/loading_state_widget.dart';
 
-class ChangePasswordLayoutView extends StatefulWidget {
-  const ChangePasswordLayoutView({super.key});
+class ChangePasswordScreen extends StatefulWidget {
+  const ChangePasswordScreen({super.key});
 
   @override
-  State<ChangePasswordLayoutView> createState() =>
-      _ChangePasswordLayoutViewState();
+  State<ChangePasswordScreen> createState() =>
+      _ChangePasswordScreenState();
 }
 
-class _ChangePasswordLayoutViewState
-    extends BaseStatefulWidgetState<ChangePasswordLayoutView> {
+class _ChangePasswordScreenState
+    extends BaseStatefulWidgetState<ChangePasswordScreen> {
   final TextEditingController _currentPasswordController =
       TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  ProfileViewModelCubit viewModel = getIt.get<ProfileViewModelCubit>();
+  EditProfileViewModelCubit viewModel = getIt.get<EditProfileViewModelCubit>();
   bool isEnabled = false;
   @override
   void dispose() {
@@ -57,7 +57,7 @@ class _ChangePasswordLayoutViewState
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: BlocListener<ProfileViewModelCubit, ProfileState>(
+          child: BlocListener<EditProfileViewModelCubit, EditProfileState>(
             bloc: viewModel,
             listener: (context, state) {
               switch (state) {
@@ -127,7 +127,7 @@ class _ChangePasswordLayoutViewState
                   const SizedBox(height: 20),
 
                   // Confirm Password Field
-                  BlocListener<ProfileViewModelCubit, ProfileState>(
+                  BlocListener<EditProfileViewModelCubit, EditProfileState>(
                     listener: (context, state) {
                       if (state is ProfileEnableChangePasswordButton) {
                         isEnabled = true;
@@ -162,7 +162,7 @@ class _ChangePasswordLayoutViewState
                   // Update Button
                   SizedBox(
                     width: double.infinity,
-                    child: BlocBuilder<ProfileViewModelCubit, ProfileState>(
+                    child: BlocBuilder<EditProfileViewModelCubit, EditProfileState>(
                         bloc: viewModel,
                         builder: (context, state) {
                           return ElevatedButton(

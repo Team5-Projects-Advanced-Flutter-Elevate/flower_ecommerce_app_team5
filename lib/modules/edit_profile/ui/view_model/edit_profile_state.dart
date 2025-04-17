@@ -1,23 +1,23 @@
 import 'package:equatable/equatable.dart';
 
-sealed class ProfileState extends Equatable {}
+sealed class EditProfileState extends Equatable {}
 
-class ProfileInitial extends ProfileState {
+class ProfileInitial extends EditProfileState {
   @override
   List<Object?> get props => [];
 }
 
-class ProfileSuccess extends ProfileState {
+class ProfileSuccess extends EditProfileState {
   @override
   List<Object?> get props => [];
 }
 
-class ProfileLoading extends ProfileState {
+class ProfileLoading extends EditProfileState {
   @override
   List<Object?> get props => [];
 }
 
-class ProfileDataSuccess extends ProfileState {
+class ProfileDataSuccess extends EditProfileState {
   final String name;
   final String lastName;
   final String email;
@@ -32,7 +32,7 @@ class ProfileDataSuccess extends ProfileState {
   List<Object?> get props => [name, email, id, photo, phone, gender];
 }
 
-class ProfileError extends ProfileState {
+class ProfileError extends EditProfileState {
   final Object error;
   ProfileError(this.error);
 
@@ -40,7 +40,7 @@ class ProfileError extends ProfileState {
   List<Object?> get props => [];
 }
 
-class ProfileEnableChangePasswordButton extends ProfileState {
+class ProfileEnableChangePasswordButton extends EditProfileState {
   @override
   List<Object?> get props => [];
 }

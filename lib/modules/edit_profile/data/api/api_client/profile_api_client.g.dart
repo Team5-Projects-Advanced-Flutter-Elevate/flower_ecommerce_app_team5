@@ -24,47 +24,6 @@ class _ProfileApiClient implements ProfileApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<UploadImageResponse> uploadProfileImage(File photo) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
-      'photo',
-      MultipartFile.fromFileSync(
-        photo.path,
-        filename: photo.path.split(Platform.pathSeparator).last,
-      ),
-    ));
-    final _options = _setStreamType<UploadImageResponse>(Options(
-      method: 'PUT',
-      headers: _headers,
-      extra: _extra,
-      contentType: 'multipart/form-data',
-    )
-        .compose(
-          _dio.options,
-          'api/v1/auth/upload-photo',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late UploadImageResponse _value;
-    try {
-      _value = UploadImageResponse.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
   Future<EditProfileResponse> editeProfile(
       EditProfileInputModel editProfileInputModel) async {
     final _extra = <String, dynamic>{};

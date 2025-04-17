@@ -3,28 +3,29 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/login/login_use_case.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/edite_profile/edite_profile_input_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/change_password_use_case.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/edite_profile_image_use_case.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/edite_profile_use_case.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/upload_image_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/entities/upload_image_response_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/use_cases/change_password_use_case.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/use_cases/upload_image_use_case.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/use_cases/edit_profile_use_case.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/view_model/edit_profile_state.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../../../core/apis/api_result/api_result.dart';
-import '../../../../../../core/utilities/image_picker/api_pick.dart';
-import '../../../../../authentication/data/models/login/login_response_dto.dart';
-import '../../../../data/models/change_password/change_password_response.dart';
-import '../../../../data/models/edite_profile/edite_profile_response.dart';
-import '../../../../data/models/edite_profile/upload_image_response.dart';
+import '../../../../core/apis/api_result/api_result.dart';
+import '../../data/api/api_client/upload_image_api_client.dart';
+import '../../../authentication/data/models/login/login_response_dto.dart';
+import '../../../home/data/models/change_password/change_password_response.dart';
 
 @injectable
-class ProfileViewModelCubit extends Cubit<ProfileState> {
-  ProfileViewModelCubit(this._loginUseCase, this._editeProfileUseCase,
-      this._editeProfileImageUseCase, this._changePasswordUseCase)
+class EditProfileViewModelCubit extends Cubit<EditProfileState> {
+  EditProfileViewModelCubit(this._loginUseCase, this._editeProfileUseCase,
+      this._uploadImageUseCase, this._changePasswordUseCase)
       : super(ProfileInitial());
   final LoginUseCase _loginUseCase;
   final EditeProfileUseCase _editeProfileUseCase;
-  final EditeProfileImageUseCase _editeProfileImageUseCase;
+  final UploadImageUseCase _uploadImageUseCase;
   final ChangePasswordUseCase _changePasswordUseCase;
   LoginResponseDto? loginResponseDto;
   User? user;
@@ -36,6 +37,7 @@ class ProfileViewModelCubit extends Cubit<ProfileState> {
         _getProfileData();
         break;
       case LoadProfileImageIntent():
+        _uploadProfileImage(intent.imageFile);
         break;
       case ChangePasswordIntent():
         _changePassword(intent.password, intent.newPassword);
@@ -46,17 +48,15 @@ class ProfileViewModelCubit extends Cubit<ProfileState> {
     }
   }
 
-  uploadProfileImage(File imageFile) async {
+  void _uploadProfileImage(File imageFile) async {
     emit(ProfileLoading());
-
-    Api.uploadProfileImageWithDio(imageFile, loginResponseDto?.token ?? '')
-        .then(
-      (value) {
-        return UploadImageResponse.fromJson(value.data).message == 'success'
-            ? 'Profile Image updated successfully'
-            : UploadImageResponse.fromJson(value.data).message ?? '';
-      },
-    );
+    var useCaseResult = await _uploadImageUseCase.execute(imageFile: imageFile);
+    switch (useCaseResult) {
+      case Success<UploadImageResponseEntity?>():
+        emit(ProfileSuccess());
+      case Error<UploadImageResponseEntity?>():
+        emit(ProfileError(useCaseResult.error));
+    }
   }
 
   void changeButtonState(String? confirmPassword, String? newPassword) {
@@ -130,7 +130,10 @@ sealed class ProfileIntent {}
 
 class LoadProfileIntent extends ProfileIntent {}
 
-class LoadProfileImageIntent extends ProfileIntent {}
+class LoadProfileImageIntent extends ProfileIntent {
+  final File imageFile;
+  LoadProfileImageIntent(this.imageFile);
+}
 
 class ChangePasswordIntent extends ProfileIntent {
   final String password;

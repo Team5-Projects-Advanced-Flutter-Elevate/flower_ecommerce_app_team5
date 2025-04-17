@@ -5,6 +5,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 import '../../colors/app_colors.dart';
 
@@ -14,14 +15,22 @@ class ImagePickerService {
   final int maxDimension = 1200; // Maximum width/height in pixels
 
   Future<File?> pickImage(ImageSource source) async {
+    final androidInfo = await DeviceInfoPlugin().androidInfo;
+
     try {
       // Request permissions
       if (source == ImageSource.camera) {
-        final status = await Permission.camera.request();
-        if (!status.isGranted) return null;
+        final permissionStatus = await Permission.camera.request();
+        if (!permissionStatus.isGranted) return null;
       } else {
-        final status = await Permission.photos.request();
-        if (!status.isGranted) return null;
+        if (androidInfo.version.sdkInt <= 32) {
+          final permissionStatus = await Permission.storage.request();
+          if (!permissionStatus.isGranted) return null;
+        } else {
+          final PermissionStatus permissionStatus =
+              await Permission.photos.request();
+          if (!permissionStatus.isGranted) return null;
+        }
       }
 
       final XFile? pickedFile = await ImagePicker().pickImage(
@@ -66,8 +75,7 @@ class ImagePickerService {
 
   Future<File> _compressAndResizeImage(File file, {int quality = 70}) async {
     final tempDir = await getTemporaryDirectory();
-    final targetPath =
-        '${tempDir.path}/processed_${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final targetPath = '${tempDir.path}/processed_${file.path.split('/').last}';
 
     final result = await FlutterImageCompress.compressAndGetFile(
       file.absolute.path,

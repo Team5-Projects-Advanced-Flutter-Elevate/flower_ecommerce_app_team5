@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.main369.flower_ecommerce_app_team5"
-    compileSdk = 34
+    compileSdk = 35
     ndkVersion = "25.1.8937393"
 
     compileOptions {

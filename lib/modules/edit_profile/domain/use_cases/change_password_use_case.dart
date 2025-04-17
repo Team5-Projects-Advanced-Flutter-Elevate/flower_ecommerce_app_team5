@@ -1,8 +1,8 @@
-import 'package:flower_ecommerce_app_team5/modules/home/domain/repo_contract/profile_repo.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/repo_contract/edit_profile_repo.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/apis/api_result/api_result.dart';
-import '../../data/models/change_password/change_password_response.dart';
+import '../../../home/data/models/change_password/change_password_response.dart';
 
 @injectable
 class ChangePasswordUseCase {

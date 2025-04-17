@@ -5,7 +5,7 @@ import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/cart_layout.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/categories_layout.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/home_layout.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/edite_profile_layout_view.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/profile_layout.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +23,7 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
     const HomeLayout(),
     const CategoriesLayout(),
     const CartLayout(),
-    const EditeProfileLayoutView()
+    const ProfileLayout()
   ];
 
   @override
