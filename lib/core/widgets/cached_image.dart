@@ -7,8 +7,7 @@ class CachedImage extends StatelessWidget {
     super.key,
     required this.url,
     this.fit,
-    this.width
-    this.imageBuilder,
+    this.width, this.imageBuilder
   });
 
   final Widget Function(BuildContext, ImageProvider<Object>)? imageBuilder;

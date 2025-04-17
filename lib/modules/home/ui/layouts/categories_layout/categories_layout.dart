@@ -15,9 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../../core/colors/app_colors.dart';
-import '../../../../../core/routing/defined_routes.dart';
 import '../../../../../core/utilities/app_dialogs.dart';
 import '../../../../../core/widgets/product_card.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';

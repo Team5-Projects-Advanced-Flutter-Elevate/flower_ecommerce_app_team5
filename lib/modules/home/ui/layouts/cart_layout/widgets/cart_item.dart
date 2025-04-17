@@ -1,12 +1,11 @@
-
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/cashed_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/constants/assets_paths.dart';
 import '../../../../../../core/constants/constants.dart';
 import '../../../../../../core/di/injectable_initializer.dart';
+import '../../../../../../core/widgets/cached_image.dart';
 import '../../../../domain/entities/cart_response_entity/cart_item_entity.dart';
 
 class CartItem extends StatefulWidget {
@@ -50,7 +49,7 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
               borderRadius: const BorderRadius.all(
                 Radius.circular(8),
               ),
-              child: CashedImage(
+              child: CachedImage(
                 url: widget.cartItemEntity.productEntity?.imgCover ?? '',
                 fit: BoxFit.cover,
               ),

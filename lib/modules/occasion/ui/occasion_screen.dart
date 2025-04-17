@@ -28,7 +28,7 @@ class OccasionListScreen extends StatefulWidget {
 
 class _OccasionListScreenState
     extends BaseStatefulWidgetState<OccasionListScreen> {
-  // late HomeScreenViewModel homeScreenViewModel;
+  late HomeScreenViewModel homeScreenViewModel;
   late OccasionViewModelCubit viewModel;
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    // var args = settings.arguments;
+    var args = settings.arguments;
     var name = settings.name;
     switch (name) {
       case DefinedRoutes.register:
