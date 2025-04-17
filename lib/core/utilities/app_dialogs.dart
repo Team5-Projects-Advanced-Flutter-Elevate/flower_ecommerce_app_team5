@@ -1,8 +1,5 @@
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-
-import '../bases/base_stateful_widget_state.dart';
-
 abstract class AppDialogs {
   static void showMessage(
     context, {

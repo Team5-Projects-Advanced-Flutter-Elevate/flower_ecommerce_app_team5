@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 void main() {
@@ -29,7 +30,7 @@ void main() {
 Map<String, dynamic> loadJson(String path) {
   final file = File(path);
   if (!file.existsSync()) {
-    print('Error: File not found - $path');
+    log('Error: File not found - $path');
     return {};
   }
   return json.decode(file.readAsStringSync()) as Map<String, dynamic>;
@@ -76,11 +77,11 @@ void updateLocaleKeysClass(
   final newKeys = jsonKeys.difference(existingKeys);
 
   if (newKeys.isEmpty) {
-    print('No new keys to add. LocaleKeys is up to date.');
+    log('No new keys to add. LocaleKeys is up to date.');
     return;
   }
 
-  print('Adding ${newKeys.length} new keys...');
+  log('Adding ${newKeys.length} new keys...');
 
   final buffer = StringBuffer();
   buffer.writeln('abstract class LocaleKeys {');
@@ -99,7 +100,7 @@ void updateLocaleKeysClass(
 
   // Write updated class back to file
   file.writeAsStringSync(buffer.toString());
-  print('LocaleKeys updated successfully!');
+  log('LocaleKeys updated successfully!');
 }
 
 /// Format JSON key into a valid Dart constant name (LowerCamelCase)

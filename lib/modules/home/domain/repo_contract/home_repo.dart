@@ -4,7 +4,6 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category
 
 import '../../data/models/all_products_response/all_product_response.dart';
 import '../../data/models/cart_response/add_to_cart_request.dart';
-import '../entities/cart_response_entity/cart_item_entity.dart';
 import '../entities/home_data_response_entity.dart';
 import '../entities/occasion_entity.dart';
 

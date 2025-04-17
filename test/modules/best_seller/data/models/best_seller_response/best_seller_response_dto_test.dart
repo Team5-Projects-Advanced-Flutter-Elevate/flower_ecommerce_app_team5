@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/models/best_seller_response/best_seller_response_dto.dart';
-import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -8,7 +9,7 @@ void main() {
     () {
       setUpAll(
         () {
-          print("In setUpAll funciton");
+          log("In setUpAll funciton");
         },
       );
       test(

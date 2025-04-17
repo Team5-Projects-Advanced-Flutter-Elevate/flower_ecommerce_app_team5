@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flower_ecommerce_app_team5/core/apis/api_executor/api_executor.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/api/api_client/best_seller_api_client.dart';
@@ -21,7 +23,7 @@ class BestSellerRemoteDataSourceImp implements BestSellerRemoteDataSource {
     );
     switch (apiResult) {
       case Success<BestSellerResponseDto>():
-        print("Products ${apiResult.data.bestSellerProducts}");
+        log("Products ${apiResult.data.bestSellerProducts}");
 
         return Success(data: apiResult.data.convertIntoEntity());
       case Error<BestSellerResponseDto>():

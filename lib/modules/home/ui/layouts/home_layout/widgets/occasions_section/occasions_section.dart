@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/core/apis/api_error/api_error_handler.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../../core/widgets/error_state_widget.dart';
@@ -28,7 +26,7 @@ class OccasionsSection extends StatelessWidget {
           HeadLineSection(
             LocaleKeys.occasions.tr(),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => OcassionListScreen(),));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const OcassionListScreen(),));
 
             },
 

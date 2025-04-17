@@ -25,7 +25,7 @@ class OcassionListScreen extends StatefulWidget {
 class _OcassionListScreenState
     extends BaseStatefulWidgetState<OcassionListScreen>
     with TickerProviderStateMixin {
-  late TabController _tabController;
+  // late TabController _tabController;
   late OcassionViewModelCubit viewModel;
 
   @override
@@ -93,7 +93,7 @@ class _OcassionListScreenState
                       TabBar(
                         isScrollable: true,
                         labelColor: Colors.pink,
-                        indicatorPadding: EdgeInsets.only(bottom: 7),
+                        indicatorPadding: const EdgeInsets.only(bottom: 7),
                         // labelPadding: EdgeInsets.symmetric(horizontal: 2), // optional
 
                         tabs: allOccasions.map((occasion) {

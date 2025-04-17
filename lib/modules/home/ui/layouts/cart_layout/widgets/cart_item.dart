@@ -1,10 +1,7 @@
-import 'dart:developer';
 
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/widgets/cashed_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/constants/assets_paths.dart';

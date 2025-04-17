@@ -10,24 +10,24 @@ class GetOccasionDTO {
   GetOccasionDTO.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     metadata = json['metadata'] != null
-        ? new Metadata.fromJson(json['metadata'])
+        ? Metadata.fromJson(json['metadata'])
         : null;
     if (json['occasions'] != null) {
       occasions = <Occasions>[];
       json['occasions'].forEach((v) {
-        occasions!.add(new Occasions.fromJson(v));
+        occasions!.add(Occasions.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    if (this.metadata != null) {
-      data['metadata'] = this.metadata!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['message'] = message;
+    if (metadata != null) {
+      data['metadata'] = metadata!.toJson();
     }
-    if (this.occasions != null) {
-      data['occasions'] = this.occasions!.map((v) => v.toJson()).toList();
+    if (occasions != null) {
+      data['occasions'] = occasions!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -49,11 +49,11 @@ class Metadata {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['currentPage'] = this.currentPage;
-    data['limit'] = this.limit;
-    data['totalPages'] = this.totalPages;
-    data['totalItems'] = this.totalItems;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['currentPage'] = currentPage;
+    data['limit'] = limit;
+    data['totalPages'] = totalPages;
+    data['totalItems'] = totalItems;
     return data;
   }
 }
@@ -87,14 +87,14 @@ class Occasions {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['name'] = this.name;
-    data['slug'] = this.slug;
-    data['image'] = this.image;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['productsCount'] = this.productsCount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['name'] = name;
+    data['slug'] = slug;
+    data['image'] = image;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['productsCount'] = productsCount;
     return data;
   }
 

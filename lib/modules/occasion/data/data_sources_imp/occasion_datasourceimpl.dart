@@ -10,7 +10,7 @@ import '../api/api_client/api_client.dart';
 
 @Injectable(as: OccasionOnlineDataSource)
 class OccasionOnlineDataSourceImpl implements OccasionOnlineDataSource {
-  OccasionApiClient _occasionApiClient;
+  final OccasionApiClient _occasionApiClient;
   OccasionOnlineDataSourceImpl(this._occasionApiClient);
   @override
   Future<List<Occasion>> getOccasion() async {

@@ -2,7 +2,6 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_res
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/apis/api_result/api_result.dart';
-import '../entities/cart_response_entity/cart_item_entity.dart';
 import '../repo_contract/home_repo.dart';
 
 @injectable

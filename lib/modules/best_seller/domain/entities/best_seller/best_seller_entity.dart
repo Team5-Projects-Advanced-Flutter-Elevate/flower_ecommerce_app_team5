@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class BestSellerResponseEntity extends Equatable {
-  BestSellerResponseEntity({
+  const BestSellerResponseEntity({
     this.message,
     this.bestSellerProducts,
   });
@@ -19,7 +19,7 @@ class BestSellerResponseEntity extends Equatable {
 }
 
 class BestSellerDataEntity extends Equatable {
-  BestSellerDataEntity({
+  const BestSellerDataEntity({
     this.id,
     this.title,
     this.slug,
