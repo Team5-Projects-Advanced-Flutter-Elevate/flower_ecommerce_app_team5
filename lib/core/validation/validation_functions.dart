@@ -63,7 +63,7 @@ class ValidateFunctions {
   }
 
   String? validationOfPhoneNumber(String? inputText) {
-    RegExp phoneNumber = RegExp(r'^(010|011|012|015)[0-9]{8}$');
+    RegExp phoneNumber = RegExp(r'^(\+2)?(010|011|012|015)[0-9]{8}$');
     if (inputText?.trim().isEmpty == true || inputText == null) {
       return LocaleKeys.pleaseEnterPhoneNumber.tr();
     } else if (!phoneNumber.hasMatch(inputText)) {

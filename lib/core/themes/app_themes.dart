@@ -160,6 +160,8 @@ abstract class AppThemes {
       ),
       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+      disabledBorder:
+          OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
 
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: AppColors.red),
@@ -171,6 +173,7 @@ abstract class AppThemes {
           color: AppColors.red,
         ),
       ),
+
       hintStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -198,6 +201,8 @@ abstract class AppThemes {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        disabledBackgroundColor: AppColors.black[30],
+        disabledForegroundColor: AppColors.white,
         foregroundColor: AppColors.white,
         padding: const EdgeInsets.all(14),
         backgroundColor: AppColors.mainColor,

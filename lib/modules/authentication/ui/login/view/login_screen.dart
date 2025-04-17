@@ -98,7 +98,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                 hideAlertDialog();
                 Navigator.pushNamedAndRemoveUntil(
                   context,
-                  DefinedRoutes.homeScreenRoute,
+                  DefinedRoutes.editProfileScreenRoute,
                   (route) => false,
                 );
               }

@@ -75,6 +75,13 @@ dependencies:
   mocktail: ^1.0.4
   # color palettes generator
   palette_generator: ^0.3.3+6
+  image_picker: ^1.1.2
+  permission_handler: ^12.0.0+1
+  flutter_image_compress: ^2.4.0
+  path_provider: ^2.1.5
+  http_parser: ^4.0.2
+  device_info_plus: ^11.3.0
+
 
 dev_dependencies:
   flutter_test:
@@ -118,6 +125,7 @@ flutter:
   - lib/shared_layers/localization/l10n_json_files/
   - assets/icons/
   - assets/animations/
+  - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

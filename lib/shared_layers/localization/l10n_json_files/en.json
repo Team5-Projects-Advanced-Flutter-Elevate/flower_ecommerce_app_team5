@@ -10,7 +10,6 @@
   "unknown": "Something Went Wrong \uD83E\uDD14",
   "badCertificate": "The certificate provided by the server is not valid \uD83D\uDCD1",
   "somethingWentWrong": "Something Went Wrong \uD83E\uDD14",
-
   "//validationFunctions": "$$$ Comment $$$",
   "pleaseEnterName": "Please enter your name.",
   "pleaseEnterUserName": "Please enter user name.",
@@ -43,7 +42,6 @@
   "confirmPassword": "Confirm Password",
   "phoneNumber": "Phone Number",
   "noMatch": "No Match!",
-
   "//appSections": "$$$ Comment $$$",
   "home": "Home",
   "categories": "Categories",
@@ -81,7 +79,6 @@
   "checkout": "Checkout",
   "addedToCartSuccessfully": "Added to cart successfully",
   "soldOut": "Sold out",
-  "noProductsFound": "No Products Found",
   "myOrders": "My orders",
   "savedAddress": "Saved address",
   "notification": "Notification",
@@ -102,5 +99,16 @@
   "information": "Information: ",
   "sold": "Sold: {}",
   "rate": "Rate: {}",
-  "rateCount": "Rate Count: {}"
+  "rateCount": "Rate Count: {}",
+  "//editProfile": "$$$ Comment $$$",
+  "editProfile": "Edit Profile",
+  "//changePasswordTitle":  "$$$ Comment $$$",
+  "changePasswordTitle": "Reset Password",
+  "changePasswordCurrentPasswordLabel": "Current Password",
+  "changePasswordCurrentPasswordHint": "Enter your current password",
+  "changePasswordNewPasswordLabel": "New Password",
+  "changePasswordNewPasswordHint": "Enter your new password",
+  "changePasswordConfirmPasswordLabel": "Confirm Password",
+  "changePasswordConfirmPasswordHint": "Confirm your new password",
+  "changePasswordUpdateButton": "Update"
 }
