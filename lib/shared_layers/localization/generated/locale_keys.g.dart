@@ -34,6 +34,7 @@ class LocaleKeys {
       'specialCharactersRulePassword';
   static const String pleaseConfirmPassword = 'pleaseConfirmPassword';
   static const String noMatch = 'noMatch';
+  static const String namesLengthRule = 'namesLengthRule';
 
   // Auth
   static const String alreadyHaveAnAccount = 'alreadyHaveAnAccount';

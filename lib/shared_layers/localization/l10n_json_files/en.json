@@ -29,6 +29,7 @@
   "digitRulePassword": "At least one digit must be there.",
   "specialCharactersRulePassword": "At least one special character(e.g., #?!@$%^&*-) must be included.",
   "pleaseConfirmPassword": "Please confirm password.",
+  "namesLengthRule": "Length must be at least 3 characters long.",
   "alreadyHaveAnAccount": "Already have an account ? ",
   "genderFemale": "Female",
   "genderMale": "Male",

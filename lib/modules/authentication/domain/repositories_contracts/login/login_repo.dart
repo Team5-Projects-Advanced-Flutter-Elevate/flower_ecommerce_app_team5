@@ -9,4 +9,8 @@ abstract interface class LoginRepo {
 
   Future<void> deleteLoginInfo();
   void cashUser({required LoginResponseDto loginResponseDto});
+
+  Future<void> deleteCachedRememberValue();
+  Future<bool> getCachedRememberValue();
+  void cacheRememberValue({required bool rememberMe});
 }

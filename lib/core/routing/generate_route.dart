@@ -40,7 +40,7 @@ class GenerateRoute {
               ProductDetailsScreen(productEntity: args as ProductEntity),
         );
       case DefinedRoutes.editProfileScreenRoute:
-        return MaterialPageRoute(
+        return MaterialPageRoute<bool>(
           builder: (context) => const EditProfileScreen(),
         );
       case DefinedRoutes.changePasswordScreenRoute:

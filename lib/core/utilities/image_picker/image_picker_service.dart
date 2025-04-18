@@ -15,6 +15,7 @@ class ImagePickerService {
   final int maxDimension = 1200; // Maximum width/height in pixels
 
   Future<File?> pickImage(ImageSource source) async {
+    print("Picking the image");
     final androidInfo = await DeviceInfoPlugin().androidInfo;
 
     try {
@@ -34,7 +35,8 @@ class ImagePickerService {
       }
 
       final XFile? pickedFile = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
+        //source: ImageSource.gallery,
+        source: source,
         requestFullMetadata: false, // For privacy-safe access
       );
       debugPrint('pickedFile: ${pickedFile?.path}');
@@ -81,8 +83,8 @@ class ImagePickerService {
       file.absolute.path,
       targetPath,
       quality: quality,
-      minWidth: 600, // Minimum width after resize
-      minHeight: 600, // Minimum height after resize
+      minWidth: 50, // Minimum width after resize
+      //minHeight: 200, // Minimum height after resize
     );
 
     return File(result!.path);

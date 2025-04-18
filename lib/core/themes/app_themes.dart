@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppThemes {
-
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
@@ -117,7 +116,6 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
-
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return GoogleFonts.inter(
@@ -138,7 +136,7 @@ abstract class AppThemes {
       labelColor: AppColors.mainColor,
       unselectedLabelColor: AppColors.white[70],
       indicatorColor: AppColors.mainColor,
-      labelPadding: const EdgeInsets.symmetric(horizontal: 12,vertical: 5),
+      labelPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
       indicatorSize: TabBarIndicatorSize.label,
       tabAlignment: TabAlignment.start,
       labelStyle: TextStyle(

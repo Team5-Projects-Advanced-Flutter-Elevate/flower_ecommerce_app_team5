@@ -33,6 +33,7 @@ class ProfileViewModelCubit extends Cubit<ProfileState> {
     try {
       emit(ProfileLoading());
       var profileData = await loginUseCase.getStoredLoginInfo();
+      print("${profileData?.token}, ${profileData?.user?.email}");
       var name = profileData?.user?.firstName ?? 'Guest';
       var email = profileData?.user?.email ?? 'Guest-User';
       var id = profileData?.user?.sId ?? 'Guest';

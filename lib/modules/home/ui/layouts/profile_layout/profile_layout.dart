@@ -65,9 +65,15 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     Center(
                       child: CircleAvatar(
                         backgroundImage: state.photo == 'Guest'
-                            ? const AssetImage('assets/icons/profile_icon.png')
+                            ? null
                             : CachedNetworkImageProvider(state.photo),
                         radius: 70,
+                        child: state.photo == '' || state.photo == 'Guest'
+                            ? const Icon(
+                                Icons.person,
+                                size: 50,
+                              )
+                            : null,
                       ),
                     ),
                     Row(
@@ -79,7 +85,16 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                         ),
                         GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, DefinedRoutes.editProfileScreenRoute);
+                              Navigator.pushNamed<bool>(context,
+                                      DefinedRoutes.editProfileScreenRoute)
+                                  .then(
+                                (value) {
+                                  print("Returning value $value");
+                                  if (value == true) {
+                                    viewModel.processIntent(LoadProfile());
+                                  }
+                                },
+                              );
                             },
                             child: Icon(
                               Icons.edit,

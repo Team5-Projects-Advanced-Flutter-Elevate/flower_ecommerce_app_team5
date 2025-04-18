@@ -29,6 +29,7 @@
     "digitRulePassword": "رقم واحد على الأقل.",
     "specialCharactersRulePassword": "يجب إدراج حرف خاص واحد على الأقل (مثل #?!@$%^&*-).",
     "pleaseConfirmPassword": "الرجاء تأكيد كلمة المرور.",
+     "namesLengthRule": "يجب أن يكون الطول 3 أحرف على الأقل.",
     "alreadyHaveAnAccount": "هل لديك حساب بالفعل؟ ",
     "genderFemale": "أنثى",
     "genderMale": "ذكر",

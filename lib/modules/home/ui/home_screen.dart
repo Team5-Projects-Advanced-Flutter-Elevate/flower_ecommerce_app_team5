@@ -53,7 +53,7 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
                   setState(() {
                     homeScreenViewModel.selectedAppSectionIndex = value;
                     homeScreenViewModel
-                        .doIntent(AnimateToPage(pageIndex: value));
+                        .doIntent(JumpToPage(pageIndex: value));
                   });
                 },
                 destinations: [
