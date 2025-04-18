@@ -74,7 +74,6 @@ class EditProfileState extends Equatable {
       String? profilePhotoLink,
       UserDto? user,
       Object? error}) {
-    print("copyWith UpdateProfileStatus $updateProfileStatus");
     return EditProfileState(
         uploadImageStatus: uploadImageStatus ?? this.uploadImageStatus,
         getProfileDataStatus: getProfileDataStatus ?? this.getProfileDataStatus,

@@ -75,7 +75,7 @@ class _ChangePasswordScreenState
                   case EditProfileStatus.success:
                     hideAlertDialog();
                     displayAlertDialog(
-                        title: const Text("Password Changed Successfully!"),
+                        title:  Text(LocaleKeys.passwordChangedSuccessfully.tr()),
                         showOkButton: true);
                   case EditProfileStatus.error:
                     hideAlertDialog();
@@ -179,12 +179,9 @@ class _ChangePasswordScreenState
                               ),
                             )),
                         validator: (value) {
-                          if (value != _newPasswordController.text) {
-                            return 'Passwords do not match';
-                          }
-
                           return ValidateFunctions.getInstance()
-                              .validationOfPassword(value);
+                              .validationOfConfirmPassword(
+                                  value, _newPasswordController.text);
                         },
                       ),
                       const SizedBox(height: 40),

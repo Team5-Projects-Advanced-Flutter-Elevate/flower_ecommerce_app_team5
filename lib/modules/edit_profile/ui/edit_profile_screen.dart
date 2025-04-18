@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
@@ -85,7 +83,6 @@ class _EditProfileScreenState
   // I made the viewModel to call this function when it successfully get Profile data
   // because when these controllers gets updated by the view with any build happen they return back to the previous values
   void updateEditProfileControllers(UserDto? user) {
-    print("Updating profile controllers++++++++++++++++");
     firstNameController.text = user?.firstName ?? "";
     lastNameController.text = user?.lastName ?? "";
     emailController.text = user?.email ?? "";
@@ -146,12 +143,11 @@ class _EditProfileScreenState
                   case EditProfileStatus.initial:
                     break;
                   case EditProfileStatus.loading:
-                    print("Showing loading Dialog+++++++");
                     displayAlertDialog(title: const LoadingWidget());
                   case EditProfileStatus.success:
                     hideAlertDialog();
                     displayAlertDialog(
-                        title: const Text("Profile Updated Successfully!"),
+                        title: Text(LocaleKeys.profileUpdatedSuccessfully.tr()),
                         showOkButton: true);
                   case EditProfileStatus.error:
                     hideAlertDialog();
@@ -232,13 +228,13 @@ class _EditProfileScreenState
                                         child: state.profilePhotoLink == null
                                             ? const Icon(Icons.person)
                                             : ClipRRect(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(40 *
-                                                        (screenWidth /
-                                                            Constants
-                                                                .designWidth))),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(360)),
                                                 child: CachedImage(
+                                                  fit: BoxFit.cover,
                                                   url: state.profilePhotoLink!,
+                                                  width: double.maxFinite,
                                                 ),
                                               ),
                                       );
@@ -360,7 +356,7 @@ class _EditProfileScreenState
                                             .changePasswordScreenRoute);
                                   },
                                   child: Text(
-                                    'Change ',
+                                    LocaleKeys.change.tr(),
                                     style: GoogleFonts.inter(
                                       textStyle: theme.textTheme.bodyMedium
                                           ?.copyWith(
@@ -444,7 +440,7 @@ class _EditProfileScreenState
                                 }
                               },
                               child: Text(
-                                'Update',
+                                LocaleKeys.update.tr(),
                                 style: theme.textTheme.labelSmall?.copyWith(
                                     fontSize: 16, color: AppColors.white),
                               ),

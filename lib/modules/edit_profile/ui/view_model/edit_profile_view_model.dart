@@ -141,7 +141,6 @@ class EditProfileViewModelCubit extends Cubit<EditProfileState> {
       return;
     }
     emit(state.copyWith(updateProfileStatus: EditProfileStatus.loading));
-    print("updateProfileStatus: ${state.updateProfileStatus}");
     ApiResult<EditProfileResponse?> result = await _editProfileUseCase.execute(
         editProfileInputModel: editProfileInputModel);
     switch (result) {
@@ -155,7 +154,6 @@ class EditProfileViewModelCubit extends Cubit<EditProfileState> {
       case Error<EditProfileResponse?>():
         emit(state.copyWith(
             updateProfileStatus: EditProfileStatus.error, error: result.error));
-        print("updateProfileStatus: ${state.updateProfileStatus}");
 
         break;
     }

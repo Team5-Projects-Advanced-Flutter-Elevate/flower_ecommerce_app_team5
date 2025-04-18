@@ -103,6 +103,9 @@
   "rateCount": "Rate Count: {}",
   "//editProfile": "$$$ Comment $$$",
   "editProfile": "Edit Profile",
+  "profileUpdatedSuccessfully": "Profile Updated Successfully!",
+  "change": "Change",
+  "update": "Update",
   "//changePasswordTitle":  "$$$ Comment $$$",
   "changePasswordTitle": "Reset Password",
   "changePasswordCurrentPasswordLabel": "Current Password",
@@ -111,5 +114,6 @@
   "changePasswordNewPasswordHint": "Enter your new password",
   "changePasswordConfirmPasswordLabel": "Confirm Password",
   "changePasswordConfirmPasswordHint": "Confirm your new password",
-  "changePasswordUpdateButton": "Update"
+  "changePasswordUpdateButton": "Update",
+  "passwordChangedSuccessfully": "Password Changed Successfully!"
 }

@@ -29,6 +29,7 @@ enum DeleteFromCartStatus {
   error,
 }
 
+// ignore: must_be_immutable
 class CartState extends Equatable {
   final CartStatus status;
   final Object? error;

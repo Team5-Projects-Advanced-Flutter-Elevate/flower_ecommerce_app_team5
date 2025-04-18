@@ -10,7 +10,6 @@ class ErrorStateWidget extends BaseStatelessWidget {
   @override
   Widget customBuild(BuildContext context,inherit) {
     final ApiErrorHandler apiErrorHandler = ApiErrorHandler.getInstance();
-    print(inherit.theme.textTheme.labelMedium!.fontSize);
     return Center(
       child: Text(
         apiErrorHandler.handle(error),

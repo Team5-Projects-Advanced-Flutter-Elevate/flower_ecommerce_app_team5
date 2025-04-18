@@ -27,7 +27,6 @@ void main() async {
   await configureDependencies();
   final loginUseCase = getIt.get<LoginUseCase>();
   final rememberValue = await loginUseCase.getCachedRememberValue();
-  print("rememberMe: $rememberValue");
   if (!rememberValue) {
     await loginUseCase.deleteLoginInfo();
     await loginUseCase.deleteCachedRememberValue();

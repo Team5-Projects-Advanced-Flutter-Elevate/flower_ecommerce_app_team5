@@ -1,6 +1,5 @@
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/user_dto.dart';
 
-import '../../../../authentication/data/models/login/login_response_dto.dart';
 
 class EditProfileResponse {
   String? message;

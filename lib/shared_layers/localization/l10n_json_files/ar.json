@@ -70,7 +70,6 @@
     "checkGuest": "الرجاء تسجيل الدخول",
     "occsionScreenTitle": "المناسبة",
     "occasionScreenSubTitle": "ازدهر مع أفضل مبيعاتنا الرائعة",
-    "noProductsFound": "لم يتم العثور على منتجات",
     "pleaseLoginFirst": "يرجى تسجيل الدخول أولاً",
     "cartEmpty": "السلة فارغة",
     "addItemsToCart": "يرجى إضافة بعض العناصر إلى السلة",
@@ -92,6 +91,11 @@
     "logout": "تسجيل الخروج",
      "languageKey": "العربية",
     "confirmLogout": "تأكيد تسجيل الخروج",
+    "//editProfile": "$$$ Comment $$$",
+      "editProfile": "تعديل الملف الشخصي",
+    "profileUpdatedSuccessfully": "تم تحديث الملف الشخصي بنجاح!",
+    "change": "تغيير",
+    "update": "تحديث",
 
     "//productDetailsScreen": "",
     "egp": "ج.م {}",
@@ -103,6 +107,16 @@
     "information": "المعلومات: ",
     "sold": "تم بيعه: {}",
     "rate": "التقييم: {}",
-    "rateCount": "عدد التقييمات: {}"
+    "rateCount": "عدد التقييمات: {}",
+      "//changePasswordTitle": "تعليق",
+      "changePasswordTitle": "إعادة تعيين كلمة المرور",
+      "changePasswordCurrentPasswordLabel": "كلمة المرور الحالية",
+      "changePasswordCurrentPasswordHint": "أدخل كلمة المرور الحالية",
+      "changePasswordNewPasswordLabel": "كلمة المرور الجديدة",
+      "changePasswordNewPasswordHint": "أدخل كلمة المرور الجديدة",
+      "changePasswordConfirmPasswordLabel": "تأكيد كلمة المرور",
+      "changePasswordConfirmPasswordHint": "أكد كلمة المرور الجديدة",
+      "changePasswordUpdateButton": "تحديث",
+      "passwordChangedSuccessfully": "تم تغيير كلمة المرور بنجاح!"
 
   }
