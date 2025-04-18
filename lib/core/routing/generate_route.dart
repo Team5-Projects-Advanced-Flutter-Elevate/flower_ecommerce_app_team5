@@ -66,7 +66,7 @@ class GenerateRoute {
       if (loginInfo != null)
         MaterialPageRoute(
             builder: (context) =>
-                const HomeScreen() //HomeScreen(authEntity: storedAuthEntity),
+                const CheckOutView() //HomeScreen(authEntity: storedAuthEntity),
             )
       else
         MaterialPageRoute(
