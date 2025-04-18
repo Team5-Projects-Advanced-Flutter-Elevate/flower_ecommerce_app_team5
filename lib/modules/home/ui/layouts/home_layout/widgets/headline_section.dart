@@ -7,13 +7,13 @@ import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
 
 class HeadLineSection extends BaseStatelessWidget {
-   const HeadLineSection(this.title, {super.key, this.onTap});
+  const HeadLineSection(this.title, {super.key, this.onTap});
 
   final String title;
   final VoidCallback? onTap;
 
   @override
-  Widget customBuild(BuildContext context,  inherit) {
+  Widget customBuild(BuildContext context, inherit) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: inherit.screenWidth * 0.05),
       child: Row(
@@ -23,6 +23,7 @@ class HeadLineSection extends BaseStatelessWidget {
             style: GoogleFonts.inter(
               textStyle: inherit.theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w500,
+                fontSize: 18 * (inherit.screenWidth / 375),
               ),
             ),
           ),

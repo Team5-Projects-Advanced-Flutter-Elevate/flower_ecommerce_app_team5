@@ -10,6 +10,7 @@ import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.d
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../modules/check_out/ui/check_out_view.dart';
 import '../../modules/edit_profile/ui/change_password_screen.dart';
 
 class GenerateRoute {
@@ -46,6 +47,11 @@ class GenerateRoute {
       case DefinedRoutes.changePasswordScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const ChangePasswordScreen(),
+        );
+
+      case DefinedRoutes.checkOut:
+        return MaterialPageRoute(
+          builder: (context) => const CheckOutView(),
         );
       default:
         return _errorRoute();

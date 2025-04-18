@@ -87,7 +87,6 @@ class LocaleKeys {
   static const String checkout = 'checkout';
   static const String addedToCartSuccessfully = 'addedToCartSuccessfully';
   static const String soldOut = 'soldOut';
-
   // Profile
   static const String myOrders = 'myOrders';
   static const String savedAddress = 'savedAddress';

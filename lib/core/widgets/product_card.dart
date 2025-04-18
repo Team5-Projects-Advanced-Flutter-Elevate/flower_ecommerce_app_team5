@@ -109,47 +109,43 @@ class ProductCard extends BaseStatelessWidget {
                       ),
                       Expanded(
                         flex: 15,
-                        child: BlocBuilder<CartCubit, CartState>(
-                          builder: (context, state) {
-                            return FilledButton(
-                                onPressed: () {
-                                  getIt<CartCubit>().doIntent(
-                                    AddToCartIntent(
-                                      request: AddToCartRequest(
-                                        product: id,
-                                        quantity: 1,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                style: FilledButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 2)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.shopping_cart_outlined,
-                                      size: 18 *
-                                          (inherit.screenWidth / Constants.designWidth),
-                                    ),
-                                    SizedBox(
-                                      width: inherit.screenWidth * 0.02,
-                                    ),
-                                    Text(
-                                      LocaleKeys.addToCart.tr(),
-                                      style: inherit.theme.textTheme.labelLarge!
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 13 *
-                                                  (inherit.screenWidth /
-                                                      Constants.designWidth),
-                                              color: AppColors.white),
-                                    )
-                                  ],
-                                ));
-                          },
-                        ),
+                        child: FilledButton(
+                            onPressed: () {
+                              getIt<CartCubit>().doIntent(
+                                AddToCartIntent(
+                                  request: AddToCartRequest(
+                                    product: id,
+                                    quantity: 1,
+                                  ),
+                                ),
+                              );
+                            },
+                            style: FilledButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 2)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.shopping_cart_outlined,
+                                  size: 18 *
+                                      (inherit.screenWidth / Constants.designWidth),
+                                ),
+                                SizedBox(
+                                  width: inherit.screenWidth * 0.02,
+                                ),
+                                Text(
+                                  LocaleKeys.addToCart.tr(),
+                                  style: inherit.theme.textTheme.labelLarge!
+                                      .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 13 *
+                                              (inherit.screenWidth /
+                                                  Constants.designWidth),
+                                          color: AppColors.white),
+                                )
+                              ],
+                            )),
                       )
                     ],
                   ))

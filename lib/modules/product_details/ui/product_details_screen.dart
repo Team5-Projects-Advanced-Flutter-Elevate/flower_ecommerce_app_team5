@@ -13,6 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../core/routing/defined_routes.dart';
+import '../../../core/utilities/app_dialogs.dart';
+import '../../home/data/models/cart_response/add_to_cart_request.dart';
+import '../../home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
+import '../../home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
+
 class ProductDetailsScreen extends StatefulWidget {
   final ProductEntity productEntity;
 
@@ -49,77 +55,130 @@ class _ProductDetailsScreenState
                     child: SizedBox(
                       height: screenHeight * 0.5,
                       width: screenWidth,
-                      child: BlocBuilder<ProductDetailsViewModel,
-                          ProductDetailsState>(
-                        buildWhen: (previous, current) {
-                          if (previous.colorPalettesStatus !=
-                              current.colorPalettesStatus) {
-                            return true;
+                      child: BlocListener<CartCubit, CartState>(
+                        listenWhen: (previous, current) =>
+                        current.addToCartStatus != previous.addToCartStatus,
+                        listener: (context, state) {
+                          if (state.addToCartStatus == AddToCartStatus.noAccess) {
+                            displayAlertDialog(
+                              title:  Text(
+                                LocaleKeys.pleaseLoginFirst.tr(),
+                              ),
+                              showOkButton: true,
+                              onOkButtonClick: () => Navigator.pushReplacementNamed(
+                                context,
+                                DefinedRoutes.loginScreenRoute,
+                              ),
+                            );
+                            return;
                           }
-                          return false;
+                          switch (state.addToCartStatus) {
+                            case AddToCartStatus.loading:
+                              Future.delayed(Duration.zero, () {
+                                displayAlertDialog(
+                                  title: const LoadingWidget(),
+                                );
+                              });
+
+                            case AddToCartStatus.success:
+                              Future.delayed(Duration.zero, () {
+                                hideAlertDialog();
+                                AppDialogs.showMessage(
+                                  context,
+                                  message: LocaleKeys.addedToCartSuccessfully.tr(),
+                                  isSuccess: true,
+                                );
+                              });
+
+                            case AddToCartStatus.error:
+                              Future.delayed(Duration.zero, () {
+                                hideAlertDialog();
+                                AppDialogs.showMessage(
+                                  context,
+                                  message: LocaleKeys.soldOut.tr(),
+                                  isSuccess: false,
+                                );
+                              });
+
+                            case AddToCartStatus.initial:
+                            case AddToCartStatus.noAccess:
+                          }
                         },
-                        builder: (context, state) {
-                          switch (state.colorPalettesStatus) {
-                            case ColorPalettesStatus.idle:
-                            case ColorPalettesStatus.loading:
-                              return const LoadingWidget();
-                            case ColorPalettesStatus.loaded:
-                              WidgetsBinding.instance.addPostFrameCallback(
-                                (timeStamp) {
-                                  productDetailsViewModel
-                                      .doIntent(InitScrollStep());
-                                },
-                              );
-                              return Stack(
-                                alignment: Alignment.bottomCenter,
-                                children: [
-                                  ListView.builder(
-                                    itemCount:
-                                        widget.productEntity.images?.length ??
-                                            0,
-                                    scrollDirection: Axis.horizontal,
-                                    physics: const PageScrollPhysics(),
-                                    controller: productDetailsViewModel
-                                        .imageListController,
-                                    itemBuilder: (context, index) {
-                                      return CachedImage(
-                                        url: widget
-                                                .productEntity.images?[index] ??
-                                            "",
-                                        width: screenWidth,
-                                        fit: BoxFit.cover,
-                                      );
-                                    },
-                                  ),
-                                  Positioned(
-                                    bottom: 8,
-                                    child: ValueListenableBuilder(
-                                      valueListenable: productDetailsViewModel
-                                          .activeIndexOfSmoothIndicatorNotifier,
-                                      builder: (context, value, child) {
-                                        return AnimatedSmoothIndicator(
-                                            effect: WormEffect(
-                                                activeDotColor:
-                                                    AppColors.mainColor,
-                                                dotColor: AppColors.white[70]!,
-                                                dotHeight: screenHeight * 0.015,
-                                                dotWidth: screenHeight * 0.015),
-                                            activeIndex: value,
-                                            onDotClicked: (index) {
-                                              productDetailsViewModel.doIntent(
-                                                  JumpToImageIndex(
-                                                      index: index));
-                                            },
-                                            count: widget.productEntity.images
-                                                    ?.length ??
-                                                0);
+                        child: BlocBuilder<ProductDetailsViewModel,
+                            ProductDetailsState>(
+                          buildWhen: (previous, current) {
+                            if (previous.colorPalettesStatus !=
+                                current.colorPalettesStatus) {
+                              return true;
+                            }
+                            return false;
+                          },
+                          builder: (context, state) {
+                            switch (state.colorPalettesStatus) {
+                              case ColorPalettesStatus.idle:
+                              case ColorPalettesStatus.loading:
+                                return const LoadingWidget();
+                              case ColorPalettesStatus.loaded:
+                                WidgetsBinding.instance.addPostFrameCallback(
+                                  (timeStamp) {
+                                    productDetailsViewModel
+                                        .doIntent(InitScrollStep());
+                                  },
+                                );
+                                return Stack(
+                                  alignment: Alignment.bottomCenter,
+                                  children: [
+                                    ListView.builder(
+                                      itemCount:
+                                          widget.productEntity.images?.length ??
+                                              0,
+                                      scrollDirection: Axis.horizontal,
+                                      physics: const PageScrollPhysics(),
+                                      controller: productDetailsViewModel
+                                          .imageListController,
+                                      itemBuilder: (context, index) {
+                                        return CachedImage(
+                                          url: widget.productEntity
+                                                  .images?[index] ??
+                                              "",
+                                          width: screenWidth,
+                                          fit: BoxFit.cover,
+                                        );
                                       },
                                     ),
-                                  )
-                                ],
-                              );
-                          }
-                        },
+                                    Positioned(
+                                      bottom: 8,
+                                      child: ValueListenableBuilder(
+                                        valueListenable: productDetailsViewModel
+                                            .activeIndexOfSmoothIndicatorNotifier,
+                                        builder: (context, value, child) {
+                                          return AnimatedSmoothIndicator(
+                                              effect: WormEffect(
+                                                  activeDotColor:
+                                                      AppColors.mainColor,
+                                                  dotColor:
+                                                      AppColors.white[70]!,
+                                                  dotHeight:
+                                                      screenHeight * 0.015,
+                                                  dotWidth:
+                                                      screenHeight * 0.015),
+                                              activeIndex: value,
+                                              onDotClicked: (index) {
+                                                productDetailsViewModel
+                                                    .doIntent(JumpToImageIndex(
+                                                        index: index));
+                                              },
+                                              count: widget.productEntity.images
+                                                      ?.length ??
+                                                  0);
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                );
+                            }
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -218,7 +277,16 @@ class _ProductDetailsScreenState
                             ]),
                           ),
                           FilledButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                getIt<CartCubit>().doIntent(
+                                  AddToCartIntent(
+                                    request: AddToCartRequest(
+                                      product: widget.productEntity.id!,
+                                      quantity: 1,
+                                    ),
+                                  ),
+                                );
+                              },
                               child: Text(LocaleKeys.addToCart.tr()))
                         ],
                       ),
