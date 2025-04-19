@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/bases/base_stateful_widget_state.dart';
