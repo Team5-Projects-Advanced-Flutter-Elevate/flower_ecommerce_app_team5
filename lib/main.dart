@@ -6,6 +6,7 @@ import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
 import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/new_address_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/constants/l10n_constants.dart';
@@ -73,12 +74,12 @@ class MyApp extends StatelessWidget {
             locale: context.locale,
             theme: AppThemes.lightTheme,
             themeMode: ThemeMode.light,
-            onGenerateRoute: GenerateRoute.onGenerateRoute,
-            onGenerateInitialRoutes: (initialRoute) =>
-                GenerateRoute.onGenerateInitialRoutes(
-                    initialRoute: initialRoute, loginInfo: storedLoginInfo),
+            // onGenerateRoute: GenerateRoute.onGenerateRoute,
+            // onGenerateInitialRoutes: (initialRoute) =>
+            //     GenerateRoute.onGenerateInitialRoutes(
+                   // initialRoute: initialRoute, loginInfo: storedLoginInfo),
             //initialRoute: DefinedRoutes.bestSellerScreenRoute,
-            // home: const OcassionListScreen(),
+             home: const NewAddressScreen(),
             // onGenerateRoute: GenerateRoute.onGenerateRoute,
             // onGenerateInitialRoutes: (initialRoute) =>
             //     GenerateRoute.onGenerateInitialRoutes(

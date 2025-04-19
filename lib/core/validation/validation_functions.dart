@@ -50,6 +50,36 @@ class ValidateFunctions {
     return null;
   }
 
+  String? validationOfAddress(String? inputText) {
+    final RegExp addressRegex = RegExp(r"^[\p{L}\d\s,.\-\/#]+$", unicode: true);
+
+    if (inputText == null || inputText.trim().isEmpty) {
+      return LocaleKeys.pleaseEnterAddress.tr();
+    }
+
+    if (!addressRegex.hasMatch(inputText.trim())) {
+      return LocaleKeys.pleaseEnterValidAddress.tr();
+    }
+
+    return null;
+  }
+  String? validationOfrecipient(String? inputText) {
+    final RegExp addressRegex = RegExp(r"^[\p{L}\d\s,.\-\/#]+$", unicode: true);
+
+    if (inputText == null || inputText.trim().isEmpty) {
+      return LocaleKeys.pleaseEnterValidRecipient.tr();
+    }
+
+    if (!addressRegex.hasMatch(inputText.trim())) {
+      return LocaleKeys.pleaseEnterValidRecipient.tr();
+    }
+
+    return null;
+  }
+
+
+
+
   String? validationOfEmail(String? inputText) {
     RegExp gmailRegExp =
         RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
