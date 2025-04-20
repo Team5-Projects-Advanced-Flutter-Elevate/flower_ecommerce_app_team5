@@ -162,6 +162,8 @@ class _EditProfileScreenState
                   case EditProfileStatus.loading:
                     return const LoadingWidget();
                   case EditProfileStatus.success:
+                    bool isUserGuest =
+                        state.userLoginStatus == UserLoginStatus.guest;
                     if (cubit.updateControllers) {
                       updateEditProfileControllers(state.user);
                       cubit.updateControllers = false;
@@ -174,14 +176,16 @@ class _EditProfileScreenState
                           children: [
                             Center(
                               child: GestureDetector(
-                                onTap: () =>
-                                    ImagePickerService().showImageSourceDialog(
-                                  context,
-                                  onImageSelected: (image) {
-                                    cubit.processIntent(
-                                        LoadProfileImageIntent(image));
-                                  },
-                                ),
+                                onTap: isUserGuest
+                                    ? () => handleUserIsGuest()
+                                    : () => ImagePickerService()
+                                            .showImageSourceDialog(
+                                          context,
+                                          onImageSelected: (image) {
+                                            cubit.processIntent(
+                                                LoadProfileImageIntent(image));
+                                          },
+                                        ),
                                 child: Stack(
                                   alignment: Alignment.bottomRight,
                                   children: [
@@ -274,6 +278,7 @@ class _EditProfileScreenState
                                     onFieldSubmitted: (_) =>
                                         FocusScope.of(context)
                                             .requestFocus(lastNameFocusNode),
+                                    enabled: !isUserGuest,
                                     decoration: InputDecoration(
                                       labelText: LocaleKeys.firstName.tr(),
                                       hintText:
@@ -296,6 +301,7 @@ class _EditProfileScreenState
                                     onFieldSubmitted: (_) =>
                                         FocusScope.of(context)
                                             .requestFocus(emailFocusNode),
+                                    enabled: !isUserGuest,
                                     decoration: InputDecoration(
                                       labelText: LocaleKeys.lastName.tr(),
                                       hintText:
@@ -316,6 +322,7 @@ class _EditProfileScreenState
                               focusNode: emailFocusNode,
                               onTap: () => FocusScope.of(context)
                                   .requestFocus(emailFocusNode),
+                              enabled: !isUserGuest,
                               decoration: InputDecoration(
                                 labelText: LocaleKeys.email.tr(),
                                 hintText: LocaleKeys.pleaseEnterEmail.tr(),
@@ -332,6 +339,7 @@ class _EditProfileScreenState
                               focusNode: phoneNumberFocusNode,
                               onTap: () => FocusScope.of(context)
                                   .requestFocus(phoneNumberFocusNode),
+                              enabled: !isUserGuest,
                               decoration: InputDecoration(
                                 labelText: LocaleKeys.phoneNumber.tr(),
                                 hintText:
@@ -347,6 +355,7 @@ class _EditProfileScreenState
                               keyboardType: TextInputType.visiblePassword,
                               obscuringCharacter: '*',
                               obscureText: true,
+                              enabled: !isUserGuest,
                               decoration: InputDecoration(
                                 suffix: InkWell(
                                   onTap: () {
@@ -427,18 +436,21 @@ class _EditProfileScreenState
                             ),
                             SizedBox(height: screenHeight * 0.02),
                             FilledButton(
-                              onPressed: () {
-                                FocusManager.instance.primaryFocus?.unfocus();
-                                if (_formKey.currentState!.validate()) {
-                                  cubit.processIntent(
-                                      EditProfileIntent(EditProfileInputModel(
-                                    firstName: firstNameController.text,
-                                    lastName: lastNameController.text,
-                                    phone: phoneNumberController.text,
-                                    email: emailController.text,
-                                  )));
-                                }
-                              },
+                              onPressed: isUserGuest
+                                  ? null
+                                  : () {
+                                      FocusManager.instance.primaryFocus
+                                          ?.unfocus();
+                                      if (_formKey.currentState!.validate()) {
+                                        cubit.processIntent(EditProfileIntent(
+                                            EditProfileInputModel(
+                                          firstName: firstNameController.text,
+                                          lastName: lastNameController.text,
+                                          phone: phoneNumberController.text,
+                                          email: emailController.text,
+                                        )));
+                                      }
+                                    },
                               child: Text(
                                 LocaleKeys.update.tr(),
                                 style: theme.textTheme.labelSmall?.copyWith(
@@ -457,6 +469,21 @@ class _EditProfileScreenState
           ),
         ),
       ),
+    );
+  }
+
+  void handleUserIsGuest() {
+    displayAlertDialog(
+      title: Text(
+        LocaleKeys.pleaseLoginFirst.tr(),
+      ),
+      showOkButton: true,
+      onOkButtonClick: () {
+        Navigator.pushReplacementNamed(
+          context,
+          DefinedRoutes.loginScreenRoute,
+        );
+      },
     );
   }
 }

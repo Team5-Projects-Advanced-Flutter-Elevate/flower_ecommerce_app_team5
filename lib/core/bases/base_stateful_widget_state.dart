@@ -15,6 +15,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
   late LocalizationManager localizationManager;
   late ValidateFunctions validateFunctions;
 
+  // This will always point to the correct context
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -27,6 +28,14 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
         setLocaleOfEasyLocalization;
     validateFunctions = ValidateFunctions.getInstance();
   }
+
+  // This will always get the fresh context when called
+  BuildContext get currentContext {
+    print("context of the state:++++++++=${context.widget}");
+    assert(mounted, "Context accessed when not mounted");
+    return context;
+  }
+
 
   Future<void> displayAlertDialog(
       {required Widget title,
@@ -74,8 +83,10 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
     Navigator.of(context).pop();
   }
 
-  Future<void> setLocaleOfEasyLocalization(String newLocale) {
-    if (!mounted) return Future.value();
-    return context.setLocale(Locale(newLocale));
+  Future<void> setLocaleOfEasyLocalization(String newLocale) async {
+    print("Not mounted: ${!currentContext.mounted}");
+    if (!currentContext.mounted) return Future.value();
+    print("Setting Localization into $newLocale");
+    return currentContext.setLocale(Locale(newLocale));
   }
 }

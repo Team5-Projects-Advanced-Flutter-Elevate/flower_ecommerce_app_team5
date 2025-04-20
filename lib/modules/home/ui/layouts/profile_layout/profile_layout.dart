@@ -153,19 +153,21 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     ),
                     ListTile(
                       title: Text(LocaleKeys.language.tr()),
+                      onTap: () {
+                        setState(() {
+                          if (_currentLanguage == LanguagesEnum.en) {
+                            _currentLanguage = LanguagesEnum.ar;
+                          } else {
+                            _currentLanguage = LanguagesEnum.en;
+                          }
+                        });
+                        localizationManager
+                            .changeLocal(_currentLanguage.getLanguageCode());
+                      },
                       leading:
                           Image(image: AssetImage(AssetsPaths.languageIcon)),
                       trailing: GestureDetector(
                           onTap: () {
-                            setState(() {
-                              if (_currentLanguage == LanguagesEnum.en) {
-                                _currentLanguage = LanguagesEnum.ar;
-                              } else {
-                                _currentLanguage = LanguagesEnum.en;
-                              }
-                            });
-                            localizationManager.changeLocal(_currentLanguage.getLanguageCode());
-
                             // context.setLocale(
                             //     Locale(_currentLanguage.getLanguageCode()));
                           },

@@ -96,13 +96,16 @@ class EditProfileViewModelCubit extends Cubit<EditProfileState> {
           email: profileData?.user?.email ?? 'Guest-User',
           sId: profileData?.user?.sId ?? 'Guest',
           // photo: profileData?.user?.photo ?? 'Guest',
-          phone: profileData?.user?.phone ?? "",
+          phone: profileData?.user?.phone ?? "+20",
           gender: profileData?.user?.gender ?? "");
       updateControllers = true;
       emit(state.copyWith(
           getProfileDataStatus: EditProfileStatus.success,
           user: user,
-          profilePhotoLink: profileData?.user?.photo));
+          profilePhotoLink: profileData?.user?.photo,
+          userLoginStatus: profileData == null
+              ? UserLoginStatus.guest
+              : UserLoginStatus.loggedIn));
     } catch (e) {
       emit(state.copyWith(
           getProfileDataStatus: EditProfileStatus.error, error: e));

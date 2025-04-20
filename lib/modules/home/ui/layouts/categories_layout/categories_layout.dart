@@ -53,7 +53,7 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
         appBar: AppBar(
           forceMaterialTransparency: true,
           toolbarHeight: screenHeight * 0.1,
-          title:  const SearchAndFilterRow(),
+          title: const SearchAndFilterRow(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight - 20),
             child: Align(
@@ -133,51 +133,52 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
         getIt.get<CategoriesLayoutViewModel>();
   }
 }
+
 class CategoryProductsView extends BaseStatelessWidget {
   final List<ProductEntity> productList;
 
-   const CategoryProductsView(this.productList, {super.key});
+  const CategoryProductsView(this.productList, {super.key});
 
   @override
-  Widget customBuild(BuildContext context,inherit) {
+  Widget customBuild(BuildContext context, inherit) {
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
-        if (state.addToCartStatus == AddToCartStatus.noAccess) {
-          displayAlertDialog(
-            title: Text(
-              LocaleKeys.pleaseLoginFirst.tr(),
-            ),
-            showOkButton: true,
-            onOkButtonClick: () => Navigator.pushReplacementNamed(
-              context,
-              DefinedRoutes.loginScreenRoute,
-            ),
-            context: context,
-          );
-          return;
-        }
         switch (state.addToCartStatus) {
+          case AddToCartStatus.initial:
+            break;
+          case AddToCartStatus.noAccess:
+            hideAlertDialog();
+            displayAlertDialog(
+              title: Text(
+                LocaleKeys.pleaseLoginFirst.tr(),
+              ),
+              showOkButton: true,
+              onOkButtonClick: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  DefinedRoutes.loginScreenRoute,
+                );
+              },
+            );
+            break;
           case AddToCartStatus.loading:
             displayAlertDialog(
-              context: context,
               title: const LoadingWidget(),
             );
           case AddToCartStatus.success:
-            hideAlertDialog(context);
+            hideAlertDialog();
             AppDialogs.showMessage(
               context,
               message: LocaleKeys.addedToCartSuccessfully.tr(),
               isSuccess: true,
             );
           case AddToCartStatus.error:
-            hideAlertDialog(context);
+            hideAlertDialog();
             AppDialogs.showMessage(
               context,
               message: LocaleKeys.soldOut.tr(),
               isSuccess: false,
             );
-          case AddToCartStatus.initial:
-          case AddToCartStatus.noAccess:
         }
       },
       child: Column(
@@ -198,7 +199,8 @@ class CategoryProductsView extends BaseStatelessWidget {
                         ),
                       )
                     : GridView.builder(
-                        padding: EdgeInsets.only(top: inherit.screenHeight * 0.02),
+                        padding:
+                            EdgeInsets.only(top: inherit.screenHeight * 0.02),
                         itemCount: productList.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -209,7 +211,11 @@ class CategoryProductsView extends BaseStatelessWidget {
                         ),
                         itemBuilder: (context, index) => ProductCard(
                           id: productList[index].id,
-                          onProductCardClick: () {},
+                          onProductCardClick: () {
+                            Navigator.pushNamed(context,
+                                DefinedRoutes.productDetailsScreenRoute,
+                                arguments: productList[index]);
+                          },
                           width: inherit.screenWidth * 0.45,
                           height: inherit.screenHeight * 0.25,
                           productTitle: productList[index].title!,

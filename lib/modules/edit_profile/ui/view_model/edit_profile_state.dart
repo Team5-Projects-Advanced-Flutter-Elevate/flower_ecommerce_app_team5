@@ -34,12 +34,15 @@ enum EditProfileStatus { initial, loading, success, error }
 
 enum ButtonStatus { enable, disable }
 
+enum UserLoginStatus { loggedIn, guest }
+
 class EditProfileState extends Equatable {
   final EditProfileStatus uploadImageStatus;
   final EditProfileStatus getProfileDataStatus;
   final EditProfileStatus changePasswordStatus;
   final EditProfileStatus updateProfileStatus;
   final ButtonStatus changeButtonStatus;
+  final UserLoginStatus userLoginStatus;
   final String? profilePhotoLink;
   final UserDto? user;
 
@@ -50,6 +53,7 @@ class EditProfileState extends Equatable {
       this.changePasswordStatus = EditProfileStatus.initial,
       this.updateProfileStatus = EditProfileStatus.initial,
       this.changeButtonStatus = ButtonStatus.enable,
+      this.userLoginStatus = UserLoginStatus.loggedIn,
       this.profilePhotoLink,
       this.user,
       this.error});
@@ -61,6 +65,7 @@ class EditProfileState extends Equatable {
         profilePhotoLink,
         getProfileDataStatus,
         changePasswordStatus,
+        userLoginStatus,
         user,
         error
       ];
@@ -71,6 +76,7 @@ class EditProfileState extends Equatable {
       EditProfileStatus? changePasswordStatus,
       EditProfileStatus? updateProfileStatus,
       ButtonStatus? changeButtonStatus,
+      UserLoginStatus? userLoginStatus,
       String? profilePhotoLink,
       UserDto? user,
       Object? error}) {
@@ -81,6 +87,7 @@ class EditProfileState extends Equatable {
         updateProfileStatus: updateProfileStatus ?? this.updateProfileStatus,
         changeButtonStatus: changeButtonStatus ?? this.changeButtonStatus,
         profilePhotoLink: profilePhotoLink ?? this.profilePhotoLink,
+        userLoginStatus: userLoginStatus ?? this.userLoginStatus,
         user: user ?? this.user,
         error: error ?? this.error);
   }

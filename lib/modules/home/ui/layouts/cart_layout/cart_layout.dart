@@ -56,6 +56,17 @@ class _CartLayoutState extends BaseStatefulWidgetState<CartLayout> {
           }
         },
         builder: (context, state) {
+          switch (state.userLoginStatus) {
+            case UserLoginStatus.loggedIn:
+              break;
+            case UserLoginStatus.guest:
+              return Center(
+                  child: Text(
+                'Please Login First',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.labelMedium,
+              ));
+          }
           if (state.status == CartStatus.loading) {
             return const LoadingWidget();
           } else if (state.status == CartStatus.error) {
