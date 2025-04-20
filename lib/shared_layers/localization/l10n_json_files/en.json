@@ -115,5 +115,7 @@
   "changePasswordConfirmPasswordLabel": "Confirm Password",
   "changePasswordConfirmPasswordHint": "Confirm your new password",
   "changePasswordUpdateButton": "Update",
-  "passwordChangedSuccessfully": "Password Changed Successfully!"
+  "passwordChangedSuccessfully": "Password Changed Successfully!",
+  "//payment": "",
+  "flowery": "Flowery"
 }

@@ -133,4 +133,5 @@ class LocaleKeys {
       'changePasswordConfirmPasswordHint';
   static const String changePasswordUpdateButton = 'changePasswordUpdateButton';
   static const String passwordChangedSuccessfully = 'passwordChangedSuccessfully';
+  static const String flowery = "flowery";
 }
