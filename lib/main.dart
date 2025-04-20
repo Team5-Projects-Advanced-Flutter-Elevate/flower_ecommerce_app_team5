@@ -35,6 +35,12 @@ void main() async {
     DioServiceExtension.updateDioWithToken(storedLoginInfo?.token ?? '');
   }
   LocalizationManager localizationManager = getIt.get<LocalizationManager>();
+  // registering NavigatorState globalKey that will be given for MaterialApp()
+  getIt.registerLazySingleton<GlobalKey<NavigatorState>>(
+    () {
+      return GlobalKey<NavigatorState>();
+    },
+  );
   runApp(BlocProvider(
     create: (context) => getIt<CartCubit>(),
     child: MultiProvider(
@@ -75,6 +81,7 @@ class MyApp extends StatelessWidget {
           validateFunctions: ValidateFunctions.getInstance(),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
+            navigatorKey: getIt.get<GlobalKey<NavigatorState>>(),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,

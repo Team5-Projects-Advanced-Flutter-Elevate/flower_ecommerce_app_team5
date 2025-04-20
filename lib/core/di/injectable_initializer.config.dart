@@ -284,6 +284,13 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
+    gh.factory<_i430.EditProfileViewModelCubit>(
+        () => _i430.EditProfileViewModelCubit(
+              gh<_i543.LoginUseCase>(),
+              gh<_i85.EditProfileUseCase>(),
+              gh<_i359.UploadImageUseCase>(),
+              gh<_i70.ChangePasswordUseCase>(),
+            ));
     gh.factory<_i867.HomeScreenViewModel>(() => _i867.HomeScreenViewModel(
           gh<_i44.CategoriesLayoutViewModel>(),
           gh<_i855.OccasionViewModelCubit>(),
@@ -298,13 +305,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i999.AddToCartUseCase>(),
           gh<_i828.DeleteFromCartUseCase>(),
         ));
-    gh.factory<_i430.EditProfileViewModelCubit>(
-        () => _i430.EditProfileViewModelCubit(
-              gh<_i543.LoginUseCase>(),
-              gh<_i85.EditProfileUseCase>(),
-              gh<_i359.UploadImageUseCase>(),
-              gh<_i70.ChangePasswordUseCase>(),
-            ));
     gh.factory<_i901.ProfileViewModelCubit>(
         () => _i901.ProfileViewModelCubit(gh<_i543.LoginUseCase>()));
     return this;

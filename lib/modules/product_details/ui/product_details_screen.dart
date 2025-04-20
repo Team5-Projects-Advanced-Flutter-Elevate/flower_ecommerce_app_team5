@@ -13,6 +13,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/v
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/view_model/product_details_intent.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/view_model/product_details_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/view_model/product_details_view_model.dart';
+import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +43,8 @@ class _ProductDetailsScreenState
 
   @override
   Widget build(BuildContext context) {
+    bool isCurrentLocaleEnglish =
+        localizationManager.currentLocale == LanguagesEnum.en.getLanguageCode();
     return SafeArea(
       child: BlocProvider(
         create: (context) => productDetailsViewModel,
@@ -54,7 +57,7 @@ class _ProductDetailsScreenState
                     child: SizedBox(
                       height: screenHeight * 0.5,
                       width: screenWidth,
-                      child: BlocListener<CartCubit,CartState>(
+                      child: BlocListener<CartCubit, CartState>(
                         listener: (context, state) {
                           switch (state.addToCartStatus) {
                             case AddToCartStatus.initial:
@@ -82,7 +85,8 @@ class _ProductDetailsScreenState
                               hideAlertDialog();
                               AppDialogs.showMessage(
                                 context,
-                                message: LocaleKeys.addedToCartSuccessfully.tr(),
+                                message:
+                                    LocaleKeys.addedToCartSuccessfully.tr(),
                                 isSuccess: true,
                               );
                             case AddToCartStatus.error:
@@ -128,8 +132,8 @@ class _ProductDetailsScreenState
                                           .imageListController,
                                       itemBuilder: (context, index) {
                                         return CachedImage(
-                                          url: widget
-                                                  .productEntity.images?[index] ??
+                                          url: widget.productEntity
+                                                  .images?[index] ??
                                               "",
                                           width: screenWidth,
                                           fit: BoxFit.cover,
@@ -146,13 +150,16 @@ class _ProductDetailsScreenState
                                               effect: WormEffect(
                                                   activeDotColor:
                                                       AppColors.mainColor,
-                                                  dotColor: AppColors.white[70]!,
-                                                  dotHeight: screenHeight * 0.015,
-                                                  dotWidth: screenHeight * 0.015),
+                                                  dotColor:
+                                                      AppColors.white[70]!,
+                                                  dotHeight:
+                                                      screenHeight * 0.015,
+                                                  dotWidth:
+                                                      screenHeight * 0.015),
                                               activeIndex: value,
                                               onDotClicked: (index) {
-                                                productDetailsViewModel.doIntent(
-                                                    JumpToImageIndex(
+                                                productDetailsViewModel
+                                                    .doIntent(JumpToImageIndex(
                                                         index: index));
                                               },
                                               count: widget.productEntity.images
@@ -279,7 +286,8 @@ class _ProductDetailsScreenState
               ),
               Positioned(
                 top: 16,
-                left: 16,
+                left: isCurrentLocaleEnglish ? 16 : null,
+                right: isCurrentLocaleEnglish ? null : 16,
                 child: Container(
                   width: 50,
                   decoration: BoxDecoration(
@@ -291,7 +299,9 @@ class _ProductDetailsScreenState
                     icon: const Icon(Icons.arrow_back_ios),
                     alignment: Alignment.center,
                     hoverColor: Colors.transparent,
-                    padding: const EdgeInsets.only(left: 8),
+                    padding: isCurrentLocaleEnglish
+                        ? const EdgeInsets.only(left: 8)
+                        : const EdgeInsets.only(right: 8),
                   ),
                 ),
               ),

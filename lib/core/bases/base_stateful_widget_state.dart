@@ -29,11 +29,19 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
     validateFunctions = ValidateFunctions.getInstance();
   }
 
-  // This will always get the fresh context when called
-  BuildContext get currentContext {
-    print("context of the state:++++++++=${context.widget}");
-    assert(mounted, "Context accessed when not mounted");
-    return context;
+  // Current fresh context with runtime check
+  BuildContext get safeContext {
+    try {
+      // This will throw if context is inaccessible
+      final ctx = context;
+      // Verify we can use it
+      if (ctx.mounted) { // Additional safety check
+        return ctx;
+      }
+    } catch (_) {}
+
+    // Fallback: Find the nearest context from the root
+    return getIt.get<GlobalKey<NavigatorState>>().currentContext!;
   }
 
 
@@ -84,9 +92,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
   }
 
   Future<void> setLocaleOfEasyLocalization(String newLocale) async {
-    print("Not mounted: ${!currentContext.mounted}");
-    if (!currentContext.mounted) return Future.value();
-    print("Setting Localization into $newLocale");
-    return currentContext.setLocale(Locale(newLocale));
+    if (!safeContext.mounted) return Future.value();
+    return safeContext.setLocale(Locale(newLocale));
   }
 }

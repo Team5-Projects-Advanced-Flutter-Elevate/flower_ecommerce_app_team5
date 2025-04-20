@@ -24,7 +24,6 @@ class ProfileLayout extends StatefulWidget {
 
 class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
   bool isNotificationOn = true;
-  LanguagesEnum _currentLanguage = LanguagesEnum.en;
   late ProfileViewModelCubit viewModel;
 
   @override
@@ -154,15 +153,11 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     ListTile(
                       title: Text(LocaleKeys.language.tr()),
                       onTap: () {
-                        setState(() {
-                          if (_currentLanguage == LanguagesEnum.en) {
-                            _currentLanguage = LanguagesEnum.ar;
-                          } else {
-                            _currentLanguage = LanguagesEnum.en;
-                          }
-                        });
-                        localizationManager
-                            .changeLocal(_currentLanguage.getLanguageCode());
+                        var newLocale = localizationManager.currentLocale ==
+                                LanguagesEnum.en.getLanguageCode()
+                            ? LanguagesEnum.ar.getLanguageCode()
+                            : LanguagesEnum.en.getLanguageCode();
+                        localizationManager.changeLocal(newLocale);
                       },
                       leading:
                           Image(image: AssetImage(AssetsPaths.languageIcon)),
