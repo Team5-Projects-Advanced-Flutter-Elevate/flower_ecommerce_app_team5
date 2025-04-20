@@ -5,17 +5,24 @@ import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/constants/constants.dart';
 import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
+
 // ignore: must_be_immutable
 class SearchAndFilterRow extends BaseStatelessWidget {
-   const SearchAndFilterRow({super.key});
+  const SearchAndFilterRow({super.key});
   @override
-  Widget customBuild(BuildContext context,inherit) {
+  Widget customBuild(BuildContext context, inherit) {
     return Row(
       children: [
         Expanded(
           child: TextField(
             enabled: false,
             decoration: InputDecoration(
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  color: AppColors.white[70]!,
+                ),
+              ),
               hintText: LocaleKeys.search,
               hintStyle: GoogleFonts.inter(
                 textStyle: inherit.theme.textTheme.bodyMedium!.copyWith(
