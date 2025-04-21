@@ -17,6 +17,7 @@ class SearchCubit extends Cubit<SearchState> {
   void search({
     String? searchKey,
   }) async {
+    if (searchKey!.isEmpty) return;
     emit(SearchLoading());
     final result = await _getAllProductsUseCase.execute(searchKey: searchKey);
     switch (result) {
