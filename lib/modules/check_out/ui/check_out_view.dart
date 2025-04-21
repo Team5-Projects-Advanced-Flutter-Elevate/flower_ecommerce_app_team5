@@ -40,8 +40,7 @@ class _CheckOutViewState extends BaseStatefulWidgetState<CheckOutView> {
         ),
       ),
       body: BlocProvider(
-        create: (context) =>
-            getIt<CheckOutCubit>()..doIntent(GetAllAddressesIntent()),
+        create: (context) => cubit..doIntent(GetAllAddressesIntent()),
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
@@ -72,6 +71,10 @@ class _CheckOutViewState extends BaseStatefulWidgetState<CheckOutView> {
                     child: PlaceOrderSection(
                       cartResponseEntity: widget.cartResponseEntity,
                     ),
+                  ),
+                  Container(
+                    color: AppColors.white,
+                    height: screenHeight * 0.05,
                   ),
                 ],
               ),

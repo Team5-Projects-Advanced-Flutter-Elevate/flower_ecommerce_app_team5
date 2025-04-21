@@ -62,7 +62,10 @@ class _PaymentItemState extends BaseStatefulWidgetState<PaymentItem> {
                     visualDensity: VisualDensity.compact,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     value: widget.title,
-                    groupValue: state.selectedPaymentMethod,
+                    groupValue:
+                        state.selectedPaymentMethod == SelectedPaymentMethod.cod
+                            ? 'Cash on delivery'
+                            : 'Credit card',
                     onChanged: (val) {
                       context.read<CheckOutCubit>().doIntent(
                             ChangePaymentIntent(

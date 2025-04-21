@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flower_ecommerce_app_team5/core/utilities/bloc_observer/bloc_observer.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_state.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +17,10 @@ class _GiftSectionState extends BaseStatefulWidgetState<GiftSection> {
   late final FocusNode phoneFocusNode;
   late final TextEditingController nameController;
   late final TextEditingController phoneController;
-  late final ValueNotifier<bool> isGift;
 
   @override
   void initState() {
     super.initState();
-    isGift = ValueNotifier<bool>(false);
     nameController = TextEditingController();
     phoneController = TextEditingController();
     nameFocusNode = FocusNode();
@@ -34,7 +29,6 @@ class _GiftSectionState extends BaseStatefulWidgetState<GiftSection> {
 
   @override
   void dispose() {
-    isGift.dispose(); // Don't forget to dispose ValueNotifier
     nameController.dispose();
     phoneController.dispose();
     nameFocusNode.dispose();
@@ -61,7 +55,8 @@ class _GiftSectionState extends BaseStatefulWidgetState<GiftSection> {
                     inactiveTrackColor: AppColors.gray,
                     value: state.isGift,
                     onChanged: (bool newValue) {
-                      if (state.selectedPaymentMethod == 'Cash on delivery' ||
+                      if (state.selectedPaymentMethod ==
+                              SelectedPaymentMethod.cod ||
                           state.selectedPaymentMethod == null) {
                         context
                             .read<CheckOutCubit>()
@@ -84,7 +79,7 @@ class _GiftSectionState extends BaseStatefulWidgetState<GiftSection> {
               ),
               Visibility(
                 visible: state.isGift &&
-                    state.selectedPaymentMethod == 'Credit card',
+                    state.selectedPaymentMethod == SelectedPaymentMethod.online,
                 child: Column(
                   children: [
                     SizedBox(

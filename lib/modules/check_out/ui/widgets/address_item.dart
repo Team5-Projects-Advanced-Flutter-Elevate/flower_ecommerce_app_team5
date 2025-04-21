@@ -61,6 +61,7 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
                                 .read<CheckOutCubit>()
                                 .doIntent(ChangeAddressIntent(
                                   address: val,
+                                  addressModelEntity: widget.addressModel,
                                 ));
                           }
                         },

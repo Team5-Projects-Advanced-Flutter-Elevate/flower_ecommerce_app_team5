@@ -34,22 +34,19 @@ class InvoiceSectionAndCheckoutButton extends BaseStatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: FilledButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  DefinedRoutes.checkOut,
-                  arguments: cartResponseEntity,
-                );
-              },
-              child: Text(
-                LocaleKeys.checkout.tr(),
-                style: inherit.theme.textTheme.labelMedium?.copyWith(
-                  fontSize: 16 * (inherit.screenWidth / 375),
-                  color: AppColors.white,
-                ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                DefinedRoutes.checkOut,
+                arguments: cartResponseEntity,
+              );
+            },
+            child: Text(
+              LocaleKeys.checkout.tr(),
+              style: inherit.theme.textTheme.labelMedium?.copyWith(
+                fontSize: 16 * (inherit.screenWidth / 375),
+                color: AppColors.white,
               ),
             ),
           ),

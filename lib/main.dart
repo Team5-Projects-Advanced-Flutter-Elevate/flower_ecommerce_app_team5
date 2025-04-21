@@ -95,18 +95,18 @@ class MyApp extends StatelessWidget {
             //     GenerateRoute.onGenerateInitialRoutes(
             //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
             // initialRoute: DefinedRoutes.checkoutSessionScreenRoute,
-            home: CheckoutSessionScreen(
-                paymentRequestParameters: PaymentRequestParametersEntity(
-                    shippingAddress: ShippingAddressEntity(
-                        street: "details",
-                        phone: '01010700999',
-                        city: "Cairo",
-                        lat: "String",
-                        long: "String"))),
+            // home: CheckoutSessionScreen(
+            //     paymentRequestParameters: PaymentRequestParametersEntity(
+            //         shippingAddress: ShippingAddressEntity(
+            //             street: "details",
+            //             phone: '01010700999',
+            //             city: "Cairo",
+            //             lat: "String",
+            //             long: "String"))),
             // onGenerateRoute: GenerateRoute.onGenerateRoute,
-            // onGenerateInitialRoutes: (initialRoute) =>
-            //     GenerateRoute.onGenerateInitialRoutes(
-            //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
+            onGenerateInitialRoutes: (initialRoute) =>
+                GenerateRoute.onGenerateInitialRoutes(
+                    initialRoute: initialRoute, loginInfo: storedLoginInfo),
           ),
         );
       },
