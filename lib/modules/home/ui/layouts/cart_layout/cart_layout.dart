@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
-import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/widgets/invoice_section_and_checkout_button.dart';
@@ -20,12 +19,10 @@ class CartLayout extends StatefulWidget {
 }
 
 class _CartLayoutState extends BaseStatefulWidgetState<CartLayout> {
-  CartCubit cubit = getIt<CartCubit>();
-
   @override
   void initState() {
     super.initState();
-    cubit.doIntent(GetCartItemsIntent());
+    BlocProvider.of<CartCubit>(context).doIntent(GetCartItemsIntent());
   }
 
   @override
@@ -36,11 +33,6 @@ class _CartLayoutState extends BaseStatefulWidgetState<CartLayout> {
         horizontal: screenWidth * 0.05,
       ),
       child: BlocConsumer<CartCubit, CartState>(
-        listenWhen: (previous, current) =>
-            current ==
-            CartState(
-              status: CartStatus.noAccess,
-            ),
         listener: (context, state) {
           if (state.status == CartStatus.noAccess) {
             displayAlertDialog(
@@ -56,17 +48,6 @@ class _CartLayoutState extends BaseStatefulWidgetState<CartLayout> {
           }
         },
         builder: (context, state) {
-          switch (state.userLoginStatus) {
-            case UserLoginStatus.loggedIn:
-              break;
-            case UserLoginStatus.guest:
-              return Center(
-                  child: Text(
-                'Please Login First',
-                textAlign: TextAlign.center,
-                style: theme.textTheme.labelMedium,
-              ));
-          }
           if (state.status == CartStatus.loading) {
             return const LoadingWidget();
           } else if (state.status == CartStatus.error) {

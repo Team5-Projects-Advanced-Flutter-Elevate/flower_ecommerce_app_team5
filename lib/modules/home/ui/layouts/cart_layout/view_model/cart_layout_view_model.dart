@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/login/login_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart';
@@ -56,16 +55,16 @@ class CartCubit extends Cubit<CartState> {
   }
 
   void _getCartItems() async {
+    emit(state.copyWith(state: CartStatus.loading));
     var userData = await loginUseCase.getStoredLoginInfo();
     bool isLogin = userData != null;
     if (!isLogin) {
       emit(state.copyWith(
-        userLoginStatus: UserLoginStatus.guest,
+        state: CartStatus.noAccess,
+        rebuildKey: state.rebuildKey + 1,
       ));
       return;
     }
-
-    emit(state.copyWith(state: CartStatus.loading));
     var result = await getCartItemsUseCase.execute();
     switch (result) {
       case Success<CartResponseEntity>():

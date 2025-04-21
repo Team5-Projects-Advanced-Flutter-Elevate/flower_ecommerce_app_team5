@@ -44,6 +44,7 @@ void main() async {
       return GlobalKey<NavigatorState>();
     },
   );
+
   runApp(BlocProvider(
     create: (context) => getIt<CartCubit>(),
     child: MultiProvider(
