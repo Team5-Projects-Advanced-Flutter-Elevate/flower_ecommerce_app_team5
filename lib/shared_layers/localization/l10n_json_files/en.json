@@ -118,5 +118,18 @@
 ,
   "passwordChangedSuccessfully": "Password Changed Successfully!",
   "//payment": "",
-  "flowery": "Flowery"
+  "flowery": "Flowery",
+  "deliveryAddress": "Delivery address",
+  "noAddressesFound": "No addresses found",
+  "addNew": "Add new",
+  "paymentMethod": "Payment Method",
+  "cashOnDelivery": "Cash on delivery",
+  "creditCard": "Credit card",
+  "itIsAGift": "It is a gift",
+  "pleaseSelectDeliveryAddress": "Please select a delivery address",
+  "pleaseSelectPaymentMethod": "Please select a payment method",
+  "placeOrder": "Place order",
+  "trackOrder": "Track order",
+  "orderPlacedSuccess": "Your order placed successfully!"
+
 }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/app_dialogs.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/bases/base_inherited_widget.dart';
 import '../../../../core/bases/base_statless_widget.dart';
 import '../../../../core/colors/app_colors.dart';
+import '../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import '../../../home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import '../../../home/ui/layouts/cart_layout/widgets/invoice_section.dart';
 import '../../../payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
@@ -97,13 +99,13 @@ class PlaceOrderSection extends BaseStatelessWidget {
                   if (state.selectedDeliveryAddress == null) {
                     AppDialogs.showMessage(
                       context,
-                      message: 'Please select a delivery address',
+                      message: LocaleKeys.pleaseSelectDeliveryAddress.tr(),
                       isSuccess: false,
                     );
                   } else if (state.selectedPaymentMethod == null) {
                     AppDialogs.showMessage(
                       context,
-                      message: 'Please select a payment method',
+                      message: LocaleKeys.pleaseSelectPaymentMethod.tr(),
                       isSuccess: false,
                     );
                   } else {
@@ -117,7 +119,7 @@ class PlaceOrderSection extends BaseStatelessWidget {
                   }
                 },
                 child: Text(
-                  'Place order',
+                  LocaleKeys.placeOrder.tr(),
                   style: inherit.theme.textTheme.labelMedium?.copyWith(
                     fontSize: 16 * (inherit.screenWidth / 375),
                     color: AppColors.white,

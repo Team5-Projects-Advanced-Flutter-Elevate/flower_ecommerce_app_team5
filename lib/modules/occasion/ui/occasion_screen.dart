@@ -9,7 +9,6 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/v
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-
 import '../../../core/bases/base_stateful_widget_state.dart';
 import '../../../core/di/injectable_initializer.dart';
 import '../../../core/utilities/app_dialogs.dart';
@@ -53,7 +52,7 @@ class _OccasionListScreenState
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(LocaleKeys.occsionScreenTitle.tr(),
+                Text(LocaleKeys.occasionScreenTitle.tr(),
                     style: Theme.of(context).textTheme.headlineMedium),
                 const SizedBox(height: 2),
                 Text(LocaleKeys.occasionScreenSubTitle.tr(),

@@ -1,13 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_state.dart';
+import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../core/colors/app_colors.dart';
-import '../../../../core/di/injectable_initializer.dart';
 import 'address_item.dart';
 
 class DeliveryAddressSection extends StatefulWidget {
@@ -33,7 +34,7 @@ class _DeliveryAddressSectionState
           Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Text(
-              'Delivery address',
+              LocaleKeys.deliveryAddress.tr(),
               style: theme.textTheme.labelMedium?.copyWith(
                 fontSize: 14 * (screenWidth / 375),
               ),
@@ -52,8 +53,8 @@ class _DeliveryAddressSectionState
                     final addresses =
                         state.addressesResponseEntity?.addresses ?? [];
                     if (addresses.isEmpty) {
-                      return const Text(
-                        'No addresses found',
+                      return Text(
+                        LocaleKeys.noAddressesFound.tr(),
                       );
                     }
                     return Column(
@@ -81,14 +82,14 @@ class _DeliveryAddressSectionState
                           onPressed: () {
                             /// navigate to add new address screen
                           },
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.add,
                               ),
                               Text(
-                                'Add new ',
+                                LocaleKeys.addNew.tr(),
                               )
                             ],
                           ),

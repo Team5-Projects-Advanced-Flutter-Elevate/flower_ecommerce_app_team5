@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_state.dart';
+import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/bases/base_stateful_widget_state.dart';
@@ -72,7 +74,7 @@ class _GiftSectionState extends BaseStatefulWidgetState<GiftSection> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'It is a gift',
+                    LocaleKeys.itIsAGift.tr(),
                     style: theme.textTheme.bodyMedium,
                   ),
                 ],
@@ -89,9 +91,9 @@ class _GiftSectionState extends BaseStatefulWidgetState<GiftSection> {
                       controller: nameController,
                       keyboardType: TextInputType.text,
                       focusNode: nameFocusNode,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter the name',
-                        labelText: 'Name',
+                      decoration: InputDecoration(
+                        hintText: LocaleKeys.pleaseEnterName.tr(),
+                        labelText: LocaleKeys.firstName.tr(),
                       ),
                     ),
                     SizedBox(
@@ -101,9 +103,9 @@ class _GiftSectionState extends BaseStatefulWidgetState<GiftSection> {
                       controller: phoneController,
                       keyboardType: TextInputType.phone,
                       focusNode: phoneFocusNode,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter phone number',
-                        labelText: 'Phone number',
+                      decoration: InputDecoration(
+                        hintText: LocaleKeys.pleaseEnterPhoneNumber.tr(),
+                        labelText: LocaleKeys.phoneNumber.tr(),
                       ),
                     ),
                   ],
