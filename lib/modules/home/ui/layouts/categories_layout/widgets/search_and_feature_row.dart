@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/constants/constants.dart';
+import '../../../../../../core/routing/defined_routes.dart';
 import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 
 // ignore: must_be_immutable
@@ -14,34 +15,40 @@ class SearchAndFilterRow extends BaseStatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: TextField(
-            enabled: false,
-            decoration: InputDecoration(
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(
-                  color: AppColors.white[70]!,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, DefinedRoutes.searchScreenRoute);
+            },
+            child: TextField(
+              enabled: false,
+              decoration: InputDecoration(
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    color: AppColors.white[70]!,
+                  ),
                 ),
-              ),
-              hintText: LocaleKeys.search,
-              hintStyle: GoogleFonts.inter(
-                textStyle: inherit.theme.textTheme.bodyMedium!.copyWith(
-                  fontSize: 14 * (inherit.screenWidth / Constants.designWidth),
-                  color: AppColors.white[70],
+                hintText: LocaleKeys.search,
+                hintStyle: GoogleFonts.inter(
+                  textStyle: inherit.theme.textTheme.bodyMedium!.copyWith(
+                    fontSize:
+                        14 * (inherit.screenWidth / Constants.designWidth),
+                    color: AppColors.white[70],
+                  ),
                 ),
-              ),
-              prefixIcon: Icon(Icons.search, color: AppColors.white[70]),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: AppColors.white[70]!),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: AppColors.white[70]!),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: AppColors.mainColor),
+                prefixIcon: Icon(Icons.search, color: AppColors.white[70]),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: AppColors.white[70]!),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: AppColors.white[70]!),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: AppColors.mainColor),
+                ),
               ),
             ),
           ),

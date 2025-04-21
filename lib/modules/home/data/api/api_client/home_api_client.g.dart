@@ -123,9 +123,17 @@ class _HomeApiClient implements HomeApiClient {
   }
 
   @override
-  Future<AllProductResponse> getAllProduct({String? categoryId}) async {
+  Future<AllProductResponse> getAllProduct({
+    String? categoryId,
+    String? searchKey,
+    String? sortKey,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'category': categoryId};
+    final queryParameters = <String, dynamic>{
+      r'category': categoryId,
+      r'keyword': searchKey,
+      r'sort': sortKey,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;

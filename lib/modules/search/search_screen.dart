@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../core/apis/api_error/api_error_handler.dart';
 import '../../core/colors/app_colors.dart';
 import '../../core/constants/constants.dart';
 import '../../core/di/injectable_initializer.dart';
 import '../../core/routing/defined_routes.dart';
 import '../../core/utilities/app_dialogs.dart';
-import '../../core/widgets/error_state_widget.dart';
 import '../../core/widgets/loading_state_widget.dart';
 import '../../core/widgets/product_card.dart';
 import '../../shared_layers/localization/generated/locale_keys.g.dart';
@@ -51,7 +51,11 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
                 color: AppColors.white[70],
               ),
             ),
-            suffixIcon: Icon(Icons.cancel_outlined, color: AppColors.white[70]),
+            suffixIcon: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.cancel_outlined, color: AppColors.white[70])),
             prefixIcon: Icon(Icons.search, color: AppColors.white[70]),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
@@ -124,7 +128,7 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
               case SearchInitial():
                 return Center(
                   child: Text(
-                    'Search For Any Product You Want',
+                    LocaleKeys.searchForAnyProductYouWant.tr(),
                     style: GoogleFonts.inter(
                       textStyle: theme.textTheme.titleSmall!.copyWith(
                           fontSize: 16 * (screenWidth / Constants.designWidth),
@@ -138,11 +142,16 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
                 var productsList = state.productsList;
                 if (productsList.isEmpty) {
                   return Center(
-                      child: Text(
-                    LocaleKeys.noProducts.tr(),
-                    style: theme.textTheme.labelLarge!
-                        .copyWith(fontSize: 20 * (screenWidth / 375)),
-                  ));
+                    child: Text(
+                      LocaleKeys.noProductsFound.tr(),
+                      style: GoogleFonts.inter(
+                        textStyle: theme.textTheme.titleSmall!.copyWith(
+                            fontSize:
+                                16 * (screenWidth / Constants.designWidth),
+                            color: AppColors.mainColor),
+                      ),
+                    ),
+                  );
                 }
                 return Material(
                   color: AppColors.white,
@@ -159,12 +168,16 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
                             crossAxisSpacing: 17),
                     itemBuilder: (context, index) {
                       return ProductCard(
-                          onProductCardClick: () {},
+                          onProductCardClick: () {
+                            Navigator.pushNamed(context,
+                                DefinedRoutes.productDetailsScreenRoute,
+                                arguments: productsList[index]);
+                          },
                           id: productsList[index].id,
                           width: screenWidth * 0.45,
                           height: screenHeight * 0.25,
                           productTitle: productsList[index].title ?? "",
-                          price: productsList[index].priceAfterDiscount ?? 0,
+                          price: productsList[index].price ?? 0,
                           priceAfterDiscountIfExist:
                               productsList[index].priceAfterDiscount,
                           imageUrl: productsList[index].imgCover ?? "");
@@ -174,7 +187,18 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
               case SearchError():
                 return CustomScrollView(slivers: [
                   SliverFillRemaining(
-                      child: ErrorStateWidget(error: state.error))
+                    child: Center(
+                      child: Text(
+                        ApiErrorHandler.getInstance().handle(state.error),
+                        style: GoogleFonts.inter(
+                          textStyle: theme.textTheme.titleSmall!.copyWith(
+                              fontSize:
+                                  16 * (screenWidth / Constants.designWidth),
+                              color: AppColors.mainColor),
+                        ),
+                      ),
+                    ),
+                  ),
                 ]);
             }
           },

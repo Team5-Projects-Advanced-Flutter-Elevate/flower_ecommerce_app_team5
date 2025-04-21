@@ -102,6 +102,9 @@
     "information": "المعلومات: ",
     "sold": "تم بيعه: {}",
     "rate": "التقييم: {}",
-    "rateCount": "عدد التقييمات: {}"
+    "rateCount": "عدد التقييمات: {}",
+
+      "//searchSection": "",
+      "searchForAnyProductYouWant": "ابحث عن منتج يناسبك"
 
   }

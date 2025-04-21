@@ -138,6 +138,7 @@ import '../../modules/occasion/domain/use_cases/occasion_usecase.dart' as _i41;
 import '../../modules/occasion/ui/occasion_cubit.dart' as _i855;
 import '../../modules/product_details/ui/view_model/product_details_view_model.dart'
     as _i902;
+import '../../modules/search/view_model/search_cubit.dart' as _i861;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -166,33 +167,33 @@ extension GetItInjectableX on _i174.GetIt {
     final storagesInitializer = _$StoragesInitializer();
     final bestSellerClientProvider = _$BestSellerClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
+    final editProfileApiClientProvider = _$EditProfileApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
     final occasionApiClientProvider = _$OccasionApiClientProvider();
-    final editProfileApiClientProvider = _$EditProfileApiClientProvider();
     final localeInitializer = _$LocaleInitializer();
     gh.factory<_i669.ApiManager>(() => _i669.ApiManager());
     await gh.factoryAsync<_i361.Dio>(
       () => dioService.provideDio(),
       preResolve: true,
     );
+    gh.factory<_i902.ProductDetailsViewModel>(
+        () => _i902.ProductDetailsViewModel());
     await gh.factoryAsync<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
-    gh.factory<_i902.ProductDetailsViewModel>(
-        () => _i902.ProductDetailsViewModel());
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i737.UploadImageApiClient>(
         () => _i737.UploadImageApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
+    gh.singleton<_i319.ProfileApiClient>(
+        () => editProfileApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.singleton<_i293.HomeApiClient>(
         () => homeApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i941.OccasionApiClient>(
         () => occasionApiClientProvider.apiClient(gh<_i361.Dio>()));
-    gh.singleton<_i319.ProfileApiClient>(
-        () => editProfileApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
@@ -226,14 +227,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
     gh.factory<_i871.RegisterOnlineDataSource>(
         () => _i219.RegisterOnlineDataSourceImpl(gh<_i343.AuthApiClient>()));
+    gh.factory<_i828.DeleteFromCartUseCase>(
+        () => _i828.DeleteFromCartUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i1019.GetAllProductsUseCase>(
         () => _i1019.GetAllProductsUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i369.GetCategoriesUseCase>(
         () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i386.GetOccasionsUseCase>(
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
-    gh.factory<_i828.DeleteFromCartUseCase>(
-        () => _i828.DeleteFromCartUseCase(gh<_i1003.HomeRepo>()));
+    gh.factory<_i861.SearchCubit>(
+        () => _i861.SearchCubit(gh<_i1019.GetAllProductsUseCase>()));
     gh.factory<_i90.GetHomeDataUseCase>(
         () => _i90.GetHomeDataUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
@@ -319,11 +322,11 @@ class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 
+class _$EditProfileApiClientProvider
+    extends _i28.EditProfileApiClientProvider {}
+
 class _$HomeApiClientProvider extends _i939.HomeApiClientProvider {}
 
 class _$OccasionApiClientProvider extends _i507.OccasionApiClientProvider {}
-
-class _$EditProfileApiClientProvider
-    extends _i28.EditProfileApiClientProvider {}
 
 class _$LocaleInitializer extends _i631.LocaleInitializer {}

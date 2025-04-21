@@ -10,6 +10,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_res
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../domain/entities/home_data_response_entity.dart';
 import '../datasource_contract/home_online_data_source.dart';
 import '../models/all_occasions_response/all_occasions_response.dart';
@@ -63,14 +64,13 @@ class HomeDataSourceImpl implements HomeDataSource {
 
   @override
   Future<ApiResult<AllProductResponseEntity>> getAllProduct(
-      {String? categoryId}) async {
-    var result = await ApiExecutor.executeApi(
-        () async => await _homeApiClient.getAllProduct(categoryId: categoryId));
+      {String? categoryId, String? searchKey, String? sortKey}) async {
+    var result = await ApiExecutor.executeApi(() async =>
+        await _homeApiClient.getAllProduct(
+            categoryId: categoryId, searchKey: searchKey, sortKey: sortKey));
     switch (result) {
       case Success<AllProductResponse>():
-        return Success(
-          data: result.data.convertIntoEntity()
-        );
+        return Success(data: result.data.convertIntoEntity());
       case Error<AllProductResponse>():
         return Error(error: result.error);
     }
