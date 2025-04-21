@@ -81,6 +81,7 @@ dependencies:
   path_provider: ^2.1.5
   http_parser: ^4.0.2
   device_info_plus: ^11.3.0
+  auto_size_text: ^3.0.0
 
 
 dev_dependencies:

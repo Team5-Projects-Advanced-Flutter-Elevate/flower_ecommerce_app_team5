@@ -71,6 +71,21 @@ import '../../modules/best_seller/domain/use_cases/best_seller/get_best_seller_p
     as _i502;
 import '../../modules/best_seller/ui/view_model/best_seller_view_model.dart'
     as _i460;
+import '../../modules/check_out/data/api/api_client/check_out_api_client.dart'
+    as _i363;
+import '../../modules/check_out/data/api/api_provider/check_out_api_client_provider.dart'
+    as _i97;
+import '../../modules/check_out/data/data_source_contract/chechout_data_souce_contract.dart'
+    as _i113;
+import '../../modules/check_out/data/data_source_impl/checkout_data_souce_impl.dart'
+    as _i455;
+import '../../modules/check_out/data/repo_impl/checkout_repo_impl.dart'
+    as _i868;
+import '../../modules/check_out/domain/repo_contract/checkout_repo_contract.dart'
+    as _i107;
+import '../../modules/check_out/domain/use_case/get_all_addresses_use_case.dart'
+    as _i297;
+import '../../modules/check_out/ui/view_model/check_out_cubit.dart' as _i82;
 import '../../modules/edit_profile/data/api/api_client/profile_api_client.dart'
     as _i319;
 import '../../modules/edit_profile/data/api/api_client/upload_image_api_client.dart'
@@ -165,36 +180,41 @@ extension GetItInjectableX on _i174.GetIt {
     final dioService = _$DioService();
     final storagesInitializer = _$StoragesInitializer();
     final bestSellerClientProvider = _$BestSellerClientProvider();
+    final checkOutApiClientProvider = _$CheckOutApiClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
+    final editProfileApiClientProvider = _$EditProfileApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
     final occasionApiClientProvider = _$OccasionApiClientProvider();
-    final editProfileApiClientProvider = _$EditProfileApiClientProvider();
     final localeInitializer = _$LocaleInitializer();
     gh.factory<_i669.ApiManager>(() => _i669.ApiManager());
     await gh.factoryAsync<_i361.Dio>(
       () => dioService.provideDio(),
       preResolve: true,
     );
+    gh.factory<_i902.ProductDetailsViewModel>(
+        () => _i902.ProductDetailsViewModel());
     await gh.factoryAsync<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
-    gh.factory<_i902.ProductDetailsViewModel>(
-        () => _i902.ProductDetailsViewModel());
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i363.CheckOutApiClient>(
+        () => checkOutApiClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i737.UploadImageApiClient>(
         () => _i737.UploadImageApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
+    gh.singleton<_i319.ProfileApiClient>(
+        () => editProfileApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.singleton<_i293.HomeApiClient>(
         () => homeApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i941.OccasionApiClient>(
         () => occasionApiClientProvider.apiClient(gh<_i361.Dio>()));
-    gh.singleton<_i319.ProfileApiClient>(
-        () => editProfileApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
+    gh.factory<_i113.CheckOutDataSource>(
+        () => _i455.CheckOutDataSourceImpl(gh<_i363.CheckOutApiClient>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
         () => _i701.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()));
     gh.factory<_i713.EditProfileOnlineDataSource>(
@@ -222,18 +242,22 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i182.ProfileRepoImpl(gh<_i713.EditProfileOnlineDataSource>()));
     gh.factory<_i319.OccasionRepo>(
         () => _i276.OccasionRepoImpl(gh<_i362.OccasionOnlineDataSource>()));
+    gh.factory<_i107.CheckOutRepo>(() => _i868.CheckOutRepoImpl(
+        checkOutDataSource: gh<_i113.CheckOutDataSource>()));
     gh.factory<_i1003.HomeRepo>(
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
     gh.factory<_i871.RegisterOnlineDataSource>(
         () => _i219.RegisterOnlineDataSourceImpl(gh<_i343.AuthApiClient>()));
+    gh.factory<_i828.DeleteFromCartUseCase>(
+        () => _i828.DeleteFromCartUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i1019.GetAllProductsUseCase>(
         () => _i1019.GetAllProductsUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i369.GetCategoriesUseCase>(
         () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i386.GetOccasionsUseCase>(
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
-    gh.factory<_i828.DeleteFromCartUseCase>(
-        () => _i828.DeleteFromCartUseCase(gh<_i1003.HomeRepo>()));
+    gh.factory<_i297.GetAllAddressesUseCase>(
+        () => _i297.GetAllAddressesUseCase(gh<_i107.CheckOutRepo>()));
     gh.factory<_i90.GetHomeDataUseCase>(
         () => _i90.GetHomeDataUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
@@ -259,6 +283,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
         ));
+    gh.factory<_i82.CheckOutCubit>(
+        () => _i82.CheckOutCubit(gh<_i297.GetAllAddressesUseCase>()));
     gh.factory<_i70.ChangePasswordUseCase>(
         () => _i70.ChangePasswordUseCase(gh<_i881.ProfileRepo>()));
     gh.factory<_i85.EditeProfileUseCase>(
@@ -317,13 +343,15 @@ class _$StoragesInitializer extends _i241.StoragesInitializer {}
 
 class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 
+class _$CheckOutApiClientProvider extends _i97.CheckOutApiClientProvider {}
+
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
+
+class _$EditProfileApiClientProvider
+    extends _i28.EditProfileApiClientProvider {}
 
 class _$HomeApiClientProvider extends _i939.HomeApiClientProvider {}
 
 class _$OccasionApiClientProvider extends _i507.OccasionApiClientProvider {}
-
-class _$EditProfileApiClientProvider
-    extends _i28.EditProfileApiClientProvider {}
 
 class _$LocaleInitializer extends _i631.LocaleInitializer {}
