@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
 import 'package:flutter/material.dart';
@@ -33,17 +34,15 @@ class ProfileViewModelCubit extends Cubit<ProfileState> {
     try {
       emit(ProfileLoading());
       var profileData = await loginUseCase.getStoredLoginInfo();
-      var name = profileData?.user?.firstName ?? 'Guest';
-      var email = profileData?.user?.email ?? 'Guest-User';
-      var id = profileData?.user?.sId ?? 'Guest';
-      var image = profileData?.user?.photo ?? 'Guest';
+      var name = profileData?.user?.firstName ?? Constants.guest;
+      var email = profileData?.user?.email ?? Constants.guestUserEmail;
+      var id = profileData?.user?.sId ?? Constants.guest;
+      var image = profileData?.user?.photo ?? Constants.guest;
       emit(ProfileDataSuccess(name, email, id, image));
     } catch (e) {
       emit(ProfileError(e.toString()));
     }
   }
-
-
 }
 
 sealed class ProfileOnIntent {}

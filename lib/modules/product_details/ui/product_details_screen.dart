@@ -2,12 +2,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
+import 'package:flower_ecommerce_app_team5/core/utilities/app_dialogs.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/view_model/product_details_intent.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/view_model/product_details_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/view_model/product_details_view_model.dart';
+import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,6 +49,8 @@ class _ProductDetailsScreenState
 
   @override
   Widget build(BuildContext context) {
+    bool isCurrentLocaleEnglish =
+        localizationManager.currentLocale == LanguagesEnum.en.getLanguageCode();
     return SafeArea(
       child: BlocProvider(
         create: (context) => productDetailsViewModel,
@@ -56,52 +64,44 @@ class _ProductDetailsScreenState
                       height: screenHeight * 0.5,
                       width: screenWidth,
                       child: BlocListener<CartCubit, CartState>(
-                        listenWhen: (previous, current) =>
-                        current.addToCartStatus != previous.addToCartStatus,
                         listener: (context, state) {
-                          if (state.addToCartStatus == AddToCartStatus.noAccess) {
-                            displayAlertDialog(
-                              title:  Text(
-                                LocaleKeys.pleaseLoginFirst.tr(),
-                              ),
-                              showOkButton: true,
-                              onOkButtonClick: () => Navigator.pushReplacementNamed(
-                                context,
-                                DefinedRoutes.loginScreenRoute,
-                              ),
-                            );
-                            return;
-                          }
                           switch (state.addToCartStatus) {
-                            case AddToCartStatus.loading:
-                              Future.delayed(Duration.zero, () {
-                                displayAlertDialog(
-                                  title: const LoadingWidget(),
-                                );
-                              });
-
-                            case AddToCartStatus.success:
-                              Future.delayed(Duration.zero, () {
-                                hideAlertDialog();
-                                AppDialogs.showMessage(
-                                  context,
-                                  message: LocaleKeys.addedToCartSuccessfully.tr(),
-                                  isSuccess: true,
-                                );
-                              });
-
-                            case AddToCartStatus.error:
-                              Future.delayed(Duration.zero, () {
-                                hideAlertDialog();
-                                AppDialogs.showMessage(
-                                  context,
-                                  message: LocaleKeys.soldOut.tr(),
-                                  isSuccess: false,
-                                );
-                              });
-
                             case AddToCartStatus.initial:
+                              break;
                             case AddToCartStatus.noAccess:
+                              hideAlertDialog();
+                              displayAlertDialog(
+                                title: Text(
+                                  LocaleKeys.pleaseLoginFirst.tr(),
+                                ),
+                                showOkButton: true,
+                                onOkButtonClick: () {
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    DefinedRoutes.loginScreenRoute,
+                                  );
+                                },
+                              );
+                              break;
+                            case AddToCartStatus.loading:
+                              displayAlertDialog(
+                                title: const LoadingWidget(),
+                              );
+                            case AddToCartStatus.success:
+                              hideAlertDialog();
+                              AppDialogs.showMessage(
+                                context,
+                                message:
+                                    LocaleKeys.addedToCartSuccessfully.tr(),
+                                isSuccess: true,
+                              );
+                            case AddToCartStatus.error:
+                              hideAlertDialog();
+                              AppDialogs.showMessage(
+                                context,
+                                message: LocaleKeys.soldOut.tr(),
+                                isSuccess: false,
+                              );
                           }
                         },
                         child: BlocBuilder<ProductDetailsViewModel,
@@ -296,7 +296,8 @@ class _ProductDetailsScreenState
               ),
               Positioned(
                 top: 16,
-                left: 16,
+                left: isCurrentLocaleEnglish ? 16 : null,
+                right: isCurrentLocaleEnglish ? null : 16,
                 child: Container(
                   width: 50,
                   decoration: BoxDecoration(
@@ -308,7 +309,9 @@ class _ProductDetailsScreenState
                     icon: const Icon(Icons.arrow_back_ios),
                     alignment: Alignment.center,
                     hoverColor: Colors.transparent,
-                    padding: const EdgeInsets.only(left: 8),
+                    padding: isCurrentLocaleEnglish
+                        ? const EdgeInsets.only(left: 8)
+                        : const EdgeInsets.only(right: 8),
                   ),
                 ),
               ),

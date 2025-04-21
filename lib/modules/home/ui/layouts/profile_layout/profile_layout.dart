@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
+import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
+import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
@@ -21,7 +24,6 @@ class ProfileLayout extends StatefulWidget {
 
 class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
   bool isNotificationOn = true;
-  LanguagesEnum _currentLanguage = LanguagesEnum.en;
   late ProfileViewModelCubit viewModel;
 
   @override
@@ -47,8 +49,8 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        const Image(
-                          image: AssetImage('assets/icons/Logo.png'),
+                        Image(
+                          image: AssetImage(AssetsPaths.logo),
                           width: 89,
                           height: 25,
                         ),
@@ -64,10 +66,17 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     ),
                     Center(
                       child: CircleAvatar(
-                        backgroundImage: state.photo == 'Guest'
-                            ? const AssetImage('assets/icons/profile_icon.png')
+                        backgroundImage: state.photo == Constants.guest
+                            ? null
                             : CachedNetworkImageProvider(state.photo),
                         radius: 70,
+                        child:
+                            state.photo == '' || state.photo == Constants.guest
+                                ? const Icon(
+                                    Icons.person,
+                                    size: 50,
+                                  )
+                                : null,
                       ),
                     ),
                     Row(
@@ -79,7 +88,15 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                         ),
                         GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, DefinedRoutes.editProfileScreenRoute);
+                              Navigator.pushNamed<bool>(context,
+                                      DefinedRoutes.editProfileScreenRoute)
+                                  .then(
+                                (value) {
+                                  if (value == true) {
+                                    viewModel.processIntent(LoadProfile());
+                                  }
+                                },
+                              );
                             },
                             child: Icon(
                               Icons.edit,
@@ -135,20 +152,19 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     ),
                     ListTile(
                       title: Text(LocaleKeys.language.tr()),
-                      leading: const Image(
-                          image: AssetImage('assets/icons/LanguageIcon.png')),
+                      onTap: () {
+                        var newLocale = localizationManager.currentLocale ==
+                                LanguagesEnum.en.getLanguageCode()
+                            ? LanguagesEnum.ar.getLanguageCode()
+                            : LanguagesEnum.en.getLanguageCode();
+                        localizationManager.changeLocal(newLocale);
+                      },
+                      leading:
+                          Image(image: AssetImage(AssetsPaths.languageIcon)),
                       trailing: GestureDetector(
                           onTap: () {
-                            setState(() {
-                              if (_currentLanguage == LanguagesEnum.en) {
-                                _currentLanguage = LanguagesEnum.ar;
-                              } else {
-                                _currentLanguage = LanguagesEnum.en;
-                              }
-                            });
-
-                            context.setLocale(
-                                Locale(_currentLanguage.getLanguageCode()));
+                            // context.setLocale(
+                            //     Locale(_currentLanguage.getLanguageCode()));
                           },
                           child: Text(
                             LocaleKeys.languageKey.tr(),
@@ -203,7 +219,7 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
               ),
             );
           } else if (state is ProfileError) {
-            return Center(child: Text("Error: ${state.error}"));
+            return ErrorStateWidget(error: state.error);
           }
           return const SizedBox();
         },

@@ -24,7 +24,7 @@ class _ProfileApiClient implements ProfileApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<EditProfileResponse> editeProfile(
+  Future<EditProfileResponse> editProfile(
       EditProfileInputModel editProfileInputModel) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

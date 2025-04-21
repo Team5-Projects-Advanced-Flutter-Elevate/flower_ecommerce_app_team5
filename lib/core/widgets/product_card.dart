@@ -6,9 +6,11 @@ import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import '../../modules/home/data/models/cart_response/add_to_cart_request.dart';
 
@@ -36,6 +38,7 @@ class ProductCard extends BaseStatelessWidget {
 
   @override
   Widget customBuild(BuildContext context, inherit) {
+    HomeScreenViewModel homeScreenViewModel = Provider.of(context);
     return InkWell(
       onTap: onProductCardClick,
       splashColor: Colors.transparent,
@@ -69,8 +72,8 @@ class ProductCard extends BaseStatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: inherit.theme.textTheme.labelSmall!.copyWith(
                             fontWeight: FontWeight.normal,
-                            fontSize:
-                                12 * (inherit.screenWidth / Constants.designWidth)),
+                            fontSize: 12 *
+                                (inherit.screenWidth / Constants.designWidth)),
                       ),
                       SizedBox(
                         height: inherit.screenHeight * 0.001,
@@ -82,23 +85,28 @@ class ProductCard extends BaseStatelessWidget {
                             priceAfterDiscountIfExist != null
                                 ? "EGP ${priceAfterDiscountIfExist!}"
                                 : "EGP $price",
-                            style: inherit.theme.textTheme.labelMedium!.copyWith(
-                                fontWeight: FontWeight.w600,
-                                fontSize:
-                                    14 * (inherit.screenWidth / Constants.designWidth)),
+                            style: inherit.theme.textTheme.labelMedium!
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14 *
+                                        (inherit.screenWidth /
+                                            Constants.designWidth)),
                           ),
                           Text(
                             priceAfterDiscountIfExist != null ? "$price" : "",
                             style: inherit.theme.textTheme.labelSmall!.copyWith(
-                                fontSize:
-                                    12 * (inherit.screenWidth / Constants.designWidth),
+                                fontSize: 12 *
+                                    (inherit.screenWidth /
+                                        Constants.designWidth),
                                 fontWeight: FontWeight.w400,
                                 decoration: TextDecoration.lineThrough),
                           ),
                           Text(getPercentageOfDiscount(),
-                              style: inherit.theme.textTheme.labelSmall!.copyWith(
-                                fontSize:
-                                    12 * (inherit.screenWidth / Constants.designWidth),
+                              style:
+                                  inherit.theme.textTheme.labelSmall!.copyWith(
+                                fontSize: 12 *
+                                    (inherit.screenWidth /
+                                        Constants.designWidth),
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.green,
                               ))
@@ -111,7 +119,8 @@ class ProductCard extends BaseStatelessWidget {
                         flex: 15,
                         child: FilledButton(
                             onPressed: () {
-                              getIt<CartCubit>().doIntent(
+                              homeScreenViewModel.selectedAppSectionIndex =
+                                      0;getIt<CartCubit>().doIntent(
                                 AddToCartIntent(
                                   request: AddToCartRequest(
                                     product: id,

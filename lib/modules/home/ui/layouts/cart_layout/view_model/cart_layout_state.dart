@@ -9,6 +9,8 @@ enum CartStatus {
   noAccess,
 }
 
+enum UserLoginStatus { loggedIn, guest }
+
 enum CounterStatus {
   increment,
   decrement,
@@ -29,8 +31,10 @@ enum DeleteFromCartStatus {
   error,
 }
 
+// ignore: must_be_immutable
 class CartState extends Equatable {
   final CartStatus status;
+  final UserLoginStatus userLoginStatus;
   final Object? error;
   final CartResponseEntity? cartResponseEntity;
   final CounterStatus? counterStatus;
@@ -39,18 +43,19 @@ class CartState extends Equatable {
 
   int totalPrice;
 
-  CartState({
-    this.status = CartStatus.initial,
-    this.error,
-    this.cartResponseEntity,
-    this.totalPrice = 0,
-    this.counterStatus,
-    this.addToCartStatus = AddToCartStatus.initial,
-    this.deleteFromCartStatus = DeleteFromCartStatus.initial,
-  });
+  CartState(
+      {this.status = CartStatus.initial,
+      this.error,
+      this.cartResponseEntity,
+      this.totalPrice = 0,
+      this.counterStatus,
+      this.addToCartStatus = AddToCartStatus.initial,
+      this.deleteFromCartStatus = DeleteFromCartStatus.initial,
+      this.userLoginStatus = UserLoginStatus.loggedIn});
 
   CartState copyWith({
     CartStatus? state,
+    UserLoginStatus? userLoginStatus,
     Object? error,
     CartResponseEntity? cartResponseEntity,
     int? totalPrice,
@@ -60,6 +65,7 @@ class CartState extends Equatable {
   }) {
     return CartState(
       status: state ?? status,
+      userLoginStatus: userLoginStatus ?? this.userLoginStatus,
       error: error ?? this.error,
       cartResponseEntity: cartResponseEntity ?? this.cartResponseEntity,
       totalPrice: totalPrice ?? this.totalPrice,
@@ -78,5 +84,6 @@ class CartState extends Equatable {
         counterStatus,
         addToCartStatus,
         deleteFromCartStatus,
+        userLoginStatus
       ];
 }

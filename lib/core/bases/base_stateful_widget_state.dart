@@ -15,6 +15,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
   late LocalizationManager localizationManager;
   late ValidateFunctions validateFunctions;
 
+  // This will always point to the correct context
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -27,6 +28,22 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
         setLocaleOfEasyLocalization;
     validateFunctions = ValidateFunctions.getInstance();
   }
+
+  // Current fresh context with runtime check
+  BuildContext get safeContext {
+    try {
+      // This will throw if context is inaccessible
+      final ctx = context;
+      // Verify we can use it
+      if (ctx.mounted) { // Additional safety check
+        return ctx;
+      }
+    } catch (_) {}
+
+    // Fallback: Find the nearest context from the root
+    return getIt.get<GlobalKey<NavigatorState>>().currentContext!;
+  }
+
 
   Future<void> displayAlertDialog(
       {required Widget title,
@@ -74,8 +91,8 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
     Navigator.of(context).pop();
   }
 
-  Future<void> setLocaleOfEasyLocalization(String newLocale) {
-    if (!mounted) return Future.value();
-    return context.setLocale(Locale(newLocale));
+  Future<void> setLocaleOfEasyLocalization(String newLocale) async {
+    if (!safeContext.mounted) return Future.value();
+    return safeContext.setLocale(Locale(newLocale));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_inherited_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
@@ -8,6 +9,8 @@ import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/payment/ui/checkout_session_screen.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/constants/l10n_constants.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/l10n_manager/localization_manager.dart';
@@ -25,9 +28,22 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   await configureDependencies();
-  storedLoginInfo = await getIt.get<LoginUseCase>().getStoredLoginInfo();
-  DioServiceExtension.updateDioWithToken(storedLoginInfo?.token ?? '');
+  final loginUseCase = getIt.get<LoginUseCase>();
+  final rememberValue = await loginUseCase.getCachedRememberValue();
+  if (!rememberValue) {
+    await loginUseCase.deleteLoginInfo();
+    await loginUseCase.deleteCachedRememberValue();
+  } else {
+    storedLoginInfo = await loginUseCase.getStoredLoginInfo();
+    DioServiceExtension.updateDioWithToken(storedLoginInfo?.token ?? '');
+  }
   LocalizationManager localizationManager = getIt.get<LocalizationManager>();
+  // registering NavigatorState globalKey that will be given for MaterialApp()
+  getIt.registerLazySingleton<GlobalKey<NavigatorState>>(
+    () {
+      return GlobalKey<NavigatorState>();
+    },
+  );
   runApp(BlocProvider(
     create: (context) => getIt<CartCubit>(),
     child: MultiProvider(
@@ -60,7 +76,7 @@ class MyApp extends StatelessWidget {
     return Consumer<LocalizationManager>(
       builder: (context, localizationManager, child) {
         return BaseInheritedWidget(
-          theme: Theme.of(context),
+          theme: AppThemes.lightTheme,
           screenWidth: MediaQuery.of(context).size.width,
           screenHeight: MediaQuery.of(context).size.height,
           easyLocalization: EasyLocalization.of(context)!,
@@ -68,17 +84,25 @@ class MyApp extends StatelessWidget {
           validateFunctions: ValidateFunctions.getInstance(),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
+            navigatorKey: getIt.get<GlobalKey<NavigatorState>>(),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             theme: AppThemes.lightTheme,
             themeMode: ThemeMode.light,
             onGenerateRoute: GenerateRoute.onGenerateRoute,
-            onGenerateInitialRoutes: (initialRoute) =>
-                GenerateRoute.onGenerateInitialRoutes(
-                    initialRoute: initialRoute, loginInfo: storedLoginInfo),
-            //initialRoute: DefinedRoutes.bestSellerScreenRoute,
-            // home: const OcassionListScreen(),
+            // onGenerateInitialRoutes: (initialRoute) =>
+            //     GenerateRoute.onGenerateInitialRoutes(
+            //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
+            // initialRoute: DefinedRoutes.checkoutSessionScreenRoute,
+            home: CheckoutSessionScreen(
+                paymentRequestParameters: PaymentRequestParametersEntity(
+                    shippingAddress: ShippingAddressEntity(
+                        street: "details",
+                        phone: '01010700999',
+                        city: "Cairo",
+                        lat: "String",
+                        long: "String"))),
             // onGenerateRoute: GenerateRoute.onGenerateRoute,
             // onGenerateInitialRoutes: (initialRoute) =>
             //     GenerateRoute.onGenerateInitialRoutes(
