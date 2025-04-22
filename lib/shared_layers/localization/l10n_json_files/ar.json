@@ -117,6 +117,9 @@
       "changePasswordConfirmPasswordLabel": "تأكيد كلمة المرور",
       "changePasswordConfirmPasswordHint": "أكد كلمة المرور الجديدة",
       "changePasswordUpdateButton": "تحديث",
-      "passwordChangedSuccessfully": "تم تغيير كلمة المرور بنجاح!"
-
+      "passwordChangedSuccessfully": "تم تغيير كلمة المرور بنجاح!",
+      "//payment": "",
+      "flowery": "Flowery",
+      "successfulPayment": "عملية دفع ناجحة!",
+      "canceledPayment": "تم إلغاء عملية الدفع!"
   }
