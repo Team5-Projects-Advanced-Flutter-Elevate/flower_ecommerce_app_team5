@@ -37,9 +37,6 @@ void main() async {
     storedLoginInfo = await loginUseCase.getStoredLoginInfo();
     DioServiceExtension.updateDioWithToken(storedLoginInfo?.token ?? '');
   }
-  DioServiceExtension.updateDioWithToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdlMzE0NjA4MzZlZThiZTcwNjJlM2RiIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDUzNDkyNTZ9.6_oWPtj1vRF3V9EV4gldBPLY1X5Xbgt72-UCjzXwfjU" ??
-          '');
   LocalizationManager localizationManager = getIt.get<LocalizationManager>();
   // registering NavigatorState globalKey that will be given for MaterialApp()
   getIt.registerLazySingleton<GlobalKey<NavigatorState>>(
