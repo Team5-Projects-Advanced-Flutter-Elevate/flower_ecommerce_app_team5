@@ -104,7 +104,6 @@ class LocaleKeys {
   static const String change = 'change';
   static const String update = 'update';
 
-
   // Product
   static const String egp = 'egp';
   static const String status = 'status';
@@ -132,6 +131,9 @@ class LocaleKeys {
   static const String changePasswordConfirmPasswordHint =
       'changePasswordConfirmPasswordHint';
   static const String changePasswordUpdateButton = 'changePasswordUpdateButton';
-  static const String passwordChangedSuccessfully = 'passwordChangedSuccessfully';
+  static const String passwordChangedSuccessfully =
+      'passwordChangedSuccessfully';
   static const String flowery = "flowery";
+  static const String successfulPayment = "successfulPayment";
+  static const String canceledPayment = "canceledPayment";
 }

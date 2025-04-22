@@ -117,5 +117,7 @@
   "changePasswordUpdateButton": "Update",
   "passwordChangedSuccessfully": "Password Changed Successfully!",
   "//payment": "",
-  "flowery": "Flowery"
+  "flowery": "Flowery",
+  "successfulPayment": "Successful Payment Operation!",
+  "canceledPayment": "Payment Operation Has Been Canceled!"
 }
