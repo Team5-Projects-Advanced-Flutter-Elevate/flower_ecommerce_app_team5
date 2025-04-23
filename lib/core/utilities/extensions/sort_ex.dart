@@ -3,7 +3,8 @@ enum Sort {
   oldProduct('Old Product', '-createdAt'),
   lowPrice('Low Price', 'priceAfterDiscount'),
   highPrice('High Price', '-priceAfterDiscount'),
-  discount('Discount', 'Discount');
+  alphaAZ('Name (A-Z)', 'title'),
+  alphaZA('Name (Z-A)', '-title');
 
   const Sort(this.title, this.value);
   final String title;
