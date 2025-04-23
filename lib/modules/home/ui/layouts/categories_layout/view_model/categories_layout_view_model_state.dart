@@ -34,6 +34,10 @@ final class CategoriesLayoutViewModelError
 final class CategoriesViewModelTabBarChanged
     extends CategoriesLayoutViewModelState {
   @override
-  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+final class ChangeFilterRadioButton extends CategoriesLayoutViewModelState {
+  @override
   List<Object?> get props => [];
 }

@@ -2,10 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/apis_endpoints/apis_endpoints.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_gategories_reponse/all_categories_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_occasions_response/all_occasions_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/cart_response_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
 import 'package:retrofit/retrofit.dart';
+
 import '../../models/cart_response/add_to_cart_request.dart';
 
 part 'home_api_client.g.dart';
@@ -25,7 +26,9 @@ abstract class HomeApiClient {
 
   @GET(ApisEndpoints.getProducts)
   Future<AllProductResponse> getAllProduct(
-      {@Query("category") String? categoryId});
+      {@Query("category") String? categoryId,
+      @Query("keyword") String? searchKey,
+      @Query("sort") String? sortKey});
 
   @GET(ApisEndpoints.getCartItems)
   Future<CartResponse> getCartItems();
