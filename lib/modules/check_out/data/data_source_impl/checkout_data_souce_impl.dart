@@ -1,8 +1,6 @@
 import 'package:flower_ecommerce_app_team5/core/apis/api_executor/api_executor.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/data/api/api_client/check_out_api_client.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/data/models/address_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/data/models/address_response.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_response_entity.dart';
 import 'package:injectable/injectable.dart';
 

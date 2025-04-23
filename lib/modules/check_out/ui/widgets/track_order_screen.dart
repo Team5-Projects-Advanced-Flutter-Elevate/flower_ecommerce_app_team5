@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/bases/base_inherited_widget.dart';
 import '../../../../core/bases/base_statless_widget.dart';
 import '../../../../shared_layers/localization/generated/locale_keys.g.dart';

@@ -33,6 +33,12 @@ enum SelectedPaymentMethod {
   online,
 }
 
+extension SelectedPaymentMethodExtension on SelectedPaymentMethod {
+  String get value =>
+      this == SelectedPaymentMethod.cod ? 'Cash on delivery' : 'Credit card';
+}
+
+// ignore: must_be_immutable
 class CheckOutState extends Equatable {
   final CheckOutStatus status;
   final MakeCashOnDeliveryStatus makeCashOnDeliveryStatus;

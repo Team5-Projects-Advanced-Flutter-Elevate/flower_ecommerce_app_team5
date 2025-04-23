@@ -19,11 +19,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../core/routing/defined_routes.dart';
-import '../../../core/utilities/app_dialogs.dart';
-import '../../home/data/models/cart_response/add_to_cart_request.dart';
-import '../../home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
-import '../../home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final ProductEntity productEntity;

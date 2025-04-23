@@ -1,4 +1,3 @@
-import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
@@ -9,14 +8,11 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_res
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/ui/checkout_session_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../modules/check_out/ui/check_out_view.dart';
 import '../../modules/edit_profile/ui/change_password_screen.dart';
 
@@ -32,8 +28,7 @@ class GenerateRoute {
       case DefinedRoutes.loginScreenRoute:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
       case DefinedRoutes.homeScreenRoute:
-        return MaterialPageRoute(
-            builder: (context) => const HomeScreen());
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
       case DefinedRoutes.bestSellerScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const BestSellerScreen(),
