@@ -1,4 +1,6 @@
-class CheckoutResponseEntity {
+import 'package:equatable/equatable.dart';
+
+class CheckoutResponseEntity extends Equatable {
   CheckoutResponseEntity({
     this.message,
     this.session,
@@ -6,9 +8,12 @@ class CheckoutResponseEntity {
 
   String? message;
   SessionEntity? session;
+
+  @override
+  List<Object?> get props => [message, session];
 }
 
-class SessionEntity {
+class SessionEntity extends Equatable {
   SessionEntity({
     this.id,
     this.object,
@@ -38,7 +43,7 @@ class SessionEntity {
     this.expiresAt,
     this.invoice,
     this.invoiceCreation,
-    this.livemode,
+    this.liveMode,
     this.locale,
     this.metadata,
     this.mode,
@@ -96,7 +101,7 @@ class SessionEntity {
   num? expiresAt;
   dynamic invoice;
   InvoiceCreationEntity? invoiceCreation;
-  bool? livemode;
+  bool? liveMode;
   dynamic locale;
   AddressInfoEntity? metadata;
   String? mode;
@@ -124,9 +129,68 @@ class SessionEntity {
   String? uiMode;
   String? url;
   dynamic walletOptions;
+  @override
+  List<Object?> get props => [
+        id,
+        object,
+        adaptivePricing,
+        afterExpiration,
+        allowPromotionCodes,
+        amountSubtotal,
+        amountTotal,
+        automaticTax,
+        billingAddressCollection,
+        cancelUrl,
+        clientReferenceId,
+        clientSecret,
+        collectedInformation,
+        consent,
+        consentCollection,
+        created,
+        currency,
+        currencyConversion,
+        customFields,
+        customText,
+        customer,
+        customerCreation,
+        customerDetails,
+        customerEmail,
+        discounts,
+        expiresAt,
+        invoice,
+        invoiceCreation,
+        liveMode,
+        locale,
+        metadata,
+        mode,
+        paymentIntent,
+        paymentLink,
+        paymentMethodCollection,
+        paymentMethodConfigurationDetails,
+        paymentMethodOptions,
+        paymentMethodTypes,
+        paymentStatus,
+        permissions,
+        phoneNumberCollection,
+        recoveredFrom,
+        savedPaymentMethodOptions,
+        setupIntent,
+        shippingAddressCollection,
+        shippingCost,
+        shippingDetails,
+        shippingOptions,
+        status,
+        submitType,
+        subscription,
+        successUrl,
+        totalDetails,
+        uiMode,
+        url,
+        walletOptions,
+      ];
 }
 
-class TotalDetailsEntity {
+class TotalDetailsEntity extends Equatable {
   TotalDetailsEntity({
     this.amountDiscount,
     this.amountShipping,
@@ -136,33 +200,48 @@ class TotalDetailsEntity {
   num? amountDiscount;
   num? amountShipping;
   num? amountTax;
+
+  @override
+  List<Object?> get props => [
+        amountDiscount,
+        amountShipping,
+        amountTax,
+      ];
 }
 
-class PhoneNumberCollectionEntity {
+class PhoneNumberCollectionEntity extends Equatable {
   PhoneNumberCollectionEntity({
     this.enabled,
   });
 
   bool? enabled;
+  @override
+  List<Object?> get props => [enabled];
 }
 
-class PaymentMethodOptionsEntity {
+class PaymentMethodOptionsEntity extends Equatable {
   PaymentMethodOptionsEntity({
     this.card,
   });
 
   CardEntity? card;
+
+  @override
+  List<Object?> get props => [card];
 }
 
-class CardEntity {
+class CardEntity extends Equatable {
   CardEntity({
     this.requestThreeDSecure,
   });
 
   String? requestThreeDSecure;
+
+  @override
+  List<Object?> get props => [requestThreeDSecure];
 }
 
-class PaymentMethodConfigurationDetailsEntity {
+class PaymentMethodConfigurationDetailsEntity extends Equatable {
   PaymentMethodConfigurationDetailsEntity({
     this.id,
     this.parent,
@@ -170,9 +249,12 @@ class PaymentMethodConfigurationDetailsEntity {
 
   String? id;
   dynamic parent;
+
+  @override
+  List<Object?> get props => [id, parent];
 }
 
-class AddressInfoEntity {
+class AddressInfoEntity extends Equatable {
   AddressInfoEntity({
     this.city,
     this.lat,
@@ -186,9 +268,18 @@ class AddressInfoEntity {
   String? long;
   String? phone;
   String? street;
+
+  @override
+  List<Object?> get props => [
+        city,
+        lat,
+        long,
+        phone,
+        street,
+      ];
 }
 
-class InvoiceCreationEntity {
+class InvoiceCreationEntity extends Equatable{
   InvoiceCreationEntity({
     this.enabled,
     this.invoiceData,
@@ -196,9 +287,12 @@ class InvoiceCreationEntity {
 
   bool? enabled;
   InvoiceDataEntity? invoiceData;
+
+  @override
+  List<Object?> get props => [enabled,invoiceData];
 }
 
-class InvoiceDataEntity {
+class InvoiceDataEntity extends Equatable{
   InvoiceDataEntity({
     this.accountTaxIds,
     this.customFields,
@@ -216,9 +310,20 @@ class InvoiceDataEntity {
   dynamic issuer;
   dynamic metadata;
   dynamic renderingOptions;
+
+  @override
+  List<Object?> get props => [
+    accountTaxIds,
+    customFields,
+    description,
+    footer,
+    issuer,
+    metadata,
+    renderingOptions
+  ];
 }
 
-class CustomerDetailsEntity {
+class CustomerDetailsEntity extends Equatable{
   CustomerDetailsEntity({
     this.address,
     this.email,
@@ -234,9 +339,12 @@ class CustomerDetailsEntity {
   dynamic phone;
   String? taxExempt;
   dynamic taxIds;
+
+  @override
+  List<Object?> get props => [address, email, name, phone, taxExempt, taxIds];
 }
 
-class CustomTextEntity {
+class CustomTextEntity extends Equatable{
   CustomTextEntity({
     this.afterSubmit,
     this.shippingAddress,
@@ -248,17 +356,24 @@ class CustomTextEntity {
   dynamic shippingAddress;
   dynamic submit;
   dynamic termsOfServiceAcceptance;
+
+  @override
+  List<Object?> get props =>
+      [afterSubmit, shippingAddress, submit, termsOfServiceAcceptance];
 }
 
-class CollectedInformationEntity {
+class CollectedInformationEntity extends Equatable{
   CollectedInformationEntity({
     this.shippingDetails,
   });
 
   dynamic shippingDetails;
+
+  @override
+  List<Object?> get props => [shippingDetails];
 }
 
-class AutomaticTaxEntity {
+class AutomaticTaxEntity extends Equatable {
   AutomaticTaxEntity({
     this.enabled,
     this.liability,
@@ -270,12 +385,18 @@ class AutomaticTaxEntity {
   dynamic liability;
   dynamic provider;
   dynamic status;
+
+  @override
+  List<Object?> get props => [enabled, liability, provider, status];
 }
 
-class AdaptivePricingEntity {
+class AdaptivePricingEntity extends Equatable{
   AdaptivePricingEntity({
     this.enabled,
   });
 
   bool? enabled;
+
+  @override
+  List<Object?> get props => [enabled];
 }

@@ -1,4 +1,4 @@
-
+import 'package:equatable/equatable.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/checkout_session_response/checkout_response_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'checkout_response_dto.g.dart';
@@ -7,7 +7,7 @@ part 'checkout_response_dto.g.dart';
 /// session : {"id":"cs_test_a1nGElwRVMJbfLVHSP1GnYH47Tbj1s0Aboyk2o8ctPAKAg2Lb9PXyIHb9x","object":"checkout.session","adaptive_pricing":{"enabled":true},"after_expiration":null,"allow_promotion_codes":null,"amount_subtotal":22000,"amount_total":22000,"automatic_tax":{"enabled":false,"liability":null,"provider":null,"status":null},"billing_address_collection":null,"cancel_url":"http://localhost:3000/cart","client_reference_id":"6804f8bda9832d8359e54bfa","client_secret":null,"collected_information":{"shipping_details":null},"consent":null,"consent_collection":null,"created":1745156304,"currency":"egp","currency_conversion":null,"custom_fields":[],"custom_text":{"after_submit":null,"shipping_address":null,"submit":null,"terms_of_service_acceptance":null},"customer":null,"customer_creation":"if_required","customer_details":{"address":null,"email":"klilmohammed9@gmail.com","name":null,"phone":null,"tax_exempt":"none","tax_ids":null},"customer_email":"klilmohammed9@gmail.com","discounts":[],"expires_at":1745242704,"invoice":null,"invoice_creation":{"enabled":false,"invoice_data":{"account_tax_ids":null,"custom_fields":null,"description":null,"footer":null,"issuer":null,"metadata":{},"rendering_options":null}},"livemode":false,"locale":null,"metadata":{"city":"Cairo","lat":"String","long":"String","phone":"01010700999","street":"details"},"mode":"payment","payment_intent":null,"payment_link":null,"payment_method_collection":"if_required","payment_method_configuration_details":{"id":"pmc_1MphffE0S7VoKZmPNNp2G77I","parent":null},"payment_method_options":{"card":{"request_three_d_secure":"automatic"}},"payment_method_types":["card","link"],"payment_status":"unpaid","permissions":null,"phone_number_collection":{"enabled":false},"recovered_from":null,"saved_payment_method_options":null,"setup_intent":null,"shipping_address_collection":null,"shipping_cost":null,"shipping_details":null,"shipping_options":[],"status":"open","submit_type":null,"subscription":null,"success_url":"http://localhost:3000/allOrders","total_details":{"amount_discount":0,"amount_shipping":0,"amount_tax":0},"ui_mode":"hosted","url":"https://checkout.stripe.com/c/pay/cs_test_a1nGElwRVMJbfLVHSP1GnYH47Tbj1s0Aboyk2o8ctPAKAg2Lb9PXyIHb9x#fidkdWxOYHwnPyd1blpxYHZxWjA0SHViYl1ANVYyU2pOX2hVVW9ASmZBUElpa2FLVnBUQGo2UFduUEhIXHx9aEhjanBGZ1NxZ3RKNVVtXWxcSTJ8Qzx2aWZkUEBpMXJCXVRHTkIxZzBSZmhENTUxYHVKMUpQVycpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl","wallet_options":null}
 
 @JsonSerializable(createToJson: false)
-class CheckoutResponseDto {
+class CheckoutResponseDto extends Equatable {
   CheckoutResponseDto({
     this.message,
     this.session,
@@ -21,6 +21,9 @@ class CheckoutResponseDto {
     return CheckoutResponseEntity(
         message: message, session: session?.convertIntoEntity());
   }
+
+  @override
+  List<Object?> get props => [message, session];
 }
 
 /// id : "cs_test_a1nGElwRVMJbfLVHSP1GnYH47Tbj1s0Aboyk2o8ctPAKAg2Lb9PXyIHb9x"
@@ -81,7 +84,7 @@ class CheckoutResponseDto {
 /// wallet_options : null
 
 @JsonSerializable(createToJson: false)
-class SessionDto {
+class SessionDto extends Equatable {
   SessionDto({
     this.id,
     this.object,
@@ -271,7 +274,7 @@ class SessionDto {
         expiresAt: expiresAt,
         invoice: invoice,
         invoiceCreation: invoiceCreation?.convertIntoEntity(),
-        livemode: liveMode,
+        liveMode: liveMode,
         locale: locale,
         mode: mode,
         object: object,
@@ -301,13 +304,73 @@ class SessionDto {
         url: url,
         walletOptions: walletOptions);
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        object,
+        adaptivePricing,
+        afterExpiration,
+        allowPromotionCodes,
+        amountSubtotal,
+        amountTotal,
+        automaticTax,
+        billingAddressCollection,
+        cancelUrl,
+        clientReferenceId,
+        clientSecret,
+        collectedInformation,
+        consent,
+        consentCollection,
+        created,
+        currency,
+        currencyConversion,
+        customFields,
+        customText,
+        customer,
+        customerCreation,
+        customerDetails,
+        customerEmail,
+        discounts,
+        expiresAt,
+        invoice,
+        invoiceCreation,
+        liveMode,
+        locale,
+        metadata,
+        mode,
+        paymentIntent,
+        paymentLink,
+        paymentMethodCollection,
+        paymentMethodConfigurationDetails,
+        paymentMethodOptions,
+        paymentMethodTypes,
+        paymentStatus,
+        permissions,
+        phoneNumberCollection,
+        recoveredFrom,
+        savedPaymentMethodOptions,
+        setupIntent,
+        shippingAddressCollection,
+        shippingCost,
+        shippingDetails,
+        shippingOptions,
+        status,
+        submitType,
+        subscription,
+        successUrl,
+        totalDetails,
+        uiMode,
+        url,
+        walletOptions,
+      ];
 }
 
 /// amount_discount : 0
 /// amount_shipping : 0
 /// amount_tax : 0
 @JsonSerializable(createToJson: false)
-class TotalDetailsDto {
+class TotalDetailsDto extends Equatable {
   TotalDetailsDto({
     this.amountDiscount,
     this.amountShipping,
@@ -328,11 +391,18 @@ class TotalDetailsDto {
         amountShipping: amountShipping,
         amountTax: amountTax);
   }
+
+  @override
+  List<Object?> get props => [
+        amountDiscount,
+        amountShipping,
+        amountTax,
+      ];
 }
 
 /// enabled : false
 @JsonSerializable(createToJson: false)
-class PhoneNumberCollectionDto {
+class PhoneNumberCollectionDto extends Equatable {
   PhoneNumberCollectionDto({
     this.enabled,
   });
@@ -343,11 +413,14 @@ class PhoneNumberCollectionDto {
   PhoneNumberCollectionEntity convertIntoEntity() {
     return PhoneNumberCollectionEntity(enabled: enabled);
   }
+
+  @override
+  List<Object?> get props => [enabled];
 }
 
 /// card : {"request_three_d_secure":"automatic"}
 @JsonSerializable(createToJson: false)
-class PaymentMethodOptionsDto {
+class PaymentMethodOptionsDto extends Equatable {
   PaymentMethodOptionsDto({
     this.card,
   });
@@ -358,11 +431,14 @@ class PaymentMethodOptionsDto {
   PaymentMethodOptionsEntity convertIntoEntity() {
     return PaymentMethodOptionsEntity(card: card?.convertIntoEntity());
   }
+
+  @override
+  List<Object?> get props => [card];
 }
 
 /// request_three_d_secure : "automatic"
 @JsonSerializable(createToJson: false)
-class CardDto {
+class CardDto extends Equatable {
   CardDto({
     this.requestThreeDSecure,
   });
@@ -373,12 +449,15 @@ class CardDto {
   CardEntity convertIntoEntity() {
     return CardEntity(requestThreeDSecure: requestThreeDSecure);
   }
+
+  @override
+  List<Object?> get props => [requestThreeDSecure];
 }
 
 /// id : "pmc_1MphffE0S7VoKZmPNNp2G77I"
 /// parent : null
 @JsonSerializable(createToJson: false)
-class PaymentMethodConfigurationDetailsDto {
+class PaymentMethodConfigurationDetailsDto extends Equatable {
   PaymentMethodConfigurationDetailsDto({
     this.id,
     this.parent,
@@ -391,6 +470,9 @@ class PaymentMethodConfigurationDetailsDto {
   PaymentMethodConfigurationDetailsEntity convertIntoEntity() {
     return PaymentMethodConfigurationDetailsEntity(id: id, parent: parent);
   }
+
+  @override
+  List<Object?> get props => [id, parent];
 }
 
 /// city : "Cairo"
@@ -399,7 +481,7 @@ class PaymentMethodConfigurationDetailsDto {
 /// phone : "01010700999"
 /// street : "details"
 @JsonSerializable(createToJson: false)
-class AddressInfoDto {
+class AddressInfoDto extends Equatable {
   AddressInfoDto({
     this.city,
     this.lat,
@@ -419,12 +501,21 @@ class AddressInfoDto {
     return AddressInfoEntity(
         city: city, lat: lat, long: long, phone: phone, street: street);
   }
+
+  @override
+  List<Object?> get props => [
+        city,
+        lat,
+        long,
+        phone,
+        street,
+      ];
 }
 
 /// enabled : false
 /// invoice_data : {"account_tax_ids":null,"custom_fields":null,"description":null,"footer":null,"issuer":null,"metadata":{},"rendering_options":null}
 @JsonSerializable(createToJson: false)
-class InvoiceCreationDto {
+class InvoiceCreationDto extends Equatable {
   InvoiceCreationDto({
     this.enabled,
     this.invoiceData,
@@ -442,6 +533,9 @@ class InvoiceCreationDto {
       invoiceData: invoiceData?.convertIntoEntity(),
     );
   }
+
+  @override
+  List<Object?> get props => [enabled, invoiceData];
 }
 
 /// account_tax_ids : null
@@ -452,7 +546,7 @@ class InvoiceCreationDto {
 /// metadata : {}
 /// rendering_options : null
 @JsonSerializable(createToJson: false)
-class InvoiceDataDto {
+class InvoiceDataDto extends Equatable {
   InvoiceDataDto({
     this.accountTaxIds,
     this.customFields,
@@ -487,6 +581,17 @@ class InvoiceDataDto {
       renderingOptions: renderingOptions,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        accountTaxIds,
+        customFields,
+        description,
+        footer,
+        issuer,
+        metadata,
+        renderingOptions
+      ];
 }
 
 /// address : null
@@ -496,7 +601,7 @@ class InvoiceDataDto {
 /// tax_exempt : "none"
 /// tax_ids : null
 @JsonSerializable(createToJson: false)
-class CustomerDetailsDto {
+class CustomerDetailsDto extends Equatable {
   CustomerDetailsDto({
     this.address,
     this.email,
@@ -526,6 +631,9 @@ class CustomerDetailsDto {
       name: name,
     );
   }
+
+  @override
+  List<Object?> get props => [address, email, name, phone, taxExempt, taxIds];
 }
 
 /// after_submit : null
@@ -533,7 +641,7 @@ class CustomerDetailsDto {
 /// submit : null
 /// terms_of_service_acceptance : null
 @JsonSerializable(createToJson: false)
-class CustomTextDto {
+class CustomTextDto extends Equatable {
   CustomTextDto({
     this.afterSubmit,
     this.shippingAddress,
@@ -558,11 +666,15 @@ class CustomTextDto {
       termsOfServiceAcceptance: termsOfServiceAcceptance,
     );
   }
+
+  @override
+  List<Object?> get props =>
+      [afterSubmit, shippingAddress, submit, termsOfServiceAcceptance];
 }
 
 /// shipping_details : null
 @JsonSerializable(createToJson: false)
-class CollectedInformationDto {
+class CollectedInformationDto extends Equatable {
   CollectedInformationDto({
     this.shippingDetails,
   });
@@ -575,6 +687,9 @@ class CollectedInformationDto {
   CollectedInformationEntity convertIntoEntity() {
     return CollectedInformationEntity(shippingDetails: shippingDetails);
   }
+
+  @override
+  List<Object?> get props => [shippingDetails];
 }
 
 /// enabled : false
@@ -582,7 +697,7 @@ class CollectedInformationDto {
 /// provider : null
 /// status : null
 @JsonSerializable(createToJson: false)
-class AutomaticTaxDto {
+class AutomaticTaxDto extends Equatable {
   AutomaticTaxDto({
     this.enabled,
     this.liability,
@@ -603,11 +718,14 @@ class AutomaticTaxDto {
         provider: provider,
         status: status);
   }
+
+  @override
+  List<Object?> get props => [enabled, liability, provider, status];
 }
 
 /// enabled : true
 @JsonSerializable(createToJson: false)
-class AdaptivePricingDto {
+class AdaptivePricingDto extends Equatable {
   AdaptivePricingDto({
     this.enabled,
   });
@@ -619,4 +737,7 @@ class AdaptivePricingDto {
   AdaptivePricingEntity convertIntoEntity() {
     return AdaptivePricingEntity(enabled: enabled);
   }
+
+  @override
+  List<Object?> get props => [enabled];
 }

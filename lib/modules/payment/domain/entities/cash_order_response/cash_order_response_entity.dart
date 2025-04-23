@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 
-class CashOrderResponseEntity {
+class CashOrderResponseEntity extends Equatable {
   CashOrderResponseEntity({
     this.message,
     this.order,
@@ -8,9 +9,12 @@ class CashOrderResponseEntity {
 
   String? message;
   OrderEntity? order;
+
+  @override
+  List<Object?> get props => [message, order];
 }
 
-class OrderEntity {
+class OrderEntity extends Equatable {
   OrderEntity({
     this.user,
     this.orderItems,
@@ -34,9 +38,22 @@ class OrderEntity {
   String? id;
   String? orderNumber;
   num? v;
+  @override
+  List<Object?> get props => [
+        user,
+        orderItems,
+        totalPrice,
+        paymentType,
+        isPaid,
+        isDelivered,
+        state,
+        id,
+        orderNumber,
+        v
+      ];
 }
 
-class OrderItemEntity {
+class OrderItemEntity extends Equatable {
   OrderItemEntity({
     this.product,
     this.price,
@@ -48,4 +65,7 @@ class OrderItemEntity {
   num? price;
   num? quantity;
   String? id;
+
+  @override
+  List<Object?> get props => [product, price, quantity, id];
 }
