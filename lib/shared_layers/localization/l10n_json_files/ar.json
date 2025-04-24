@@ -81,7 +81,6 @@
     "checkout": "إتمام الشراء",
     "addedToCartSuccessfully": "تمت الإضافة إلى السلة بنجاح",
     "soldOut": "نفد المخزون",
-    "noProductsFound": "لم يتم العثور على منتجات",
     "myOrders": "طلباتي",
     "savedAddress": "العنوان المحفوظ",
     "notification": "الإشعارات",
@@ -107,6 +106,22 @@
     "information": "المعلومات: ",
     "sold": "تم بيعه: {}",
     "rate": "التقييم: {}",
+    "rateCount": "عدد التقييمات: {}",
+    "address": "العنوان",
+    "recipient":"اسم المستلم",
+    "addressTitle": "العنوان",
+    "addressHint": "أدخل العنوان",
+    "phoneNumberHint": "أدخل رقم الهاتف",
+    "recipientNameHint": "أدخل اسم المستلم",
+    "city": "المدينة",
+    "area": "المنطقة",
+    "saveAddress": "حفظ العنوان",
+    "pleaseEnterAddress": "يرجى إدخال العنوان",
+    "pleaseEnterValidAddress": "يرجى إدخال عنوان صالح",
+    "pleaseEnterValidRecipient" : "يرجى إدخال اسم المستلم صالح"
+
+
+
     "rateCount": "عدد التقييمات: {}",
       "//changePasswordTitle": "تعليق",
       "changePasswordTitle": "إعادة تعيين كلمة المرور",

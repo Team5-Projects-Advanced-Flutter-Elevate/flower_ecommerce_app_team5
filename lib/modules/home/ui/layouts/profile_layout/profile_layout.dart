@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/about_us.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/terms.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/di/injectable_initializer.dart';
 import '../../../../../shared_layers/localization/enums/languages_enum.dart';
+import '../add_new_address/new_address_screen.dart';
 
 class ProfileLayout extends StatefulWidget {
   const ProfileLayout({super.key});
@@ -122,10 +125,15 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                       leading: const Icon(Icons.list),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
-                    ListTile(
-                      title: Text(LocaleKeys.savedAddress.tr()),
-                      leading: const Icon(Icons.location_on),
-                      trailing: const Icon(Icons.arrow_forward_ios),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => NewAddressScreen(),));
+                      },
+                      child: ListTile(
+                        title: Text(LocaleKeys.savedAddress.tr()),
+                        leading: const Icon(Icons.location_on),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      ),
                     ),
                     Divider(
                       color: AppColors.gray,
@@ -171,15 +179,25 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                             style: TextStyle(color: AppColors.mainColor),
                           )),
                     ),
-                    ListTile(
-                      title: Text(LocaleKeys.aboutUs.tr()),
-                      leading: const Icon(Icons.newspaper_outlined),
-                      trailing: const Icon(Icons.arrow_forward_ios),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,MaterialPageRoute(builder: (context) => const AboutUsScreen(),));
+                      },
+                      child: ListTile(
+                        title: Text(LocaleKeys.aboutUs.tr()),
+                        leading: const Icon(Icons.newspaper_outlined),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      ),
                     ),
-                    ListTile(
-                      title: Text(LocaleKeys.termsConditions.tr()),
-                      leading: const Icon(Icons.policy),
-                      trailing: const Icon(Icons.arrow_forward_ios),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const TermsScreen(),));
+                      },
+                      child: ListTile(
+                        title: Text(LocaleKeys.termsConditions.tr()),
+                        leading: const Icon(Icons.policy),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      ),
                     ),
                     Divider(
                       color: AppColors.gray,

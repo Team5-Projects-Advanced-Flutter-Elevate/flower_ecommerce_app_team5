@@ -136,4 +136,20 @@ class LocaleKeys {
   static const String flowery = "flowery";
   static const String successfulPayment = "successfulPayment";
   static const String canceledPayment = "canceledPayment";
+  static const String addressTitle = 'address';
+  static const String addressHint = 'addressHint';
+  static const String phoneNumberHint = 'phoneNumberHint';
+  static const String recipientNameHint = 'recipientNameHint';
+  static const String city = 'city';
+  static const String area = 'area';
+  static const String saveAddress = 'saveAddress';
+  static const String recipient = 'recipient';
+  static const String pleaseEnterAddress = 'pleaseEnterAddress';
+  static const String pleaseEnterValidAddress = 'pleaseEnterValidAddress';
+  static const String pleaseEnterValidRecipient = 'pleaseEnterValidRecipient';
+
+
+
+
+
 }
