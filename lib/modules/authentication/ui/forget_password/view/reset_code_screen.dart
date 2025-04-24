@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,31 +65,33 @@ class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
                     LocaleKeys.emailVerification.tr(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      fontSize: screenWidth * 0.045,
-                    ),
+                          fontSize: screenWidth * 0.045,
+                        ),
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   Text(
                     LocaleKeys.emailVerificationText.tr(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.grey,
-                    ),
+                          color: Colors.grey,
+                        ),
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   Center(
                     child: OTPTextField(
                       length: 6,
                       width: screenWidth * 0.75,
-                      otpFieldStyle: OtpFieldStyle(errorBorderColor: Colors.red),
+                      otpFieldStyle:
+                          OtpFieldStyle(errorBorderColor: Colors.red),
                       style: TextStyle(fontSize: screenWidth * 0.0425),
                       textFieldAlignment: MainAxisAlignment.spaceAround,
                       fieldStyle: FieldStyle.box,
-                        hasError: _hasError,
+                      hasError: _hasError,
                       onChanged: (value) {
                         if (_hasError) {
                           setState(() {
-                            _hasError = false; // Reset error once user starts editing
+                            _hasError =
+                                false; // Reset error once user starts editing
                           });
                         }
                       },
@@ -107,37 +110,37 @@ class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
                       ),
                       resend == false
                           ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Timer(
-                            isLessThan5Minutes: _isLessThan5Minutes,
-                            examDuration: 30,
-                            onTimeEnd: () {
-                              setState(() {
-                                resend = true;
-                              });
-                            },
-                          )
-                        ],
-                      )
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Timer(
+                                  isLessThan5Minutes: _isLessThan5Minutes,
+                                  examDuration: 30,
+                                  onTimeEnd: () {
+                                    setState(() {
+                                      resend = true;
+                                    });
+                                  },
+                                )
+                              ],
+                            )
                           : InkWell(
-                        onTap: () {
-                          forgetPasswordViewModel.onIntent(
-                            ForgotPasswordIntent(emailController.text),
-                          );
-                        },
-                        child: Text(
-                          LocaleKeys.resend.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                            color: AppColors.mainColor,
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColors.mainColor,
-                          ),
-                        ),
-                      ),
+                              onTap: () {
+                                forgetPasswordViewModel.onIntent(
+                                  ForgotPasswordIntent(emailController.text),
+                                );
+                              },
+                              child: Text(
+                                LocaleKeys.resend.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                      color: AppColors.mainColor,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: AppColors.mainColor,
+                                    ),
+                              ),
+                            ),
                     ],
                   ),
                 ],
@@ -148,7 +151,7 @@ class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
         listener: (context, state) {
           if (state is PasswordSuccessState) {
             displayAlertDialog(
-              title: const Text('valid otp'),
+              title:  Text(LocaleKeys.validOtp.tr()),
               showOkButton: true,
               onOkButtonClick: () {
                 hideAlertDialog();
@@ -164,11 +167,11 @@ class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
               _hasError = true;
             });
             displayAlertDialog(
-              title:  Text(state.error),
+              title: ErrorStateWidget(error: state.error),
               showOkButton: true,
               onOkButtonClick: () {
                 hideAlertDialog();
-                return ;
+                return;
               },
             );
           } else if (state is PasswordLoadingState) {
@@ -178,5 +181,4 @@ class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
       ),
     );
   }
-
 }

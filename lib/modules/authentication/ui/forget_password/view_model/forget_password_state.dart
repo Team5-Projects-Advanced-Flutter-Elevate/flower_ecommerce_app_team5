@@ -6,11 +6,11 @@ class PasswordInitialState extends PasswordState {}
 class PasswordLoadingState extends PasswordState {}
 
 class PasswordErrorState extends PasswordState {
-  final String error;
+  final Object error;
   PasswordErrorState(this.error);
 }
 
 class PasswordSuccessState extends PasswordState {
-  final String message;
-  PasswordSuccessState(this.message);
+  //final String message;
+  PasswordSuccessState();
 }

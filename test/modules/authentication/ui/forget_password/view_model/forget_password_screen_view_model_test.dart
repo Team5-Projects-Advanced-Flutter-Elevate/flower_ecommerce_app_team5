@@ -37,7 +37,7 @@ void main() {
       },
       expect: () => [
         PasswordLoadingState(),
-        PasswordSuccessState("Success"),
+        PasswordSuccessState(),
       ],
     );
   },);

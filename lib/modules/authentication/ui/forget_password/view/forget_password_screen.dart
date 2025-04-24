@@ -116,7 +116,7 @@ class _ForgetPasswordScreenState extends BaseStatefulWidgetState<ForgetPasswordS
                     listener: (context, state) {
                       if (state is PasswordSuccessState) {
                         displayAlertDialog(
-                          title: const Text('Otp-Code-send'),
+                          title:  Text(LocaleKeys.otpSend.tr()),
                           showOkButton: true,
                           onOkButtonClick: () {
                             hideAlertDialog();

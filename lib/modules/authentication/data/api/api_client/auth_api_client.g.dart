@@ -10,10 +10,10 @@ part of 'auth_api_client.dart';
 
 class _AuthApiClient implements AuthApiClient {
   _AuthApiClient(
-      this._dio, {
-        this.baseUrl,
-        this.errorLogger,
-      });
+    this._dio, {
+    this.baseUrl,
+    this.errorLogger,
+  });
 
   final Dio _dio;
 
@@ -33,13 +33,13 @@ class _AuthApiClient implements AuthApiClient {
       extra: _extra,
     )
         .compose(
-      _dio.options,
-      'api/v1/auth/signin',
-      queryParameters: queryParameters,
-      data: _data,
-    )
+          _dio.options,
+          'api/v1/auth/signin',
+          queryParameters: queryParameters,
+          data: _data,
+        )
         .copyWith(
-        baseUrl: _combineBaseUrls(
+            baseUrl: _combineBaseUrls(
           _dio.options.baseUrl,
           baseUrl,
         )));
@@ -60,13 +60,13 @@ class _AuthApiClient implements AuthApiClient {
       extra: _extra,
     )
         .compose(
-      _dio.options,
-      'api/v1/auth/forgotPassword',
-      queryParameters: queryParameters,
-      data: _data,
-    )
+          _dio.options,
+          'api/v1/auth/forgotPassword',
+          queryParameters: queryParameters,
+          data: _data,
+        )
         .copyWith(
-        baseUrl: _combineBaseUrls(
+            baseUrl: _combineBaseUrls(
           _dio.options.baseUrl,
           baseUrl,
         )));
@@ -97,13 +97,13 @@ class _AuthApiClient implements AuthApiClient {
       extra: _extra,
     )
         .compose(
-      _dio.options,
-      'api/v1/auth/resetPassword',
-      queryParameters: queryParameters,
-      data: _data,
-    )
+          _dio.options,
+          'api/v1/auth/resetPassword',
+          queryParameters: queryParameters,
+          data: _data,
+        )
         .copyWith(
-        baseUrl: _combineBaseUrls(
+            baseUrl: _combineBaseUrls(
           _dio.options.baseUrl,
           baseUrl,
         )));
@@ -133,13 +133,13 @@ class _AuthApiClient implements AuthApiClient {
       extra: _extra,
     )
         .compose(
-      _dio.options,
-      'api/v1/auth/verifyResetCode',
-      queryParameters: queryParameters,
-      data: _data,
-    )
+          _dio.options,
+          'api/v1/auth/verifyResetCode',
+          queryParameters: queryParameters,
+          data: _data,
+        )
         .copyWith(
-        baseUrl: _combineBaseUrls(
+            baseUrl: _combineBaseUrls(
           _dio.options.baseUrl,
           baseUrl,
         )));
@@ -170,9 +170,9 @@ class _AuthApiClient implements AuthApiClient {
   }
 
   String _combineBaseUrls(
-      String dioBaseUrl,
-      String? baseUrl,
-      ) {
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }
