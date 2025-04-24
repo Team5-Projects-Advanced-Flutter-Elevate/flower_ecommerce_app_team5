@@ -26,7 +26,7 @@ class ApiErrorHandler {
         case DioExceptionType.receiveTimeout:
           return tr(LocaleKeys.receiveTimeout);
         case DioExceptionType.badResponse:
-          return ApiErrorModel.fromJson(error.response?.data).message ??
+          return ApiErrorModel.fromJson(error.response?.data).error ??
               tr(LocaleKeys.somethingWentWrong);
         case DioExceptionType.cancel:
           return tr(LocaleKeys.cancel);

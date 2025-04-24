@@ -6,12 +6,15 @@ abstract class AppThemes {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.white,
+      surfaceTintColor: AppColors.white,
+    ),
     textTheme: TextTheme(
       // Body Text Styles
       labelMedium: GoogleFonts.inter(
         fontSize: 20,
         fontWeight: FontWeight.w500,
-        color: Colors.black
       ),
       labelSmall: GoogleFonts.inter(
         fontSize: 15,
@@ -91,12 +94,16 @@ abstract class AppThemes {
         color: AppColors.black,
       ),
     ),
-    progressIndicatorTheme:
-    ProgressIndicatorThemeData(color: AppColors.mainColor),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: AppColors.mainColor,
+    ),
+    dialogTheme: DialogTheme(
+      backgroundColor: AppColors.white,
+    ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: AppColors.white,
       iconTheme: WidgetStateProperty.resolveWith(
-            (states) {
+        (states) {
           Color color;
           if (states.contains(WidgetState.selected)) {
             color = AppColors.mainColor;
@@ -110,9 +117,39 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
-      labelTextStyle: WidgetStatePropertyAll(GoogleFonts.inter(
-        fontSize: 12,
-        fontWeight: FontWeight.normal,
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return GoogleFonts.inter(
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+            color: AppColors.mainColor,
+          );
+        } else {
+          return GoogleFonts.inter(
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+            color: AppColors.white[80],
+          );
+        }
+      }),
+    ),
+    tabBarTheme: TabBarTheme(
+      labelColor: AppColors.mainColor,
+      unselectedLabelColor: AppColors.white[70],
+      indicatorColor: AppColors.mainColor,
+      labelPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      indicatorSize: TabBarIndicatorSize.label,
+      tabAlignment: TabAlignment.start,
+      labelStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.normal, // Regular weight
+        color: AppColors.black,
+      ),
+      unselectedLabelStyle: GoogleFonts.inter(
+          textStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.normal, // Regular weight
+        color: AppColors.black,
       )),
     ),
     inputDecorationTheme: InputDecorationTheme(
@@ -122,6 +159,8 @@ abstract class AppThemes {
       ),
       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+      disabledBorder:
+          OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
 
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: AppColors.red),
@@ -133,6 +172,7 @@ abstract class AppThemes {
           color: AppColors.red,
         ),
       ),
+
       hintStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -149,9 +189,9 @@ abstract class AppThemes {
           return const TextStyle(color: Colors.red); // Red label in error state
         }
         return ThemeData.light().textTheme.titleSmall?.copyWith(
-          color:
-          AppColors.black.withOpacity(0.7), // Default label color
-        ) ??
+                  color:
+                      AppColors.black.withOpacity(0.7), // Default label color
+                ) ??
             const TextStyle();
       }),
       //suffixIcon: suffixIcon,
@@ -160,13 +200,15 @@ abstract class AppThemes {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        disabledBackgroundColor: AppColors.black[30],
+        disabledForegroundColor: AppColors.white,
         foregroundColor: AppColors.white,
-        padding: EdgeInsets.all(14),
+        padding: const EdgeInsets.all(14),
         backgroundColor: AppColors.mainColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
@@ -185,11 +227,30 @@ abstract class AppThemes {
             borderRadius: BorderRadius.circular(100),
           ),
         ),
+        padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(
+          vertical: 16,
+        )),
       ),
     ),
     radioTheme: RadioThemeData(
       fillColor: WidgetStatePropertyAll(
         AppColors.mainColor,
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.mainColor,
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 16,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        textStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     ),
   );

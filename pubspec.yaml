@@ -46,13 +46,20 @@ dependencies:
   json_annotation: any
   pretty_dio_logger: ^1.4.0
 
-
   # State Management
   provider: ^6.1.2
   flutter_bloc: ^9.1.0
 
   # Local Storage
   flutter_secure_storage: ^9.2.4
+  # cached Network Image
+  cached_network_image: ^3.4.1
+  # refresh indicator
+  custom_refresh_indicator: ^4.0.1
+  # page indicator
+  smooth_page_indicator: ^1.2.1
+  # animations
+  lottie: any
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -60,14 +67,28 @@ dependencies:
   cupertino_icons: ^1.0.8
   bloc: ^9.0.0
   meta: ^1.15.0
-  equatable: ^2.0.7
-  otp_text_field: ^1.1.3
-  mockito: ^5.4.4
-  flutter_otp_text_field: ^1.5.1+1
-  flutter_timer_countdown: ^1.0.7
   google_fonts: ^6.2.1
+  equatable: ^2.0.7
   bloc_test: ^10.0.0
-  carousel_slider: ^5.0.0
+  mockito: ^5.4.4
+  mocktail: ^1.0.4
+  # color palettes generator
+  palette_generator: ^0.3.3+6
+  image_picker: ^1.1.2
+  permission_handler: ^12.0.0+1
+  flutter_image_compress: ^2.4.0
+  path_provider: ^2.1.5
+  http_parser: ^4.0.2
+  device_info_plus: ^11.3.0
+  geocoding: ^3.0.0
+
+  back_button_interceptor: ^8.0.4
+  webview_flutter: ^4.10.0
+  percent_indicator: ^4.2.5
+  flutter_inappwebview: ^6.1.5
+  auto_size_text: ^3.0.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -78,7 +99,7 @@ dev_dependencies:
   # API dev_dependencies
   retrofit_generator: any # for Dart 3.3 use ^9.0.0
   build_runner: any
-  json_serializable: ^6.9.0
+  json_serializable: any
 
   # dependency injection
   injectable_generator: any
@@ -109,6 +130,13 @@ flutter:
   assets:
   - lib/shared_layers/localization/l10n_json_files/
   - assets/icons/
+  - assets/animations/
+  - assets/images/
+  - assets/files/AboutUs.json
+  - assets/files/Terms.json
+  - assets/files/cities.json
+  - assets/files/states.json
+  - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

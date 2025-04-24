@@ -1,0 +1,51 @@
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../../../../../../core/bases/base_statless_widget.dart';
+
+import '../../../../../../../core/widgets/cached_image.dart';
+// ignore: must_be_immutable
+class OccasionItem extends BaseStatelessWidget {
+   const OccasionItem({
+    super.key,
+    required this.occasionEntity,
+  });
+
+  final OccasionEntity occasionEntity;
+
+  @override
+  Widget customBuild(BuildContext context,  inherit) {
+    return SizedBox(
+      width: inherit.screenWidth * 0.3,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 3,
+            child: CachedImage(
+              fit: BoxFit.cover,
+              url: occasionEntity.image ?? '',
+            ),
+          ),
+          SizedBox(
+            height: inherit.screenHeight * 0.01,
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              occasionEntity.name ?? '',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.inter(
+                textStyle: inherit.theme.textTheme.bodySmall?.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

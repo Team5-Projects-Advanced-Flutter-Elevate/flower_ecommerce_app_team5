@@ -55,5 +55,6 @@ abstract class AppColors {
   static Color get red => _red;
   static Color get green => _green;
   static Color get lightPink => _lightPink;
+  static Color get transparent => Colors.transparent;
 
 }
