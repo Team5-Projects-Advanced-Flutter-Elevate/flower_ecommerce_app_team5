@@ -5,7 +5,6 @@ import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
 import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/new_address_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/constants/l10n_constants.dart';
@@ -18,7 +17,6 @@ import 'package:provider/provider.dart';
 import 'core/routing/generate_route.dart';
 import 'core/utilities/bloc_observer/bloc_observer.dart';
 import 'modules/authentication/domain/use_cases/login/login_use_case.dart';
-import 'modules/home/ui/layouts/profile_layout/about_us.dart';
 
 LoginResponseDto? storedLoginInfo;
 
@@ -92,14 +90,14 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: GenerateRoute.onGenerateRoute,
             onGenerateInitialRoutes: (initialRoute) =>
                 GenerateRoute.onGenerateInitialRoutes(
-                   initialRoute: initialRoute, loginInfo: storedLoginInfo),
-           // initialRoute: DefinedRoutes.bestSellerScreenRoute,
-             //home: const NewAddressScreen(),
+                    initialRoute: initialRoute, loginInfo: storedLoginInfo),
+            // initialRoute: DefinedRoutes.bestSellerScreenRoute,
+            //home: const NewAddressScreen(),
             // onGenerateRoute: GenerateRoute.onGenerateRoute,
             // onGenerateInitialRoutes: (initialRoute) =>
             //     GenerateRoute.onGenerateInitialRoutes(
             //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
-                    initialRoute: initialRoute, loginInfo: storedLoginInfo),
+            //   initialRoute: initialRoute, loginInfo: storedLoginInfo),
             //initialRoute: DefinedRoutes.checkoutSessionScreenRoute,
           ),
         );

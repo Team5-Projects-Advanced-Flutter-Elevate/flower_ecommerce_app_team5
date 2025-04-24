@@ -157,12 +157,20 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
       ) as _i9.Future<_i4.HomeDataResponse>);
 
   @override
-  _i9.Future<_i5.AllProductResponse> getAllProduct({String? categoryId}) =>
+  _i9.Future<_i5.AllProductResponse> getAllProduct({
+    String? categoryId,
+    String? searchKey,
+    String? sortKey,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #getAllProduct,
           [],
-          {#categoryId: categoryId},
+          {
+            #categoryId: categoryId,
+            #searchKey: searchKey,
+            #sortKey: sortKey,
+          },
         ),
         returnValue:
             _i9.Future<_i5.AllProductResponse>.value(_FakeAllProductResponse_3(
@@ -170,7 +178,11 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
           Invocation.method(
             #getAllProduct,
             [],
-            {#categoryId: categoryId},
+            {
+              #categoryId: categoryId,
+              #searchKey: searchKey,
+              #sortKey: sortKey,
+            },
           ),
         )),
       ) as _i9.Future<_i5.AllProductResponse>);
