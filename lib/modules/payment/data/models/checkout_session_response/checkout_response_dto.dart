@@ -8,15 +8,15 @@ part 'checkout_response_dto.g.dart';
 
 @JsonSerializable(createToJson: false)
 class CheckoutResponseDto extends Equatable {
-  CheckoutResponseDto({
+  const CheckoutResponseDto({
     this.message,
     this.session,
   });
 
   factory CheckoutResponseDto.fromJson(dynamic json) =>
       _$CheckoutResponseDtoFromJson(json);
-  String? message;
-  SessionDto? session;
+  final String? message;
+  final SessionDto? session;
   CheckoutResponseEntity convertIntoEntity() {
     return CheckoutResponseEntity(
         message: message, session: session?.convertIntoEntity());
@@ -85,7 +85,7 @@ class CheckoutResponseDto extends Equatable {
 
 @JsonSerializable(createToJson: false)
 class SessionDto extends Equatable {
-  SessionDto({
+  const SessionDto({
     this.id,
     this.object,
     this.adaptivePricing,
@@ -145,104 +145,103 @@ class SessionDto extends Equatable {
   });
 
   factory SessionDto.fromJson(dynamic json) => _$SessionDtoFromJson(json);
-  String? id;
-  String? object;
+  final String? id;
+  final String? object;
   @JsonKey(name: 'adaptive_pricing')
-  AdaptivePricingDto? adaptivePricing;
+  final AdaptivePricingDto? adaptivePricing;
   @JsonKey(name: 'after_expiration')
-  dynamic afterExpiration;
+  final dynamic afterExpiration;
   @JsonKey(name: 'allow_promotion_codes')
-  dynamic allowPromotionCodes;
+  final dynamic allowPromotionCodes;
   @JsonKey(name: 'amount_subtotal')
-  num? amountSubtotal;
+  final num? amountSubtotal;
   @JsonKey(name: 'amount_total')
-  num? amountTotal;
+  final num? amountTotal;
   @JsonKey(name: 'automatic_tax')
-  AutomaticTaxDto? automaticTax;
+  final AutomaticTaxDto? automaticTax;
   @JsonKey(name: 'billing_address_collection')
-  dynamic billingAddressCollection;
+  final dynamic billingAddressCollection;
   @JsonKey(name: 'cancel_url')
-  String? cancelUrl;
+  final String? cancelUrl;
   @JsonKey(name: 'client_reference_id')
-  String? clientReferenceId;
+  final String? clientReferenceId;
   @JsonKey(name: 'client_secret')
-  dynamic clientSecret;
+  final dynamic clientSecret;
   @JsonKey(name: 'collected_information')
-  CollectedInformationDto? collectedInformation;
-  dynamic consent;
+  final CollectedInformationDto? collectedInformation;
+  final dynamic consent;
   @JsonKey(name: 'consent_collection')
-  dynamic consentCollection;
-  num? created;
-  String? currency;
+  final dynamic consentCollection;
+  final num? created;
+  final String? currency;
   @JsonKey(name: 'currency_conversion')
-  dynamic currencyConversion;
-
+  final dynamic currencyConversion;
   @JsonKey(name: 'custom_fields')
-  List<dynamic>? customFields;
+  final List<dynamic>? customFields;
   @JsonKey(name: 'custom_text')
-  CustomTextDto? customText;
-  dynamic customer;
+  final CustomTextDto? customText;
+  final dynamic customer;
   @JsonKey(name: 'customer_creation')
-  String? customerCreation;
+  final String? customerCreation;
   @JsonKey(name: 'customer_details')
-  CustomerDetailsDto? customerDetails;
+  final CustomerDetailsDto? customerDetails;
   @JsonKey(name: 'customer_email')
-  String? customerEmail;
-  List<dynamic>? discounts;
+  final String? customerEmail;
+  final List<dynamic>? discounts;
   @JsonKey(name: 'expires_at')
-  num? expiresAt;
-  dynamic invoice;
+  final num? expiresAt;
+  final dynamic invoice;
   @JsonKey(name: 'invoice_creation')
-  InvoiceCreationDto? invoiceCreation;
+  final InvoiceCreationDto? invoiceCreation;
   @JsonKey(name: 'livemode')
-  bool? liveMode;
-  dynamic locale;
-  AddressInfoDto? metadata;
-  String? mode;
+  final bool? liveMode;
+  final dynamic locale;
+  final AddressInfoDto? metadata;
+  final String? mode;
   @JsonKey(name: 'payment_intent')
-  dynamic paymentIntent;
+  final dynamic paymentIntent;
   @JsonKey(name: 'payment_link')
-  dynamic paymentLink;
+  final dynamic paymentLink;
   @JsonKey(name: 'payment_method_collection')
-  String? paymentMethodCollection;
+  final String? paymentMethodCollection;
   @JsonKey(name: 'payment_method_configuration_details')
-  PaymentMethodConfigurationDetailsDto? paymentMethodConfigurationDetails;
+  final PaymentMethodConfigurationDetailsDto? paymentMethodConfigurationDetails;
   @JsonKey(name: 'payment_method_options')
-  PaymentMethodOptionsDto? paymentMethodOptions;
+  final PaymentMethodOptionsDto? paymentMethodOptions;
   @JsonKey(name: 'payment_method_types')
-  List<String>? paymentMethodTypes;
+  final List<String>? paymentMethodTypes;
   @JsonKey(name: 'payment_status')
-  String? paymentStatus;
-  dynamic permissions;
+  final String? paymentStatus;
+  final dynamic permissions;
   @JsonKey(name: 'phone_number_collection')
-  PhoneNumberCollectionDto? phoneNumberCollection;
+  final PhoneNumberCollectionDto? phoneNumberCollection;
   @JsonKey(name: 'recovered_from')
-  dynamic recoveredFrom;
+  final dynamic recoveredFrom;
   @JsonKey(name: 'saved_payment_method_options')
-  dynamic savedPaymentMethodOptions;
+  final dynamic savedPaymentMethodOptions;
   @JsonKey(name: 'setup_intent')
-  dynamic setupIntent;
+  final dynamic setupIntent;
   @JsonKey(name: 'shipping_address_collection')
-  dynamic shippingAddressCollection;
+  final dynamic shippingAddressCollection;
   @JsonKey(name: 'shipping_cost')
-  dynamic shippingCost;
+  final dynamic shippingCost;
   @JsonKey(name: 'shipping_details')
-  dynamic shippingDetails;
+  final dynamic shippingDetails;
   @JsonKey(name: 'shipping_options')
-  List<dynamic>? shippingOptions;
-  String? status;
+  final List<dynamic>? shippingOptions;
+  final String? status;
   @JsonKey(name: 'submit_type')
-  dynamic submitType;
-  dynamic subscription;
+  final dynamic submitType;
+  final dynamic subscription;
   @JsonKey(name: 'success_url')
-  String? successUrl;
+  final String? successUrl;
   @JsonKey(name: 'total_details')
-  TotalDetailsDto? totalDetails;
+  final TotalDetailsDto? totalDetails;
   @JsonKey(name: 'ui_mode')
-  String? uiMode;
-  String? url;
+  final String? uiMode;
+  final String? url;
   @JsonKey(name: 'wallet_options')
-  dynamic walletOptions;
+  final dynamic walletOptions;
 
   SessionEntity convertIntoEntity() {
     return SessionEntity(
@@ -371,7 +370,7 @@ class SessionDto extends Equatable {
 /// amount_tax : 0
 @JsonSerializable(createToJson: false)
 class TotalDetailsDto extends Equatable {
-  TotalDetailsDto({
+  const TotalDetailsDto({
     this.amountDiscount,
     this.amountShipping,
     this.amountTax,
@@ -380,11 +379,11 @@ class TotalDetailsDto extends Equatable {
   factory TotalDetailsDto.fromJson(dynamic json) =>
       _$TotalDetailsDtoFromJson(json);
   @JsonKey(name: 'amount_discount')
-  num? amountDiscount;
+  final num? amountDiscount;
   @JsonKey(name: 'amount_shipping')
-  num? amountShipping;
+  final num? amountShipping;
   @JsonKey(name: 'amount_tax')
-  num? amountTax;
+  final num? amountTax;
   TotalDetailsEntity convertIntoEntity() {
     return TotalDetailsEntity(
         amountDiscount: amountDiscount,
@@ -403,13 +402,13 @@ class TotalDetailsDto extends Equatable {
 /// enabled : false
 @JsonSerializable(createToJson: false)
 class PhoneNumberCollectionDto extends Equatable {
-  PhoneNumberCollectionDto({
+  const PhoneNumberCollectionDto({
     this.enabled,
   });
 
   factory PhoneNumberCollectionDto.fromJson(dynamic json) =>
       _$PhoneNumberCollectionDtoFromJson(json);
-  bool? enabled;
+  final bool? enabled;
   PhoneNumberCollectionEntity convertIntoEntity() {
     return PhoneNumberCollectionEntity(enabled: enabled);
   }
@@ -421,13 +420,13 @@ class PhoneNumberCollectionDto extends Equatable {
 /// card : {"request_three_d_secure":"automatic"}
 @JsonSerializable(createToJson: false)
 class PaymentMethodOptionsDto extends Equatable {
-  PaymentMethodOptionsDto({
+  const PaymentMethodOptionsDto({
     this.card,
   });
 
   factory PaymentMethodOptionsDto.fromJson(dynamic json) =>
       _$PaymentMethodOptionsDtoFromJson(json);
-  CardDto? card;
+  final CardDto? card;
   PaymentMethodOptionsEntity convertIntoEntity() {
     return PaymentMethodOptionsEntity(card: card?.convertIntoEntity());
   }
@@ -439,13 +438,13 @@ class PaymentMethodOptionsDto extends Equatable {
 /// request_three_d_secure : "automatic"
 @JsonSerializable(createToJson: false)
 class CardDto extends Equatable {
-  CardDto({
+  const CardDto({
     this.requestThreeDSecure,
   });
 
   factory CardDto.fromJson(dynamic json) => _$CardDtoFromJson(json);
   @JsonKey(name: 'request_three_d_secure')
-  String? requestThreeDSecure;
+  final String? requestThreeDSecure;
   CardEntity convertIntoEntity() {
     return CardEntity(requestThreeDSecure: requestThreeDSecure);
   }
@@ -458,15 +457,15 @@ class CardDto extends Equatable {
 /// parent : null
 @JsonSerializable(createToJson: false)
 class PaymentMethodConfigurationDetailsDto extends Equatable {
-  PaymentMethodConfigurationDetailsDto({
+  const PaymentMethodConfigurationDetailsDto({
     this.id,
     this.parent,
   });
 
   factory PaymentMethodConfigurationDetailsDto.fromJson(dynamic json) =>
       _$PaymentMethodConfigurationDetailsDtoFromJson(json);
-  String? id;
-  dynamic parent;
+  final String? id;
+  final dynamic parent;
   PaymentMethodConfigurationDetailsEntity convertIntoEntity() {
     return PaymentMethodConfigurationDetailsEntity(id: id, parent: parent);
   }
@@ -482,7 +481,7 @@ class PaymentMethodConfigurationDetailsDto extends Equatable {
 /// street : "details"
 @JsonSerializable(createToJson: false)
 class AddressInfoDto extends Equatable {
-  AddressInfoDto({
+  const AddressInfoDto({
     this.city,
     this.lat,
     this.long,
@@ -492,11 +491,11 @@ class AddressInfoDto extends Equatable {
 
   factory AddressInfoDto.fromJson(dynamic json) =>
       _$AddressInfoDtoFromJson(json);
-  String? city;
-  String? lat;
-  String? long;
-  String? phone;
-  String? street;
+  final String? city;
+  final String? lat;
+  final String? long;
+  final String? phone;
+  final String? street;
   AddressInfoEntity convertIntoEntity() {
     return AddressInfoEntity(
         city: city, lat: lat, long: long, phone: phone, street: street);
@@ -516,16 +515,16 @@ class AddressInfoDto extends Equatable {
 /// invoice_data : {"account_tax_ids":null,"custom_fields":null,"description":null,"footer":null,"issuer":null,"metadata":{},"rendering_options":null}
 @JsonSerializable(createToJson: false)
 class InvoiceCreationDto extends Equatable {
-  InvoiceCreationDto({
+  const InvoiceCreationDto({
     this.enabled,
     this.invoiceData,
   });
 
   factory InvoiceCreationDto.fromJson(dynamic json) =>
       _$InvoiceCreationDtoFromJson(json);
-  bool? enabled;
+  final bool? enabled;
   @JsonKey(name: 'invoice_data')
-  InvoiceDataDto? invoiceData;
+  final InvoiceDataDto? invoiceData;
 
   InvoiceCreationEntity convertIntoEntity() {
     return InvoiceCreationEntity(
@@ -547,7 +546,7 @@ class InvoiceCreationDto extends Equatable {
 /// rendering_options : null
 @JsonSerializable(createToJson: false)
 class InvoiceDataDto extends Equatable {
-  InvoiceDataDto({
+  const InvoiceDataDto({
     this.accountTaxIds,
     this.customFields,
     this.description,
@@ -561,15 +560,15 @@ class InvoiceDataDto extends Equatable {
       _$InvoiceDataDtoFromJson(json);
 
   @JsonKey(name: 'account_tax_ids')
-  dynamic accountTaxIds;
+  final dynamic accountTaxIds;
   @JsonKey(name: 'custom_fields')
-  dynamic customFields;
-  dynamic description;
-  dynamic footer;
-  dynamic issuer;
-  dynamic metadata;
+  final dynamic customFields;
+  final dynamic description;
+  final dynamic footer;
+  final dynamic issuer;
+  final dynamic metadata;
   @JsonKey(name: 'rendering_options')
-  dynamic renderingOptions;
+  final dynamic renderingOptions;
   InvoiceDataEntity convertIntoEntity() {
     return InvoiceDataEntity(
       customFields: customFields,
@@ -602,7 +601,7 @@ class InvoiceDataDto extends Equatable {
 /// tax_ids : null
 @JsonSerializable(createToJson: false)
 class CustomerDetailsDto extends Equatable {
-  CustomerDetailsDto({
+  const CustomerDetailsDto({
     this.address,
     this.email,
     this.name,
@@ -613,14 +612,14 @@ class CustomerDetailsDto extends Equatable {
 
   factory CustomerDetailsDto.fromJson(dynamic json) =>
       _$CustomerDetailsDtoFromJson(json);
-  dynamic address;
-  String? email;
-  dynamic name;
-  dynamic phone;
+  final dynamic address;
+  final String? email;
+  final String? name;
+  final String? phone;
   @JsonKey(name: 'tax_exempt')
-  String? taxExempt;
+  final String? taxExempt;
   @JsonKey(name: 'tax_ids')
-  dynamic taxIds;
+  final dynamic taxIds;
   CustomerDetailsEntity convertIntoEntity() {
     return CustomerDetailsEntity(
       address: address,
@@ -642,7 +641,7 @@ class CustomerDetailsDto extends Equatable {
 /// terms_of_service_acceptance : null
 @JsonSerializable(createToJson: false)
 class CustomTextDto extends Equatable {
-  CustomTextDto({
+  const CustomTextDto({
     this.afterSubmit,
     this.shippingAddress,
     this.submit,
@@ -651,12 +650,12 @@ class CustomTextDto extends Equatable {
 
   factory CustomTextDto.fromJson(dynamic json) => _$CustomTextDtoFromJson(json);
   @JsonKey(name: 'after_submit')
-  dynamic afterSubmit;
+  final dynamic afterSubmit;
   @JsonKey(name: 'shipping_address')
-  dynamic shippingAddress;
-  dynamic submit;
+  final dynamic shippingAddress;
+  final dynamic submit;
   @JsonKey(name: 'terms_of_service_acceptance')
-  dynamic termsOfServiceAcceptance;
+  final dynamic termsOfServiceAcceptance;
 
   CustomTextEntity convertIntoEntity() {
     return CustomTextEntity(
@@ -675,7 +674,7 @@ class CustomTextDto extends Equatable {
 /// shipping_details : null
 @JsonSerializable(createToJson: false)
 class CollectedInformationDto extends Equatable {
-  CollectedInformationDto({
+  const CollectedInformationDto({
     this.shippingDetails,
   });
 
@@ -683,7 +682,7 @@ class CollectedInformationDto extends Equatable {
       _$CollectedInformationDtoFromJson(json);
 
   @JsonKey(name: 'shipping_details')
-  dynamic shippingDetails;
+  final dynamic shippingDetails;
   CollectedInformationEntity convertIntoEntity() {
     return CollectedInformationEntity(shippingDetails: shippingDetails);
   }
@@ -698,7 +697,7 @@ class CollectedInformationDto extends Equatable {
 /// status : null
 @JsonSerializable(createToJson: false)
 class AutomaticTaxDto extends Equatable {
-  AutomaticTaxDto({
+  const AutomaticTaxDto({
     this.enabled,
     this.liability,
     this.provider,
@@ -707,10 +706,10 @@ class AutomaticTaxDto extends Equatable {
 
   factory AutomaticTaxDto.fromJson(dynamic json) =>
       _$AutomaticTaxDtoFromJson(json);
-  bool? enabled;
-  dynamic liability;
-  dynamic provider;
-  dynamic status;
+  final bool? enabled;
+  final dynamic liability;
+  final dynamic provider;
+  final dynamic status;
   AutomaticTaxEntity convertIntoEntity() {
     return AutomaticTaxEntity(
         enabled: enabled,
@@ -726,13 +725,13 @@ class AutomaticTaxDto extends Equatable {
 /// enabled : true
 @JsonSerializable(createToJson: false)
 class AdaptivePricingDto extends Equatable {
-  AdaptivePricingDto({
+  const AdaptivePricingDto({
     this.enabled,
   });
 
   factory AdaptivePricingDto.fromJson(dynamic json) =>
       _$AdaptivePricingDtoFromJson(json);
-  bool? enabled;
+  final bool? enabled;
 
   AdaptivePricingEntity convertIntoEntity() {
     return AdaptivePricingEntity(enabled: enabled);

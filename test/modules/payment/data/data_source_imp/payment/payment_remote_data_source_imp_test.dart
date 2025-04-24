@@ -32,10 +32,10 @@ void main() {
                   lat: "lat",
                   long: "long"));
       CashOrderResponseDto cashOrderResponseDto =
-          CashOrderResponseDto(message: "success");
+          const CashOrderResponseDto(message: "success");
       DioException exception = DioException(requestOptions: RequestOptions());
       CheckoutResponseDto checkoutResponseDto =
-          CheckoutResponseDto(message: "success");
+          const CheckoutResponseDto(message: "success");
       setUpAll(
         () {
           paymentApiClient = MockPaymentApiClient();

@@ -5,13 +5,11 @@ import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payme
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/use_cases/payment/make_checkout_session_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/ui/view_model/payment_state.dart';
 import 'package:injectable/injectable.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 @injectable
 class PaymentViewModel extends Cubit<PaymentState> {
   final MakeCheckoutSessionUseCase _makeCheckoutSessionUseCase;
-  final WebViewController webViewController = WebViewController();
-  late CheckoutResponseEntity _checkoutResponseEntity;
+  //late CheckoutResponseEntity _checkoutResponseEntity;
 
   PaymentViewModel(this._makeCheckoutSessionUseCase)
       : super(const PaymentState());
@@ -34,7 +32,7 @@ class PaymentViewModel extends Cubit<PaymentState> {
 
     switch (useCaseResult) {
       case Success<CheckoutResponseEntity>():
-        _checkoutResponseEntity = useCaseResult.data;
+        //_checkoutResponseEntity = useCaseResult.data;
         emit(PaymentState(
             checkoutSessionStatus: PaymentStatus.success,
             checkoutResponseEntity: useCaseResult.data));

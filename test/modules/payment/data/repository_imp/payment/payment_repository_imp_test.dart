@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/data/data_source_contract/payment/payment_remote_data_source.dart';
-import 'package:flower_ecommerce_app_team5/modules/payment/data/models/cash_order_response/cash_order_response_dto.dart';
-import 'package:flower_ecommerce_app_team5/modules/payment/data/models/checkout_session_response/checkout_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/data/repository_imp/payment/payment_repository_imp.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/cash_order_response/cash_order_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/checkout_session_response/checkout_response_entity.dart';
@@ -31,10 +29,10 @@ void main() {
                   lat: "lat",
                   long: "long"));
       CashOrderResponseEntity cashOrderResponseEntity =
-          CashOrderResponseEntity(message: "success");
+          const CashOrderResponseEntity(message: "success");
       DioException exception = DioException(requestOptions: RequestOptions());
       CheckoutResponseEntity checkoutResponseEntity =
-          CheckoutResponseEntity(message: "success");
+          const CheckoutResponseEntity(message: "success");
       setUpAll(
         () {
           paymentRemoteDataSource = MockPaymentRemoteDataSource();

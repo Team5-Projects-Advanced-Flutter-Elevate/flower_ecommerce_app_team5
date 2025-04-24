@@ -7,11 +7,11 @@ part 'payment_request_parameters.g.dart';
 
 @JsonSerializable(createFactory: false)
 class PaymentRequestParametersDto extends Equatable {
-  PaymentRequestParametersDto({
+  const PaymentRequestParametersDto({
     required this.shippingAddress,
   });
 
-  ShippingAddressDto shippingAddress;
+  final ShippingAddressDto shippingAddress;
 
   Map<String, dynamic> toJson() => _$PaymentRequestParametersDtoToJson(this);
 
@@ -34,7 +34,7 @@ class PaymentRequestParametersDto extends Equatable {
 
 @JsonSerializable(createFactory: false)
 class ShippingAddressDto extends Equatable{
-  ShippingAddressDto({
+  const ShippingAddressDto({
     required this.street,
     required this.phone,
     required this.city,
@@ -42,11 +42,11 @@ class ShippingAddressDto extends Equatable{
     required this.long,
   });
 
-  String street;
-  String phone;
-  String city;
-  String lat;
-  String long;
+  final String street;
+  final String phone;
+  final String city;
+  final String lat;
+  final String long;
 
   Map<String, dynamic> toJson() => _$ShippingAddressDtoToJson(this);
 

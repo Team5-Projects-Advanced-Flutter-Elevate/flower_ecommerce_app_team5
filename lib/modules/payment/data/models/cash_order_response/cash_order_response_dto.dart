@@ -9,15 +9,15 @@ part 'cash_order_response_dto.g.dart';
 
 @JsonSerializable(createToJson: false)
 class CashOrderResponseDto extends Equatable {
-  CashOrderResponseDto({
+  const CashOrderResponseDto({
     this.message,
     this.order,
   });
 
   factory CashOrderResponseDto.fromJson(dynamic json) =>
       _$CashOrderResponseDtoFromJson(json);
-  String? message;
-  OrderDto? order;
+  final String? message;
+  final OrderDto? order;
 
   CashOrderResponseEntity convertIntoEntity() {
     return CashOrderResponseEntity(
@@ -43,7 +43,7 @@ class CashOrderResponseDto extends Equatable {
 
 @JsonSerializable(createToJson: false)
 class OrderDto extends Equatable {
-  OrderDto({
+  const OrderDto({
     this.user,
     this.orderItems,
     this.totalPrice,
@@ -59,18 +59,18 @@ class OrderDto extends Equatable {
   });
 
   factory OrderDto.fromJson(dynamic json) => _$OrderDtoFromJson(json);
-  String? user;
-  List<OrderItemDto>? orderItems;
-  num? totalPrice;
-  String? paymentType;
-  bool? isPaid;
-  bool? isDelivered;
-  String? state;
-  String? id;
-  String? createdAt;
-  String? updatedAt;
-  String? orderNumber;
-  num? v;
+  final String? user;
+  final List<OrderItemDto>? orderItems;
+  final num? totalPrice;
+  final String? paymentType;
+  final bool? isPaid;
+  final bool? isDelivered;
+  final String? state;
+  final String? id;
+  final String? createdAt;
+  final String? updatedAt;
+  final String? orderNumber;
+  final num? v;
 
   OrderEntity convertIntoEntity() {
     return OrderEntity(
@@ -114,7 +114,7 @@ class OrderDto extends Equatable {
 
 @JsonSerializable(createToJson: false)
 class OrderItemDto extends Equatable {
-  OrderItemDto({
+  const OrderItemDto({
     this.product,
     this.price,
     this.quantity,
@@ -122,10 +122,10 @@ class OrderItemDto extends Equatable {
   });
 
   factory OrderItemDto.fromJson(dynamic json) => _$OrderItemDtoFromJson(json);
-  ProductDto? product;
-  num? price;
-  num? quantity;
-  String? id;
+  final ProductDto? product;
+  final num? price;
+  final num? quantity;
+  final String? id;
 
   OrderItemEntity convertIntoEntity() {
     return OrderItemEntity(
