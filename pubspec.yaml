@@ -87,6 +87,7 @@ dependencies:
   webview_flutter: ^4.10.0
   percent_indicator: ^4.2.5
   flutter_inappwebview: ^6.1.5
+  auto_size_text: ^3.0.0
 
 
 dev_dependencies:

@@ -18,4 +18,5 @@ class ApisEndpoints {
   static const String cashOrderEndpoint = 'api/v1/orders';
   static const String checkoutSessionEndpoint =
       'api/v1/orders/checkout?url=http://localhost:3000';
+  static const String getAddresses = 'api/v1/addresses';
 }

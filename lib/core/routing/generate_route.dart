@@ -3,6 +3,8 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/lo
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/best_seller_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/track_order_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
@@ -12,8 +14,9 @@ import 'package:flower_ecommerce_app_team5/modules/payment/ui/checkout_session_s
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/search/search_screen.dart';
 import 'package:flutter/material.dart';
-
+import '../../modules/check_out/ui/check_out_view.dart';
 import '../../modules/edit_profile/ui/change_password_screen.dart';
+import '../../modules/home/ui/layouts/add_new_address/new_address_screen.dart';
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -49,17 +52,28 @@ class GenerateRoute {
         return MaterialPageRoute(
           builder: (context) => const ChangePasswordScreen(),
         );
-      case DefinedRoutes.checkoutSessionScreenRoute:
+      case DefinedRoutes.checkOut:
         return MaterialPageRoute(
-          builder: (context) {
-            return CheckoutSessionScreen(
-              paymentRequestParameters: args as PaymentRequestParametersEntity,
-            );
-          },
+          builder: (context) => CheckOutView(
+            cartResponseEntity: args as CartResponseEntity,
+          ),
+        );
+      case DefinedRoutes.trackOrder:
+        return MaterialPageRoute(
+            builder: (context) => const TrackOrderScreen());
+      case DefinedRoutes.addNewAddress:
+        return MaterialPageRoute(
+          builder: (context) => const NewAddressScreen(),
         );
       case DefinedRoutes.searchScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const SearchScreen(),
+        );
+      case DefinedRoutes.checkoutSessionScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => CheckoutSessionScreen(
+            paymentRequestParameters: args as PaymentRequestParametersEntity,
+          ),
         );
       default:
         return _errorRoute();

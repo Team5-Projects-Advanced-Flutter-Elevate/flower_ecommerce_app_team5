@@ -154,9 +154,10 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        width: screenWidth * 0.02,
-                      ),
+                      // SizedBox(
+                      //   width: screenWidth * 0.02,
+                      // ),
+                      const Spacer(),
                       Expanded(
                         flex: 3,
                         child: Row(
@@ -177,6 +178,7 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                                   AssetsPaths.minusIcon,
                                 ),
                                 color: AppColors.black,
+                                size: 20,
                               ),
                             ),
                             SizedBox(
@@ -188,7 +190,9 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                                 '$value',
                                 style: theme.textTheme.bodyLarge?.copyWith(
                                   fontWeight: FontWeight.w600,
+                                  fontSize: 12 * (screenWidth / 375),
                                 ),
+                                maxLines: 1,
                               ),
                             ),
                             SizedBox(
@@ -206,6 +210,7 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                               },
                               child: const Icon(
                                 Icons.add,
+                                size: 20,
                               ),
                             ),
                           ],

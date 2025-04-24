@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+
 class ProductDetailsScreen extends StatefulWidget {
   final ProductEntity productEntity;
 
@@ -272,10 +273,14 @@ class _ProductDetailsScreenState
                           ),
                           FilledButton(
                               onPressed: () {
-                                getIt.get<CartCubit>().doIntent(AddToCartIntent(
+                                getIt<CartCubit>().doIntent(
+                                  AddToCartIntent(
                                     request: AddToCartRequest(
-                                        product: widget.productEntity.id,
-                                        quantity: 1)));
+                                      product: widget.productEntity.id!,
+                                      quantity: 1,
+                                    ),
+                                  ),
+                                );
                               },
                               child: Text(LocaleKeys.addToCart.tr()))
                         ],

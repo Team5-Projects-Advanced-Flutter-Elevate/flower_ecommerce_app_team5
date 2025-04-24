@@ -104,17 +104,18 @@ class LocaleKeys {
   static const String change = 'change';
   static const String update = 'update';
 
-  // Product
-  static const String egp = 'egp';
-  static const String status = 'status';
-  static const String inStock = 'inStock';
-  static const String notInStock = 'notInStock';
-  static const String pricesIncludeTax = 'pricesIncludeTax';
-  static const String description = 'description';
-  static const String information = 'information';
-  static const String sold = 'sold';
-  static const String rate = 'rate';
-  static const String rateCount = 'rateCount';
+  // Product Details
+  static const egp = 'egp';
+  static const status = 'status';
+  static const inStock = 'inStock';
+  static const notInStock = 'notInStock';
+  static const pricesIncludeTax = 'pricesIncludeTax';
+  static const description = 'description';
+  static const information = 'information';
+  static const sold = 'sold';
+  static const rate = 'rate';
+  static const rateCount = 'rateCount';
+
 
   // Change Password
   static const String changePasswordTitle = 'changePasswordTitle';
@@ -130,13 +131,27 @@ class LocaleKeys {
       'changePasswordConfirmPasswordLabel';
   static const String changePasswordConfirmPasswordHint =
       'changePasswordConfirmPasswordHint';
-  static const String changePasswordUpdateButton = 'changePasswordUpdateButton';
+  static const changePasswordUpdateButton = 'changePasswordUpdateButton';
 
   // Search
   static const String searchForAnyProductYouWant = 'searchForAnyProductYouWant';
-  static const String passwordChangedSuccessfully =
+  static const passwordChangedSuccessfully =
       'passwordChangedSuccessfully';
-  static const String flowery = "flowery";
+
+  // Payment
+  static const flowery = 'flowery';
+  static const deliveryAddress = 'deliveryAddress';
+  static const noAddressesFound = 'noAddressesFound';
+  static const addNew = 'addNew';
+  static const paymentMethod = 'paymentMethod';
+  static const cashOnDelivery = 'cashOnDelivery';
+  static const creditCard = 'creditCard';
+  static const itIsAGift = 'itIsAGift';
+  static const pleaseSelectDeliveryAddress = 'pleaseSelectDeliveryAddress';
+  static const pleaseSelectPaymentMethod = 'pleaseSelectPaymentMethod';
+  static const placeOrder = 'placeOrder';
+  static const trackOrder = 'trackOrder';
+  static const orderPlacedSuccess = 'orderPlacedSuccess';
   static const String successfulPayment = "successfulPayment";
   static const String canceledPayment = "canceledPayment";
   static const String addressTitle = 'address';
@@ -153,5 +168,5 @@ class LocaleKeys {
 
   // Filter
   static const String filter = 'filter';
-  static const String sort = 'sort';
+static const String sort = 'sort';
 }

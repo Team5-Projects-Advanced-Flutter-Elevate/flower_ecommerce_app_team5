@@ -3,10 +3,11 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_addre
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import '../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../core/colors/app_colors.dart';
 import '../../../../../core/di/injectable_initializer.dart';
+import '../../../../../core/widgets/error_state_widget.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import '../../../domain/entities/cities_states_entity/get_cities.dart';
 import '../../../domain/entities/cities_states_entity/get_states.dart';
@@ -79,8 +80,11 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios,
-                      size: 20, color: Colors.black),
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    size: 20,
+                    color: Colors.black,
+                  ),
                   onPressed: () => Navigator.pop(context),
                 ),
               ),
@@ -93,11 +97,14 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                 child: Form(
                   key: _formKey,
                   child: Column(
-                    //spacing: 25,
+                    // spacing: 25,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const Image(
                         image: AssetImage('assets/icons/map.png'),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
                       ),
                       TextFormField(
                         controller: addressController,
@@ -112,6 +119,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         // label: LocaleKeys.addressHint.tr(),
                       ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
                       TextFormField(
                         controller: phoneController,
                         decoration: InputDecoration(
@@ -123,6 +133,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                               .validationOfPhoneNumber(inputText);
                         },
                         autovalidateMode: AutovalidateMode.onUserInteraction,
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
                       ),
                       TextFormField(
                         controller: recipientController,
@@ -137,8 +150,11 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         // label: LocaleKeys.addressHint.tr(),
                       ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
                       Row(
-                        //spacing: 10,
+                        // spacing: 10,
                         children: [
                           Expanded(
                             child: _buildDropdown(
@@ -165,6 +181,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                               },
                             ),
                           ),
+                          SizedBox(
+                            width: screenWidth * 0.02,
+                          ),
                           Expanded(
                             child: _buildDropdown(
                               value: selectedArea ?? '',
@@ -180,6 +199,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                             ),
                           ),
                         ],
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.04,
                       ),
                       ElevatedButton(
                         onPressed: () async {

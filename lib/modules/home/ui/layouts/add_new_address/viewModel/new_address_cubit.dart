@@ -7,16 +7,18 @@ import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../domain/entities/cities_states_entity/get_cities.dart';
 import '../../../../domain/entities/cities_states_entity/get_states.dart';
-import '../../../../domain/entities/new_address_response.dart';
 
 @injectable
 class NewAddressViewModelCubit extends Cubit<AddressState> {
   NewAddressUseCase newAddressUseCase;
+
   NewAddressViewModelCubit(this.newAddressUseCase) : super(AddressInitial());
+
   void processIntent(NewAddressOnIntent intent) {
     switch (intent) {
       case AddAddress():
-        _saveAddress(intent.street,intent.phone,intent.city,intent.long,intent.long,intent.name);
+        _saveAddress(intent.street, intent.phone, intent.city, intent.long,
+            intent.long, intent.name);
         break;
     }
   }
@@ -47,10 +49,11 @@ class NewAddressViewModelCubit extends Cubit<AddressState> {
     return data.map((e) => City.fromJson(e)).toList();
   }
 
-  Future<void> _saveAddress(var street,var phone,var city,var lat,var long,var name) async {
+  Future<void> _saveAddress(
+      var street, var phone, var city, var lat, var long, var name) async {
     emit(AddressLoading()); // Emit loading state
     try {
-      await newAddressUseCase.call(street,phone,city,lat,long,name);
+      await newAddressUseCase.call(street, phone, city, lat, long, name);
       emit(AddressSuccess()); // Emit success state with message
     } catch (e) {
       emit(AddressError(e.toString())); // Emit error state with error message
@@ -88,5 +91,7 @@ class AddAddress extends NewAddressOnIntent {
   var lat;
   var long;
   var name;
-  AddAddress(this.street,this.phone,this.city,this.lat,this.long,this.name);
+
+  AddAddress(
+      this.street, this.phone, this.city, this.lat, this.long, this.name);
 }

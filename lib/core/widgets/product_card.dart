@@ -4,12 +4,10 @@ import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../../modules/home/data/models/cart_response/add_to_cart_request.dart';
@@ -117,50 +115,44 @@ class ProductCard extends BaseStatelessWidget {
                       ),
                       Expanded(
                         flex: 15,
-                        child: BlocBuilder<CartCubit, CartState>(
-                          builder: (context, state) {
-                            return FilledButton(
-                                onPressed: () {
-                                  homeScreenViewModel.selectedAppSectionIndex =
-                                      0;
-                                  getIt<CartCubit>().doIntent(
-                                    AddToCartIntent(
-                                      request: AddToCartRequest(
-                                        product: id,
-                                        quantity: 1,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                style: FilledButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 2)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.shopping_cart_outlined,
-                                      size: 18 *
-                                          (inherit.screenWidth /
-                                              Constants.designWidth),
-                                    ),
-                                    SizedBox(
-                                      width: inherit.screenWidth * 0.02,
-                                    ),
-                                    Text(
-                                      LocaleKeys.addToCart.tr(),
-                                      style: inherit.theme.textTheme.labelLarge!
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 13 *
-                                                  (inherit.screenWidth /
-                                                      Constants.designWidth),
-                                              color: AppColors.white),
-                                    )
-                                  ],
-                                ));
-                          },
-                        ),
+                        child: FilledButton(
+                            onPressed: () {
+                              homeScreenViewModel.selectedAppSectionIndex =
+                                      0;getIt<CartCubit>().doIntent(
+                                AddToCartIntent(
+                                  request: AddToCartRequest(
+                                    product: id,
+                                    quantity: 1,
+                                  ),
+                                ),
+                              );
+                            },
+                            style: FilledButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 2)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.shopping_cart_outlined,
+                                  size: 18 *
+                                      (inherit.screenWidth / Constants.designWidth),
+                                ),
+                                SizedBox(
+                                  width: inherit.screenWidth * 0.02,
+                                ),
+                                Text(
+                                  LocaleKeys.addToCart.tr(),
+                                  style: inherit.theme.textTheme.labelLarge!
+                                      .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 13 *
+                                              (inherit.screenWidth /
+                                                  Constants.designWidth),
+                                          color: AppColors.white),
+                                )
+                              ],
+                            )),
                       )
                     ],
                   ))

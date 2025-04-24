@@ -8,6 +8,7 @@ abstract class AppThemes {
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.white,
+      surfaceTintColor: AppColors.white,
     ),
     textTheme: TextTheme(
       // Body Text Styles
@@ -226,11 +227,30 @@ abstract class AppThemes {
             borderRadius: BorderRadius.circular(100),
           ),
         ),
+        padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(
+          vertical: 16,
+        )),
       ),
     ),
     radioTheme: RadioThemeData(
       fillColor: WidgetStatePropertyAll(
         AppColors.mainColor,
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.mainColor,
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 16,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        textStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     ),
   );

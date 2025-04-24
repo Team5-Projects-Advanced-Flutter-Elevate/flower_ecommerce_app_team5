@@ -141,6 +141,18 @@
       "flowery": "Flowery",
       "successfulPayment": "عملية دفع ناجحة!",
       "canceledPayment": "تم إلغاء عملية الدفع!",
+      "deliveryAddress": "عنوان التوصيل",
+      "noAddressesFound": "لم يتم العثور على عناوين",
+      "addNew": "أضف جديد",
+      "paymentMethod": "طريقة الدفع",
+      "cashOnDelivery": "الدفع عند الاستلام",
+      "creditCard": "بطاقة ائتمان",
+      "itIsAGift": "إنها هدية",
+      "pleaseSelectDeliveryAddress": "يرجى اختيار عنوان التوصيل",
+      "pleaseSelectPaymentMethod": "يرجى اختيار طريقة الدفع",
+      "placeOrder": "تأكيد الطلب",
+      "trackOrder": "تتبع الطلب",
+      "orderPlacedSuccess": "تم تقديم طلبك بنجاح!",
     "//searchSection": "",
     "searchForAnyProductYouWant": "ابحث عن منتج يناسبك"
   }
