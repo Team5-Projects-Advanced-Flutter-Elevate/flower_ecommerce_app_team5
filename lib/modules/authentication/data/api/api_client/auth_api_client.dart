@@ -3,10 +3,9 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/re
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/authentication_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/apis_endpoints/apis_endpoints.dart';
+import '../../models/forget_password/forget_password_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
-
 import '../../models/login/login_input_model.dart';
-
 part 'auth_api_client.g.dart';
 
 @RestApi(baseUrl: ApisEndpoints.baseUrl)
@@ -19,4 +18,19 @@ abstract class AuthApiClient {
   @POST(ApisEndpoints.register)
   Future<AuthenticationResponse> register(
       @Body() RegisterRequest registerRequest);
+
+  @POST(ApisEndpoints.forgetPasswordEndPoint)
+  Future<ForgetPasswordResponse?> forgetPassword(
+      @Body()Map<String, dynamic> body,
+      );
+
+  @PUT(ApisEndpoints.resetPasswordEndPoint)
+  Future<ForgetPasswordResponse?> resetPassword(
+      @Body()Map<String, dynamic> body,
+      );
+
+  @POST(ApisEndpoints.resetCodeEndPoint)
+  Future<ForgetPasswordResponse?> resetCode(
+      @Body()Map<String, dynamic> body,
+      );
 }

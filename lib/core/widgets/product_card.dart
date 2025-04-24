@@ -117,8 +117,8 @@ class ProductCard extends BaseStatelessWidget {
                         flex: 15,
                         child: FilledButton(
                             onPressed: () {
-                              homeScreenViewModel.selectedAppSectionIndex =
-                                      0;getIt<CartCubit>().doIntent(
+                              homeScreenViewModel.setAppSectionsIndex(0);
+                              getIt<CartCubit>().doIntent(
                                 AddToCartIntent(
                                   request: AddToCartRequest(
                                     product: id,
@@ -128,15 +128,16 @@ class ProductCard extends BaseStatelessWidget {
                               );
                             },
                             style: FilledButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 2)),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2)),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.shopping_cart_outlined,
                                   size: 18 *
-                                      (inherit.screenWidth / Constants.designWidth),
+                                      (inherit.screenWidth /
+                                          Constants.designWidth),
                                 ),
                                 SizedBox(
                                   width: inherit.screenWidth * 0.02,

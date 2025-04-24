@@ -29,7 +29,7 @@ class CategoriesSection extends StatelessWidget {
           HeadLineSection(
             LocaleKeys.categories.tr(),
             onTap: () {
-              homeScreenViewModel.selectedAppSectionIndex = 1;
+              homeScreenViewModel.setAppSectionsIndex(1);
               homeScreenViewModel.doIntent(JumpToPage(pageIndex: 1));
             },
           ),

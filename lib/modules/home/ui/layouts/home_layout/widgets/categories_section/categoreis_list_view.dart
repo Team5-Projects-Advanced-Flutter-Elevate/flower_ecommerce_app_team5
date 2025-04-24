@@ -32,7 +32,7 @@ class CategoriesListView extends BaseStatelessWidget {
           hoverColor: Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           onTap: () {
-            homeScreenViewModel.selectedAppSectionIndex = 1;
+            homeScreenViewModel.setAppSectionsIndex(1);
             homeScreenViewModel.doIntent(JumpToPage(pageIndex: 1));
             homeScreenViewModel.categoriesLayoutViewModel.selectedCategoryId =
                 categories[index].id;

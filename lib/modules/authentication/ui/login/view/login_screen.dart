@@ -178,11 +178,20 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                               textStyle: theme.textTheme.bodyMedium),
                         ),
                         const Spacer(),
-                        Text(
-                          LocaleKeys.forgetPassword.tr(),
-                          style: GoogleFonts.inter(
-                            textStyle: theme.textTheme.bodyMedium!,
-                            decoration: TextDecoration.underline,
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          overlayColor:
+                              const WidgetStatePropertyAll(Colors.transparent),
+                          onTap: () {
+                            Navigator.pushReplacementNamed(context,
+                                DefinedRoutes.forgetPasswordScreenRoute);
+                          },
+                          child: Text(
+                            LocaleKeys.forgetPassword.tr(),
+                            style: GoogleFonts.inter(
+                              textStyle: theme.textTheme.bodyMedium!,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         ),
                       ],

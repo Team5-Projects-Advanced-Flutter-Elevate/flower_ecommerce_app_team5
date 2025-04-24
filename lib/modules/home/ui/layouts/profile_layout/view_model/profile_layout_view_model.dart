@@ -33,15 +33,10 @@ class ProfileViewModelCubit extends Cubit<ProfileState> {
     }
   }
 
-  Future<void> clearSecureStorage(BuildContext context) async {
+  Future<void> clearSecureStorage() async {
     // Todo: use logout api
     const storage = FlutterSecureStorage();
     await storage.deleteAll();
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
-        ));
   }
 
   Future<void> _getProfileData() async {

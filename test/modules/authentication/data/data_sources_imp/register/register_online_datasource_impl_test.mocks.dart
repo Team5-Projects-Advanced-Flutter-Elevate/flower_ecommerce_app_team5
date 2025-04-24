@@ -7,6 +7,8 @@ import 'dart:async' as _i5;
 
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/api/api_client/auth_api_client.dart'
     as _i4;
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/forget_password/forget_password_response.dart'
+    as _i8;
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_input_model.dart'
     as _i6;
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart'
@@ -95,4 +97,37 @@ class MockAuthApiClient extends _i1.Mock implements _i4.AuthApiClient {
           ),
         )),
       ) as _i5.Future<_i3.AuthenticationResponse>);
+
+  @override
+  _i5.Future<_i8.ForgetPasswordResponse?> forgetPassword(
+          Map<String, dynamic>? body) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #forgetPassword,
+          [body],
+        ),
+        returnValue: _i5.Future<_i8.ForgetPasswordResponse?>.value(),
+      ) as _i5.Future<_i8.ForgetPasswordResponse?>);
+
+  @override
+  _i5.Future<_i8.ForgetPasswordResponse?> resetPassword(
+          Map<String, dynamic>? body) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetPassword,
+          [body],
+        ),
+        returnValue: _i5.Future<_i8.ForgetPasswordResponse?>.value(),
+      ) as _i5.Future<_i8.ForgetPasswordResponse?>);
+
+  @override
+  _i5.Future<_i8.ForgetPasswordResponse?> resetCode(
+          Map<String, dynamic>? body) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetCode,
+          [body],
+        ),
+        returnValue: _i5.Future<_i8.ForgetPasswordResponse?>.value(),
+      ) as _i5.Future<_i8.ForgetPasswordResponse?>);
 }

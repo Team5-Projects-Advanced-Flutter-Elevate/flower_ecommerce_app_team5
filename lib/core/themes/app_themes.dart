@@ -228,7 +228,7 @@ abstract class AppThemes {
           ),
         ),
         padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(
-          vertical: 16,
+          vertical: 8,
         )),
       ),
     ),
