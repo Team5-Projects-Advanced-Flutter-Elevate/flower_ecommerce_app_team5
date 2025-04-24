@@ -1,5 +1,6 @@
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/view_model/categories_layout_view_model.dart';
@@ -53,28 +54,35 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
           title: Row(
             children: [
               Expanded(
-                child: TextField(
-                  enabled: false,
-                  decoration: InputDecoration(
-                    hintText: LocaleKeys.search,
-                    hintStyle: GoogleFonts.inter(
-                      textStyle: theme.textTheme.bodyMedium!.copyWith(
-                        fontSize: 14 * (screenWidth / Constants.designWidth),
-                        color: AppColors.white[70],
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, DefinedRoutes.searchScreenRoute);
+                  },
+                  child: TextField(
+                    enabled: false,
+                    decoration: InputDecoration(
+                      hintText: LocaleKeys.search,
+                      hintStyle: GoogleFonts.inter(
+                        textStyle: theme.textTheme.bodyMedium!.copyWith(
+                          fontSize: 14 * (screenWidth / Constants.designWidth),
+                          color: AppColors.white[70],
+                        ),
                       ),
-                    ),
-                    prefixIcon: Icon(Icons.search, color: AppColors.white[70]),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: AppColors.white[70]!),
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: AppColors.white[70]!),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: AppColors.mainColor),
+                      prefixIcon:
+                          Icon(Icons.search, color: AppColors.white[70]),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.white[70]!),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.white[70]!),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.mainColor),
+                      ),
                     ),
                   ),
                 ),

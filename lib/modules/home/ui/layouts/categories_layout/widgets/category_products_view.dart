@@ -17,10 +17,10 @@ import '../../../../../../shared_layers/localization/generated/locale_keys.g.dar
 class CategoryProductsView extends BaseStatelessWidget {
   final List<ProductEntity> productList;
 
-  CategoryProductsView(this.productList, {super.key});
+  const CategoryProductsView(this.productList, {super.key});
 
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context, inherit) {
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
         if (state.addToCartStatus == AddToCartStatus.noAccess) {
@@ -33,25 +33,23 @@ class CategoryProductsView extends BaseStatelessWidget {
               context,
               DefinedRoutes.loginScreenRoute,
             ),
-            context: context,
           );
           return;
         }
         switch (state.addToCartStatus) {
           case AddToCartStatus.loading:
             displayAlertDialog(
-              context: context,
               title: const LoadingWidget(),
             );
           case AddToCartStatus.success:
-            hideAlertDialog(context);
+            hideAlertDialog();
             AppDialogs.showMessage(
               context,
               message: LocaleKeys.addedToCartSuccessfully.tr(),
               isSuccess: true,
             );
           case AddToCartStatus.error:
-            hideAlertDialog(context);
+            hideAlertDialog();
             AppDialogs.showMessage(
               context,
               message: LocaleKeys.soldOut.tr(),
@@ -66,20 +64,21 @@ class CategoryProductsView extends BaseStatelessWidget {
           Expanded(
             child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.04,
-                  vertical: screenHeight * 0.01,
+                  horizontal: inherit.screenWidth * 0.04,
+                  vertical: inherit.screenHeight * 0.01,
                 ),
                 child: productList.isEmpty
                     ? Center(
                         child: Text(
                           LocaleKeys.noProductsFound.tr(),
                           style: GoogleFonts.inter(
-                              textStyle: theme.textTheme.bodyLarge!
+                              textStyle: inherit.theme.textTheme.bodyLarge!
                                   .copyWith(color: AppColors.white[70])),
                         ),
                       )
                     : GridView.builder(
-                        padding: EdgeInsets.only(top: screenHeight * 0.02),
+                        padding:
+                            EdgeInsets.only(top: inherit.screenHeight * 0.02),
                         itemCount: productList.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -91,8 +90,8 @@ class CategoryProductsView extends BaseStatelessWidget {
                         itemBuilder: (context, index) => ProductCard(
                           id: productList[index].id,
                           onProductCardClick: () {},
-                          width: screenWidth * 0.45,
-                          height: screenHeight * 0.25,
+                          width: inherit.screenWidth * 0.45,
+                          height: inherit.screenHeight * 0.25,
                           productTitle: productList[index].title!,
                           price: productList[index].price,
                           priceAfterDiscountIfExist:
