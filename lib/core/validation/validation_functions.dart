@@ -39,10 +39,14 @@ class ValidateFunctions {
   String? validationOfFirstOrLastName(String? inputText,
       {bool isFirstName = true}) {
     RegExp nameRegExp = RegExp(r'^[A-Za-z]+$');
+
     if (inputText?.trim().isEmpty == true || inputText == null) {
       return isFirstName
           ? LocaleKeys.pleaseEnterFirstName.tr()
           : LocaleKeys.pleaseEnterLastName.tr();
+    }
+    if (inputText.trim().length < 3) {
+      return LocaleKeys.namesLengthRule.tr();
     }
     if (!nameRegExp.hasMatch(inputText)) {
       return LocaleKeys.namesRules.tr();

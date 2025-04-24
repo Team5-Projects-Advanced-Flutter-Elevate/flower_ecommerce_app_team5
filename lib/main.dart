@@ -27,9 +27,22 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   await configureDependencies();
-  storedLoginInfo = await getIt.get<LoginUseCase>().getStoredLoginInfo();
-  DioServiceExtension.updateDioWithToken(storedLoginInfo?.token ?? '');
+  final loginUseCase = getIt.get<LoginUseCase>();
+  final rememberValue = await loginUseCase.getCachedRememberValue();
+  if (!rememberValue) {
+    await loginUseCase.deleteLoginInfo();
+    await loginUseCase.deleteCachedRememberValue();
+  } else {
+    storedLoginInfo = await loginUseCase.getStoredLoginInfo();
+    DioServiceExtension.updateDioWithToken(storedLoginInfo?.token ?? '');
+  }
   LocalizationManager localizationManager = getIt.get<LocalizationManager>();
+  // registering NavigatorState globalKey that will be given for MaterialApp()
+  getIt.registerLazySingleton<GlobalKey<NavigatorState>>(
+    () {
+      return GlobalKey<NavigatorState>();
+    },
+  );
   runApp(BlocProvider(
     create: (context) => getIt<CartCubit>(),
     child: MultiProvider(
@@ -62,7 +75,7 @@ class MyApp extends StatelessWidget {
     return Consumer<LocalizationManager>(
       builder: (context, localizationManager, child) {
         return BaseInheritedWidget(
-          theme: Theme.of(context),
+          theme: AppThemes.lightTheme,
           screenWidth: MediaQuery.of(context).size.width,
           screenHeight: MediaQuery.of(context).size.height,
           easyLocalization: EasyLocalization.of(context)!,
@@ -70,6 +83,7 @@ class MyApp extends StatelessWidget {
           validateFunctions: ValidateFunctions.getInstance(),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
+            navigatorKey: getIt.get<GlobalKey<NavigatorState>>(),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
@@ -85,6 +99,8 @@ class MyApp extends StatelessWidget {
             // onGenerateInitialRoutes: (initialRoute) =>
             //     GenerateRoute.onGenerateInitialRoutes(
             //         initialRoute: initialRoute, loginInfo: storedLoginInfo),
+                    initialRoute: initialRoute, loginInfo: storedLoginInfo),
+            //initialRoute: DefinedRoutes.checkoutSessionScreenRoute,
           ),
         );
       },
