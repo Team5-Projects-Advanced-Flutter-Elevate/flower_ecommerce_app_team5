@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 part 'payment_request_parameters.g.dart';
 
 /// shippingAddress : {"street":"details","phone":"01010800921","city":"Cairo","lat":"String","long":"String"}
@@ -22,8 +23,17 @@ class PaymentRequestParametersDto extends Equatable {
             ShippingAddressDto.convertEntityIntoDto(entity.shippingAddress));
   }
 
+  @JsonKey(includeToJson: false)
   @override
   List<Object?> get props => [shippingAddress];
+
+  @JsonKey(includeToJson: false)
+  @override
+  bool? get stringify => super.stringify;
+
+  @JsonKey(includeToJson: false)
+  @override
+  int get hashCode => super.hashCode;
 }
 
 /// street : "details"
@@ -33,7 +43,7 @@ class PaymentRequestParametersDto extends Equatable {
 /// long : "String"
 
 @JsonSerializable(createFactory: false)
-class ShippingAddressDto extends Equatable{
+class ShippingAddressDto extends Equatable {
   const ShippingAddressDto({
     required this.street,
     required this.phone,
@@ -59,6 +69,15 @@ class ShippingAddressDto extends Equatable{
         long: entity.long);
   }
 
+  @JsonKey(includeToJson: false)
   @override
-  List<Object?> get props => [street,phone,city,long,lat];
+  List<Object?> get props => [street, phone, city, long, lat];
+
+  @JsonKey(includeToJson: false)
+  @override
+  bool? get stringify => super.stringify;
+
+  @JsonKey(includeToJson: false)
+  @override
+  int get hashCode => super.hashCode;
 }

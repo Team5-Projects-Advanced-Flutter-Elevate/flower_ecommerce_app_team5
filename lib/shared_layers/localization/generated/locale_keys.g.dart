@@ -116,11 +116,6 @@ class LocaleKeys {
   static const rate = 'rate';
   static const rateCount = 'rateCount';
 
-  // Edit Profile
-  static const editProfile = 'editProfile';
-  static const profileUpdatedSuccessfully = 'profileUpdatedSuccessfully';
-  static const change = 'change';
-  static const update = 'update';
 
   // Change Password
   static const String changePasswordTitle = 'changePasswordTitle';

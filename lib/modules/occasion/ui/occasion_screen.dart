@@ -52,7 +52,7 @@ class _OccasionListScreenState
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(LocaleKeys.occasionScreenTitle.tr(),
+                Text(LocaleKeys.occsionScreenTitle.tr(),
                     style: Theme.of(context).textTheme.headlineMedium),
                 const SizedBox(height: 2),
                 Text(LocaleKeys.occasionScreenSubTitle.tr(),

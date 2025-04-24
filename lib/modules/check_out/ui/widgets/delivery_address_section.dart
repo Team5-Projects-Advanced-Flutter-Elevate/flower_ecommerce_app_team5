@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
@@ -80,7 +81,10 @@ class _DeliveryAddressSectionState
                         ),
                         OutlinedButton(
                           onPressed: () {
-                            /// navigate to add new address screen
+                            Navigator.pushNamed(
+                              context,
+                              DefinedRoutes.addNewAddress,
+                            );
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

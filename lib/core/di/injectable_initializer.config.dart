@@ -111,12 +111,25 @@ import '../../modules/edit_profile/ui/view_model/edit_profile_view_model.dart'
 import '../../modules/home/data/api/api_client/home_api_client.dart' as _i293;
 import '../../modules/home/data/api/api_client_provider/home_api_client_provider.dart'
     as _i939;
+import '../../modules/home/data/datasource_contract/about_us.dart' as _i925;
 import '../../modules/home/data/datasource_contract/home_online_data_source.dart'
     as _i274;
+import '../../modules/home/data/datasource_contract/new_address.dart' as _i1042;
+import '../../modules/home/data/datasource_contract/terms.dart' as _i937;
+import '../../modules/home/data/datasource_impl/about_us.dart' as _i1049;
 import '../../modules/home/data/datasource_impl/home_data_source_impl.dart'
     as _i524;
+import '../../modules/home/data/datasource_impl/new_address.dart' as _i265;
+import '../../modules/home/data/datasource_impl/Terms.dart' as _i139;
+import '../../modules/home/data/repo_impl/about_us.dart' as _i219;
 import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
+import '../../modules/home/data/repo_impl/new_address_repo_impl.dart' as _i150;
+import '../../modules/home/data/repo_impl/terms.dart' as _i880;
+import '../../modules/home/domain/repo_contract/about_us.dart' as _i936;
 import '../../modules/home/domain/repo_contract/home_repo.dart' as _i1003;
+import '../../modules/home/domain/repo_contract/new_address_repo.dart' as _i469;
+import '../../modules/home/domain/repo_contract/terms.dart' as _i1053;
+import '../../modules/home/domain/use_cases/about_us.dart' as _i435;
 import '../../modules/home/domain/use_cases/add_to_use_case.dart' as _i999;
 import '../../modules/home/domain/use_cases/delete_from_cart.dart' as _i828;
 import '../../modules/home/domain/use_cases/get_all_products_use_case.dart'
@@ -129,6 +142,10 @@ import '../../modules/home/domain/use_cases/get_home_data_use_case.dart'
     as _i90;
 import '../../modules/home/domain/use_cases/get_occasions_use_case.dart'
     as _i386;
+import '../../modules/home/domain/use_cases/new_address_use_case.dart' as _i304;
+import '../../modules/home/domain/use_cases/terms_use_case.dart' as _i721;
+import '../../modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart'
+    as _i482;
 import '../../modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart'
     as _i671;
 import '../../modules/home/ui/layouts/categories_layout/view_model/categories_layout_view_model.dart'
@@ -215,6 +232,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
+    gh.factory<_i937.TermsLocalDataSource>(
+        () => _i139.TermsLocalDataSourceImpl());
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i363.CheckOutApiClient>(
@@ -233,8 +252,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => occasionApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
+    gh.factory<_i1042.NewAddressOnlineDataSource>(
+        () => _i265.NewAddressOnlineDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.factory<_i113.CheckOutDataSource>(
         () => _i455.CheckOutDataSourceImpl(gh<_i363.CheckOutApiClient>()));
+    gh.factory<_i925.AboutUsLocalDataSource>(
+        () => _i1049.AboutUsLocalDataSourceImpl());
+    gh.factory<_i936.AboutUsRepo>(
+        () => _i219.AboutUsRepoImpl(gh<_i925.AboutUsLocalDataSource>()));
+    gh.factory<_i1053.TermsRepo>(
+        () => _i880.TermsRepoImpl(gh<_i937.TermsLocalDataSource>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
         () => _i701.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()));
     gh.factory<_i713.EditProfileOnlineDataSource>(
@@ -246,6 +273,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i979.PaymentRemoteDataSourceImp(gh<_i979.PaymentApiClient>()));
     gh.factory<_i542.PaymentRepository>(
         () => _i1026.PaymentRepositoryImp(gh<_i409.PaymentRemoteDataSource>()));
+    gh.factory<_i721.TermsUseCase>(
+        () => _i721.TermsUseCase(gh<_i1053.TermsRepo>()));
     gh.factory<_i766.LoginRemoteDataSource>(
         () => _i132.LoginRemoteDataSourceImp(gh<_i343.AuthApiClient>()));
     gh.factory<_i362.OccasionOnlineDataSource>(() =>
@@ -266,10 +295,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i182.ProfileRepoImpl(gh<_i713.EditProfileOnlineDataSource>()));
     gh.factory<_i319.OccasionRepo>(
         () => _i276.OccasionRepoImpl(gh<_i362.OccasionOnlineDataSource>()));
+    gh.factory<_i469.NewAddressRepo>(() =>
+        _i150.NewAddressRepoImpl(gh<_i1042.NewAddressOnlineDataSource>()));
     gh.factory<_i107.CheckOutRepo>(() => _i868.CheckOutRepoImpl(
         checkOutDataSource: gh<_i113.CheckOutDataSource>()));
     gh.factory<_i1003.HomeRepo>(
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
+    gh.factory<_i435.AboutUsUseCase>(
+        () => _i435.AboutUsUseCase(gh<_i936.AboutUsRepo>()));
     gh.factory<_i871.RegisterOnlineDataSource>(
         () => _i219.RegisterOnlineDataSourceImpl(gh<_i343.AuthApiClient>()));
     gh.factory<_i828.DeleteFromCartUseCase>(
@@ -335,6 +368,8 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
+    gh.factory<_i304.NewAddressUseCase>(
+        () => _i304.NewAddressUseCase(gh<_i469.NewAddressRepo>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
     gh.factory<_i801.PaymentViewModel>(
@@ -354,6 +389,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i44.CategoriesLayoutViewModel>(),
           gh<_i855.OccasionViewModelCubit>(),
         ));
+    gh.factory<_i482.NewAddressViewModelCubit>(
+        () => _i482.NewAddressViewModelCubit(gh<_i304.NewAddressUseCase>()));
     gh.factory<_i363.LoginViewModelCubit>(() => _i363.LoginViewModelCubit(
           gh<_i543.LoginUseCase>(),
           gh<_i421.LoginAsGuestUseCase>(),
@@ -364,8 +401,11 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i999.AddToCartUseCase>(),
           gh<_i828.DeleteFromCartUseCase>(),
         ));
-    gh.factory<_i901.ProfileViewModelCubit>(
-        () => _i901.ProfileViewModelCubit(gh<_i543.LoginUseCase>()));
+    gh.factory<_i901.ProfileViewModelCubit>(() => _i901.ProfileViewModelCubit(
+          gh<_i543.LoginUseCase>(),
+          gh<_i435.AboutUsUseCase>(),
+          gh<_i721.TermsUseCase>(),
+        ));
     return this;
   }
 }

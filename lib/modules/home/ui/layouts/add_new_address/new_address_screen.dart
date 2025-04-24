@@ -80,8 +80,11 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios,
-                      size: 20, color: Colors.black),
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    size: 20,
+                    color: Colors.black,
+                  ),
                   onPressed: () => Navigator.pop(context),
                 ),
               ),
@@ -94,11 +97,14 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                 child: Form(
                   key: _formKey,
                   child: Column(
-                    spacing: 25,
+                    // spacing: 25,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const Image(
                         image: AssetImage('assets/icons/map.png'),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
                       ),
                       TextFormField(
                         controller: addressController,
@@ -113,6 +119,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         // label: LocaleKeys.addressHint.tr(),
                       ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
                       TextFormField(
                         controller: phoneController,
                         decoration: InputDecoration(
@@ -124,6 +133,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                               .validationOfPhoneNumber(inputText);
                         },
                         autovalidateMode: AutovalidateMode.onUserInteraction,
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
                       ),
                       TextFormField(
                         controller: recipientController,
@@ -138,8 +150,11 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         // label: LocaleKeys.addressHint.tr(),
                       ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
                       Row(
-                        spacing: 10,
+                        // spacing: 10,
                         children: [
                           Expanded(
                             child: _buildDropdown(
@@ -166,6 +181,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                               },
                             ),
                           ),
+                          SizedBox(
+                            width: screenWidth * 0.02,
+                          ),
                           Expanded(
                             child: _buildDropdown(
                               value: selectedArea ?? '',
@@ -181,6 +199,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                             ),
                           ),
                         ],
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.04,
                       ),
                       ElevatedButton(
                         onPressed: () async {

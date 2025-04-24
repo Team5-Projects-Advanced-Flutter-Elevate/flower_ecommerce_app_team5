@@ -15,6 +15,7 @@ import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_de
 import 'package:flutter/material.dart';
 import '../../modules/check_out/ui/check_out_view.dart';
 import '../../modules/edit_profile/ui/change_password_screen.dart';
+import '../../modules/home/ui/layouts/add_new_address/new_address_screen.dart';
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -67,6 +68,10 @@ class GenerateRoute {
       case DefinedRoutes.trackOrder:
         return MaterialPageRoute(
             builder: (context) => const TrackOrderScreen());
+      case DefinedRoutes.addNewAddress:
+        return MaterialPageRoute(
+          builder: (context) => const NewAddressScreen(),
+        );
       default:
         return _errorRoute();
     }
