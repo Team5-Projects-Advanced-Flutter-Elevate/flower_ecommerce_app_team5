@@ -31,43 +31,47 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: screenHeight * 0.08,
         automaticallyImplyLeading: false,
-        title: TextField(
-          textInputAction: TextInputAction.search,
-          onSubmitted: (value) {
-            viewModel.search(searchKey: value);
-          },
-          decoration: InputDecoration(
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
-                color: AppColors.white[70]!,
+        title: Expanded(
+          child: TextField(
+            textInputAction: TextInputAction.search,
+            onSubmitted: (value) {
+              viewModel.search(searchKey: value);
+            },
+            decoration: InputDecoration(
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  color: AppColors.white[70]!,
+                ),
               ),
-            ),
-            hintText: LocaleKeys.search,
-            hintStyle: GoogleFonts.inter(
-              textStyle: theme.textTheme.bodyMedium!.copyWith(
-                fontSize: 14 * (screenWidth / Constants.designWidth),
-                color: AppColors.white[70],
+              hintText: LocaleKeys.search,
+              hintStyle: GoogleFonts.inter(
+                textStyle: theme.textTheme.bodyMedium!.copyWith(
+                  fontSize: 14 * (screenWidth / Constants.designWidth),
+                  color: AppColors.white[70],
+                ),
               ),
-            ),
-            suffixIcon: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(Icons.cancel_outlined, color: AppColors.white[70])),
-            prefixIcon: Icon(Icons.search, color: AppColors.white[70]),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.white[70]!),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.white[70]!),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.mainColor),
+              suffixIcon: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child:
+                      Icon(Icons.cancel_outlined, color: AppColors.white[70])),
+              prefixIcon: Icon(Icons.search, color: AppColors.white[70]),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColors.white[70]!),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColors.white[70]!),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColors.mainColor),
+              ),
             ),
           ),
         ),
