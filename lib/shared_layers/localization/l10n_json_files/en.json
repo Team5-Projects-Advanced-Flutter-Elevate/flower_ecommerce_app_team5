@@ -126,16 +126,14 @@
   "saveAddress": "Save address",
   "pleaseEnterAddress": "Please enter the address",
   "pleaseEnterValidAddress": "Please enter a valid address",
-  "pleaseEnterValidRecipient": "Please enter a valid recipient"
+  "pleaseEnterValidRecipient": "Please enter a valid recipient",
 
 
-
-
-
-  "changePasswordUpdateButton": "Update",
   "passwordChangedSuccessfully": "Password Changed Successfully!",
   "//payment": "",
   "flowery": "Flowery",
   "successfulPayment": "Successful Payment Operation!",
-  "canceledPayment": "Payment Operation Has Been Canceled!"
+  "canceledPayment": "Payment Operation Has Been Canceled!",
+  "//Section": "$$$ Comment $$$",
+  "searchForAnyProductYouWant": "Search For Any Product You Want"
 }

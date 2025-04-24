@@ -8,4 +8,5 @@ abstract class DefinedRoutes {
   static const String occasionScreenRoute = "OccasionScreen";
   static const String productDetailsScreenRoute = "ProductDetailsScreen";
   static const String checkoutSessionScreenRoute = "ProductDetailsScreen";
+  static const String searchScreenRoute = "SearchScreen";
 }

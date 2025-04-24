@@ -131,6 +131,9 @@ class LocaleKeys {
   static const String changePasswordConfirmPasswordHint =
       'changePasswordConfirmPasswordHint';
   static const String changePasswordUpdateButton = 'changePasswordUpdateButton';
+
+  // Search
+  static const String searchForAnyProductYouWant = 'searchForAnyProductYouWant';
   static const String passwordChangedSuccessfully =
       'passwordChangedSuccessfully';
   static const String flowery = "flowery";
@@ -147,9 +150,4 @@ class LocaleKeys {
   static const String pleaseEnterAddress = 'pleaseEnterAddress';
   static const String pleaseEnterValidAddress = 'pleaseEnterValidAddress';
   static const String pleaseEnterValidRecipient = 'pleaseEnterValidRecipient';
-
-
-
-
-
 }

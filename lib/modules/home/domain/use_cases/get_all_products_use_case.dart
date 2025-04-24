@@ -10,6 +10,8 @@ class GetAllProductsUseCase {
 
   GetAllProductsUseCase(this._homeRepo);
 
-  Future<ApiResult<AllProductResponseEntity>> execute({String? categoryId}) =>
-      _homeRepo.getAllProduct(categoryId: categoryId);
+  Future<ApiResult<AllProductResponseEntity>> execute(
+          {String? categoryId, String? searchKey, String? sortKey}) =>
+      _homeRepo.getAllProduct(
+          categoryId: categoryId, searchKey: searchKey, sortKey: sortKey);
 }
