@@ -150,4 +150,8 @@ class LocaleKeys {
   static const String pleaseEnterAddress = 'pleaseEnterAddress';
   static const String pleaseEnterValidAddress = 'pleaseEnterValidAddress';
   static const String pleaseEnterValidRecipient = 'pleaseEnterValidRecipient';
+
+  // Filter
+  static const String filter = 'filter';
+  static const String sort = 'sort';
 }

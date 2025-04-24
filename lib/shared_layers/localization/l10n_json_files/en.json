@@ -89,7 +89,6 @@
   "logout": "Logout",
   "languageKey": "English",
   "confirmLogout": "Confirm Logout",
-
   "//productDetailsScreen": "",
   "egp": "EGP {}",
   "status": "Status: ",
@@ -114,6 +113,9 @@
   "changePasswordNewPasswordHint": "Enter your new password",
   "changePasswordConfirmPasswordLabel": "Confirm Password",
   "changePasswordConfirmPasswordHint": "Confirm your new password",
+  "//filterSection": "$$$ Comment $$$",
+  "filter": "filter",
+  "sort": "Sort by",
   "changePasswordUpdateButton": "Update",
   "address": "Address",
   "recipient": "Recipient Name",
@@ -127,8 +129,6 @@
   "pleaseEnterAddress": "Please enter the address",
   "pleaseEnterValidAddress": "Please enter a valid address",
   "pleaseEnterValidRecipient": "Please enter a valid recipient",
-
-
   "passwordChangedSuccessfully": "Password Changed Successfully!",
   "//payment": "",
   "flowery": "Flowery",
