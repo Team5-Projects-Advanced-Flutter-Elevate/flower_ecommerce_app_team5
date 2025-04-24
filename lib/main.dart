@@ -15,8 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+import 'core/routing/generate_route.dart';
 import 'core/utilities/bloc_observer/bloc_observer.dart';
 import 'modules/authentication/domain/use_cases/login/login_use_case.dart';
+import 'modules/home/ui/layouts/profile_layout/about_us.dart';
 
 LoginResponseDto? storedLoginInfo;
 
@@ -73,12 +75,12 @@ class MyApp extends StatelessWidget {
             locale: context.locale,
             theme: AppThemes.lightTheme,
             themeMode: ThemeMode.light,
-            // onGenerateRoute: GenerateRoute.onGenerateRoute,
-            // onGenerateInitialRoutes: (initialRoute) =>
-            //     GenerateRoute.onGenerateInitialRoutes(
-                   // initialRoute: initialRoute, loginInfo: storedLoginInfo),
-            //initialRoute: DefinedRoutes.bestSellerScreenRoute,
-             home: const NewAddressScreen(),
+            onGenerateRoute: GenerateRoute.onGenerateRoute,
+            onGenerateInitialRoutes: (initialRoute) =>
+                GenerateRoute.onGenerateInitialRoutes(
+                   initialRoute: initialRoute, loginInfo: storedLoginInfo),
+           // initialRoute: DefinedRoutes.bestSellerScreenRoute,
+             //home: const NewAddressScreen(),
             // onGenerateRoute: GenerateRoute.onGenerateRoute,
             // onGenerateInitialRoutes: (initialRoute) =>
             //     GenerateRoute.onGenerateInitialRoutes(

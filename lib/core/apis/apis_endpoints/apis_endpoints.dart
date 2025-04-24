@@ -14,4 +14,5 @@ class ApisEndpoints {
   static const String uploadProfileImage = 'api/v1/auth/upload-photo';
   static const String editProfile = 'api/v1/auth/editProfile';
   static const String changePassword = 'api/v1/auth/change-password';
+  static const String addNewAddress='api/v1/addresses';
 }
