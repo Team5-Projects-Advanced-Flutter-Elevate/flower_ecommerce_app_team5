@@ -53,28 +53,29 @@ class _DeliveryAddressSectionState
                   case CheckOutStatus.success:
                     final addresses =
                         state.addressesResponseEntity?.addresses ?? [];
-                    if (addresses.isEmpty) {
-                      return Text(
-                        LocaleKeys.noAddressesFound.tr(),
-                      );
-                    }
                     return Column(
                       children: [
                         SizedBox(
                           height: screenHeight * 0.02,
                         ),
                         Expanded(
-                          child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            itemBuilder: (context, index) => AddressItem(
-                              addressModel: state.addressesResponseEntity
-                                      ?.addresses?[index] ??
-                                  AddressModelEntity(),
-                            ),
-                            itemCount: state.addressesResponseEntity?.addresses
-                                    ?.length ??
-                                0,
-                          ),
+                          child: addresses.isEmpty
+                              ? Center(
+                                  child: Text(
+                                    LocaleKeys.noAddressesFound.tr(),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  itemBuilder: (context, index) => AddressItem(
+                                    addressModel: state.addressesResponseEntity
+                                            ?.addresses?[index] ??
+                                        AddressModelEntity(),
+                                  ),
+                                  itemCount: state.addressesResponseEntity
+                                          ?.addresses?.length ??
+                                      0,
+                                ),
                         ),
                         SizedBox(
                           height: screenHeight * 0.02,
