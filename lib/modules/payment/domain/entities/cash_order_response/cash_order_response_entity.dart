@@ -1,17 +1,21 @@
+import 'package:equatable/equatable.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 
-class CashOrderResponseEntity {
-  CashOrderResponseEntity({
+class CashOrderResponseEntity extends Equatable {
+  const CashOrderResponseEntity({
     this.message,
     this.order,
   });
 
-  String? message;
-  OrderEntity? order;
+  final String? message;
+  final OrderEntity? order;
+
+  @override
+  List<Object?> get props => [message, order];
 }
 
-class OrderEntity {
-  OrderEntity({
+class OrderEntity extends Equatable {
+  const OrderEntity({
     this.user,
     this.orderItems,
     this.totalPrice,
@@ -24,28 +28,44 @@ class OrderEntity {
     this.v,
   });
 
-  String? user;
-  List<OrderItemEntity>? orderItems;
-  num? totalPrice;
-  String? paymentType;
-  bool? isPaid;
-  bool? isDelivered;
-  String? state;
-  String? id;
-  String? orderNumber;
-  num? v;
+  final String? user;
+  final List<OrderItemEntity>? orderItems;
+  final num? totalPrice;
+  final String? paymentType;
+  final bool? isPaid;
+  final bool? isDelivered;
+  final String? state;
+  final String? id;
+  final String? orderNumber;
+  final num? v;
+  @override
+  List<Object?> get props => [
+        user,
+        orderItems,
+        totalPrice,
+        paymentType,
+        isPaid,
+        isDelivered,
+        state,
+        id,
+        orderNumber,
+        v
+      ];
 }
 
-class OrderItemEntity {
-  OrderItemEntity({
+class OrderItemEntity extends Equatable {
+  const OrderItemEntity({
     this.product,
     this.price,
     this.quantity,
     this.id,
   });
 
-  ProductEntity? product;
-  num? price;
-  num? quantity;
-  String? id;
+  final ProductEntity? product;
+  final num? price;
+  final num? quantity;
+  final String? id;
+
+  @override
+  List<Object?> get props => [product, price, quantity, id];
 }

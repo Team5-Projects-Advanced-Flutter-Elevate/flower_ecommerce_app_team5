@@ -160,8 +160,8 @@ CustomerDetailsDto _$CustomerDetailsDtoFromJson(Map<String, dynamic> json) =>
     CustomerDetailsDto(
       address: json['address'],
       email: json['email'] as String?,
-      name: json['name'],
-      phone: json['phone'],
+      name: json['name'] as String?,
+      phone: json['phone'] as String?,
       taxExempt: json['tax_exempt'] as String?,
       taxIds: json['tax_ids'],
     );

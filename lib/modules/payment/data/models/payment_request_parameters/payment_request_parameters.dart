@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'payment_request_parameters.g.dart';
@@ -5,12 +6,12 @@ part 'payment_request_parameters.g.dart';
 /// shippingAddress : {"street":"details","phone":"01010800921","city":"Cairo","lat":"String","long":"String"}
 
 @JsonSerializable(createFactory: false)
-class PaymentRequestParametersDto {
-  PaymentRequestParametersDto({
+class PaymentRequestParametersDto extends Equatable {
+  const PaymentRequestParametersDto({
     required this.shippingAddress,
   });
 
-  ShippingAddressDto shippingAddress;
+  final ShippingAddressDto shippingAddress;
 
   Map<String, dynamic> toJson() => _$PaymentRequestParametersDtoToJson(this);
 
@@ -20,6 +21,9 @@ class PaymentRequestParametersDto {
         shippingAddress:
             ShippingAddressDto.convertEntityIntoDto(entity.shippingAddress));
   }
+
+  @override
+  List<Object?> get props => [shippingAddress];
 }
 
 /// street : "details"
@@ -29,8 +33,8 @@ class PaymentRequestParametersDto {
 /// long : "String"
 
 @JsonSerializable(createFactory: false)
-class ShippingAddressDto {
-  ShippingAddressDto({
+class ShippingAddressDto extends Equatable{
+  const ShippingAddressDto({
     required this.street,
     required this.phone,
     required this.city,
@@ -38,11 +42,11 @@ class ShippingAddressDto {
     required this.long,
   });
 
-  String street;
-  String phone;
-  String city;
-  String lat;
-  String long;
+  final String street;
+  final String phone;
+  final String city;
+  final String lat;
+  final String long;
 
   Map<String, dynamic> toJson() => _$ShippingAddressDtoToJson(this);
 
@@ -54,4 +58,7 @@ class ShippingAddressDto {
         lat: entity.lat,
         long: entity.long);
   }
+
+  @override
+  List<Object?> get props => [street,phone,city,long,lat];
 }

@@ -89,7 +89,6 @@
   "logout": "Logout",
   "languageKey": "English",
   "confirmLogout": "Confirm Logout",
-
   "//productDetailsScreen": "",
   "egp": "EGP {}",
   "status": "Status: ",
@@ -106,7 +105,7 @@
   "profileUpdatedSuccessfully": "Profile Updated Successfully!",
   "change": "Change",
   "update": "Update",
-  "//changePasswordTitle":  "$$$ Comment $$$",
+  "//changePasswordTitle": "$$$ Comment $$$",
   "changePasswordTitle": "Reset Password",
   "changePasswordCurrentPasswordLabel": "Current Password",
   "changePasswordCurrentPasswordHint": "Enter your current password",
@@ -114,8 +113,19 @@
   "changePasswordNewPasswordHint": "Enter your new password",
   "changePasswordConfirmPasswordLabel": "Confirm Password",
   "changePasswordConfirmPasswordHint": "Confirm your new password",
-  "changePasswordUpdateButton": "Update"
-,
+  "address": "Address",
+  "recipient": "Recipient Name",
+  "addressTitle": "Address",
+  "addressHint": "Enter the address",
+  "phoneNumberHint": "Enter the phone number",
+  "recipientNameHint": "Enter the recipient name",
+  "city": "City",
+  "area": "Area",
+  "saveAddress": "Save address",
+  "pleaseEnterAddress": "Please enter the address",
+  "pleaseEnterValidAddress": "Please enter a valid address",
+  "pleaseEnterValidRecipient": "Please enter a valid recipient",
+  "changePasswordUpdateButton": "Update",
   "passwordChangedSuccessfully": "Password Changed Successfully!",
   "//payment": "",
   "flowery": "Flowery",
@@ -130,6 +140,7 @@
   "pleaseSelectPaymentMethod": "Please select a payment method",
   "placeOrder": "Place order",
   "trackOrder": "Track order",
-  "orderPlacedSuccess": "Your order placed successfully!"
-
+  "orderPlacedSuccess": "Your order placed successfully!",
+  "successfulPayment": "Successful Payment Operation!",
+  "canceledPayment": "Payment Operation Has Been Canceled!"
 }
