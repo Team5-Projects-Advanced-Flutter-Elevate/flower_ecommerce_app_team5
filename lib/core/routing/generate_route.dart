@@ -58,14 +58,6 @@ class GenerateRoute {
             cartResponseEntity: args as CartResponseEntity,
           ),
         );
-
-      case DefinedRoutes.checkoutSessionScreenRoute:
-        return MaterialPageRoute(
-          builder: (context) => CheckoutSessionScreen(
-            paymentRequestParameters: args as PaymentRequestParametersEntity,
-          ),
-        );
-
       case DefinedRoutes.trackOrder:
         return MaterialPageRoute(
             builder: (context) => const TrackOrderScreen());
@@ -76,6 +68,12 @@ class GenerateRoute {
       case DefinedRoutes.searchScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const SearchScreen(),
+        );
+      case DefinedRoutes.checkoutSessionScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => CheckoutSessionScreen(
+            paymentRequestParameters: args as PaymentRequestParametersEntity,
+          ),
         );
       default:
         return _errorRoute();
