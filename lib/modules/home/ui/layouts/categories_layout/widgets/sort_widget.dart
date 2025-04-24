@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/widgets/show_sort_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/constants/constants.dart';
+import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import '../view_model/categories_layout_view_model.dart';
 
 class SortWidget extends StatefulWidget {
@@ -47,7 +49,7 @@ class _SortWidgetState extends BaseStatefulWidgetState<SortWidget> {
                 width: screenWidth * 0.02,
               ),
               Text(
-                'filter',
+                LocaleKeys.filter.tr(),
                 style: theme.textTheme.labelLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: 13 * (screenWidth / Constants.designWidth),

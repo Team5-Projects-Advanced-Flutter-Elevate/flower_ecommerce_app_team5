@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/constants/constants.dart';
 import '../../../../../../core/utilities/extensions/sort_ex.dart';
+import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import '../view_model/categories_layout_view_model.dart';
 
 showSortBottomSheet(
@@ -12,8 +14,25 @@ showSortBottomSheet(
     required theme,
     required num screenWidth}) {
   String? selectedSortValue;
-  final sortListTitles = Sort.values.map((e) => e.title).toList();
+  List<String> sortListTitles;
   final sortListValues = Sort.values.map((e) => e.value).toList();
+
+  /*
+  LocalizationManager localizationManager = getIt.get<LocalizationManager>();
+  LanguagesEnum _currentLanguage =
+      getIt.get<LocalizationManager>().getSavedLocal() ==
+              LanguagesEnum.en.getLanguageCode()
+          ? LanguagesEnum.en
+          : LanguagesEnum.ar;
+  if (_currentLanguage == LanguagesEnum.ar) {
+    sortListTitles = Sort.values.map((e) => e.titleA).toList();
+  }
+  */
+  if (LocaleKeys.filter.tr() == "filter") {
+    sortListTitles = Sort.values.map((e) => e.title).toList();
+  } else {
+    sortListTitles = Sort.values.map((e) => e.titleA).toList();
+  }
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -45,7 +64,7 @@ showSortBottomSheet(
                     padding:
                         const EdgeInsetsDirectional.only(start: 24, top: 16),
                     child: Text(
-                      'Sort by',
+                      LocaleKeys.sort.tr(),
                       style: GoogleFonts.outfit(
                           textStyle: theme.textTheme.headlineMedium!
                               .copyWith(color: AppColors.mainColor)),
@@ -113,7 +132,7 @@ showSortBottomSheet(
                                   width: screenWidth * 0.02,
                                 ),
                                 Text(
-                                  'filter',
+                                  LocaleKeys.filter.tr(),
                                   style: theme.textTheme.labelLarge!.copyWith(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 13 *

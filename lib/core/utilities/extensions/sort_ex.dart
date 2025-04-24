@@ -1,12 +1,13 @@
 enum Sort {
-  newProduct('New Product', 'createdAt'),
-  oldProduct('Old Product', '-createdAt'),
-  lowPrice('Low Price', 'priceAfterDiscount'),
-  highPrice('High Price', '-priceAfterDiscount'),
-  alphaAZ('Name (A-Z)', 'title'),
-  alphaZA('Name (Z-A)', '-title');
+  newProduct('الاحدث', 'New ', 'createdAt'),
+  oldProduct('الاقدم', 'Old ', '-createdAt'),
+  lowPrice('الاعلي سعرا', 'Low Price', 'priceAfterDiscount'),
+  highPrice('الاقل سعرا', 'High Price', '-priceAfterDiscount'),
+  alphaAZ('الابجديه تصاعدي', 'Name (A-Z)', 'title'),
+  alphaZA('الابجديه تنازلي', 'Name (Z-A)', '-title');
 
-  const Sort(this.title, this.value);
+  const Sort(this.titleA, this.title, this.value);
+  final String titleA;
   final String title;
   final String value;
 }

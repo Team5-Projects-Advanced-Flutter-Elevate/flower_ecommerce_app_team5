@@ -127,4 +127,8 @@ class LocaleKeys {
   static const String changePasswordConfirmPasswordHint =
       'changePasswordConfirmPasswordHint';
   static const String changePasswordUpdateButton = 'changePasswordUpdateButton';
+
+  // Filter
+  static const String filter = 'filter';
+  static const String sort = 'sort';
 }

@@ -110,5 +110,8 @@
   "changePasswordNewPasswordHint": "Enter your new password",
   "changePasswordConfirmPasswordLabel": "Confirm Password",
   "changePasswordConfirmPasswordHint": "Confirm your new password",
-  "changePasswordUpdateButton": "Update"
+  "changePasswordUpdateButton": "Update",
+  "//filterSection": "$$$ Comment $$$",
+  "filter": "filter",
+  "sort": "Sort by"
 }

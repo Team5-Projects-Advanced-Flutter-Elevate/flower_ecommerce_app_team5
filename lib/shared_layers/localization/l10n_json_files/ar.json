@@ -102,6 +102,9 @@
     "information": "المعلومات: ",
     "sold": "تم بيعه: {}",
     "rate": "التقييم: {}",
-    "rateCount": "عدد التقييمات: {}"
+    "rateCount": "عدد التقييمات: {}",
+      "//filterSection": "$$$ Comment $$$",
+      "filter": "فلتر",
+      "sort": "رتب بواسطة"
 
   }
