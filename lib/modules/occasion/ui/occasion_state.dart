@@ -1,6 +1,5 @@
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
-
-import '../domain/entities/get_occasion.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 
 sealed class OccasionState {}
 
@@ -9,25 +8,21 @@ class OccasionInitial extends OccasionState {}
 class OccasionLoading extends OccasionState {}
 
 class OccasionSuccess extends OccasionState {
-  final List<Occasion> allOccasions;
-  final List<Products> filteredProducts;
-  final  selectedSlug;
+  final List<OccasionEntity> allOccasions;
+  final List<ProductEntity> filteredProducts;
+  final String selectedId;
 
-
-  OccasionSuccess(this.allOccasions,this.filteredProducts,this.selectedSlug);
+  OccasionSuccess(this.allOccasions, this.filteredProducts, this.selectedId);
 }
 
 class OccasionProductsLoaded extends OccasionState {
-  final List<Products>? products;
+  final List<ProductEntity>? products;
 
   OccasionProductsLoaded(this.products);
 }
 
-
-
-
 class OccasionError extends OccasionState {
-  final String message;
+  final Object error;
 
-  OccasionError(this.message);
+  OccasionError(this.error);
 }

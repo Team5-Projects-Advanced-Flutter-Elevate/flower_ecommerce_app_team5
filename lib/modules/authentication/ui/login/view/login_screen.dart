@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/core/routing/app_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_input_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view_model/login_view_model_cubit.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -89,7 +89,8 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
               } else if (state is LoginViewModelError) {
                 hideAlertDialog();
                 displayAlertDialog(
-                    showOkButton: true, title: ErrorWidget(state.error));
+                    showOkButton: true,
+                    title: ErrorStateWidget(error: state.error));
               } else if (state is LoginViewModelLoading) {
                 FocusScope.of(context).unfocus();
                 displayAlertDialog(title: const LoadingWidget());
@@ -195,6 +196,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (!_formKey.currentState!.validate()) return;
+                              FocusManager.instance.primaryFocus?.unfocus();
                               viewModel.processIntent(LoginIntent(
                                   loginInputModel: LoginInputModel(
                                       email: _emailController.text,

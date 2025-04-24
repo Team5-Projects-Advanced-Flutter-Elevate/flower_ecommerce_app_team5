@@ -10,7 +10,7 @@ AuthenticationResponse _$AuthenticationResponseFromJson(
         Map<String, dynamic> json) =>
     AuthenticationResponse(
       message: json['message'] as String?,
-      user: json['user'] == null ? null : UserDM.fromJson(json['user']),
+      user: json['user'] == null ? null : UserDm.fromJson(json['user']),
       token: json['token'] as String?,
     );
 

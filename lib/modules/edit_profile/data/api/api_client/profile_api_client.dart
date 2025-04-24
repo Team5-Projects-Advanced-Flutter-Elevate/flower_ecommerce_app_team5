@@ -1,0 +1,28 @@
+import 'package:dio/dio.dart';
+import 'package:flower_ecommerce_app_team5/core/apis/apis_endpoints/apis_endpoints.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/change_password_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edit_profile_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edit_profile_response.dart';
+import 'package:retrofit/retrofit.dart';
+
+import '../../../../home/data/models/change_password/change_password_response.dart';
+
+part 'profile_api_client.g.dart';
+
+@RestApi(baseUrl: ApisEndpoints.baseUrl)
+abstract class ProfileApiClient {
+  factory ProfileApiClient(Dio dio) = _ProfileApiClient;
+
+  @PUT(ApisEndpoints.editProfile)
+  Future<EditProfileResponse> editProfile(
+      @Body() EditProfileInputModel editProfileInputModel);
+  @PATCH(ApisEndpoints.changePassword)
+  Future<ChangePasswordResponse> changePassword(
+      {@Body() required ChangePasswordInputModel changePasswordInputModel});
+}
+/*
+{
+    "password":"Ahmed@123",
+    "newPassword":"Ahmed@1234"
+}
+* */

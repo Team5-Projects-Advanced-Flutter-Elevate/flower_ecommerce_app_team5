@@ -27,12 +27,12 @@ extension RegisterFormStatusEx on RegisterState {
 }
 
 class RegisterState extends Equatable {
-  RegisterStatus state;
-  RegisterFormStatus registerFormStatus;
-  AuthenticationResponseEntity? authEntity;
+  final RegisterStatus state;
+  final RegisterFormStatus registerFormStatus;
+  final AuthenticationResponseEntity? authEntity;
   final Object? error;
 
-  RegisterState({
+  const RegisterState({
     this.state = RegisterStatus.initial,
     this.authEntity,
     this.registerFormStatus = RegisterFormStatus.valid,

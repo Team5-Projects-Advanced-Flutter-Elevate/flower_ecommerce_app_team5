@@ -3,17 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppThemes {
-  static final TextTheme _textTheme = TextTheme(
-    headlineMedium: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w500,
-      color: AppColors.gray,
-    ),
-  );
-
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.white,
+      surfaceTintColor: AppColors.white,
+    ),
     textTheme: TextTheme(
       // Body Text Styles
       labelMedium: GoogleFonts.inter(
@@ -105,7 +101,6 @@ abstract class AppThemes {
       backgroundColor: AppColors.white,
     ),
     navigationBarTheme: NavigationBarThemeData(
-
       backgroundColor: AppColors.white,
       iconTheme: WidgetStateProperty.resolveWith(
         (states) {
@@ -122,7 +117,6 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
-      
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return GoogleFonts.inter(
@@ -139,21 +133,25 @@ abstract class AppThemes {
         }
       }),
     ),
-    tabBarTheme: const TabBarTheme(
-      labelColor: Colors.pink,
-      unselectedLabelColor: Colors.grey,
-      indicatorColor: Colors.pink,
+    tabBarTheme: TabBarTheme(
+      labelColor: AppColors.mainColor,
+      unselectedLabelColor: AppColors.white[70],
+      indicatorColor: AppColors.mainColor,
+      labelPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      indicatorSize: TabBarIndicatorSize.label,
+      tabAlignment: TabAlignment.start,
       labelStyle: TextStyle(
-        fontWeight: FontWeight.w600,
-        fontSize: 14,
+        fontSize: 16,
+        fontWeight: FontWeight.normal, // Regular weight
+        color: AppColors.black,
       ),
-      unselectedLabelStyle: TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: 14,
-      ),
+      unselectedLabelStyle: GoogleFonts.inter(
+          textStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.normal, // Regular weight
+        color: AppColors.black,
+      )),
     ),
-
-
     inputDecorationTheme: InputDecorationTheme(
       errorMaxLines: 4,
       border: OutlineInputBorder(
@@ -161,6 +159,8 @@ abstract class AppThemes {
       ),
       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+      disabledBorder:
+          OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
 
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: AppColors.red),
@@ -172,6 +172,7 @@ abstract class AppThemes {
           color: AppColors.red,
         ),
       ),
+
       hintStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -199,6 +200,8 @@ abstract class AppThemes {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        disabledBackgroundColor: AppColors.black[30],
+        disabledForegroundColor: AppColors.white,
         foregroundColor: AppColors.white,
         padding: const EdgeInsets.all(14),
         backgroundColor: AppColors.mainColor,
@@ -224,11 +227,30 @@ abstract class AppThemes {
             borderRadius: BorderRadius.circular(100),
           ),
         ),
+        padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(
+          vertical: 16,
+        )),
       ),
     ),
     radioTheme: RadioThemeData(
       fillColor: WidgetStatePropertyAll(
         AppColors.mainColor,
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.mainColor,
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 16,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        textStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     ),
   );

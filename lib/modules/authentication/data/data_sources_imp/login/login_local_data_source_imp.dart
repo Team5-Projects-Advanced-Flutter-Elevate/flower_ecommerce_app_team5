@@ -25,6 +25,28 @@ class LoginLocalDataSourceImpl implements LoginLocalDataSource {
   }
 
   @override
+  void cacheRememberValue({required bool rememberMe}) {
+    storageService.setStringValue(
+        StorageConstants.rememberMeValueKey, "$rememberMe");
+  }
+
+  @override
+  Future<bool> getCachedRememberValue() async {
+    String? strRememberMeValue = await storageService
+        .getStringValue(StorageConstants.rememberMeValueKey);
+    if (strRememberMeValue != null) {
+      return strRememberMeValue == 'true';
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  Future<void> deleteCachedRememberValue() {
+    return storageService.deleteValue(StorageConstants.rememberMeValueKey);
+  }
+
+  @override
   Future<LoginResponseDto?> getCashedUser() async {
     final String? stringAuthDto = await storageService.getStringValue(
       StorageConstants.loginModelKey,
