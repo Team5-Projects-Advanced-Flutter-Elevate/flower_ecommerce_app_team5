@@ -50,7 +50,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -98,7 +98,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                 hideAlertDialog();
                 Navigator.pushNamedAndRemoveUntil(
                   context,
-                  DefinedRoutes.editProfileScreenRoute,
+                  DefinedRoutes.homeScreenRoute,
                   (route) => false,
                 );
               }
@@ -196,6 +196,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (!_formKey.currentState!.validate()) return;
+                              FocusManager.instance.primaryFocus?.unfocus();
                               viewModel.processIntent(LoginIntent(
                                   loginInputModel: LoginInputModel(
                                       email: _emailController.text,

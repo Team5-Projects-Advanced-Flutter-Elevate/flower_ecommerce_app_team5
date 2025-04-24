@@ -16,8 +16,7 @@ class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
 
   @override
-  State<ChangePasswordScreen> createState() =>
-      _ChangePasswordScreenState();
+  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
 }
 
 class _ChangePasswordScreenState
@@ -30,6 +29,11 @@ class _ChangePasswordScreenState
   final _formKey = GlobalKey<FormState>();
   EditProfileViewModelCubit viewModel = getIt.get<EditProfileViewModelCubit>();
   bool isEnabled = false;
+
+  bool isCurrentPasswordObscure = true,
+      isNewPasswordObscure = true,
+      isConfirmPasswordObscure = true;
+
   @override
   void dispose() {
     _currentPasswordController.dispose();
@@ -40,134 +44,164 @@ class _ChangePasswordScreenState
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => viewModel,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            LocaleKeys.changePasswordTitle.tr(),
-            style: GoogleFonts.inter(
-              textStyle: Theme.of(context).textTheme.titleLarge,
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: BlocProvider(
+        create: (context) => viewModel,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              LocaleKeys.changePasswordTitle.tr(),
+              style: GoogleFonts.inter(
+                textStyle: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () => Navigator.pop(context),
             ),
           ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: BlocListener<EditProfileViewModelCubit, EditProfileState>(
-            bloc: viewModel,
-            listener: (context, state) {
-              switch (state) {
-                case ProfileInitial():
-                case ProfileDataSuccess():
-                case ProfileEnableChangePasswordButton():
-                  break;
-                case ProfileLoading():
-                  displayAlertDialog(title: const LoadingWidget());
-                  break;
-                case ProfileSuccess():
-                  hideAlertDialog();
-                  Navigator.pop(context);
-                  displayAlertDialog(
-                    showOkButton: true,
-                    title: const Text('Password updated successfully'),
-                  );
-                case ProfileError():
-                  hideAlertDialog();
-                  displayAlertDialog(
-                    showOkButton: true,
-                    title: ErrorStateWidget(
-                      error: state.error,
-                    ),
-                  );
-              }
-            },
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  // Current Password Field
-                  TextFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    controller: _currentPasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText:
-                          LocaleKeys.changePasswordCurrentPasswordLabel.tr(),
-                      hintText:
-                          LocaleKeys.changePasswordCurrentPasswordHint.tr(),
-                    ),
-                    validator:
-                        ValidateFunctions.getInstance().validationOfPassword,
-                    onChanged: (value) {
-                      //ValidateFunctions.getInstance().validationOfPassword(value);
-                    },
-                  ),
-                  const SizedBox(height: 20),
-
-                  // New Password Field
-                  TextFormField(
-                      controller: _newPasswordController,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText:
-                            LocaleKeys.changePasswordNewPasswordLabel.tr(),
-                        hintText: LocaleKeys.changePasswordNewPasswordHint.tr(),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: BlocListener<EditProfileViewModelCubit, EditProfileState>(
+              listener: (context, state) {
+                switch (state.changePasswordStatus) {
+                  case EditProfileStatus.initial:
+                    break;
+                  case EditProfileStatus.loading:
+                    displayAlertDialog(title: const LoadingWidget());
+                  case EditProfileStatus.success:
+                    hideAlertDialog();
+                    displayAlertDialog(
+                        title:  Text(LocaleKeys.passwordChangedSuccessfully.tr()),
+                        showOkButton: true);
+                  case EditProfileStatus.error:
+                    hideAlertDialog();
+                    displayAlertDialog(
+                        title: ErrorStateWidget(error: state.error!),
+                        showOkButton: true);
+                }
+              },
+              child: Form(
+                key: _formKey,
+                onChanged: () {
+                  viewModel
+                      .changeButtonState(_formKey.currentState!.validate());
+                },
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      // Current Password Field
+                      TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: _currentPasswordController,
+                        obscureText: isCurrentPasswordObscure,
+                        obscuringCharacter: '*',
+                        decoration: InputDecoration(
+                            labelText: LocaleKeys
+                                .changePasswordCurrentPasswordLabel
+                                .tr(),
+                            hintText: LocaleKeys
+                                .changePasswordCurrentPasswordHint
+                                .tr(),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isCurrentPasswordObscure =
+                                      !isCurrentPasswordObscure;
+                                });
+                              },
+                              icon: Icon(
+                                isCurrentPasswordObscure
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                            )),
+                        validator: ValidateFunctions.getInstance()
+                            .validationOfPassword,
                       ),
-                      validator:
-                          ValidateFunctions.getInstance().validationOfPassword,
-                      onChanged: (value) {
-                        viewModel.changeButtonState(_newPasswordController.text,
-                            _confirmPasswordController.text);
-                      }),
-                  const SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
-                  // Confirm Password Field
-                  BlocListener<EditProfileViewModelCubit, EditProfileState>(
-                    listener: (context, state) {
-                      if (state is ProfileEnableChangePasswordButton) {
-                        isEnabled = true;
-                      }
-                    },
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: _confirmPasswordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText:
-                            LocaleKeys.changePasswordConfirmPasswordLabel.tr(),
-                        hintText:
-                            LocaleKeys.changePasswordConfirmPasswordHint.tr(),
+                      // New Password Field
+                      TextFormField(
+                        controller: _newPasswordController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        obscureText: isNewPasswordObscure,
+                        obscuringCharacter: '*',
+                        decoration: InputDecoration(
+                            labelText:
+                                LocaleKeys.changePasswordNewPasswordLabel.tr(),
+                            hintText:
+                                LocaleKeys.changePasswordNewPasswordHint.tr(),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isNewPasswordObscure = !isNewPasswordObscure;
+                                });
+                              },
+                              icon: Icon(
+                                isNewPasswordObscure
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                            )),
+                        validator: ValidateFunctions.getInstance()
+                            .validationOfPassword,
                       ),
-                      validator: (value) {
-                        if (value != _newPasswordController.text) {
-                          return 'Passwords do not match';
-                        }
+                      const SizedBox(height: 20),
 
-                        return ValidateFunctions.getInstance()
-                            .validationOfPassword(value);
-                      },
-                      onChanged: (value) {
-                        viewModel.changeButtonState(
-                            value, _newPasswordController.text);
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 40),
+                      // Confirm Password Field
+                      TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: _confirmPasswordController,
+                        obscureText: isConfirmPasswordObscure,
+                        obscuringCharacter: '*',
+                        decoration: InputDecoration(
+                            labelText: LocaleKeys
+                                .changePasswordConfirmPasswordLabel
+                                .tr(),
+                            hintText: LocaleKeys
+                                .changePasswordConfirmPasswordHint
+                                .tr(),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isConfirmPasswordObscure =
+                                      !isConfirmPasswordObscure;
+                                });
+                              },
+                              icon: Icon(
+                                isConfirmPasswordObscure
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                            )),
+                        validator: (value) {
+                          return ValidateFunctions.getInstance()
+                              .validationOfConfirmPassword(
+                                  value, _newPasswordController.text);
+                        },
+                      ),
+                      const SizedBox(height: 40),
 
-                  // Update Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: BlocBuilder<EditProfileViewModelCubit, EditProfileState>(
-                        bloc: viewModel,
-                        builder: (context, state) {
+                      // Update Button
+                      SizedBox(
+                        width: double.infinity,
+                        child: BlocBuilder<EditProfileViewModelCubit,
+                            EditProfileState>(builder: (context, state) {
+                          switch (state.changeButtonStatus) {
+                            case ButtonStatus.enable:
+                              isEnabled = true;
+                            case ButtonStatus.disable:
+                              isEnabled = false;
+                          }
                           return ElevatedButton(
                             onPressed: isEnabled
                                 ? () {
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
                                     if (_formKey.currentState!.validate()) {
                                       viewModel.processIntent(
                                           ChangePasswordIntent(
@@ -183,8 +217,10 @@ class _ChangePasswordScreenState
                                 LocaleKeys.changePasswordUpdateButton.tr()),
                           );
                         }),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),

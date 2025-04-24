@@ -1,11 +1,11 @@
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'best_seller.g.dart';
+part 'product_dto.g.dart';
 
 @JsonSerializable()
-class BestSellerDM {
-  BestSellerDM({
+class ProductDto {
+  ProductDto({
     this.id,
     this.title,
     this.slug,
@@ -26,7 +26,7 @@ class BestSellerDM {
     this.rateCount,
   });
 
-  factory BestSellerDM.fromJson(dynamic json) => _$BestSellerDMFromJson(json);
+  factory ProductDto.fromJson(dynamic json) => _$ProductDtoFromJson(json);
 
   String? id;
   String? title;
@@ -47,9 +47,9 @@ class BestSellerDM {
   num? rateAvg;
   num? rateCount;
 
-  Map<String, dynamic> toJson() => _$BestSellerDMToJson(this);
+  Map<String, dynamic> toJson() => _$ProductDtoToJson(this);
 
-  ProductEntity toEntity() => ProductEntity(
+  ProductEntity convertIntoEntity() => ProductEntity(
         id: id,
         title: title,
         slug: slug,

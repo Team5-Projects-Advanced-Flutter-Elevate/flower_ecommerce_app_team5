@@ -34,6 +34,7 @@ class LocaleKeys {
       'specialCharactersRulePassword';
   static const String pleaseConfirmPassword = 'pleaseConfirmPassword';
   static const String noMatch = 'noMatch';
+  static const String namesLengthRule = 'namesLengthRule';
 
   // Auth
   static const String alreadyHaveAnAccount = 'alreadyHaveAnAccount';
@@ -99,6 +100,9 @@ class LocaleKeys {
   static const String languageKey = 'languageKey';
   static const String confirmLogout = 'confirmLogout';
   static const String editProfile = 'editProfile';
+  static const String profileUpdatedSuccessfully = 'profileUpdatedSuccessfully';
+  static const String change = 'change';
+  static const String update = 'update';
 
   // Product
   static const String egp = 'egp';
@@ -127,4 +131,9 @@ class LocaleKeys {
   static const String changePasswordConfirmPasswordHint =
       'changePasswordConfirmPasswordHint';
   static const String changePasswordUpdateButton = 'changePasswordUpdateButton';
+  static const String passwordChangedSuccessfully =
+      'passwordChangedSuccessfully';
+  static const String flowery = "flowery";
+  static const String successfulPayment = "successfulPayment";
+  static const String canceledPayment = "canceledPayment";
 }

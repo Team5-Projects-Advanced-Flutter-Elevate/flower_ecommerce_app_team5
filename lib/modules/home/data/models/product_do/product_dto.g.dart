@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'best_seller.dart';
+part of 'product_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BestSellerDM _$BestSellerDMFromJson(Map<String, dynamic> json) => BestSellerDM(
+ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => ProductDto(
       id: json['id'] as String?,
       title: json['title'] as String?,
       slug: json['slug'] as String?,
@@ -28,7 +28,7 @@ BestSellerDM _$BestSellerDMFromJson(Map<String, dynamic> json) => BestSellerDM(
       rateCount: json['rateCount'] as num?,
     );
 
-Map<String, dynamic> _$BestSellerDMToJson(BestSellerDM instance) =>
+Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,

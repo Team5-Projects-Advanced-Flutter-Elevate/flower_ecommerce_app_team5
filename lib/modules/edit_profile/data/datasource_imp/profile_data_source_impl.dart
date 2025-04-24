@@ -4,8 +4,8 @@ import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart'
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/api/api_client/profile_api_client.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/api/api_client/upload_image_api_client.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/change_password_input_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_input_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edit_profile_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edit_profile_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/upload_image_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/entities/upload_image_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/change_password/change_password_response.dart';
@@ -44,7 +44,7 @@ class EditProfileOnlineDataSourceImpl implements EditProfileOnlineDataSource {
   Future<ApiResult<EditProfileResponse?>> updateProfile(
       {required EditProfileInputModel editProfileInputModel}) async {
     var result = await ApiExecutor.executeApi(() async =>
-        await _profileApiClient.editeProfile(editProfileInputModel));
+        await _profileApiClient.editProfile(editProfileInputModel));
     switch (result) {
       case Success<EditProfileResponse>():
         return Success(

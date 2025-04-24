@@ -60,7 +60,7 @@ class CartCubit extends Cubit<CartState> {
     bool isLogin = userData != null;
     if (!isLogin) {
       emit(state.copyWith(
-        state: CartStatus.noAccess,
+        userLoginStatus: UserLoginStatus.guest,
       ));
       return;
     }

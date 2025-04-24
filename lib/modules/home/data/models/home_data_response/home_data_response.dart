@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../all_gategories_reponse/category_dm.dart';
 import '../all_occasions_response/occasion_dm.dart';
-import 'best_seller.dart';
+import '../product_do/product_dto.dart';
 
 part 'home_data_response.g.dart';
 
@@ -21,7 +21,7 @@ class HomeDataResponse {
 
   String? message;
   List<CategoryDM>? categories;
-  List<BestSellerDM>? bestSeller;
+  List<ProductDto>? bestSeller;
   List<OccasionDM>? occasions;
 
   Map<String, dynamic> toJson() => _$HomeDataResponseToJson(this);
@@ -29,7 +29,7 @@ class HomeDataResponse {
   HomeDataResponseEntity toEntity() => HomeDataResponseEntity(
         message: message,
         categories: categories?.map((e) => e.toEntity()).toList(),
-        bestSeller: bestSeller?.map((e) => e.toEntity()).toList(),
+        bestSeller: bestSeller?.map((e) => e.convertIntoEntity()).toList(),
         occasions: occasions?.map((e) => e.toEntity()).toList(),
       );
 }
