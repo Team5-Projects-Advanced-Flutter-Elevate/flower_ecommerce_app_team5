@@ -9,10 +9,12 @@ import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/di/injectable_initializer.dart';
 import '../../../../../shared_layers/localization/enums/languages_enum.dart';
@@ -126,8 +128,12 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => NewAddressScreen(),));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NewAddressScreen(),
+                            ));
                       },
                       child: ListTile(
                         title: Text(LocaleKeys.savedAddress.tr()),
@@ -160,19 +166,15 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     ),
                     ListTile(
                       title: Text(LocaleKeys.language.tr()),
-                      onTap: () {
-                        var newLocale = localizationManager.currentLocale ==
-                                LanguagesEnum.en.getLanguageCode()
-                            ? LanguagesEnum.ar.getLanguageCode()
-                            : LanguagesEnum.en.getLanguageCode();
-                        localizationManager.changeLocal(newLocale);
-                      },
                       leading:
                           Image(image: AssetImage(AssetsPaths.languageIcon)),
                       trailing: GestureDetector(
                           onTap: () {
-                            // context.setLocale(
-                            //     Locale(_currentLanguage.getLanguageCode()));
+                            var newLocale = localizationManager.currentLocale ==
+                                    LanguagesEnum.en.getLanguageCode()
+                                ? LanguagesEnum.ar.getLanguageCode()
+                                : LanguagesEnum.en.getLanguageCode();
+                            localizationManager.changeLocal(newLocale);
                           },
                           child: Text(
                             LocaleKeys.languageKey.tr(),
@@ -181,7 +183,11 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => const AboutUsScreen(),));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AboutUsScreen(),
+                            ));
                       },
                       child: ListTile(
                         title: Text(LocaleKeys.aboutUs.tr()),
@@ -191,7 +197,11 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const TermsScreen(),));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TermsScreen(),
+                            ));
                       },
                       child: ListTile(
                         title: Text(LocaleKeys.termsConditions.tr()),
@@ -226,7 +236,15 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                               isDismissible: true,
                               showOkButton: true,
                               onOkButtonClick: () {
-                                viewModel.clearSecureStorage(this.context);
+                                viewModel.clearSecureStorage();
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  DefinedRoutes.loginScreenRoute,
+                                  (route) => false,
+                                );
+                                Provider.of<HomeScreenViewModel>(context,
+                                        listen: false)
+                                    .setAppSectionsIndex(0);
                               },
                             );
                           },

@@ -17,6 +17,12 @@ import '../../modules/authentication/data/api/api_client/auth_api_client.dart'
     as _i343;
 import '../../modules/authentication/data/api/api_client_provider/auth_api_client_provider.dart'
     as _i1019;
+import '../../modules/authentication/data/data_sources_contracts/forget_password/forget_password_remote_data_source.dart'
+    as _i150;
+import '../../modules/authentication/data/data_sources_contracts/forget_password/reset_code_remote_data_source.dart'
+    as _i779;
+import '../../modules/authentication/data/data_sources_contracts/forget_password/reset_password_remote_data_source.dart'
+    as _i881;
 import '../../modules/authentication/data/data_sources_contracts/login/login_local_data_source.dart'
     as _i147;
 import '../../modules/authentication/data/data_sources_contracts/login/login_remote_data_source.dart'
@@ -25,6 +31,12 @@ import '../../modules/authentication/data/data_sources_contracts/login_as_guest/
     as _i138;
 import '../../modules/authentication/data/data_sources_contracts/register/register_online_datasource_contract.dart'
     as _i871;
+import '../../modules/authentication/data/data_sources_imp/forget_password/forget_password_remote_data_source_imp.dart'
+    as _i191;
+import '../../modules/authentication/data/data_sources_imp/forget_password/reset_code_remote_data_source_impl.dart'
+    as _i808;
+import '../../modules/authentication/data/data_sources_imp/forget_password/reset_password_remote_data_source_impl.dart'
+    as _i956;
 import '../../modules/authentication/data/data_sources_imp/login/login_local_data_source_imp.dart'
     as _i916;
 import '../../modules/authentication/data/data_sources_imp/login/login_remote_data_source_imp.dart'
@@ -33,24 +45,44 @@ import '../../modules/authentication/data/data_sources_imp/login_as_guest/login_
     as _i79;
 import '../../modules/authentication/data/data_sources_imp/register/register_online_datasource_impl.dart'
     as _i219;
+import '../../modules/authentication/data/respositoies_imp/forget_password/forget_password_repo_imp.dart'
+    as _i811;
+import '../../modules/authentication/data/respositoies_imp/forget_password/reset_code_repo_impl.dart'
+    as _i196;
+import '../../modules/authentication/data/respositoies_imp/forget_password/reset_password_repo_impl.dart'
+    as _i940;
 import '../../modules/authentication/data/respositoies_imp/login/login_repo_imp.dart'
     as _i639;
 import '../../modules/authentication/data/respositoies_imp/login_as_guest/login_as_guest_repo_impl.dart'
     as _i252;
 import '../../modules/authentication/data/respositoies_imp/register/register_repo_impl.dart'
     as _i161;
+import '../../modules/authentication/domain/repositories_contracts/forget_password/forget_password_repo.dart'
+    as _i1013;
+import '../../modules/authentication/domain/repositories_contracts/forget_password/reset_code_repo.dart'
+    as _i251;
+import '../../modules/authentication/domain/repositories_contracts/forget_password/reset_password_repo.dart'
+    as _i731;
 import '../../modules/authentication/domain/repositories_contracts/login/login_repo.dart'
     as _i450;
 import '../../modules/authentication/domain/repositories_contracts/login_as_guest/login_as_guest_repo.dart'
     as _i926;
 import '../../modules/authentication/domain/repositories_contracts/register/register_repo.dart'
     as _i496;
+import '../../modules/authentication/domain/use_cases/forget_password/forget_password_use_case.dart'
+    as _i823;
+import '../../modules/authentication/domain/use_cases/forget_password/reset_code_use_case.dart'
+    as _i9;
+import '../../modules/authentication/domain/use_cases/forget_password/reset_password_use_case.dart'
+    as _i110;
 import '../../modules/authentication/domain/use_cases/login/login_use_case.dart'
     as _i543;
 import '../../modules/authentication/domain/use_cases/login_as_guest/login_as_gust_use_case.dart'
     as _i421;
 import '../../modules/authentication/domain/use_cases/register/register_use_case.dart'
     as _i782;
+import '../../modules/authentication/ui/forget_password/view_model/forget_password_screen_view_model.dart'
+    as _i105;
 import '../../modules/authentication/ui/login/view_model/login_view_model_cubit.dart'
     as _i363;
 import '../../modules/authentication/ui/register/view_model/register_cubit.dart'
@@ -227,12 +259,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => dioService.provideDio(),
       preResolve: true,
     );
-    gh.factory<_i902.ProductDetailsViewModel>(
-        () => _i902.ProductDetailsViewModel());
     await gh.factoryAsync<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
+    gh.factory<_i902.ProductDetailsViewModel>(
+        () => _i902.ProductDetailsViewModel());
     gh.factory<_i937.TermsLocalDataSource>(
         () => _i139.TermsLocalDataSourceImpl());
     gh.lazySingleton<_i41.BestSellerApiClient>(
@@ -261,8 +293,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1049.AboutUsLocalDataSourceImpl());
     gh.factory<_i936.AboutUsRepo>(
         () => _i219.AboutUsRepoImpl(gh<_i925.AboutUsLocalDataSource>()));
+    gh.factory<_i779.ResetCodeRemoteDataSource>(
+        () => _i808.ResetCodeRemoteDataSourceImpl(gh<_i343.AuthApiClient>()));
+    gh.factory<_i150.ForgetPasswordRemoteDataSource>(() =>
+        _i191.ForgetPasswordRemoteDataSourceImpl(gh<_i343.AuthApiClient>()));
     gh.factory<_i1053.TermsRepo>(
         () => _i880.TermsRepoImpl(gh<_i937.TermsLocalDataSource>()));
+    gh.factory<_i251.ResetCodeRepo>(
+        () => _i196.ResetCodeRepoImpl(gh<_i779.ResetCodeRemoteDataSource>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
         () => _i701.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()));
     gh.factory<_i713.EditProfileOnlineDataSource>(
@@ -270,6 +308,8 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i319.ProfileApiClient>(),
               gh<_i737.UploadImageApiClient>(),
             ));
+    gh.factory<_i881.ResetPasswordRemoteDataSource>(() =>
+        _i956.ResetPasswordRemoteDataSourceImpl(gh<_i343.AuthApiClient>()));
     gh.factory<_i409.PaymentRemoteDataSource>(
         () => _i979.PaymentRemoteDataSourceImp(gh<_i979.PaymentApiClient>()));
     gh.factory<_i542.PaymentRepository>(
@@ -298,12 +338,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i276.OccasionRepoImpl(gh<_i362.OccasionOnlineDataSource>()));
     gh.factory<_i469.NewAddressRepo>(() =>
         _i150.NewAddressRepoImpl(gh<_i1042.NewAddressOnlineDataSource>()));
+    gh.factory<_i731.ResetPasswordRepo>(() =>
+        _i940.ResetPasswordRepoImpl(gh<_i881.ResetPasswordRemoteDataSource>()));
     gh.factory<_i107.CheckOutRepo>(() => _i868.CheckOutRepoImpl(
         checkOutDataSource: gh<_i113.CheckOutDataSource>()));
     gh.factory<_i1003.HomeRepo>(
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
+    gh.factory<_i1013.ForgetPasswordRepo>(() => _i811.ForgetPasswordRepoImpl(
+        gh<_i150.ForgetPasswordRemoteDataSource>()));
     gh.factory<_i435.AboutUsUseCase>(
         () => _i435.AboutUsUseCase(gh<_i936.AboutUsRepo>()));
+    gh.factory<_i9.ResetCodeUseCase>(
+        () => _i9.ResetCodeUseCase(gh<_i251.ResetCodeRepo>()));
     gh.factory<_i871.RegisterOnlineDataSource>(
         () => _i219.RegisterOnlineDataSourceImpl(gh<_i343.AuthApiClient>()));
     gh.factory<_i828.DeleteFromCartUseCase>(
@@ -343,6 +389,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i161.RegisterRepoImpl(gh<_i871.RegisterOnlineDataSource>()));
     gh.factory<_i782.RegisterUseCase>(
         () => _i782.RegisterUseCase(gh<_i496.RegisterRepo>()));
+    gh.factory<_i110.ResetPasswordUseCase>(
+        () => _i110.ResetPasswordUseCase(gh<_i731.ResetPasswordRepo>()));
     gh.factory<_i450.LoginRepo>(() => _i639.LoginRepoImp(
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
@@ -375,10 +423,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i304.NewAddressUseCase(gh<_i469.NewAddressRepo>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
+    gh.factory<_i823.ForgetPasswordUseCase>(
+        () => _i823.ForgetPasswordUseCase(gh<_i1013.ForgetPasswordRepo>()));
     gh.factory<_i801.PaymentViewModel>(
         () => _i801.PaymentViewModel(gh<_i834.MakeCheckoutSessionUseCase>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
+    gh.factory<_i105.ForgetPasswordViewModel>(
+        () => _i105.ForgetPasswordViewModel(
+              gh<_i823.ForgetPasswordUseCase>(),
+              gh<_i110.ResetPasswordUseCase>(),
+              gh<_i9.ResetCodeUseCase>(),
+            ));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
     gh.factory<_i430.EditProfileViewModelCubit>(

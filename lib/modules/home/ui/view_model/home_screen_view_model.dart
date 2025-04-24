@@ -5,13 +5,15 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class HomeScreenViewModel extends ChangeNotifier {
-  int selectedAppSectionIndex = 0;
+  int _selectedAppSectionIndex = 0;
   final PageController pageController = PageController(initialPage: 0);
 
   CategoriesLayoutViewModel categoriesLayoutViewModel;
   OccasionViewModelCubit occasionViewModelCubit;
   HomeScreenViewModel(
       this.categoriesLayoutViewModel, this.occasionViewModelCubit);
+
+  int get selectedAppSectionIndex => _selectedAppSectionIndex;
 
   void doIntent(HomeScreenIntent intent) {
     switch (intent) {
@@ -25,6 +27,11 @@ class HomeScreenViewModel extends ChangeNotifier {
     pageController.jumpToPage(
       pageIndex,
     );
+  }
+
+  void setAppSectionsIndex(int newIndex) {
+    _selectedAppSectionIndex = newIndex;
+    notifyListeners();
   }
 }
 

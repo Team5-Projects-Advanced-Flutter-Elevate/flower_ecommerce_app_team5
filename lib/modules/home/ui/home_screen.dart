@@ -32,6 +32,7 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     homeScreenViewModel = Provider.of(context);
+    print("selected app section index ${homeScreenViewModel.selectedAppSectionIndex}");
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarColor: AppColors.white,
@@ -51,7 +52,7 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
                 selectedIndex: homeScreenViewModel.selectedAppSectionIndex,
                 onDestinationSelected: (value) {
                   setState(() {
-                    homeScreenViewModel.selectedAppSectionIndex = value;
+                    homeScreenViewModel.setAppSectionsIndex(value) ;
                     homeScreenViewModel
                         .doIntent(JumpToPage(pageIndex: value));
                   });
@@ -75,7 +76,7 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
             controller: homeScreenViewModel.pageController,
             onPageChanged: (value) {
               setState(() {
-                homeScreenViewModel.selectedAppSectionIndex = value;
+                homeScreenViewModel.setAppSectionsIndex(value);
               });
             },
             children: homePages,

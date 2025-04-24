@@ -59,7 +59,8 @@ class _ResetPasswordScreenState
               title: Row(
                 children: [
                   InkWell(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => Navigator.pushReplacementNamed(
+                        context, DefinedRoutes.loginScreenRoute),
                     child: Icon(Icons.arrow_back_ios, size: screenWidth * 0.05),
                   ),
                   Text(
@@ -173,8 +174,8 @@ class _ResetPasswordScreenState
                 showOkButton: true,
                 onOkButtonClick: () {
                   hideAlertDialog();
-                  Navigator.pushNamed(
-                      context, DefinedRoutes.forgetPasswordScreenRoute);
+                  Navigator.pushReplacementNamed(
+                      context, DefinedRoutes.loginScreenRoute);
                 },
               );
             } else if (state is PasswordErrorState) {

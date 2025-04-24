@@ -71,7 +71,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
                   )),
             if (showConfirmButton)
               Center(
-                child: ElevatedButton(
+                child: FilledButton(
                     onPressed: onConfirmButtonClick,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(

@@ -19,7 +19,8 @@ class ForgetPasswordScreen extends StatefulWidget {
 
 late TextEditingController emailController;
 
-class _ForgetPasswordScreenState extends BaseStatefulWidgetState<ForgetPasswordScreen> {
+class _ForgetPasswordScreenState
+    extends BaseStatefulWidgetState<ForgetPasswordScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   ForgetPasswordViewModel forgetPasswordViewModel =
       getIt.get<ForgetPasswordViewModel>();
@@ -48,17 +49,17 @@ class _ForgetPasswordScreenState extends BaseStatefulWidgetState<ForgetPasswordS
           appBar: AppBar(
             forceMaterialTransparency: true,
             automaticallyImplyLeading: false,
-            title: Row(
-              children: [
-                InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Icon(Icons.arrow_back_ios, size: screenWidth  * 0.05),
-                ),
-                Text(
-                  LocaleKeys.password.tr(),
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
-              ],
+            titleSpacing: 0.0,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                    context, DefinedRoutes.loginScreenRoute);
+              },
+              icon: Icon(Icons.arrow_back_ios, size: screenWidth * 0.06),
+            ),
+            title: Text(
+              LocaleKeys.password.tr(),
+              style: Theme.of(context).textTheme.labelMedium,
             ),
           ),
           body: Form(
@@ -72,22 +73,24 @@ class _ForgetPasswordScreenState extends BaseStatefulWidgetState<ForgetPasswordS
                   Text(
                     LocaleKeys.forgetPassword.tr(),
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      fontSize: screenWidth * 0.045, // roughly equivalent to 18.sp
-                    ),
+                          fontSize: screenWidth *
+                              0.045, // roughly equivalent to 18.sp
+                        ),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   Text(
                     LocaleKeys.emailVerificationRole.tr(),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.grey,
-                    ),
+                          color: Colors.grey,
+                        ),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   TextFormField(
                     validator: (value) {
-                      return ValidateFunctions.getInstance().validationOfEmail(value);
+                      return ValidateFunctions.getInstance()
+                          .validationOfEmail(value);
                     },
                     controller: emailController,
                     decoration: InputDecoration(
@@ -116,7 +119,7 @@ class _ForgetPasswordScreenState extends BaseStatefulWidgetState<ForgetPasswordS
                     listener: (context, state) {
                       if (state is PasswordSuccessState) {
                         displayAlertDialog(
-                          title:  Text(LocaleKeys.otpSend.tr()),
+                          title: Text(LocaleKeys.otpSend.tr()),
                           showOkButton: true,
                           onOkButtonClick: () {
                             hideAlertDialog();

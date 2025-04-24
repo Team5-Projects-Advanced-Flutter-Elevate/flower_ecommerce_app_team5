@@ -43,7 +43,8 @@ class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
             title: Row(
               children: [
                 InkWell(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pushReplacementNamed(
+                      context, DefinedRoutes.loginScreenRoute),
                   child: Icon(Icons.arrow_back_ios, size: screenWidth * 0.05),
                 ),
                 Text(
@@ -151,7 +152,7 @@ class _ResetCodeScreenState extends BaseStatefulWidgetState<ResetCodeScreen> {
         listener: (context, state) {
           if (state is PasswordSuccessState) {
             displayAlertDialog(
-              title:  Text(LocaleKeys.validOtp.tr()),
+              title: Text(LocaleKeys.validOtp.tr()),
               showOkButton: true,
               onOkButtonClick: () {
                 hideAlertDialog();

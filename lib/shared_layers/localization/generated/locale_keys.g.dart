@@ -60,24 +60,20 @@ class LocaleKeys {
   static const String guestLogin = 'guestLogin';
   static const String checkGuest = 'checkGuest';
   static const String pleaseLoginFirst = 'pleaseLoginFirst';
-static const password = 'password';
-static const forgetPassword = 'forgetPassword';
-static const confirmPassword = 'confirmPassword';
-static const newPassword = 'newPassword';
-static const enterYourPassword = 'enterYourPassword';
-static const resetPassword = 'resetPassword';
-static const enterYourEmail = 'enterYourEmail';
-static const emailVerification = 'emailVerification';
-static const email = 'email';
-static const resend = ' resend';
-static const wait30Minute = 'wait30Minute';
-static const dontReceive = "dontReceive";
-static const emailVerificationRole = "emailVerificationRole";
-static const passwordVerificationRole = "passwordVerificationRole";
-static const emailVerificationText = "emailVerificationText";
-static const otpSend = "otpSend";
-static const validOtp = "validOtp";
-static const passwordResetSuccessfully = "passwordResetSuccessfully";
+  static const newPassword = 'newPassword';
+  static const enterYourPassword = 'enterYourPassword';
+  static const resetPassword = 'resetPassword';
+  static const enterYourEmail = 'enterYourEmail';
+  static const emailVerification = 'emailVerification';
+  static const resend = ' resend';
+  static const wait30Minute = 'wait30Minute';
+  static const dontReceive = "dontReceive";
+  static const emailVerificationRole = "emailVerificationRole";
+  static const passwordVerificationRole = "passwordVerificationRole";
+  static const emailVerificationText = "emailVerificationText";
+  static const otpSend = "otpSend";
+  static const validOtp = "validOtp";
+  static const passwordResetSuccessfully = "passwordResetSuccessfully";
 
   // App
   static const String home = 'home';
@@ -134,7 +130,6 @@ static const passwordResetSuccessfully = "passwordResetSuccessfully";
   static const rate = 'rate';
   static const rateCount = 'rateCount';
 
-
   // Change Password
   static const String changePasswordTitle = 'changePasswordTitle';
   static const String changePasswordCurrentPasswordLabel =
@@ -153,8 +148,7 @@ static const passwordResetSuccessfully = "passwordResetSuccessfully";
 
   // Search
   static const String searchForAnyProductYouWant = 'searchForAnyProductYouWant';
-  static const passwordChangedSuccessfully =
-      'passwordChangedSuccessfully';
+  static const passwordChangedSuccessfully = 'passwordChangedSuccessfully';
 
   // Payment
   static const flowery = 'flowery';
@@ -186,5 +180,5 @@ static const passwordResetSuccessfully = "passwordResetSuccessfully";
 
   // Filter
   static const String filter = 'filter';
-static const String sort = 'sort';
+  static const String sort = 'sort';
 }
