@@ -29,6 +29,7 @@ class _SortWidgetState extends BaseStatefulWidgetState<SortWidget> {
       child: ElevatedButton(
           onPressed: () {
             showSortBottomSheet(
+                screenHeight: screenHeight,
                 viewModel: widget.viewModel,
                 context: context,
                 theme: theme,

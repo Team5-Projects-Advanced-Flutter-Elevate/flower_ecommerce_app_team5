@@ -12,7 +12,8 @@ showSortBottomSheet(
     {required CategoriesLayoutViewModel viewModel,
     required BuildContext context,
     required theme,
-    required num screenWidth}) {
+    required num screenWidth,
+    required num screenHeight}) {
   String? selectedSortValue;
   List<String> sortListTitles;
   final sortListValues = Sort.values.map((e) => e.value).toList();
@@ -40,7 +41,7 @@ showSortBottomSheet(
         // Add this wrapper
         builder: (BuildContext context, StateSetter setModalState) {
           return SizedBox(
-            height: 574,
+            height: screenHeight * 0.7,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
