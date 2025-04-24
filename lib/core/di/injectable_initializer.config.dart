@@ -136,6 +136,23 @@ import '../../modules/occasion/domain/repositories_contracts/ocassion_repo.dart'
     as _i319;
 import '../../modules/occasion/domain/use_cases/occasion_usecase.dart' as _i41;
 import '../../modules/occasion/ui/occasion_cubit.dart' as _i855;
+import '../../modules/payment/data/api/api_client/payment_api_client.dart'
+    as _i979;
+import '../../modules/payment/data/api/api_client_provider/payment_api_client_provider.dart'
+    as _i177;
+import '../../modules/payment/data/data_source_contract/payment/payment_remote_data_source.dart'
+    as _i409;
+import '../../modules/payment/data/data_source_imp/payment/payment_remote_data_source_imp.dart'
+    as _i979;
+import '../../modules/payment/data/repository_imp/payment/payment_repository_imp.dart'
+    as _i1026;
+import '../../modules/payment/domain/repository_contract/payment/payment_repository.dart'
+    as _i542;
+import '../../modules/payment/domain/use_cases/payment/make_cash_order_use_case.dart'
+    as _i112;
+import '../../modules/payment/domain/use_cases/payment/make_checkout_session_use_case.dart'
+    as _i834;
+import '../../modules/payment/ui/view_model/payment_view_model.dart' as _i801;
 import '../../modules/product_details/ui/view_model/product_details_view_model.dart'
     as _i902;
 import '../../modules/search/view_model/search_cubit.dart' as _i861;
@@ -166,6 +183,7 @@ extension GetItInjectableX on _i174.GetIt {
     final dioService = _$DioService();
     final storagesInitializer = _$StoragesInitializer();
     final bestSellerClientProvider = _$BestSellerClientProvider();
+    final paymentApiClientProvider = _$PaymentApiClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final editProfileApiClientProvider = _$EditProfileApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
@@ -186,6 +204,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i737.UploadImageApiClient>(
         () => _i737.UploadImageApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i979.PaymentApiClient>(
+        () => paymentApiClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i319.ProfileApiClient>(
@@ -203,6 +223,10 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i319.ProfileApiClient>(),
               gh<_i737.UploadImageApiClient>(),
             ));
+    gh.factory<_i409.PaymentRemoteDataSource>(
+        () => _i979.PaymentRemoteDataSourceImp(gh<_i979.PaymentApiClient>()));
+    gh.factory<_i542.PaymentRepository>(
+        () => _i1026.PaymentRepositoryImp(gh<_i409.PaymentRemoteDataSource>()));
     gh.factory<_i766.LoginRemoteDataSource>(
         () => _i132.LoginRemoteDataSourceImp(gh<_i343.AuthApiClient>()));
     gh.factory<_i362.OccasionOnlineDataSource>(() =>
@@ -254,6 +278,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i855.OccasionViewModelCubit(gh<_i41.OccasionUseCase>()));
     gh.factory<_i76.BestSellerRepository>(() =>
         _i911.BestSellerRepositoryImp(gh<_i23.BestSellerRemoteDataSource>()));
+    gh.factory<_i112.MakeCashOrderUseCase>(
+        () => _i112.MakeCashOrderUseCase(gh<_i542.PaymentRepository>()));
+    gh.factory<_i834.MakeCheckoutSessionUseCase>(
+        () => _i834.MakeCheckoutSessionUseCase(gh<_i542.PaymentRepository>()));
     gh.factory<_i496.RegisterRepo>(
         () => _i161.RegisterRepoImpl(gh<_i871.RegisterOnlineDataSource>()));
     gh.factory<_i782.RegisterUseCase>(
@@ -264,8 +292,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i70.ChangePasswordUseCase>(
         () => _i70.ChangePasswordUseCase(gh<_i881.ProfileRepo>()));
-    gh.factory<_i85.EditeProfileUseCase>(
-        () => _i85.EditeProfileUseCase(gh<_i881.ProfileRepo>()));
+    gh.factory<_i85.EditProfileUseCase>(
+        () => _i85.EditProfileUseCase(gh<_i881.ProfileRepo>()));
     gh.factory<_i359.UploadImageUseCase>(
         () => _i359.UploadImageUseCase(gh<_i881.ProfileRepo>()));
     gh.factory<_i502.GetBestSellerProductsUseCase>(() =>
@@ -283,10 +311,19 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
+    gh.factory<_i801.PaymentViewModel>(
+        () => _i801.PaymentViewModel(gh<_i834.MakeCheckoutSessionUseCase>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
+    gh.factory<_i430.EditProfileViewModelCubit>(
+        () => _i430.EditProfileViewModelCubit(
+              gh<_i543.LoginUseCase>(),
+              gh<_i85.EditProfileUseCase>(),
+              gh<_i359.UploadImageUseCase>(),
+              gh<_i70.ChangePasswordUseCase>(),
+            ));
     gh.factory<_i867.HomeScreenViewModel>(() => _i867.HomeScreenViewModel(
           gh<_i44.CategoriesLayoutViewModel>(),
           gh<_i855.OccasionViewModelCubit>(),
@@ -301,13 +338,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i999.AddToCartUseCase>(),
           gh<_i828.DeleteFromCartUseCase>(),
         ));
-    gh.factory<_i430.EditProfileViewModelCubit>(
-        () => _i430.EditProfileViewModelCubit(
-              gh<_i543.LoginUseCase>(),
-              gh<_i85.EditeProfileUseCase>(),
-              gh<_i359.UploadImageUseCase>(),
-              gh<_i70.ChangePasswordUseCase>(),
-            ));
     gh.factory<_i901.ProfileViewModelCubit>(
         () => _i901.ProfileViewModelCubit(gh<_i543.LoginUseCase>()));
     return this;
@@ -319,6 +349,8 @@ class _$DioService extends _i738.DioService {}
 class _$StoragesInitializer extends _i241.StoragesInitializer {}
 
 class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
+
+class _$PaymentApiClientProvider extends _i177.PaymentApiClientProvider {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 

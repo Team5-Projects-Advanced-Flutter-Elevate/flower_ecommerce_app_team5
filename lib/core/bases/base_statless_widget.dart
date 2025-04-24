@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../shared_layers/localization/generated/locale_keys.g.dart';
 import 'base_stateful_widget_state.dart';
 
-BuildContext? _context;
+late BuildContext _context;
 late ThemeData _theme;
 
 abstract class BaseStatelessWidget extends StatelessWidget {
@@ -25,7 +25,7 @@ abstract class BaseStatelessWidget extends StatelessWidget {
   Widget customBuild(BuildContext context, BaseInheritedWidget inherit);
 
   Future<void> setLocaleOfEasyLocalization(String newLocale) {
-    return _context!.setLocale(Locale(newLocale));
+    return _context.setLocale(Locale(newLocale));
   }
 
   Future<void> displayAlertDialog(
@@ -34,10 +34,9 @@ abstract class BaseStatelessWidget extends StatelessWidget {
       bool showConfirmButton = false,
       bool isDismissible = false,
       VoidFunction onOkButtonClick,
-      required BuildContext context,
       VoidFunction onConfirmButtonClick}) {
     return showDialog(
-      context: context,
+      context: _context,
       barrierDismissible: isDismissible,
       builder: (context) {
         return AlertDialog(
@@ -74,7 +73,7 @@ abstract class BaseStatelessWidget extends StatelessWidget {
     );
   }
 
-  void hideAlertDialog(BuildContext context) {
-    Navigator.of(context, rootNavigator: true).pop();
+  void hideAlertDialog() {
+    Navigator.of(_context, rootNavigator: true).pop();
   }
 }

@@ -21,8 +21,7 @@ class LoginViewModelCubit extends Cubit<LoginViewModelState> {
 
   bool checkBoxValue = false;
   bool obscurePassword = true;
-  _login(LoginInputModel loginInputModel) async {
-    _loginUseCase.deleteLoginInfo();
+  void _login(LoginInputModel loginInputModel) async {
     emit(const LoginViewModelLoading());
     var result = await _loginUseCase.call(loginInputModel, checkBoxValue);
     switch (result) {
