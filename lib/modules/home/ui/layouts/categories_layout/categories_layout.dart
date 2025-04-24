@@ -1,23 +1,20 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
-import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/view_model/categories_layout_view_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/widgets/search_and_feature_row.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/widgets/category_products_view.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/widgets/show_sort_bottom_sheet.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/categories_layout/widgets/sort_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../../core/colors/app_colors.dart';
-import '../../../../../core/utilities/app_dialogs.dart';
-import '../../../../../core/widgets/product_card.dart';
+import '../../../../../core/constants/constants.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 
 class CategoriesLayout extends StatefulWidget {
@@ -28,8 +25,9 @@ class CategoriesLayout extends StatefulWidget {
 }
 
 class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
-  late CategoriesLayoutViewModel viewModel;
+  late CategoriesLayoutViewModel categoriesViewModel;
   late HomeScreenViewModel homeScreenViewModel;
+
   @override
   void initState() {
     super.initState();
@@ -39,69 +37,128 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     homeScreenViewModel = Provider.of(context);
-    viewModel = homeScreenViewModel.categoriesLayoutViewModel;
-    viewModel.processIntent(GetCategoriesIntent());
+    categoriesViewModel = homeScreenViewModel.categoriesLayoutViewModel;
+    categoriesViewModel.processIntent(GetCategoriesIntent());
   }
-
-  //final List<String> tabs = [Constants.all];
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => viewModel,
+      create: (context) => categoriesViewModel,
       child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: SortWidget(viewModel: categoriesViewModel),
         appBar: AppBar(
           forceMaterialTransparency: true,
           toolbarHeight: screenHeight * 0.1,
-          title: const SearchAndFilterRow(),
+          title: Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, DefinedRoutes.searchScreenRoute);
+                  },
+                  child: TextField(
+                    enabled: false,
+                    decoration: InputDecoration(
+                      hintText: LocaleKeys.search,
+                      hintStyle: GoogleFonts.inter(
+                        textStyle: theme.textTheme.bodyMedium!.copyWith(
+                          fontSize: 14 * (screenWidth / Constants.designWidth),
+                          color: AppColors.white[70],
+                        ),
+                      ),
+                      prefixIcon:
+                          Icon(Icons.search, color: AppColors.white[70]),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.white[70]!),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.white[70]!),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.mainColor),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              InkWell(
+                onTap: () {
+                  showSortBottomSheet(
+                      screenHeight: screenHeight,
+                      viewModel: categoriesViewModel,
+                      context: context,
+                      theme: theme,
+                      screenWidth: screenWidth);
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20 * (screenWidth / Constants.designWidth),
+                    vertical: 13 * (screenWidth / Constants.designWidth),
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.white[70]!),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(Icons.sort_sharp, color: AppColors.white[70]),
+                ),
+              ),
+            ],
+          ),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight - 20),
             child: Align(
               alignment: Alignment.centerLeft,
               child: BlocConsumer<CategoriesLayoutViewModel,
-                      CategoriesLayoutViewModelState>(
-                  listener: (context, state) {
-                    if (state is CategoriesLayoutViewModelError) {
-                      displayAlertDialog(
-                          showOkButton: true,
-                          title: ErrorStateWidget(error: state.error));
-                    }
-                  },
-                  buildWhen: (previous, current) =>
-                      current is CategoriesLayoutViewModelSuccess,
-                  builder: (context, state) {
-                    if (state is CategoriesLayoutViewModelSuccess ||
-                        state is CategoriesViewModelTabBarChanged) {
-                      viewModel.processIntent(GetInitialCategoryIndex());
-                      viewModel.processIntent(GetProductsIntent(
-                          categoryId: viewModel.selectedCategoryId));
-                      //tabs.addAll(viewModel.categoriesList.map((e) => e.name!));
-                      return DefaultTabController(
-                        length: viewModel.categoriesList.length,
-                        initialIndex: viewModel.initialCategoryIndex,
-                        child: TabBar(
-                          onTap: (value) {
-                            // if (value == 0) {
-                            //   viewModel.processIntent(
-                            //       TabBarChangedIntent(categoryId: null));
-                            // }
-                            viewModel.processIntent(TabBarChangedIntent(
-                                categoryId:
-                                    viewModel.categoriesList[value].id));
-                          },
-                          physics: const BouncingScrollPhysics(),
-                          isScrollable: true,
-                          indicatorPadding: EdgeInsets.zero,
-                          indicatorWeight: 2,
-                          tabs: viewModel.categoriesList
-                              .map((title) => Text(title.name ?? ""))
-                              .toList(),
-                        ),
-                      );
-                    } else {
-                      return const LoadingWidget();
-                    }
-                  }),
+                  CategoriesLayoutViewModelState>(listener: (context, state) {
+                if (state is CategoriesLayoutViewModelError) {
+                  displayAlertDialog(
+                      showOkButton: true,
+                      title: ErrorStateWidget(error: state.error));
+                }
+              }, buildWhen: (previous, current) {
+                return current is CategoriesLayoutViewModelSuccess;
+              }, builder: (context, state) {
+                // if(state is ChangeFilterRadioButton) return;
+                if (state is CategoriesLayoutViewModelSuccess ||
+                    state is CategoriesViewModelTabBarChanged) {
+                  categoriesViewModel.processIntent(GetInitialCategoryIndex());
+                  categoriesViewModel.processIntent(GetProductsIntent(
+                      categoryId: categoriesViewModel.selectedCategoryId));
+                  //tabs.addAll(viewModel.categoriesList.map((e) => e.name!));
+                  return DefaultTabController(
+                    length: categoriesViewModel.categoriesList.length,
+                    initialIndex: categoriesViewModel.initialCategoryIndex,
+                    child: TabBar(
+                      onTap: (value) {
+                        // if (value == 0) {
+                        //   viewModel.processIntent(
+                        //       TabBarChangedIntent(categoryId: null));
+                        // }
+
+                        categoriesViewModel.processIntent(TabBarChangedIntent(
+                            categoryId:
+                                categoriesViewModel.categoriesList[value].id));
+                      },
+                      physics: const BouncingScrollPhysics(),
+                      isScrollable: true,
+                      indicatorPadding: EdgeInsets.zero,
+                      indicatorWeight: 2,
+                      tabs: categoriesViewModel.categoriesList
+                          .map((title) => Text(title.name ?? ""))
+                          .toList(),
+                    ),
+                  );
+                } else {
+                  return const LoadingWidget();
+                }
+              }),
             ),
           ),
         ),
@@ -115,7 +172,7 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
         }, builder: (context, state) {
           if (state is CategoriesViewModelTabBarChanged) {
             return CategoryProductsView(
-              viewModel.productsList,
+              categoriesViewModel.productsList,
             );
           } else {
             return const LoadingWidget();
@@ -134,100 +191,4 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
   }
 }
 
-class CategoryProductsView extends BaseStatelessWidget {
-  final List<ProductEntity> productList;
-
-  const CategoryProductsView(this.productList, {super.key});
-
-  @override
-  Widget customBuild(BuildContext context, inherit) {
-    return BlocListener<CartCubit, CartState>(
-      listener: (context, state) {
-        switch (state.addToCartStatus) {
-          case AddToCartStatus.initial:
-            break;
-          case AddToCartStatus.noAccess:
-            hideAlertDialog();
-            displayAlertDialog(
-              title: Text(
-                LocaleKeys.pleaseLoginFirst.tr(),
-              ),
-              showOkButton: true,
-              onOkButtonClick: () {
-                Navigator.pushReplacementNamed(
-                  context,
-                  DefinedRoutes.loginScreenRoute,
-                );
-              },
-            );
-            break;
-          case AddToCartStatus.loading:
-            displayAlertDialog(
-              title: const LoadingWidget(),
-            );
-          case AddToCartStatus.success:
-            hideAlertDialog();
-            AppDialogs.showMessage(
-              context,
-              message: LocaleKeys.addedToCartSuccessfully.tr(),
-              isSuccess: true,
-            );
-          case AddToCartStatus.error:
-            hideAlertDialog();
-            AppDialogs.showMessage(
-              context,
-              message: LocaleKeys.soldOut.tr(),
-              isSuccess: false,
-            );
-        }
-      },
-      child: Column(
-        children: [
-          Expanded(
-            child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: inherit.screenWidth * 0.04,
-                  vertical: inherit.screenHeight * 0.01,
-                ),
-                child: productList.isEmpty
-                    ? Center(
-                        child: Text(
-                          LocaleKeys.noProductsFound.tr(),
-                          style: GoogleFonts.inter(
-                              textStyle: inherit.theme.textTheme.bodyLarge!
-                                  .copyWith(color: AppColors.white[70])),
-                        ),
-                      )
-                    : GridView.builder(
-                        padding:
-                            EdgeInsets.only(top: inherit.screenHeight * 0.02),
-                        itemCount: productList.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 163 / 229,
-                          mainAxisSpacing: 17,
-                          crossAxisSpacing: 17,
-                        ),
-                        itemBuilder: (context, index) => ProductCard(
-                          id: productList[index].id,
-                          onProductCardClick: () {
-                            Navigator.pushNamed(context,
-                                DefinedRoutes.productDetailsScreenRoute,
-                                arguments: productList[index]);
-                          },
-                          width: inherit.screenWidth * 0.45,
-                          height: inherit.screenHeight * 0.25,
-                          productTitle: productList[index].title!,
-                          price: productList[index].price,
-                          priceAfterDiscountIfExist:
-                              productList[index].priceAfterDiscount,
-                          imageUrl: productList[index].imgCover ?? '',
-                        ),
-                      )),
-          ),
-        ],
-      ),
-    );
-  }
-}
+// ignore: must_be_immutable

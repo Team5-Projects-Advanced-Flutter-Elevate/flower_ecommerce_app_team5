@@ -71,21 +71,6 @@ import '../../modules/best_seller/domain/use_cases/best_seller/get_best_seller_p
     as _i502;
 import '../../modules/best_seller/ui/view_model/best_seller_view_model.dart'
     as _i460;
-import '../../modules/check_out/data/api/api_client/check_out_api_client.dart'
-    as _i363;
-import '../../modules/check_out/data/api/api_provider/check_out_api_client_provider.dart'
-    as _i97;
-import '../../modules/check_out/data/data_source_contract/chechout_data_souce_contract.dart'
-    as _i113;
-import '../../modules/check_out/data/data_source_impl/checkout_data_souce_impl.dart'
-    as _i455;
-import '../../modules/check_out/data/repo_impl/checkout_repo_impl.dart'
-    as _i868;
-import '../../modules/check_out/domain/repo_contract/checkout_repo_contract.dart'
-    as _i107;
-import '../../modules/check_out/domain/use_case/get_all_addresses_use_case.dart'
-    as _i297;
-import '../../modules/check_out/ui/view_model/check_out_cubit.dart' as _i82;
 import '../../modules/edit_profile/data/api/api_client/profile_api_client.dart'
     as _i319;
 import '../../modules/edit_profile/data/api/api_client/upload_image_api_client.dart'
@@ -187,6 +172,7 @@ import '../../modules/payment/domain/use_cases/payment/make_checkout_session_use
 import '../../modules/payment/ui/view_model/payment_view_model.dart' as _i801;
 import '../../modules/product_details/ui/view_model/product_details_view_model.dart'
     as _i902;
+import '../../modules/search/view_model/search_cubit.dart' as _i861;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -214,7 +200,6 @@ extension GetItInjectableX on _i174.GetIt {
     final dioService = _$DioService();
     final storagesInitializer = _$StoragesInitializer();
     final bestSellerClientProvider = _$BestSellerClientProvider();
-    final checkOutApiClientProvider = _$CheckOutApiClientProvider();
     final paymentApiClientProvider = _$PaymentApiClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final editProfileApiClientProvider = _$EditProfileApiClientProvider();
@@ -236,8 +221,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i139.TermsLocalDataSourceImpl());
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
-    gh.lazySingleton<_i363.CheckOutApiClient>(
-        () => checkOutApiClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i737.UploadImageApiClient>(
         () => _i737.UploadImageApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i979.PaymentApiClient>(
@@ -254,8 +237,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.factory<_i1042.NewAddressOnlineDataSource>(
         () => _i265.NewAddressOnlineDataSourceImpl(gh<_i293.HomeApiClient>()));
-    gh.factory<_i113.CheckOutDataSource>(
-        () => _i455.CheckOutDataSourceImpl(gh<_i363.CheckOutApiClient>()));
     gh.factory<_i925.AboutUsLocalDataSource>(
         () => _i1049.AboutUsLocalDataSourceImpl());
     gh.factory<_i936.AboutUsRepo>(
@@ -297,8 +278,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i276.OccasionRepoImpl(gh<_i362.OccasionOnlineDataSource>()));
     gh.factory<_i469.NewAddressRepo>(() =>
         _i150.NewAddressRepoImpl(gh<_i1042.NewAddressOnlineDataSource>()));
-    gh.factory<_i107.CheckOutRepo>(() => _i868.CheckOutRepoImpl(
-        checkOutDataSource: gh<_i113.CheckOutDataSource>()));
     gh.factory<_i1003.HomeRepo>(
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
     gh.factory<_i435.AboutUsUseCase>(
@@ -313,8 +292,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i386.GetOccasionsUseCase>(
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
-    gh.factory<_i297.GetAllAddressesUseCase>(
-        () => _i297.GetAllAddressesUseCase(gh<_i107.CheckOutRepo>()));
+    gh.factory<_i861.SearchCubit>(
+        () => _i861.SearchCubit(gh<_i1019.GetAllProductsUseCase>()));
     gh.factory<_i90.GetHomeDataUseCase>(
         () => _i90.GetHomeDataUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
@@ -343,11 +322,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i450.LoginRepo>(() => _i639.LoginRepoImp(
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
-        ));
-    gh.factory<_i82.CheckOutCubit>(() => _i82.CheckOutCubit(
-          gh<_i297.GetAllAddressesUseCase>(),
-          gh<_i112.MakeCashOrderUseCase>(),
-          gh<_i834.MakeCheckoutSessionUseCase>(),
         ));
     gh.factory<_i70.ChangePasswordUseCase>(
         () => _i70.ChangePasswordUseCase(gh<_i881.ProfileRepo>()));
@@ -415,8 +389,6 @@ class _$DioService extends _i738.DioService {}
 class _$StoragesInitializer extends _i241.StoragesInitializer {}
 
 class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
-
-class _$CheckOutApiClientProvider extends _i97.CheckOutApiClientProvider {}
 
 class _$PaymentApiClientProvider extends _i177.PaymentApiClientProvider {}
 
