@@ -1,6 +1,7 @@
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
+import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,16 +10,19 @@ import '../occasions_section/occasion_item.dart';
 
 // ignore: must_be_immutable
 class OccasionsListView extends BaseStatelessWidget {
-  OccasionsListView({super.key, required this.occasions});
+  const OccasionsListView({super.key, required this.occasions});
 
   final List<OccasionEntity> occasions;
 
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context, inherit) {
     HomeScreenViewModel homeScreenViewModel = Provider.of(context);
+    bool isCurrentLocaleEnglish = inherit.localizationManager.currentLocale ==
+        LanguagesEnum.en.getLanguageCode();
     return Padding(
       padding: EdgeInsets.only(
-        left: screenWidth * 0.05,
+        left: isCurrentLocaleEnglish ? inherit.screenWidth * 0.05 : 0,
+        right: isCurrentLocaleEnglish ? 0 : inherit.screenWidth * 0.05,
       ),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
@@ -34,7 +38,7 @@ class OccasionsListView extends BaseStatelessWidget {
           ),
         ),
         separatorBuilder: (context, index) => SizedBox(
-          width: screenWidth * 0.04,
+          width: inherit.screenWidth * 0.04,
         ),
         itemCount: occasions.length,
       ),

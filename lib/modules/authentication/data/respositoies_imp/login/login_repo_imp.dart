@@ -20,9 +20,8 @@ class LoginRepoImp implements LoginRepo {
         await _loginRemoteDataSource.login(loginInputModel: loginInputModel);
     switch (result) {
       case Success<LoginResponseDto>():
-        if (checkBoxValue) {
-          _loginLocalDataSource.cashUser(loginResponseDto: result.data);
-        }
+        _loginLocalDataSource.cacheRememberValue(rememberMe: checkBoxValue);
+        _loginLocalDataSource.cashUser(loginResponseDto: result.data);
         return Success(data: result.data);
       case Error<LoginResponseDto>():
         return Error(error: result.error);
@@ -39,7 +38,23 @@ class LoginRepoImp implements LoginRepo {
     return _loginLocalDataSource.getCashedUser();
   }
 
-  cashUser({required LoginResponseDto loginResponseDto}) {
+  @override
+  void cashUser({required LoginResponseDto loginResponseDto}) {
     _loginLocalDataSource.cashUser(loginResponseDto: loginResponseDto);
+  }
+
+  @override
+  Future<void> deleteCachedRememberValue() {
+    return _loginLocalDataSource.deleteCachedRememberValue();
+  }
+
+  @override
+  Future<bool> getCachedRememberValue() {
+    return _loginLocalDataSource.getCachedRememberValue();
+  }
+
+  @override
+  void cacheRememberValue({required bool rememberMe}) {
+    return _loginLocalDataSource.cacheRememberValue(rememberMe: rememberMe);
   }
 }

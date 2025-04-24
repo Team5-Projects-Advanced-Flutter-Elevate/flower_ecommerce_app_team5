@@ -1,41 +1,31 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
-import 'package:flower_ecommerce_app_team5/shared_layers/localization/l10n_manager/localization_manager.dart';
+import 'package:flower_ecommerce_app_team5/core/bases/base_inherited_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared_layers/localization/generated/locale_keys.g.dart';
 import 'base_stateful_widget_state.dart';
 
-BuildContext? _context;
+late BuildContext _context;
+late ThemeData _theme;
 
-// ignore: must_be_immutable
 abstract class BaseStatelessWidget extends StatelessWidget {
-  late ThemeData theme;
-  late double screenWidth, screenHeight;
-  late InheritedWidget easyLocalization;
-  late LocalizationManager localizationManager;
-  late ValidateFunctions validateFunctions;
-  BaseStatelessWidget({super.key});
+  const BaseStatelessWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     _context = context;
-    theme = Theme.of(context);
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
-    easyLocalization = EasyLocalization.of(context)!;
-    localizationManager = getIt.get<LocalizationManager>();
-    localizationManager.changeLocaleOfEasyLocalization =
+    BaseInheritedWidget inherit = BaseInheritedWidget.of(context);
+    _theme = inherit.theme;
+    inherit.localizationManager.changeLocaleOfEasyLocalization =
         setLocaleOfEasyLocalization;
-    validateFunctions = ValidateFunctions.getInstance();
-    return customBuild(context);
+
+    return customBuild(context, inherit);
   }
 
-  Widget customBuild(BuildContext context);
+  Widget customBuild(BuildContext context, BaseInheritedWidget inherit);
 
   Future<void> setLocaleOfEasyLocalization(String newLocale) {
-    return _context!.setLocale(Locale(newLocale));
+    return _context.setLocale(Locale(newLocale));
   }
 
   Future<void> displayAlertDialog(
@@ -44,10 +34,9 @@ abstract class BaseStatelessWidget extends StatelessWidget {
       bool showConfirmButton = false,
       bool isDismissible = false,
       VoidFunction onOkButtonClick,
-      required BuildContext context,
       VoidFunction onConfirmButtonClick}) {
     return showDialog(
-      context: context,
+      context: _context,
       barrierDismissible: isDismissible,
       builder: (context) {
         return AlertDialog(
@@ -60,7 +49,7 @@ abstract class BaseStatelessWidget extends StatelessWidget {
                       : onOkButtonClick(),
                   child: Text(
                     LocaleKeys.ok.tr(),
-                    style: theme.textTheme.labelMedium!
+                    style: _theme.textTheme.labelMedium!
                         .copyWith(color: Colors.white),
                   )),
             if (showConfirmButton)
@@ -72,7 +61,7 @@ abstract class BaseStatelessWidget extends StatelessWidget {
                           vertical: 4.0, horizontal: 16),
                       child: Text(
                         LocaleKeys.confirm.tr(),
-                        style: theme.textTheme.labelMedium!.copyWith(
+                        style: _theme.textTheme.labelMedium!.copyWith(
                           color: Colors.white,
                         ),
                       ),
@@ -84,7 +73,7 @@ abstract class BaseStatelessWidget extends StatelessWidget {
     );
   }
 
-  void hideAlertDialog(BuildContext context) {
-    Navigator.of(context, rootNavigator: true).pop();
+  void hideAlertDialog() {
+    Navigator.of(_context, rootNavigator: true).pop();
   }
 }

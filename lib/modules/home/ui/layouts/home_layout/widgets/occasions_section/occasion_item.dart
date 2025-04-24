@@ -6,7 +6,7 @@ import '../../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../../core/widgets/cached_image.dart';
 // ignore: must_be_immutable
 class OccasionItem extends BaseStatelessWidget {
-   OccasionItem({
+   const OccasionItem({
     super.key,
     required this.occasionEntity,
   });
@@ -14,9 +14,9 @@ class OccasionItem extends BaseStatelessWidget {
   final OccasionEntity occasionEntity;
 
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context,  inherit) {
     return SizedBox(
-      width: screenWidth * 0.3,
+      width: inherit.screenWidth * 0.3,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,7 +28,7 @@ class OccasionItem extends BaseStatelessWidget {
             ),
           ),
           SizedBox(
-            height: screenHeight * 0.01,
+            height: inherit.screenHeight * 0.01,
           ),
           Expanded(
             flex: 1,
@@ -37,7 +37,7 @@ class OccasionItem extends BaseStatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.inter(
-                textStyle: theme.textTheme.bodySmall?.copyWith(
+                textStyle: inherit.theme.textTheme.bodySmall?.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),

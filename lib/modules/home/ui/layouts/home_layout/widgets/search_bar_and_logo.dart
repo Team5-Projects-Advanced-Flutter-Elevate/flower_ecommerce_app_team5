@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/colors/app_colors.dart';
 import '../../../../../../core/constants/assets_paths.dart';
+import '../../../../../../core/routing/defined_routes.dart';
 
 class SearchBarAndLogo extends StatelessWidget {
   const SearchBarAndLogo({
@@ -37,32 +38,38 @@ class SearchBarAndLogo extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: TextField(
-              controller: searchController,
-              focusNode: searchFocusNode,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: AppColors.white[70]!,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, DefinedRoutes.searchScreenRoute);
+              },
+              child: TextField(
+                enabled: false,
+                controller: searchController,
+                focusNode: searchFocusNode,
+                decoration: InputDecoration(
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: AppColors.white[70]!,
+                    ),
                   ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: AppColors.white[70]!,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: AppColors.white[70]!,
+                    ),
                   ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
-                    color: AppColors.mainColor,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: AppColors.mainColor,
+                    ),
                   ),
-                ),
-                hintText: LocaleKeys.search.tr(),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: AppColors.white[70],
+                  hintText: LocaleKeys.search.tr(),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: AppColors.white[70],
+                  ),
                 ),
               ),
             ),

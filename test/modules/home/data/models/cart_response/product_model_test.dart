@@ -1,5 +1,5 @@
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/product_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/product_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

@@ -4,12 +4,13 @@ import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import '../../modules/home/data/models/cart_response/add_to_cart_request.dart';
 
@@ -23,7 +24,7 @@ class ProductCard extends BaseStatelessWidget {
   final num? priceAfterDiscountIfExist;
   final void Function()? onProductCardClick;
 
-   ProductCard({
+  const ProductCard({
     super.key,
     required this.productTitle,
     required this.imageUrl,
@@ -36,8 +37,8 @@ class ProductCard extends BaseStatelessWidget {
   });
 
   @override
-  Widget customBuild(BuildContext context) {
-
+  Widget customBuild(BuildContext context, inherit) {
+    HomeScreenViewModel homeScreenViewModel = Provider.of(context);
     return InkWell(
       onTap: onProductCardClick,
       splashColor: Colors.transparent,
@@ -50,7 +51,7 @@ class ProductCard extends BaseStatelessWidget {
             border: Border.all(color: AppColors.white[70]!),
             borderRadius: const BorderRadius.all(Radius.circular(8))),
         child: Padding(
-          padding: EdgeInsets.all(screenWidth * 0.02),
+          padding: EdgeInsets.all(inherit.screenWidth * 0.02),
           child: Column(
             children: [
               Expanded(
@@ -69,13 +70,13 @@ class ProductCard extends BaseStatelessWidget {
                         productTitle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.labelSmall!.copyWith(
+                        style: inherit.theme.textTheme.labelSmall!.copyWith(
                             fontWeight: FontWeight.normal,
-                            fontSize:
-                                12 * (screenWidth / Constants.designWidth)),
+                            fontSize: 12 *
+                                (inherit.screenWidth / Constants.designWidth)),
                       ),
                       SizedBox(
-                        height: screenHeight * 0.001,
+                        height: inherit.screenHeight * 0.001,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,23 +85,28 @@ class ProductCard extends BaseStatelessWidget {
                             priceAfterDiscountIfExist != null
                                 ? "EGP ${priceAfterDiscountIfExist!}"
                                 : "EGP $price",
-                            style: theme.textTheme.labelMedium!.copyWith(
-                                fontWeight: FontWeight.w600,
-                                fontSize:
-                                    14 * (screenWidth / Constants.designWidth)),
+                            style: inherit.theme.textTheme.labelMedium!
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14 *
+                                        (inherit.screenWidth /
+                                            Constants.designWidth)),
                           ),
                           Text(
                             priceAfterDiscountIfExist != null ? "$price" : "",
-                            style: theme.textTheme.labelSmall!.copyWith(
-                                fontSize:
-                                    12 * (screenWidth / Constants.designWidth),
+                            style: inherit.theme.textTheme.labelSmall!.copyWith(
+                                fontSize: 12 *
+                                    (inherit.screenWidth /
+                                        Constants.designWidth),
                                 fontWeight: FontWeight.w400,
                                 decoration: TextDecoration.lineThrough),
                           ),
                           Text(getPercentageOfDiscount(),
-                              style: theme.textTheme.labelSmall!.copyWith(
-                                fontSize:
-                                    12 * (screenWidth / Constants.designWidth),
+                              style:
+                                  inherit.theme.textTheme.labelSmall!.copyWith(
+                                fontSize: 12 *
+                                    (inherit.screenWidth /
+                                        Constants.designWidth),
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.green,
                               ))
@@ -115,6 +121,8 @@ class ProductCard extends BaseStatelessWidget {
                           builder: (context, state) {
                             return FilledButton(
                                 onPressed: () {
+                                  homeScreenViewModel.selectedAppSectionIndex =
+                                      0;
                                   getIt<CartCubit>().doIntent(
                                     AddToCartIntent(
                                       request: AddToCartRequest(
@@ -133,18 +141,19 @@ class ProductCard extends BaseStatelessWidget {
                                     Icon(
                                       Icons.shopping_cart_outlined,
                                       size: 18 *
-                                          (screenWidth / Constants.designWidth),
+                                          (inherit.screenWidth /
+                                              Constants.designWidth),
                                     ),
                                     SizedBox(
-                                      width: screenWidth * 0.02,
+                                      width: inherit.screenWidth * 0.02,
                                     ),
                                     Text(
                                       LocaleKeys.addToCart.tr(),
-                                      style: theme.textTheme.labelLarge!
+                                      style: inherit.theme.textTheme.labelLarge!
                                           .copyWith(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 13 *
-                                                  (screenWidth /
+                                                  (inherit.screenWidth /
                                                       Constants.designWidth),
                                               color: AppColors.white),
                                     )

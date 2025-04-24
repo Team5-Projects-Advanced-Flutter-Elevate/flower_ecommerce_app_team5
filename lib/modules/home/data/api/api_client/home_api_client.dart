@@ -5,6 +5,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_occasion
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/cart_response_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/new_address_response/new_address_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../models/cart_response/add_to_cart_request.dart';
@@ -38,4 +39,7 @@ abstract class HomeApiClient {
 
   @DELETE('api/v1/cart/{id}')
   Future<CartResponse> deleteFromCart(@Path("id") String productId);
+
+  @PATCH(ApisEndpoints.addNewAddress)
+  Future<SaveAddress> saveAddress(@Body() Map<String, dynamic> body);
 }

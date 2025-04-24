@@ -30,7 +30,7 @@ class CategoriesSection extends StatelessWidget {
             LocaleKeys.categories.tr(),
             onTap: () {
               homeScreenViewModel.selectedAppSectionIndex = 1;
-              homeScreenViewModel.doIntent(AnimateToPage(pageIndex: 1));
+              homeScreenViewModel.doIntent(JumpToPage(pageIndex: 1));
             },
           ),
           SizedBox(

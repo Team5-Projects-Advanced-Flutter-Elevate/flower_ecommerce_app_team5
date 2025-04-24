@@ -6,13 +6,13 @@ import '../../../../../../core/colors/app_colors.dart';
 import 'invoice_section.dart';
 
 class InvoiceSectionAndCheckoutButton extends BaseStatelessWidget {
-  InvoiceSectionAndCheckoutButton({
+  const InvoiceSectionAndCheckoutButton({
     super.key,
     required this.cartResponseEntity
   });
 final CartResponseEntity cartResponseEntity;
   @override
-  Widget customBuild(BuildContext context) {
+  Widget customBuild(BuildContext context,inherit) {
     return Expanded(
       flex: 2,
       child: Column(
@@ -24,7 +24,7 @@ final CartResponseEntity cartResponseEntity;
               children: [
                 InvoiceSection(cartResponseEntity: cartResponseEntity,),
                 SizedBox(
-                  height: screenHeight * 0.03,
+                  height: inherit.screenHeight * 0.03,
                 ),
               ],
             ),
@@ -35,8 +35,8 @@ final CartResponseEntity cartResponseEntity;
               onPressed: () {},
               child: Text(
                 'Checkout',
-                style: theme.textTheme.labelMedium?.copyWith(
-                  fontSize: 16 * (screenWidth / 375),
+                style: inherit.theme.textTheme.labelMedium?.copyWith(
+                  fontSize: 16 * (inherit.screenWidth / 375),
                   color: AppColors.white,
                 ),
               ),

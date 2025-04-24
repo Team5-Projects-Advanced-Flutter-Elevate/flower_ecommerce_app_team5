@@ -10,8 +10,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import '../../colors/app_colors.dart';
 
 class ImagePickerService {
-  final ImagePicker _picker = ImagePicker();
-  final int maxFileSize = 4 * 1024 * 1024; // 4MB in bytes
+  final int maxFileSize = 1024 * 1024; // 1MB in bytes
   final int maxDimension = 1200; // Maximum width/height in pixels
 
   Future<File?> pickImage(ImageSource source) async {
@@ -34,10 +33,11 @@ class ImagePickerService {
       }
 
       final XFile? pickedFile = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
+        //source: ImageSource.gallery,
+        source: source,
         requestFullMetadata: false, // For privacy-safe access
       );
-      print('pickedFile: ${pickedFile?.path}');
+      debugPrint('pickedFile: ${pickedFile?.path}');
       if (pickedFile == null) return null;
 
       // Process the image to meet requirements
@@ -82,7 +82,7 @@ class ImagePickerService {
       targetPath,
       quality: quality,
       minWidth: 600, // Minimum width after resize
-      minHeight: 600, // Minimum height after resize
+      //minHeight: 1000, // Minimum height after resize
     );
 
     return File(result!.path);

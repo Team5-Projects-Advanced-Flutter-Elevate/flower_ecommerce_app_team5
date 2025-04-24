@@ -1,14 +1,16 @@
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/best_seller_screen.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/payment/ui/checkout_session_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/search/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../modules/edit_profile/ui/change_password_screen.dart';
@@ -24,7 +26,6 @@ class GenerateRoute {
         );
       case DefinedRoutes.loginScreenRoute:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
-
       case DefinedRoutes.homeScreenRoute:
         return MaterialPageRoute(builder: (context) => const HomeScreen());
       case DefinedRoutes.bestSellerScreenRoute:
@@ -41,12 +42,24 @@ class GenerateRoute {
               ProductDetailsScreen(productEntity: args as ProductEntity),
         );
       case DefinedRoutes.editProfileScreenRoute:
-        return MaterialPageRoute(
+        return MaterialPageRoute<bool>(
           builder: (context) => const EditProfileScreen(),
         );
       case DefinedRoutes.changePasswordScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const ChangePasswordScreen(),
+        );
+      case DefinedRoutes.checkoutSessionScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) {
+            return CheckoutSessionScreen(
+              paymentRequestParameters: args as PaymentRequestParametersEntity,
+            );
+          },
+        );
+      case DefinedRoutes.searchScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const SearchScreen(),
         );
       default:
         return _errorRoute();
