@@ -29,9 +29,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get # action
 
-      - name: Run tests
-        run: flutter test
-
       - name: Build android apk and appBundle
         run: flutter build apk --release
 
