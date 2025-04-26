@@ -4,6 +4,10 @@ on:
     branches:
       - develop
       - master
+  pull_request:
+    types: [ opened, edited ]
+    branches:
+      - '**'
 jobs:
   distribute_to_firebase:
     runs-on: ubuntu-latest
