@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
@@ -72,7 +74,9 @@ class CheckOutCubit extends Cubit<CheckOutState> {
         emit(state.copyWith(
           status: CheckOutStatus.success,
           addressesResponseEntity: result.data,
+          addressModelEntityOfSelectedAddress: result.data.addresses?[0],
         ));
+        log(state.addressModelEntityOfSelectedAddress.toString());
       case Error<AddressResponseEntity>():
         emit(state.copyWith(
           status: CheckOutStatus.error,

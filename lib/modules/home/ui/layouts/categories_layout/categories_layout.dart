@@ -129,8 +129,11 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
                 if (state is CategoriesLayoutViewModelSuccess ||
                     state is CategoriesViewModelTabBarChanged) {
                   categoriesViewModel.processIntent(GetInitialCategoryIndex());
-                  categoriesViewModel.processIntent(GetProductsIntent(
-                      categoryId: categoriesViewModel.selectedCategoryId));
+                  categoriesViewModel.processIntent(
+                    GetProductsIntent(
+                      categoryId: categoriesViewModel.selectedCategoryId,
+                    ),
+                  );
                   //tabs.addAll(viewModel.categoriesList.map((e) => e.name!));
                   return DefaultTabController(
                     length: categoriesViewModel.categoriesList.length,
@@ -166,8 +169,11 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
             CategoriesLayoutViewModelState>(listener: (context, state) {
           if (state is CategoriesLayoutViewModelError) {
             displayAlertDialog(
-                showOkButton: true,
-                title: ErrorStateWidget(error: state.error));
+              showOkButton: true,
+              title: ErrorStateWidget(
+                error: state.error,
+              ),
+            );
           }
         }, builder: (context, state) {
           if (state is CategoriesViewModelTabBarChanged) {

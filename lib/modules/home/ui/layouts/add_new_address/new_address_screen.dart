@@ -1,4 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
+import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/states.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +16,9 @@ import '../../../domain/entities/cities_states_entity/get_cities.dart';
 import '../../../domain/entities/cities_states_entity/get_states.dart';
 
 class NewAddressScreen extends StatefulWidget {
-  const NewAddressScreen({super.key});
+  const NewAddressScreen({
+    super.key,
+  });
 
   @override
   State<NewAddressScreen> createState() => _NewAddressScreenState();
@@ -85,7 +90,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                     size: 20,
                     color: Colors.black,
                   ),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
               ),
               title: Text(LocaleKeys.addressTitle.tr(),
@@ -211,13 +218,31 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                           var long = latLong?['longitude'];
 
                           print(lat);
-                          viewModel.processIntent(AddAddress(
+                          viewModel.processIntent(
+                            AddAddress(
                               addressController.text,
                               phoneController.text,
                               selectedGovernorate,
                               latLong?['latitude'].toString(),
                               latLong?['longitude'].toString(),
-                              recipientController.text));
+                              recipientController.text,
+                            ),
+                          );
+
+                          BlocProvider.of<CheckOutCubit>(context)
+                              .state
+                              .addressesResponseEntity
+                              ?.addresses
+                              ?.add(
+                                AddressModelEntity(
+                                  phone: phoneController.text,
+                                  lat: latLong?['latitude'].toString(),
+                                  long: latLong?['longitude'].toString(),
+                                  street: addressController.text,
+                                  city: selectedGovernorate,
+                                  username: recipientController.text,
+                                ),
+                              );
                         },
                         child: Text(
                           LocaleKeys.saveAddress.tr(),

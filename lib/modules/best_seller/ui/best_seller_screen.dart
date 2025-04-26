@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
@@ -20,7 +21,6 @@ import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-
 
 class BestSellerScreen extends StatefulWidget {
   const BestSellerScreen({super.key});
@@ -101,7 +101,7 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
               listener: (context, state) {
                 if (state.addToCartStatus == AddToCartStatus.noAccess) {
                   displayAlertDialog(
-                    title:  Text(
+                    title: Text(
                       LocaleKeys.pleaseLoginFirst.tr(),
                     ),
                     showOkButton: true,
@@ -112,36 +112,22 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
                   );
                   return;
                 }
-                switch (state.addToCartStatus) {
-                  case AddToCartStatus.loading:
-                    Future.delayed(Duration.zero, () {
-                      displayAlertDialog(
-                        title: const LoadingWidget(),
-                      );
-                    });
-
-                  case AddToCartStatus.success:
-                    Future.delayed(Duration.zero, () {
-                      hideAlertDialog();
-                      AppDialogs.showMessage(
-                        context,
-                        message: LocaleKeys.addedToCartSuccessfully.tr(),
-                        isSuccess: true,
-                      );
-                    });
-
-                  case AddToCartStatus.error:
-                    Future.delayed(Duration.zero, () {
-                      hideAlertDialog();
-                      AppDialogs.showMessage(
-                        context,
-                        message: LocaleKeys.soldOut.tr(),
-                        isSuccess: false,
-                      );
-                    });
-
-                  case AddToCartStatus.initial:
-                  case AddToCartStatus.noAccess:
+                if (state.addToCartStatus == AddToCartStatus.success) {
+                  Future.delayed(Duration.zero, () {
+                    AppDialogs.showMessage(
+                      context,
+                      message: LocaleKeys.addedToCartSuccessfully.tr(),
+                      isSuccess: true,
+                    );
+                  });
+                } else if (state.addToCartStatus == AddToCartStatus.error) {
+                  Future.delayed(Duration.zero, () {
+                    AppDialogs.showMessage(
+                      context,
+                      message: LocaleKeys.soldOut.tr(),
+                      isSuccess: false,
+                    );
+                  });
                 }
               },
               child: BlocBuilder<BestSellerViewModel, BestSellerState>(
@@ -168,28 +154,49 @@ class _BestSellerScreenState extends BaseStatefulWidgetState<BestSellerScreen> {
                         child: GridView.builder(
                           itemCount: bestSellerProducts.length,
                           padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth * 0.04,
-                              vertical: screenHeight * 0.01),
+                            horizontal: screenWidth * 0.04,
+                            vertical: screenHeight * 0.01,
+                          ),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 163 / 229,
-                                  mainAxisSpacing: 17,
-                                  crossAxisSpacing: 17),
+                            crossAxisCount: 2,
+                            childAspectRatio: 163 / 229,
+                            mainAxisSpacing: 17,
+                            crossAxisSpacing: 17,
+                          ),
                           itemBuilder: (context, index) {
-                            return ProductCard(
-                                onProductCardClick: () {},
-                                id: bestSellerProducts[index].id,
-                                width: screenWidth * 0.45,
-                                height: screenHeight * 0.25,
-                                productTitle:
-                                    bestSellerProducts[index].title ?? "",
-                                price: bestSellerProducts[index].price,
-                                priceAfterDiscountIfExist:
-                                    bestSellerProducts[index]
-                                        .priceAfterDiscount,
-                                imageUrl:
-                                    bestSellerProducts[index].imgCover ?? "");
+                            return BlocBuilder<CartCubit, CartState>(
+                              builder: (context, state) {
+                                var isLoading = state.addToCartStatus ==
+                                        AddToCartStatus.loading &&
+                                    state.addingProductId ==
+                                        bestSellerProducts[index].id;
+                                var disabled = state.addToCartStatus ==
+                                    AddToCartStatus.loading;
+                                return ProductCard(
+                                  isLoading: isLoading,
+                                  disabled: disabled,
+                                  onProductCardClick: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      DefinedRoutes.productDetailsScreenRoute,
+                                      arguments: bestSellerProducts[index],
+                                    );
+                                  },
+                                  id: bestSellerProducts[index].id,
+                                  width: screenWidth * 0.45,
+                                  height: screenHeight * 0.25,
+                                  productTitle:
+                                      bestSellerProducts[index].title ?? "",
+                                  price: bestSellerProducts[index].price,
+                                  priceAfterDiscountIfExist:
+                                      bestSellerProducts[index]
+                                          .priceAfterDiscount,
+                                  imageUrl:
+                                      bestSellerProducts[index].imgCover ?? "",
+                                );
+                              },
+                            );
                           },
                         ),
                       );

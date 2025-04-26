@@ -28,6 +28,7 @@ class _OccasionListScreenState
     extends BaseStatefulWidgetState<OccasionListScreen> {
   late HomeScreenViewModel homeScreenViewModel;
   late OccasionViewModelCubit viewModel;
+
   @override
   Widget build(BuildContext context) {
     homeScreenViewModel = Provider.of(context);
@@ -52,7 +53,7 @@ class _OccasionListScreenState
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(LocaleKeys.occsionScreenTitle.tr(),
+                Text(LocaleKeys.occasionScreenTitle.tr(),
                     style: Theme.of(context).textTheme.headlineMedium),
                 const SizedBox(height: 2),
                 Text(LocaleKeys.occasionScreenSubTitle.tr(),
@@ -123,13 +124,9 @@ class _OccasionListScreenState
                                   );
                                   return;
                                 }
-                                switch (state.addToCartStatus) {
-                                  case AddToCartStatus.loading:
-                                    displayAlertDialog(
-                                      title: const LoadingWidget(),
-                                    );
-                                  case AddToCartStatus.success:
-                                    hideAlertDialog();
+                                if (state.addToCartStatus ==
+                                    AddToCartStatus.success) {
+                                  Future.delayed(Duration.zero, () {
                                     AppDialogs.showMessage(
                                       context,
                                       message: LocaleKeys
@@ -137,15 +134,16 @@ class _OccasionListScreenState
                                           .tr(),
                                       isSuccess: true,
                                     );
-                                  case AddToCartStatus.error:
-                                    hideAlertDialog();
+                                  });
+                                } else if (state.addToCartStatus ==
+                                    AddToCartStatus.error) {
+                                  Future.delayed(Duration.zero, () {
                                     AppDialogs.showMessage(
                                       context,
                                       message: LocaleKeys.soldOut.tr(),
                                       isSuccess: false,
                                     );
-                                  case AddToCartStatus.initial:
-                                  case AddToCartStatus.noAccess:
+                                  });
                                 }
                               },
                               child: Expanded(
@@ -164,22 +162,34 @@ class _OccasionListScreenState
                                   ),
                                   itemBuilder: (context, index) {
                                     final product = filteredProduct[index];
-                                    return ProductCard(
-                                      id: product.id,
-                                      onProductCardClick: () {
-                                        Navigator.pushNamed(
-                                            context,
-                                            DefinedRoutes
-                                                .productDetailsScreenRoute,
-                                            arguments: product);
+                                    return BlocBuilder<CartCubit, CartState>(
+                                      builder: (context, state) {
+                                        var isLoading = state.addToCartStatus ==
+                                                AddToCartStatus.loading &&
+                                            state.addingProductId ==
+                                                filteredProduct[index].id;
+                                        var disabled = state.addToCartStatus ==
+                                            AddToCartStatus.loading;
+                                        return ProductCard(
+                                          isLoading: isLoading,
+                                          disabled: disabled,
+                                          id: product.id,
+                                          onProductCardClick: () {
+                                            Navigator.pushNamed(
+                                                context,
+                                                DefinedRoutes
+                                                    .productDetailsScreenRoute,
+                                                arguments: product);
+                                          },
+                                          width: screenWidth * 0.45,
+                                          height: screenHeight * 0.25,
+                                          productTitle: '${product.title}',
+                                          price: product.price,
+                                          priceAfterDiscountIfExist:
+                                              product.priceAfterDiscount,
+                                          imageUrl: "${product.images?[index]}",
+                                        );
                                       },
-                                      width: screenWidth * 0.45,
-                                      height: screenHeight * 0.25,
-                                      productTitle: '${product.title}',
-                                      price: product.price,
-                                      priceAfterDiscountIfExist:
-                                          product.priceAfterDiscount,
-                                      imageUrl: "${product.images?[index]}",
                                     );
                                   },
                                 ),

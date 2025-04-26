@@ -36,69 +36,83 @@ class CategoryProductsView extends BaseStatelessWidget {
           );
           return;
         }
-        switch (state.addToCartStatus) {
-          case AddToCartStatus.loading:
-            displayAlertDialog(
-              title: const LoadingWidget(),
-            );
-          case AddToCartStatus.success:
-            hideAlertDialog();
+        if (state.addToCartStatus == AddToCartStatus.success) {
+          Future.delayed(Duration.zero, () {
             AppDialogs.showMessage(
               context,
               message: LocaleKeys.addedToCartSuccessfully.tr(),
               isSuccess: true,
             );
-          case AddToCartStatus.error:
-            hideAlertDialog();
+          });
+        } else if (state.addToCartStatus == AddToCartStatus.error) {
+          Future.delayed(Duration.zero, () {
             AppDialogs.showMessage(
               context,
               message: LocaleKeys.soldOut.tr(),
               isSuccess: false,
             );
-          case AddToCartStatus.initial:
-          case AddToCartStatus.noAccess:
+          });
         }
       },
       child: Column(
         children: [
           Expanded(
             child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: inherit.screenWidth * 0.04,
-                  vertical: inherit.screenHeight * 0.01,
-                ),
-                child: productList.isEmpty
-                    ? Center(
-                        child: Text(
-                          LocaleKeys.noProductsFound.tr(),
-                          style: GoogleFonts.inter(
-                              textStyle: inherit.theme.textTheme.bodyLarge!
-                                  .copyWith(color: AppColors.white[70])),
-                        ),
-                      )
-                    : GridView.builder(
-                        padding:
-                            EdgeInsets.only(top: inherit.screenHeight * 0.02),
-                        itemCount: productList.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 163 / 229,
-                          mainAxisSpacing: 17,
-                          crossAxisSpacing: 17,
-                        ),
-                        itemBuilder: (context, index) => ProductCard(
-                          id: productList[index].id,
-                          onProductCardClick: () {},
-                          width: inherit.screenWidth * 0.45,
-                          height: inherit.screenHeight * 0.25,
-                          productTitle: productList[index].title!,
-                          price: productList[index].price,
-                          priceAfterDiscountIfExist:
-                              productList[index].priceAfterDiscount,
-                          imageUrl: productList[index].imgCover ?? '',
-                        ),
-                      )),
+              padding: EdgeInsets.symmetric(
+                horizontal: inherit.screenWidth * 0.04,
+                vertical: inherit.screenHeight * 0.01,
+              ),
+              child: productList.isEmpty
+                  ? Center(
+                      child: Text(
+                        LocaleKeys.noProductsFound.tr(),
+                        style: GoogleFonts.inter(
+                            textStyle: inherit.theme.textTheme.bodyLarge!
+                                .copyWith(color: AppColors.white[70])),
+                      ),
+                    )
+                  : GridView.builder(
+                      padding:
+                          EdgeInsets.only(top: inherit.screenHeight * 0.02),
+                      itemCount: productList.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 163 / 229,
+                        mainAxisSpacing: 17,
+                        crossAxisSpacing: 17,
+                      ),
+                      itemBuilder: (context, index) =>
+                          BlocBuilder<CartCubit, CartState>(
+                        builder: (context, state) {
+                          var isLoading = state.addToCartStatus ==
+                                  AddToCartStatus.loading &&
+                              state.addingProductId == productList[index].id;
+                          var disabled =
+                              state.addToCartStatus == AddToCartStatus.loading;
+                          return ProductCard(
+                            id: productList[index].id,
+                            isLoading: isLoading,
+                            disabled: disabled,
+                            onProductCardClick: () {
+                              Navigator.pushNamed(
+                                context,
+                                DefinedRoutes.productDetailsScreenRoute,
+                                arguments: productList[index],
+                              );
+                            },
+                            width: inherit.screenWidth * 0.45,
+                            height: inherit.screenHeight * 0.25,
+                            productTitle: productList[index].title!,
+                            price: productList[index].price,
+                            priceAfterDiscountIfExist:
+                                productList[index].priceAfterDiscount,
+                            imageUrl: productList[index].imgCover ?? '',
+                          );
+                        },
+                      ),
+                    ),
+            ),
           ),
         ],
       ),

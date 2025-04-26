@@ -41,6 +41,7 @@ class CartState extends Equatable {
   final AddToCartStatus addToCartStatus;
   final DeleteFromCartStatus deleteFromCartStatus;
   final int rebuildKey;
+  final String? addingProductId;
 
   int totalPrice;
 
@@ -54,6 +55,7 @@ class CartState extends Equatable {
     this.deleteFromCartStatus = DeleteFromCartStatus.initial,
     this.userLoginStatus = UserLoginStatus.loggedIn,
     this.rebuildKey = 0,
+    this.addingProductId,
   });
 
   CartState copyWith({
@@ -66,6 +68,7 @@ class CartState extends Equatable {
     AddToCartStatus? addToCartStatus,
     DeleteFromCartStatus? deleteFromCartStatus,
     int? rebuildKey,
+    String? addingProductId,
   }) {
     return CartState(
       status: state ?? status,
@@ -77,6 +80,7 @@ class CartState extends Equatable {
       addToCartStatus: addToCartStatus ?? this.addToCartStatus,
       deleteFromCartStatus: deleteFromCartStatus ?? this.deleteFromCartStatus,
       rebuildKey: rebuildKey ?? this.rebuildKey,
+      addingProductId: addingProductId ?? this.addingProductId,
     );
   }
 
@@ -91,5 +95,6 @@ class CartState extends Equatable {
         deleteFromCartStatus,
         userLoginStatus,
         rebuildKey,
+        addingProductId,
       ];
 }

@@ -44,9 +44,10 @@ class CheckOutState extends Equatable {
   final MakeCashOnDeliveryStatus makeCashOnDeliveryStatus;
   final MakeCreditCardStatus makeCreditCardStatus;
   final Object? error;
-  final AddressResponseEntity? addressesResponseEntity;
-  String? selectedDeliveryAddress;
+  AddressResponseEntity? addressesResponseEntity;
   final AddressModelEntity? addressModelEntityOfSelectedAddress;
+  String? selectedDeliveryAddress;
+
   SelectedPaymentMethod? selectedPaymentMethod;
   bool isGift;
 

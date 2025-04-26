@@ -84,7 +84,7 @@ class LocaleKeys {
   static const String viewAll = 'viewAll';
   static const String bestSeller = 'bestSeller';
   static const String occasions = 'occasions';
-  static const String occsionScreenTitle = 'occsionScreenTitle';
+  static const String occasionScreenTitle = 'occasionScreenTitle';
   static const String occasionScreenSubTitle = 'occasionScreenSubTitle';
   static const String noProductsFound = 'noProductsFound';
   static const String bloomWithBestSeller = 'bloomWithBestSeller';

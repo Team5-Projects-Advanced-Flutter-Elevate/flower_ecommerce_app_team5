@@ -129,11 +129,10 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NewAddressScreen(),
-                            ));
+                        Navigator.pushNamed(
+                          context,
+                          DefinedRoutes.addNewAddress,
+                        );
                       },
                       child: ListTile(
                         title: Text(LocaleKeys.savedAddress.tr()),
