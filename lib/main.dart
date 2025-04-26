@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_inherited_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
@@ -43,7 +46,15 @@ void main() async {
       return GlobalKey<NavigatorState>();
     },
   );
-
+  // Pass all uncaught "fatal" errors from the framework to Crashlytics
+  FlutterError.onError = (FlutterErrorDetails flutterErrorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(flutterErrorDetails);
+  };
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
   runApp(BlocProvider(
     create: (context) => getIt<CartCubit>(),
     child: MultiProvider(
