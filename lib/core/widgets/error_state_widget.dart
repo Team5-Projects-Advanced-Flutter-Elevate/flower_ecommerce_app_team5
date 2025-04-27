@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 class ErrorStateWidget extends BaseStatelessWidget {
   final Object error;
 
-   const ErrorStateWidget({super.key, required this.error});
+  ErrorStateWidget({super.key, required this.error});
 
   @override
-  Widget customBuild(BuildContext context,inherit) {
+  Widget customBuild(BuildContext context) {
     final ApiErrorHandler apiErrorHandler = ApiErrorHandler.getInstance();
     return Center(
       child: Text(
         apiErrorHandler.handle(error),
         textAlign: TextAlign.center,
-        style: inherit.theme.textTheme.labelMedium,
+        style: theme.textTheme.labelMedium,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 

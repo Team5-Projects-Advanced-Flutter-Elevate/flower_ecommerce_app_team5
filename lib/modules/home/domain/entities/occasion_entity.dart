@@ -16,9 +16,4 @@ class OccasionEntity {
     this.updatedAt,
     this.productsCount,
   });
-
-  @override
-  String toString() {
-    return '($id, $name, $slug, $image, $productsCount)';
-  }
 }

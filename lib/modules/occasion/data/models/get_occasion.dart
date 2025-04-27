@@ -1,32 +1,33 @@
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
+import '../../domain/entities/get_occasion.dart';
 
 class GetOccasionDTO {
   String? message;
   Metadata? metadata;
-  List<OccasionDto>? occasions;
+  List<Occasions>? occasions;
 
   GetOccasionDTO({this.message, this.metadata, this.occasions});
 
   GetOccasionDTO.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    metadata =
-        json['metadata'] != null ? Metadata.fromJson(json['metadata']) : null;
+    metadata = json['metadata'] != null
+        ? new Metadata.fromJson(json['metadata'])
+        : null;
     if (json['occasions'] != null) {
-      occasions = <OccasionDto>[];
+      occasions = <Occasions>[];
       json['occasions'].forEach((v) {
-        occasions!.add( OccasionDto.fromJson(v));
+        occasions!.add(new Occasions.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['message'] = message;
-    if (metadata != null) {
-      data['metadata'] = metadata!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
+    if (this.metadata != null) {
+      data['metadata'] = this.metadata!.toJson();
     }
-    if (occasions != null) {
-      data['occasions'] = occasions!.map((v) => v.toJson()).toList();
+    if (this.occasions != null) {
+      data['occasions'] = this.occasions!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -48,16 +49,16 @@ class Metadata {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['currentPage'] = currentPage;
-    data['limit'] = limit;
-    data['totalPages'] = totalPages;
-    data['totalItems'] = totalItems;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['currentPage'] = this.currentPage;
+    data['limit'] = this.limit;
+    data['totalPages'] = this.totalPages;
+    data['totalItems'] = this.totalItems;
     return data;
   }
 }
 
-class OccasionDto {
+class Occasions {
   String? sId;
   String? name;
   String? slug;
@@ -66,16 +67,16 @@ class OccasionDto {
   String? updatedAt;
   int? productsCount;
 
-  OccasionDto(
+  Occasions(
       {this.sId,
-      this.name,
-      this.slug,
-      this.image,
-      this.createdAt,
-      this.updatedAt,
-      this.productsCount});
+        this.name,
+        this.slug,
+        this.image,
+        this.createdAt,
+        this.updatedAt,
+        this.productsCount});
 
-  OccasionDto.fromJson(Map<String, dynamic> json) {
+  Occasions.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     slug = json['slug'];
@@ -86,22 +87,25 @@ class OccasionDto {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
-    data['name'] = name;
-    data['slug'] = slug;
-    data['image'] = image;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    data['productsCount'] = productsCount;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['name'] = this.name;
+    data['slug'] = this.slug;
+    data['image'] = this.image;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['productsCount'] = this.productsCount;
     return data;
   }
 
-  OccasionEntity toEntity() => OccasionEntity(
-        id: sId ?? '',
-        name: name ?? '',
-        slug: slug ?? '',
-        image: image ?? '',
-        productsCount: productsCount ?? 0,
-      );
+  Occasion toEntity() => Occasion(
+    id: sId ?? '',
+    name: name ?? '',
+    slug: slug ?? '',
+    image: image ?? '',
+    productsCount: productsCount ?? 0,
+  );
 }
+
+
+

@@ -127,7 +127,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                 },
                 listenWhen: (previous, current) =>
                     current !=
-                    const RegisterState(
+                    RegisterState(
                       state: RegisterStatus.initial,
                     ),
                 child: Form(
@@ -288,7 +288,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                     contentPadding: EdgeInsets.zero,
                                     hoverColor: AppColors.transparent,
                                     title: Text(
-                                      LocaleKeys.genderFemale.tr(),
+                                      LocaleKeys.gender_female.tr(),
                                       style:
                                           theme.textTheme.labelSmall?.copyWith(
                                         color: selectedGender ==
@@ -311,7 +311,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                                   child: RadioListTile<String>(
                                     contentPadding: EdgeInsets.zero,
                                     title: Text(
-                                      LocaleKeys.genderMale.tr(),
+                                      LocaleKeys.gender_male.tr(),
                                       style:
                                           theme.textTheme.labelSmall?.copyWith(
                                         color: selectedGender ==

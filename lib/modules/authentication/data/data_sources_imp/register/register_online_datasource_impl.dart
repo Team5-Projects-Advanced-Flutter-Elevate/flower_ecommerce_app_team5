@@ -1,6 +1,5 @@
 import 'package:flower_ecommerce_app_team5/core/apis/api_executor/api_executor.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
-import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/api/api_client/auth_api_client.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/register_request.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/authentication_response.dart';
@@ -22,7 +21,6 @@ class RegisterOnlineDataSourceImpl implements RegisterOnlineDataSource {
     );
     switch (result) {
       case Success<AuthenticationResponse>():
-        DioServiceExtension.updateDioWithToken(result.data.token!);
         return Success(data: result.data.toEntity());
       case Error<AuthenticationResponse>():
         return Error(error: result.error);

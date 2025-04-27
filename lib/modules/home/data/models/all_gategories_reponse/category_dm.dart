@@ -16,7 +16,6 @@ class CategoryDM {
   });
 
   factory CategoryDM.fromJson(dynamic json) => _$CategoryDMFromJson(json);
-  @JsonKey(name: '_id')
   String? id;
   String? name;
   String? slug;
