@@ -187,6 +187,10 @@ import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
 import '../../modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart'
     as _i901;
 import '../../modules/home/ui/view_model/home_screen_view_model.dart' as _i867;
+import '../../modules/notifications_list/data/api/api_client/notifications_api_client.dart'
+    as _i762;
+import '../../modules/notifications_list/data/api/api_client_provider/notifications_client_provider.dart'
+    as _i985;
 import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
 import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
     as _i507;
@@ -249,6 +253,7 @@ extension GetItInjectableX on _i174.GetIt {
     final bestSellerClientProvider = _$BestSellerClientProvider();
     final checkOutApiClientProvider = _$CheckOutApiClientProvider();
     final paymentApiClientProvider = _$PaymentApiClientProvider();
+    final notificationsClientProvider = _$NotificationsClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final editProfileApiClientProvider = _$EditProfileApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
@@ -275,6 +280,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i737.UploadImageApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i979.PaymentApiClient>(
         () => paymentApiClientProvider.providerApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i762.NotificationsApiClient>(
+        () => notificationsClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i319.ProfileApiClient>(
@@ -478,6 +485,8 @@ class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 class _$CheckOutApiClientProvider extends _i97.CheckOutApiClientProvider {}
 
 class _$PaymentApiClientProvider extends _i177.PaymentApiClientProvider {}
+
+class _$NotificationsClientProvider extends _i985.NotificationsClientProvider {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 
