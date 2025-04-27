@@ -1,5 +1,5 @@
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/product_do/product_dto.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/best_seller.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/best_seller_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -8,7 +8,7 @@ void main() {
       'when call toEntity with non null values it should return BestSellerEntity',
       () {
         // arrange
-        var bestSeller = ProductDto(
+        var bestSeller = BestSellerDM(
           id: 'id',
           title: 'title',
           slug: 'slug',
@@ -29,14 +29,14 @@ void main() {
           v: 3,
         );
         // act
-        var result = bestSeller.convertIntoEntity();
+        var result = bestSeller.toEntity();
         // ensure best seller is not null
         var mappedResult = bestSeller.toJson();
         mappedResult.forEach((key, value) {
           expect(value, isNotNull);
         });
         // assert
-        expect(result, isA<ProductEntity>());
+        expect(result, isA<BestSellerEntity>());
       },
     );
 
@@ -44,16 +44,16 @@ void main() {
       'when call toEntity with  nullable values it should return nullable BestSellerEntity',
       () {
         // arrange
-        var bestSeller = ProductDto();
+        var bestSeller = BestSellerDM();
         // act
-        var result = bestSeller.convertIntoEntity();
+        var result = bestSeller.toEntity();
         // ensure best seller null
         var mappedResult = bestSeller.toJson();
         mappedResult.forEach((key, value) {
           expect(value, isNull);
         });
         // assert
-        expect(result, isA<ProductEntity?>());
+        expect(result, isA<BestSellerEntity?>());
       },
     );
   });

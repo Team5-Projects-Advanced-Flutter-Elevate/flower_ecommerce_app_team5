@@ -1,12 +1,13 @@
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../../../core/bases/base_statless_widget.dart';
 
-import '../../../../../../../core/widgets/cached_image.dart';
-// ignore: must_be_immutable
+import '../../../../../../../core/bases/base_statless_widget.dart';
+import '../../../../../../../core/colors/app_colors.dart';
+import '../cashed_image.dart';
+
 class OccasionItem extends BaseStatelessWidget {
-   const OccasionItem({
+  OccasionItem({
     super.key,
     required this.occasionEntity,
   });
@@ -14,21 +15,21 @@ class OccasionItem extends BaseStatelessWidget {
   final OccasionEntity occasionEntity;
 
   @override
-  Widget customBuild(BuildContext context,  inherit) {
+  Widget customBuild(BuildContext context) {
     return SizedBox(
-      width: inherit.screenWidth * 0.3,
+      width: screenWidth * 0.3,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             flex: 3,
-            child: CachedImage(
+            child: CashedImage(
               fit: BoxFit.cover,
               url: occasionEntity.image ?? '',
             ),
           ),
           SizedBox(
-            height: inherit.screenHeight * 0.01,
+            height: screenHeight * 0.01,
           ),
           Expanded(
             flex: 1,
@@ -37,7 +38,7 @@ class OccasionItem extends BaseStatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.inter(
-                textStyle: inherit.theme.textTheme.bodySmall?.copyWith(
+                textStyle: theme.textTheme.bodySmall?.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),

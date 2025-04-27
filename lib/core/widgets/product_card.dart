@@ -1,42 +1,32 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
-import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
-import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../modules/home/data/models/cart_response/add_to_cart_request.dart';
-
-// ignore: must_be_immutable
 class ProductCard extends BaseStatelessWidget {
   final String imageUrl;
   final String productTitle;
-  final String? id;
   final double? width, height;
   final num? price;
   final num? priceAfterDiscountIfExist;
-  final void Function()? onProductCardClick;
-
-  const ProductCard({
-    super.key,
-    required this.productTitle,
-    required this.imageUrl,
-    required this.price,
-    this.onProductCardClick,
-    this.priceAfterDiscountIfExist,
-    this.width,
-    this.height,
-    this.id,
-  });
+  final void Function()? onAddToCartButtonClick, onProductCardClick;
+  ProductCard(
+      {super.key,
+      required this.productTitle,
+      required this.imageUrl,
+      required this.price,
+      this.onProductCardClick,
+      this.priceAfterDiscountIfExist,
+      this.onAddToCartButtonClick,
+      this.width,
+      this.height});
 
   @override
-  Widget customBuild(BuildContext context, inherit) {
-    HomeScreenViewModel homeScreenViewModel = Provider.of(context);
+  Widget customBuild(BuildContext context) {
     return InkWell(
       onTap: onProductCardClick,
       splashColor: Colors.transparent,
@@ -49,16 +39,20 @@ class ProductCard extends BaseStatelessWidget {
             border: Border.all(color: AppColors.white[70]!),
             borderRadius: const BorderRadius.all(Radius.circular(8))),
         child: Padding(
-          padding: EdgeInsets.all(inherit.screenWidth * 0.02),
+          padding: EdgeInsets.all(screenWidth * 0.02),
           child: Column(
             children: [
               Expanded(
-                  flex: 13,
-                  child: CachedImage(
-                    url: imageUrl,
-                    fit: BoxFit.cover,
-                    width: width,
-                  )),
+                flex: 13,
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  fit: BoxFit.cover,
+                  width: width,
+                  placeholder: (context, downloadProgress) =>
+                      const LoadingWidget(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
               Expanded(
                   flex: 9,
                   child: Column(
@@ -68,13 +62,13 @@ class ProductCard extends BaseStatelessWidget {
                         productTitle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: inherit.theme.textTheme.labelSmall!.copyWith(
+                        style: theme.textTheme.labelSmall!.copyWith(
                             fontWeight: FontWeight.normal,
-                            fontSize: 12 *
-                                (inherit.screenWidth / Constants.designWidth)),
+                            fontSize:
+                                12 * (screenWidth / Constants.designWidth)),
                       ),
                       SizedBox(
-                        height: inherit.screenHeight * 0.001,
+                        height: screenHeight * 0.001,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,28 +77,23 @@ class ProductCard extends BaseStatelessWidget {
                             priceAfterDiscountIfExist != null
                                 ? "EGP ${priceAfterDiscountIfExist!}"
                                 : "EGP $price",
-                            style: inherit.theme.textTheme.labelMedium!
-                                .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14 *
-                                        (inherit.screenWidth /
-                                            Constants.designWidth)),
+                            style: theme.textTheme.labelMedium!.copyWith(
+                                fontWeight: FontWeight.w600,
+                                fontSize:
+                                    14 * (screenWidth / Constants.designWidth)),
                           ),
                           Text(
                             priceAfterDiscountIfExist != null ? "$price" : "",
-                            style: inherit.theme.textTheme.labelSmall!.copyWith(
-                                fontSize: 12 *
-                                    (inherit.screenWidth /
-                                        Constants.designWidth),
+                            style: theme.textTheme.labelSmall!.copyWith(
+                                fontSize:
+                                    12 * (screenWidth / Constants.designWidth),
                                 fontWeight: FontWeight.w400,
                                 decoration: TextDecoration.lineThrough),
                           ),
                           Text(getPercentageOfDiscount(),
-                              style:
-                                  inherit.theme.textTheme.labelSmall!.copyWith(
-                                fontSize: 12 *
-                                    (inherit.screenWidth /
-                                        Constants.designWidth),
+                              style: theme.textTheme.labelSmall!.copyWith(
+                                fontSize:
+                                    12 * (screenWidth / Constants.designWidth),
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.green,
                               ))
@@ -116,40 +105,28 @@ class ProductCard extends BaseStatelessWidget {
                       Expanded(
                         flex: 15,
                         child: FilledButton(
-                            onPressed: () {
-                              homeScreenViewModel.selectedAppSectionIndex =
-                                      0;getIt<CartCubit>().doIntent(
-                                AddToCartIntent(
-                                  request: AddToCartRequest(
-                                    product: id,
-                                    quantity: 1,
-                                  ),
-                                ),
-                              );
-                            },
+                            onPressed: onAddToCartButtonClick,
                             style: FilledButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 2)),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2)),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.shopping_cart_outlined,
                                   size: 18 *
-                                      (inherit.screenWidth / Constants.designWidth),
+                                      (screenWidth / Constants.designWidth),
                                 ),
                                 SizedBox(
-                                  width: inherit.screenWidth * 0.02,
+                                  width: screenWidth * 0.02,
                                 ),
                                 Text(
                                   LocaleKeys.addToCart.tr(),
-                                  style: inherit.theme.textTheme.labelLarge!
-                                      .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13 *
-                                              (inherit.screenWidth /
-                                                  Constants.designWidth),
-                                          color: AppColors.white),
+                                  style: theme.textTheme.labelLarge!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13 *
+                                          (screenWidth / Constants.designWidth),
+                                      color: AppColors.white),
                                 )
                               ],
                             )),

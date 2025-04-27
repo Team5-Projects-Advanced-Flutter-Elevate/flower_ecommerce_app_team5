@@ -16,18 +16,4 @@ class LoginUseCase {
   Future<LoginResponseDto?> getStoredLoginInfo() =>
       _loginRepo.getStoredLoginInfo();
   Future<void> deleteLoginInfo() => _loginRepo.deleteLoginInfo();
-  void cashUserData({required LoginResponseDto loginResponseDto}) =>
-      _loginRepo.cashUser(loginResponseDto: loginResponseDto);
-
-  Future<void> deleteCachedRememberValue() {
-    return _loginRepo.deleteCachedRememberValue();
-  }
-
-  Future<bool> getCachedRememberValue() {
-    return _loginRepo.getCachedRememberValue();
-  }
-
-  void cacheRememberValue({required bool rememberMe}) {
-    cacheRememberValue(rememberMe: rememberMe);
-  }
 }

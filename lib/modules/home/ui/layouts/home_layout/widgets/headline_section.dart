@@ -1,29 +1,30 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/main.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
+import '../../../../../occasion/ui/occasion_screen.dart';
 
 class HeadLineSection extends BaseStatelessWidget {
-  const HeadLineSection(this.title, {super.key, this.onTap});
+  HeadLineSection(this.title, {this.onTap, Key? key});
 
   final String title;
   final VoidCallback? onTap;
 
   @override
-  Widget customBuild(BuildContext context, inherit) {
+  Widget customBuild(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: inherit.screenWidth * 0.05),
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
       child: Row(
         children: [
           Text(
             title,
             style: GoogleFonts.inter(
-              textStyle: inherit.theme.textTheme.titleLarge?.copyWith(
+              textStyle: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w500,
-                fontSize: 18 * (inherit.screenWidth / 375),
               ),
             ),
           ),
@@ -36,7 +37,7 @@ class HeadLineSection extends BaseStatelessWidget {
               style: GoogleFonts.inter(
                 decoration: TextDecoration.underline,
                 decorationColor: AppColors.mainColor,
-                textStyle: inherit.theme.textTheme.bodySmall?.copyWith(
+                textStyle: theme.textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: 12,
                   color: AppColors.mainColor,

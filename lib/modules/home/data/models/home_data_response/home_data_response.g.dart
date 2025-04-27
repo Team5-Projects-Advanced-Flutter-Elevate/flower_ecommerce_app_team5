@@ -13,7 +13,7 @@ HomeDataResponse _$HomeDataResponseFromJson(Map<String, dynamic> json) =>
           ?.map(CategoryDM.fromJson)
           .toList(),
       bestSeller: (json['bestSeller'] as List<dynamic>?)
-          ?.map(ProductDto.fromJson)
+          ?.map(BestSellerDM.fromJson)
           .toList(),
       occasions: (json['occasions'] as List<dynamic>?)
           ?.map(OccasionDM.fromJson)

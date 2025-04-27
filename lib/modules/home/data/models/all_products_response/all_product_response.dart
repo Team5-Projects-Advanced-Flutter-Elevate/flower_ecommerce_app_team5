@@ -1,12 +1,7 @@
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/product_do/product_dto.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/all_product_response_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/metadata_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
-
 class AllProductResponse {
   String? message;
   Metadata? metadata;
-  List<ProductDto>? products;
+  List<Products>? products;
 
   AllProductResponse({this.message, this.metadata, this.products});
 
@@ -15,9 +10,9 @@ class AllProductResponse {
     metadata =
         json['metadata'] != null ? Metadata.fromJson(json['metadata']) : null;
     if (json['products'] != null) {
-      products = <ProductDto>[];
+      products = <Products>[];
       json['products'].forEach((v) {
-        products!.add(ProductDto.fromJson(v));
+        products!.add(Products.fromJson(v));
       });
     }
   }
@@ -32,15 +27,6 @@ class AllProductResponse {
       data['products'] = products!.map((v) => v.toJson()).toList();
     }
     return data;
-  }
-  AllProductResponseEntity convertIntoEntity() {
-    return AllProductResponseEntity(
-      message: message,
-      metadata: metadata?.convertIntoEntity(),
-      products: products
-          ?.map<ProductEntity>((product) => product.convertIntoEntity())
-          .toList(),
-    );
   }
 }
 
@@ -67,13 +53,93 @@ class Metadata {
     data['totalItems'] = totalItems;
     return data;
   }
-
-  MetadataEntity convertIntoEntity() {
-    return MetadataEntity(
-        currentPage: currentPage,
-        totalPages: totalPages,
-        limit: limit,
-        totalItems: totalItems);
-  }
 }
 
+class Products {
+  String? sId;
+  String? title;
+  String? slug;
+  String? description;
+  String? imgCover;
+  List<String>? images;
+  num? price;
+  num? priceAfterDiscount;
+  num? quantity;
+  String? category;
+  String? occasion;
+  String? createdAt;
+  String? updatedAt;
+  num? iV;
+  num? discount;
+  num? sold;
+  num? rateAvg;
+  num? rateCount;
+  String? id;
+
+  Products(
+      {this.sId,
+      this.title,
+      this.slug,
+      this.description,
+      this.imgCover,
+      this.images,
+      this.price,
+      this.priceAfterDiscount,
+      this.quantity,
+      this.category,
+      this.occasion,
+      this.createdAt,
+      this.updatedAt,
+      this.iV,
+      this.discount,
+      this.sold,
+      this.rateAvg,
+      this.rateCount,
+      this.id});
+
+  Products.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    title = json['title'];
+    slug = json['slug'];
+    description = json['description'];
+    imgCover = json['imgCover'];
+    images = json['images'].cast<String>();
+    price = json['price'];
+    priceAfterDiscount = json['priceAfterDiscount'];
+    quantity = json['quantity'];
+    category = json['category'];
+    occasion = json['occasion'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    iV = json['__v'];
+    discount = json['discount'];
+    sold = json['sold'];
+    rateAvg = json['rateAvg'];
+    rateCount = json['rateCount'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['title'] = title;
+    data['slug'] = slug;
+    data['description'] = description;
+    data['imgCover'] = imgCover;
+    data['images'] = images;
+    data['price'] = price;
+    data['priceAfterDiscount'] = priceAfterDiscount;
+    data['quantity'] = quantity;
+    data['category'] = category;
+    data['occasion'] = occasion;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
+    data['discount'] = discount;
+    data['sold'] = sold;
+    data['rateAvg'] = rateAvg;
+    data['rateCount'] = rateCount;
+    data['id'] = id;
+    return data;
+  }
+}

@@ -6,7 +6,7 @@ import '../api_client/api_client.dart';
 @module
 abstract class OccasionApiClientProvider {
   @singleton
-  OccasionApiClient apiClient(Dio dio) {
+  OccasionApiClient ApiClient(Dio dio) {
     return OccasionApiClient(dio);
   }
 }

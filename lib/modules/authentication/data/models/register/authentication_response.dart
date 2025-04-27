@@ -1,7 +1,7 @@
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'user_dm.dart';
+import 'user_DM.dart';
 
 part 'authentication_response.g.dart';
 
@@ -17,7 +17,7 @@ class AuthenticationResponse {
       _$AuthenticationResponseFromJson(json);
 
   String? message;
-  UserDm? user;
+  UserDM? user;
   String? token;
 
   Map<String, dynamic> toJson() => _$AuthenticationResponseToJson(this);
