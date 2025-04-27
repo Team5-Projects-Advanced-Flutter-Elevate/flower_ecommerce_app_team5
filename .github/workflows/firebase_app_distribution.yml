@@ -29,6 +29,7 @@ jobs:
       - name: Build android apk
         run: flutter build apk --release
 
+
       - name: Upload to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
