@@ -59,11 +59,16 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                           width: 89,
                           height: 25,
                         ),
-                        Icon(
-                          Icons.notifications_none_outlined,
-                          size: 24,
-                          color: AppColors.gray,
-                        )
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, DefinedRoutes.notificationScreen);
+                            },
+                            icon: Icon(
+                              Icons.notifications_none_outlined,
+                              size: 24,
+                              color: AppColors.gray,
+                            ))
                       ],
                     ),
                     SizedBox(

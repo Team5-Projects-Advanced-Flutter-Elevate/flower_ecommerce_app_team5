@@ -60,8 +60,8 @@ class NotificationDto {
   @JsonKey(name: '__v')
   num? v;
 
-  NotificationsEntity convertIntoEntity() {
-    return NotificationsEntity(
+  NotificationEntity convertIntoEntity() {
+    return NotificationEntity(
       id: id,
       title: title,
       body: body,

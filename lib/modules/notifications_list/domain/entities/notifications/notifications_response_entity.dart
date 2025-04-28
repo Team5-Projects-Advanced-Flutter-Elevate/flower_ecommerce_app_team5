@@ -7,10 +7,10 @@ class NotificationsResponseEntity {
 
   String? message;
   MetadataEntity? metadata;
-  List<NotificationsEntity>? notifications;
+  List<NotificationEntity>? notifications;
 }
-class NotificationsEntity {
-  NotificationsEntity({
+class NotificationEntity {
+  NotificationEntity({
     this.id,
     this.title,
     this.body,
