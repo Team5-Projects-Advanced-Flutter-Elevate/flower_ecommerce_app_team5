@@ -9,6 +9,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    as _i163;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -142,6 +144,8 @@ import '../../modules/edit_profile/ui/view_model/edit_profile_view_model.dart'
     as _i430;
 import '../../modules/firebase_cloud_messaging/data/apis/firebase_cloud_messaging_api.dart'
     as _i23;
+import '../../modules/firebase_cloud_messaging/data/apis/local_notifications_api.dart'
+    as _i261;
 import '../../modules/home/data/api/api_client/home_api_client.dart' as _i293;
 import '../../modules/home/data/api/api_client_provider/home_api_client_provider.dart'
     as _i939;
@@ -234,8 +238,8 @@ import '../../shared_layers/storage/initializer/storage_initializer.dart'
     as _i241;
 import '../apis/api_manager.dart' as _i669;
 import '../utilities/dio/dio_service/dio_service.dart' as _i738;
-import '../utilities/local_notifications/local_notifications_service.dart'
-    as _i600;
+import '../utilities/local_notifications/flutter_local_notification_provider.dart'
+    as _i1018;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -250,6 +254,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final dioService = _$DioService();
     final storagesInitializer = _$StoragesInitializer();
+    final flutterLocaleNotificationProvider =
+        _$FlutterLocaleNotificationProvider();
     final bestSellerClientProvider = _$BestSellerClientProvider();
     final checkOutApiClientProvider = _$CheckOutApiClientProvider();
     final paymentApiClientProvider = _$PaymentApiClientProvider();
@@ -269,10 +275,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i902.ProductDetailsViewModel>(
         () => _i902.ProductDetailsViewModel());
-    gh.singleton<_i600.LocalNotificationsService>(
-        () => _i600.LocalNotificationsService());
+    gh.singleton<_i163.FlutterLocalNotificationsPlugin>(
+        () => flutterLocaleNotificationProvider.providePlugin());
     gh.factory<_i937.TermsLocalDataSource>(
         () => _i139.TermsLocalDataSourceImpl());
+    gh.singleton<_i261.LocalNotificationsService>(() =>
+        _i261.LocalNotificationsService(
+            gh<_i163.FlutterLocalNotificationsPlugin>()));
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i363.CheckOutApiClient>(
@@ -295,12 +304,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i265.NewAddressOnlineDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.factory<_i113.CheckOutDataSource>(
         () => _i455.CheckOutDataSourceImpl(gh<_i363.CheckOutApiClient>()));
+    gh.singleton<_i23.FirebaseCloudMessagingAPi>(() =>
+        _i23.FirebaseCloudMessagingAPi(gh<_i261.LocalNotificationsService>()));
     gh.factory<_i925.AboutUsLocalDataSource>(
         () => _i1049.AboutUsLocalDataSourceImpl());
     gh.factory<_i936.AboutUsRepo>(
         () => _i219.AboutUsRepoImpl(gh<_i925.AboutUsLocalDataSource>()));
-    gh.singleton<_i23.FirebaseCloudMessagingAPi>(() =>
-        _i23.FirebaseCloudMessagingAPi(gh<_i600.LocalNotificationsService>()));
     gh.factory<_i779.ResetCodeRemoteDataSource>(
         () => _i808.ResetCodeRemoteDataSourceImpl(gh<_i343.AuthApiClient>()));
     gh.factory<_i150.ForgetPasswordRemoteDataSource>(() =>
@@ -480,6 +489,9 @@ extension GetItInjectableX on _i174.GetIt {
 class _$DioService extends _i738.DioService {}
 
 class _$StoragesInitializer extends _i241.StoragesInitializer {}
+
+class _$FlutterLocaleNotificationProvider
+    extends _i1018.FlutterLocaleNotificationProvider {}
 
 class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 

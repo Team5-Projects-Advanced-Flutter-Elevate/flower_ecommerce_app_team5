@@ -4,19 +4,19 @@ import 'package:injectable/injectable.dart';
 
 @singleton
 class LocalNotificationsService {
+  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
+  LocalNotificationsService(this._flutterLocalNotificationsPlugin);
   final AndroidNotificationChannel androidNotificationChannel =
       const AndroidNotificationChannel("channel_id", "Channel Name",
           importance: Importance.max);
 
   Future<void> init() async {
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
     AndroidInitializationSettings androidInitializationSettings =
         const AndroidInitializationSettings("@mipmap/launcher_icon");
 
     InitializationSettings initializationSettings =
         InitializationSettings(android: androidInitializationSettings);
-    flutterLocalNotificationsPlugin.initialize(
+    _flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse: (notificationResponse) {
         debugPrint(
@@ -25,7 +25,7 @@ class LocalNotificationsService {
     );
 
     // create Android Notification Channel
-    await flutterLocalNotificationsPlugin
+    await _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(androidNotificationChannel);
@@ -33,11 +33,17 @@ class LocalNotificationsService {
 
   Future<void> showNotification(
       {String? title, String? body, String? payload}) async {
+    int notificationId = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
             androidNotificationChannel.id, androidNotificationChannel.name,
             channelDescription: androidNotificationChannel.description,
             importance: Importance.max,
             priority: Priority.high);
+    NotificationDetails notificationDetails =
+        NotificationDetails(android: androidNotificationDetails);
+
+    await _flutterLocalNotificationsPlugin.show(
+        notificationId, title, body, notificationDetails);
   }
 }
