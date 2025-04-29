@@ -98,11 +98,19 @@ class PlaceOrderSection extends BaseStatelessWidget {
                     ? null
                     : () {
                         if (state.selectedPaymentMethod == null) {
-                          AppDialogs.showMessage(
-                            context,
-                            message: LocaleKeys.pleaseSelectPaymentMethod.tr(),
-                            isSuccess: false,
+                          displayAlertDialog(
+                            title: Text(
+                              LocaleKeys.pleaseSelectPaymentMethod.tr(),
+                            ),
+                            isDismissible: true,
+                            showOkButton: true,
+                            autoDismissible: true,
                           );
+                          // AppDialogs.showMessage(
+                          //   context,
+                          //   message: LocaleKeys.pleaseSelectPaymentMethod.tr(),
+                          //   isSuccess: false,
+                          // );
                         } else {
                           if (state.selectedPaymentMethod ==
                               SelectedPaymentMethod.cod) {
@@ -136,7 +144,6 @@ class PlaceOrderSection extends BaseStatelessWidget {
   }
 
   void cashOnDelivery(BuildContext context, state) {
-
     context.read<CheckOutCubit>().doIntent(
           MakeCashOnDeliveryIntent(
             paymentRequestParameters: PaymentRequestParametersEntity(

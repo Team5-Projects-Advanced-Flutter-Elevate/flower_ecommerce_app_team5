@@ -8,4 +8,14 @@ class AddressResponseEntity {
     this.message,
     this.addresses,
   });
+
+  AddressResponseEntity copyWith({
+    String? message,
+    List<AddressModelEntity>? addresses,
+  }) {
+    return AddressResponseEntity(
+      message: message ?? this.message,
+      addresses: addresses ?? this.addresses,
+    );
+  }
 }

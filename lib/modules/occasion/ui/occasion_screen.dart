@@ -126,24 +126,35 @@ class _OccasionListScreenState
                                 }
                                 if (state.addToCartStatus ==
                                     AddToCartStatus.success) {
-                                  Future.delayed(Duration.zero, () {
-                                    AppDialogs.showMessage(
-                                      context,
-                                      message: LocaleKeys
-                                          .addedToCartSuccessfully
-                                          .tr(),
-                                      isSuccess: true,
-                                    );
-                                  });
+                                  // AppDialogs.showMessage(
+                                  //   context,
+                                  //   message:
+                                  //       LocaleKeys.addedToCartSuccessfully.tr(),
+                                  //   isSuccess: true,
+                                  // );
+                                  displayAlertDialog(
+                                    title: Text(
+                                      LocaleKeys.addedToCartSuccessfully.tr(),
+                                    ),
+                                    isDismissible: true,
+                                    showOkButton: true,
+                                    autoDismissible: true,
+                                  );
                                 } else if (state.addToCartStatus ==
                                     AddToCartStatus.error) {
-                                  Future.delayed(Duration.zero, () {
-                                    AppDialogs.showMessage(
-                                      context,
-                                      message: LocaleKeys.soldOut.tr(),
-                                      isSuccess: false,
-                                    );
-                                  });
+                                  // AppDialogs.showMessage(
+                                  //   context,
+                                  //   message: LocaleKeys.soldOut.tr(),
+                                  //   isSuccess: false,
+                                  // );
+                                  displayAlertDialog(
+                                    title: Text(
+                                      LocaleKeys.soldOut.tr(),
+                                    ),
+                                    isDismissible: true,
+                                    showOkButton: true,
+                                    autoDismissible: true,
+                                  );
                                 }
                               },
                               child: Expanded(

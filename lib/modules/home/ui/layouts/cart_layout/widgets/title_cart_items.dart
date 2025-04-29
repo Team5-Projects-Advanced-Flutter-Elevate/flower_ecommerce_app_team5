@@ -46,11 +46,19 @@ class TitleAndCartItems extends BaseStatelessWidget {
               listener: (context, state) {
                 if (state.deleteFromCartStatus ==
                     DeleteFromCartStatus.success) {
-                  AppDialogs.showMessage(
-                    context,
-                    message: LocaleKeys.deletedSuccessfully.tr(),
-                    isSuccess: false,
+                  displayAlertDialog(
+                    title: Text(
+                      LocaleKeys.addedToCartSuccessfully.tr(),
+                    ),
+                    isDismissible: true,
+                    showOkButton: true,
+                    autoDismissible: true,
                   );
+                  // AppDialogs.showMessage(
+                  //   context,
+                  //   message: LocaleKeys.deletedSuccessfully.tr(),
+                  //   isSuccess: false,
+                  // );
                 }
               },
               child: CartListView(

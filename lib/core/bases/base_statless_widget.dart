@@ -33,12 +33,19 @@ abstract class BaseStatelessWidget extends StatelessWidget {
       bool showOkButton = false,
       bool showConfirmButton = false,
       bool isDismissible = false,
+      bool autoDismissible = false,
+      Duration autoDismissDuration = const Duration(seconds: 1),
       VoidFunction onOkButtonClick,
       VoidFunction onConfirmButtonClick}) {
     return showDialog(
       context: _context,
       barrierDismissible: isDismissible,
       builder: (context) {
+        if (autoDismissible) {
+          Future.delayed(autoDismissDuration, () {
+            Navigator.pop(context);
+          });
+        }
         return AlertDialog(
           title: title,
           actions: [

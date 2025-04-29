@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
@@ -13,7 +12,7 @@ import '../../../payment/domain/use_cases/payment/make_cash_order_use_case.dart'
 import '../../../payment/domain/use_cases/payment/make_checkout_session_use_case.dart';
 import 'check_out_state.dart';
 
-@injectable
+@Singleton()
 class CheckOutCubit extends Cubit<CheckOutState> {
   CheckOutCubit(
     this.getAllAddressesUseCase,
@@ -66,23 +65,39 @@ class CheckOutCubit extends Cubit<CheckOutState> {
 
   void _getAllAddresses() async {
     emit(state.copyWith(
-      status: CheckOutStatus.loading,
+      status: LoadCheckoutAddressesStatus.loading,
     ));
     var result = await getAllAddressesUseCase.execute();
     switch (result) {
       case Success<AddressResponseEntity>():
         emit(state.copyWith(
-          status: CheckOutStatus.success,
+          status: LoadCheckoutAddressesStatus.success,
           addressesResponseEntity: result.data,
-          addressModelEntityOfSelectedAddress: result.data.addresses?[0],
+          addressModelEntityOfSelectedAddress: result.data.addresses!.isNotEmpty
+              ? result.data.addresses!.first
+              : AddressModelEntity(),
         ));
         log(state.addressModelEntityOfSelectedAddress.toString());
       case Error<AddressResponseEntity>():
         emit(state.copyWith(
-          status: CheckOutStatus.error,
+          status: LoadCheckoutAddressesStatus.error,
           error: result.error,
         ));
     }
+  }
+
+  void addAddress(AddressModelEntity addressModelEntity) {
+    final currentAddresses = state.addressesResponseEntity?.addresses ?? [];
+
+    emit(state.copyWith(
+      status: LoadCheckoutAddressesStatus.success,
+      addressesResponseEntity: state.addressesResponseEntity?.copyWith(
+        addresses: [
+          ...currentAddresses,
+          addressModelEntity
+        ], // New list instance
+      ),
+    ));
   }
 
   void _cashOnDelivery(

@@ -1,16 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import '../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../core/colors/app_colors.dart';
 import '../../../../../core/di/injectable_initializer.dart';
-import '../../../../../core/widgets/error_state_widget.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import '../../../domain/entities/cities_states_entity/get_cities.dart';
 import '../../../domain/entities/cities_states_entity/get_states.dart';
@@ -37,6 +33,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
   var selectedArea;
 
   NewAddressViewModelCubit viewModel = getIt.get<NewAddressViewModelCubit>();
+  AddressModelEntity? newAddress;
 
   @override
   void initState() {
@@ -91,7 +88,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, newAddress);
                   },
                 ),
               ),
@@ -216,7 +213,6 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                               .getLatLongFromCountry(selectedGovernorate);
                           var lat = latLong?['latitude'];
                           var long = latLong?['longitude'];
-
                           print(lat);
                           viewModel.processIntent(
                             AddAddress(
@@ -228,21 +224,14 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                               recipientController.text,
                             ),
                           );
-
-                          BlocProvider.of<CheckOutCubit>(context)
-                              .state
-                              .addressesResponseEntity
-                              ?.addresses
-                              ?.add(
-                                AddressModelEntity(
-                                  phone: phoneController.text,
-                                  lat: latLong?['latitude'].toString(),
-                                  long: latLong?['longitude'].toString(),
-                                  street: addressController.text,
-                                  city: selectedGovernorate,
-                                  username: recipientController.text,
-                                ),
-                              );
+                          newAddress = AddressModelEntity(
+                            street: addressController.text,
+                            lat: latLong?['latitude'].toString(),
+                            phone: phoneController.text,
+                            long: latLong?['longitude'].toString(),
+                            city: selectedGovernorate,
+                            username: recipientController.text,
+                          );
                         },
                         child: Text(
                           LocaleKeys.saveAddress.tr(),
