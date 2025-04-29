@@ -140,6 +140,8 @@ import '../../modules/edit_profile/domain/use_cases/upload_image_use_case.dart'
     as _i359;
 import '../../modules/edit_profile/ui/view_model/edit_profile_view_model.dart'
     as _i430;
+import '../../modules/firebase_cloud_messaging/data/apis/firebase_cloud_messaging_api.dart'
+    as _i23;
 import '../../modules/home/data/api/api_client/home_api_client.dart' as _i293;
 import '../../modules/home/data/api/api_client_provider/home_api_client_provider.dart'
     as _i939;
@@ -232,6 +234,8 @@ import '../../shared_layers/storage/initializer/storage_initializer.dart'
     as _i241;
 import '../apis/api_manager.dart' as _i669;
 import '../utilities/dio/dio_service/dio_service.dart' as _i738;
+import '../utilities/local_notifications/local_notifications_service.dart'
+    as _i600;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -265,6 +269,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i902.ProductDetailsViewModel>(
         () => _i902.ProductDetailsViewModel());
+    gh.singleton<_i600.LocalNotificationsService>(
+        () => _i600.LocalNotificationsService());
     gh.factory<_i937.TermsLocalDataSource>(
         () => _i139.TermsLocalDataSourceImpl());
     gh.lazySingleton<_i41.BestSellerApiClient>(
@@ -293,6 +299,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1049.AboutUsLocalDataSourceImpl());
     gh.factory<_i936.AboutUsRepo>(
         () => _i219.AboutUsRepoImpl(gh<_i925.AboutUsLocalDataSource>()));
+    gh.singleton<_i23.FirebaseCloudMessagingAPi>(() =>
+        _i23.FirebaseCloudMessagingAPi(gh<_i600.LocalNotificationsService>()));
     gh.factory<_i779.ResetCodeRemoteDataSource>(
         () => _i808.ResetCodeRemoteDataSourceImpl(gh<_i343.AuthApiClient>()));
     gh.factory<_i150.ForgetPasswordRemoteDataSource>(() =>
