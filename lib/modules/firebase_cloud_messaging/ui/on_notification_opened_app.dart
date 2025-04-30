@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/notification_item.dart';
+import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 class OnNotificationOpenedApp extends BaseStatelessWidget {
@@ -18,7 +20,7 @@ class OnNotificationOpenedApp extends BaseStatelessWidget {
             },
             icon: const Icon(Icons.arrow_back_ios)),
         title: Text(
-          "Notification",
+          LocaleKeys.notification.tr(),
           style: inherit.theme.textTheme.labelMedium!
               .copyWith(fontWeight: FontWeight.w600),
         ),

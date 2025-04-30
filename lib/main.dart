@@ -31,14 +31,11 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = MyBlocObserver();
   await configureDependencies();
-  // // registering NavigatorState globalKey that will be given for MaterialApp()
-  // getIt.registerLazySingleton<GlobalKey<NavigatorState>>(
-  //       () {
-  //     return GlobalKey<NavigatorState>();
-  //   },
-  // );
+  // await LogService.init();
+  // debugPrint("LogFile Content========================>");
+  // List<String>? logFileContent = await LogService.getLogs();
+  // debugPrint("$logFileContent");
   await getIt.get<LocalNotificationsService>().init();
-  await getIt.get<FirebaseCloudMessagingAPi>().initNotifications();
   final loginUseCase = getIt.get<LoginUseCase>();
   final rememberValue = await loginUseCase.getCachedRememberValue();
   if (!rememberValue) {
@@ -54,10 +51,6 @@ void main() async {
   FlutterError.onError = FirebaseCrashlyticsService.recordFlutterFatalError;
   PlatformDispatcher.instance.onError = FirebaseCrashlyticsService.recordErrors;
   // ===============
-  // await LogService.init();
-  // debugPrint("LogFile Content========================>");
-  // List<String>? logFileContent = await LogService.getLogs();
-  // print(logFileContent);
   runApp(BlocProvider(
     create: (context) => getIt<CartCubit>(),
     child: MultiProvider(
@@ -82,8 +75,27 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    initializeFirebaseCloudMessage();
+  }
+
+  Future<void> initializeFirebaseCloudMessage() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) async {
+        await getIt.get<FirebaseCloudMessagingAPi>().initNotifications();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +110,8 @@ class MyApp extends StatelessWidget {
           validateFunctions: ValidateFunctions.getInstance(),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            navigatorKey: globalKeyNavigator,//getIt.get<GlobalKey<NavigatorState>>(),
+            navigatorKey:
+                globalKeyNavigator, //getIt.get<GlobalKey<NavigatorState>>(),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,

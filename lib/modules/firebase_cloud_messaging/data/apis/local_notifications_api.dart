@@ -1,3 +1,6 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
+import 'package:flower_ecommerce_app_team5/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
@@ -20,7 +23,14 @@ class LocalNotificationsService {
       initializationSettings,
       onDidReceiveNotificationResponse: (notificationResponse) {
         debugPrint(
-            "Foreground Notification Has been Tapped ${notificationResponse.payload}");
+            "Foreground Notification Has been Tapped {${notificationResponse.payload}}");
+        var notificationDetails = notificationResponse.payload?.split('\n');
+        if (notificationDetails != null) {
+          globalKeyNavigator.currentState?.pushNamed(
+              DefinedRoutes.onNotificationOpenedApp,
+              arguments: RemoteNotification(
+                  title: notificationDetails[0], body: notificationDetails[1]));
+        }
       },
     );
 
@@ -34,6 +44,7 @@ class LocalNotificationsService {
   Future<void> showNotification(
       {String? title, String? body, String? payload}) async {
     int notificationId = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    debugPrint("Showing notification with id: $notificationId");
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
             androidNotificationChannel.id, androidNotificationChannel.name,
@@ -44,6 +55,7 @@ class LocalNotificationsService {
         NotificationDetails(android: androidNotificationDetails);
 
     await _flutterLocalNotificationsPlugin.show(
-        notificationId, title, body, notificationDetails);
+        notificationId, title, body, notificationDetails,
+        payload: "$title\n$body");
   }
 }

@@ -20,11 +20,11 @@ class LogService {
   static Future<List<String>?> getLogs() async {
     try {
       var logFileContentList = await _logFile.readAsLines();
-      if (logFileContentList.length >= 100) {
+      if (logFileContentList.length >= 6) {
         await _logFile.delete();
       }
       return logFileContentList;
-    } on PathNotFoundException catch (e) {
+    } on PathNotFoundException {
       debugPrint("Path Doesn't Exist <======");
       return null;
     }

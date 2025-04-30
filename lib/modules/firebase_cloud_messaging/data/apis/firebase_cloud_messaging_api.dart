@@ -1,10 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/main.dart';
 import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/data/apis/local_notifications_api.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton
@@ -44,9 +42,9 @@ class FirebaseCloudMessagingAPi {
 
 // received messages handling function
   Future<void> handleMessage(RemoteMessage? message) async {
+    debugPrint("current state ${globalKeyNavigator.currentState}========>");
     if (message == null) return;
     // Navigate to a new screen
-    debugPrint("Inside Handle Message");
     globalKeyNavigator.currentState?.pushNamed(
         DefinedRoutes.onNotificationOpenedApp,
         arguments: message.notification);
@@ -69,7 +67,7 @@ class FirebaseCloudMessagingAPi {
 
   /// Handles messages received while the app is in the foreground
   void _onForegroundMessage(RemoteMessage message) {
-    print('Foreground message received: ${message.data}');
+    debugPrint('Foreground message received: ${message.data}');
     final notificationData = message.notification;
     if (notificationData != null) {
       // Display a local notification using the service

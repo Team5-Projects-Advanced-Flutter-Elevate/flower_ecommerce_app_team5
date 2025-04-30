@@ -23,7 +23,7 @@ class SearchCubit extends Cubit<SearchState> {
     switch (result) {
       case Success<AllProductResponseEntity>():
         emit(SearchSuccess(
-            productsList: result.data.products as List<ProductEntity> ?? []));
+            productsList: result.data.products as List<ProductEntity>));
         break;
       case Error<AllProductResponseEntity>():
         emit(SearchError(error: result.error));
