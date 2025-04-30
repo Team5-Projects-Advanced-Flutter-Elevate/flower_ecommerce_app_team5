@@ -110,5 +110,6 @@
   "changePasswordNewPasswordHint": "Enter your new password",
   "changePasswordConfirmPasswordLabel": "Confirm Password",
   "changePasswordConfirmPasswordHint": "Confirm your new password",
-  "changePasswordUpdateButton": "Update"
+  "changePasswordUpdateButton": "Update",
+  "addNewAddress": "Add New Address"
 }

@@ -4,12 +4,14 @@ import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/saved_address/ui/saved_address_screen.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/di/injectable_initializer.dart';
+import '../../../../../core/routing/generate_route.dart';
 import '../../../../../shared_layers/localization/enums/languages_enum.dart';
 
 class ProfileLayout extends StatefulWidget {
@@ -105,10 +107,15 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                       leading: const Icon(Icons.list),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
-                    ListTile(
-                      title: Text(LocaleKeys.savedAddress.tr()),
-                      leading: const Icon(Icons.location_on),
-                      trailing: const Icon(Icons.arrow_forward_ios),
+                    InkWell(
+                      onTap: (){
+                        Navigator.pushNamed(context,DefinedRoutes.savedAddressScreenRoute);
+                      },
+                      child: ListTile(
+                        title: Text(LocaleKeys.savedAddress.tr()),
+                        leading: const Icon(Icons.location_on),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      ),
                     ),
                     Divider(
                       color: AppColors.gray,

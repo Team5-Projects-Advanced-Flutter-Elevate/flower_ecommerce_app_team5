@@ -1,26 +1,24 @@
 import 'dart:io';
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
-import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
-import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
-import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/core/utilities/app_dialogs.dart';
-import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
-import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
-import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
-import 'package:flower_ecommerce_app_team5/core/widgets/product_card.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/view_model/best_seller_intent.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/view_model/best_seller_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/view_model/best_seller_view_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
-import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-
+import '../../../core/bases/base_stateful_widget_state.dart';
+import '../../../core/colors/app_colors.dart';
+import '../../../core/constants/assets_paths.dart';
+import '../../../core/di/injectable_initializer.dart';
+import '../../../core/routing/defined_routes.dart';
+import '../../../core/utilities/app_dialogs.dart';
+import '../../../core/widgets/error_state_widget.dart';
+import '../../../core/widgets/loading_state_widget.dart';
+import '../../../core/widgets/product_card.dart';
+import '../../../shared_layers/localization/generated/locale_keys.g.dart';
+import '../../home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
+import '../../home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 
 class BestSellerScreen extends StatefulWidget {
   const BestSellerScreen({super.key});

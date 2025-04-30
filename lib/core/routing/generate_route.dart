@@ -11,6 +11,7 @@ import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_de
 import 'package:flutter/material.dart';
 
 import '../../modules/edit_profile/ui/change_password_screen.dart';
+import '../../modules/home/ui/layouts/saved_address/ui/saved_address_screen.dart';
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -46,6 +47,10 @@ class GenerateRoute {
       case DefinedRoutes.changePasswordScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const ChangePasswordScreen(),
+        );
+      case DefinedRoutes.savedAddressScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => SavedAddressScreen(),
         );
       default:
         return _errorRoute();
