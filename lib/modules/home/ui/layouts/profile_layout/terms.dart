@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../core/di/injectable_initializer.dart';
 import '../../../../../core/widgets/error_state_widget.dart';
+import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 
 class TermsScreen extends StatefulWidget {
   const TermsScreen({super.key});
@@ -21,7 +23,29 @@ class _TermsScreenState extends BaseStatefulWidgetState<TermsScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => viewModel..processIntent(Terms()),
-      child: Scaffold(body: BlocBuilder<ProfileViewModelCubit, ProfileState>(
+      child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            forceMaterialTransparency: true,
+            leadingWidth: screenWidth * 0.08,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios,
+                  size: 20, color: Colors.black),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(LocaleKeys.termsConditions.tr(),
+                    style: Theme.of(context).textTheme.headlineMedium),
+                const SizedBox(height: 2),
+              ],
+            ),
+          ),
+
+          body: BlocBuilder<ProfileViewModelCubit, ProfileState>(
         builder: (context, state) {
           if (state is TermsLoading) {
             return const Center(child: CircularProgressIndicator());
