@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
@@ -5,6 +6,7 @@ import 'package:flower_ecommerce_app_team5/modules/notifications_list/domain/ent
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/view_model/notification_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/view_model/notification_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/widget/notification_item.dart';
+import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +41,7 @@ class _NotificationsScreenState
               },
               icon: const Icon(Icons.arrow_back_ios)),
           title: Text(
-            "Notification",
+            LocaleKeys.notification.tr(),
             style: theme.textTheme.labelMedium!
                 .copyWith(fontWeight: FontWeight.w600),
           ),
@@ -57,7 +59,7 @@ class _NotificationsScreenState
                 if (notifications.isEmpty) {
                   return Center(
                     child: Text(
-                      "No Notifications Found",
+                      LocaleKeys.noNotificationFound.tr(),
                       style: theme.textTheme.labelMedium,
                     ),
                   );

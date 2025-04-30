@@ -170,6 +170,7 @@
   "dontReceive": "لم تستلم الرمز؟",
   "emailVerificationRole": "الرجاء إدخال البريد الإلكتروني المرتبط \nبحسابك",
   "passwordVerificationRole": "يجب ألا تكون كلمة المرور فارغة ويجب أن تحتوي \nعلى 8 أحرف على الأقل مع حرف كبير \nورقم واحد على الأقل",
-  "emailVerificationText": "الرجاء إدخال الرمز الذي تم إرساله إلى \nعنوان بريدك الإلكتروني"
-
-}
+  "emailVerificationText": "الرجاء إدخال الرمز الذي تم إرساله إلى \nعنوان بريدك الإلكتروني",
+  "//notificationFeature": "",
+  "noNotificationFound": "لا توجد إشعارات"
+  }

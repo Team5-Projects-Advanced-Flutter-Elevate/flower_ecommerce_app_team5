@@ -181,4 +181,7 @@ class LocaleKeys {
   // Filter
   static const String filter = 'filter';
   static const String sort = 'sort';
+
+  // Notification
+  static const String noNotificationFound = 'noNotificationFound';
 }

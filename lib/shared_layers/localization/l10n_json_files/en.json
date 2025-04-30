@@ -162,5 +162,7 @@
   "successfulPayment": "Successful Payment Operation!",
   "canceledPayment": "Payment Operation Has Been Canceled!",
   "//Section": "$$$ Comment $$$",
-  "searchForAnyProductYouWant": "Search For Any Product You Want"
+  "searchForAnyProductYouWant": "Search For Any Product You Want",
+  "//notificationFeature": "",
+  "noNotificationFound": "No Notifications Found"
 }
