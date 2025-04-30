@@ -8,6 +8,8 @@ import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
+import 'package:flower_ecommerce_app_team5/core/utilities/firebase/firebase_crashlytics/firebase_crashlytics_service.dart';
+import 'package:flower_ecommerce_app_team5/core/utilities/logger/logger_service.dart';
 import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
 import 'package:flower_ecommerce_app_team5/firebase_options.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
@@ -20,6 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'core/utilities/bloc_observer/bloc_observer.dart';
+import 'core/utilities/firebase/firebase_analytics/firebase_analytics_service.dart';
 import 'modules/authentication/domain/use_cases/login/login_use_case.dart';
 
 LoginResponseDto? storedLoginInfo;
@@ -46,15 +49,14 @@ void main() async {
       return GlobalKey<NavigatorState>();
     },
   );
-  // Pass all uncaught "fatal" errors from the framework to Crashlytics
-  FlutterError.onError = (FlutterErrorDetails flutterErrorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(flutterErrorDetails);
-  };
-  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
+  // Passing Errors To Firebase Crashlytics
+  FlutterError.onError = FirebaseCrashlyticsService.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = FirebaseCrashlyticsService.recordErrors;
+  // ===============
+  // await LogService.init();
+  // debugPrint("LogFile Content========================>");
+  // List<String>? logFileContent = await LogService.getLogs();
+  // print(logFileContent);
   runApp(BlocProvider(
     create: (context) => getIt<CartCubit>(),
     child: MultiProvider(
