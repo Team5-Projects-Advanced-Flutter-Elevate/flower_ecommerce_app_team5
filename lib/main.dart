@@ -93,11 +93,15 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: GenerateRoute.onGenerateRoute,
             onGenerateInitialRoutes: (initialRoute) =>
                 GenerateRoute.onGenerateInitialRoutes(
-              initialRoute: initialRoute,
-              loginInfo: storedLoginInfo,
+                   initialRoute: initialRoute, loginInfo: storedLoginInfo),
+           // initialRoute: DefinedRoutes.bestSellerScreenRoute,
+             //home: const NewAddressScreen(),
+            //initialRoute: DefinedRoutes.checkoutSessionScreenRoute,
+            //   initialRoute: initialRoute,
+            //   loginInfo: storedLoginInfo,
             ),
-          ),
-        );
+          );
+
       },
     );
   }
