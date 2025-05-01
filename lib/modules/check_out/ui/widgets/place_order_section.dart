@@ -48,9 +48,8 @@ class PlaceOrderSection extends BaseStatelessWidget {
                 case MakeCashOnDeliveryStatus.initial:
                   break;
                 case MakeCashOnDeliveryStatus.loading:
-                  displayAlertDialog(title: const LoadingWidget());
+                  break;
                 case MakeCashOnDeliveryStatus.success:
-                  hideAlertDialog();
                   Navigator.pushNamed(
                     context,
                     DefinedRoutes.trackOrder,
@@ -63,9 +62,8 @@ class PlaceOrderSection extends BaseStatelessWidget {
                 case MakeCreditCardStatus.initial:
                   break;
                 case MakeCreditCardStatus.loading:
-                  displayAlertDialog(title: const LoadingWidget());
+                  break;
                 case MakeCreditCardStatus.success:
-                  hideAlertDialog();
                   Navigator.pushNamed(
                       context, DefinedRoutes.checkoutSessionScreenRoute,
                       arguments: PaymentRequestParametersEntity(
@@ -93,36 +91,50 @@ class PlaceOrderSection extends BaseStatelessWidget {
             },
             builder: (context, state) {
               return FilledButton(
-                onPressed: () {
-                  if (state.selectedDeliveryAddress == null) {
-                    AppDialogs.showMessage(
-                      context,
-                      message: LocaleKeys.pleaseSelectDeliveryAddress.tr(),
-                      isSuccess: false,
-                    );
-                  } else if (state.selectedPaymentMethod == null) {
-                    AppDialogs.showMessage(
-                      context,
-                      message: LocaleKeys.pleaseSelectPaymentMethod.tr(),
-                      isSuccess: false,
-                    );
-                  } else {
-                    if (state.selectedPaymentMethod ==
-                        SelectedPaymentMethod.cod) {
-                      cashOnDelivery(context, state);
-                    } else if (state.selectedPaymentMethod ==
-                        SelectedPaymentMethod.online) {
-                      onlinePayment(context, state);
-                    }
-                  }
-                },
-                child: Text(
-                  LocaleKeys.placeOrder.tr(),
-                  style: inherit.theme.textTheme.labelMedium?.copyWith(
-                    fontSize: 16 * (inherit.screenWidth / 375),
-                    color: AppColors.white,
-                  ),
-                ),
+                onPressed: state.makeCashOnDeliveryStatus ==
+                            MakeCashOnDeliveryStatus.loading ||
+                        state.makeCreditCardStatus ==
+                            MakeCreditCardStatus.loading
+                    ? null
+                    : () {
+                        if (state.selectedPaymentMethod == null) {
+                          displayAlertDialog(
+                            title: Text(
+                              LocaleKeys.pleaseSelectPaymentMethod.tr(),
+                            ),
+                            isDismissible: true,
+                            showOkButton: true,
+                            autoDismissible: true,
+                          );
+                          // AppDialogs.showMessage(
+                          //   context,
+                          //   message: LocaleKeys.pleaseSelectPaymentMethod.tr(),
+                          //   isSuccess: false,
+                          // );
+                        } else {
+                          if (state.selectedPaymentMethod ==
+                              SelectedPaymentMethod.cod) {
+                            cashOnDelivery(context, state);
+                          } else if (state.selectedPaymentMethod ==
+                              SelectedPaymentMethod.online) {
+                            onlinePayment(context, state);
+                          }
+                        }
+                      },
+                child: state.makeCashOnDeliveryStatus ==
+                            MakeCashOnDeliveryStatus.loading ||
+                        state.makeCreditCardStatus ==
+                            MakeCreditCardStatus.loading
+                    ? CircularProgressIndicator(
+                        color: AppColors.white,
+                      )
+                    : Text(
+                        LocaleKeys.placeOrder.tr(),
+                        style: inherit.theme.textTheme.labelMedium?.copyWith(
+                          fontSize: 16 * (inherit.screenWidth / 375),
+                          color: AppColors.white,
+                        ),
+                      ),
               );
             },
           ),

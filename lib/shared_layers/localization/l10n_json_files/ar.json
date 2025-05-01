@@ -64,7 +64,7 @@
     "occasions": "المناسبات",
     "guestLogin": "المتابعة كضيف",
     "checkGuest": "الرجاء تسجيل الدخول",
-    "occsionScreenTitle": "المناسبة",
+    "occasionScreenTitle": "المناسبة",
     "occasionScreenSubTitle": "ازدهر مع أفضل مبيعاتنا الرائعة",
     "pleaseLoginFirst": "يرجى تسجيل الدخول أولاً",
     "cartEmpty": "السلة فارغة",
@@ -172,5 +172,9 @@
   "passwordVerificationRole": "يجب ألا تكون كلمة المرور فارغة ويجب أن تحتوي \nعلى 8 أحرف على الأقل مع حرف كبير \nورقم واحد على الأقل",
   "emailVerificationText": "الرجاء إدخال الرمز الذي تم إرساله إلى \nعنوان بريدك الإلكتروني",
   "//notificationFeature": "",
-  "noNotificationFound": "لا توجد إشعارات"
-  }
+  "noNotificationFound": "لا توجد إشعارات",
+  "activeTab": "مفعل",
+  "completedTab" :"مكتمل",
+  "noOrder": "لا يوجد طلبات"
+
+}

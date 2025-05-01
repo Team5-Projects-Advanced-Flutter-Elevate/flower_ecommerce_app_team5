@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/apis/api_executor/api_executor.dart';
@@ -13,11 +14,11 @@ class NewAddressOnlineDataSourceImpl implements NewAddressOnlineDataSource {
   Future<void> addAddress(
       var street, var phone, var city, var lat, var long, var name) async {
     // TODO: implement addAddress
-    print(city);
-    print(phone);
-    print(lat);
-    print(long);
-    print(name);
+    debugPrint(city);
+    debugPrint(phone);
+    debugPrint(lat);
+    debugPrint(long);
+    debugPrint(name);
 
     final map = {
       "street": street,

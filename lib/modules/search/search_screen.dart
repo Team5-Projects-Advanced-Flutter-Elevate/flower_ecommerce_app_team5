@@ -56,8 +56,7 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child:
-                    Icon(Icons.cancel_outlined, color: AppColors.white[70])),
+                child: Icon(Icons.cancel_outlined, color: AppColors.white[70])),
             prefixIcon: Icon(Icons.search, color: AppColors.white[70]),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
@@ -100,24 +99,36 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
               });
 
             case AddToCartStatus.success:
-              Future.delayed(Duration.zero, () {
-                hideAlertDialog();
-                AppDialogs.showMessage(
-                  context,
-                  message: LocaleKeys.addedToCartSuccessfully.tr(),
-                  isSuccess: true,
-                );
-              });
+              hideAlertDialog();
+              // AppDialogs.showMessage(
+              //   context,
+              //   message: LocaleKeys.addedToCartSuccessfully.tr(),
+              //   isSuccess: true,
+              // );
+              displayAlertDialog(
+                title: Text(
+                  LocaleKeys.addedToCartSuccessfully.tr(),
+                ),
+                isDismissible: true,
+                showOkButton: true,
+                autoDismissible: true,
+              );
 
             case AddToCartStatus.error:
-              Future.delayed(Duration.zero, () {
-                hideAlertDialog();
-                AppDialogs.showMessage(
-                  context,
-                  message: LocaleKeys.soldOut.tr(),
-                  isSuccess: false,
-                );
-              });
+              hideAlertDialog();
+              // AppDialogs.showMessage(
+              //   context,
+              //   message: LocaleKeys.soldOut.tr(),
+              //   isSuccess: false,
+              // );
+              displayAlertDialog(
+                title: Text(
+                  LocaleKeys.soldOut.tr(),
+                ),
+                isDismissible: true,
+                showOkButton: true,
+                autoDismissible: true,
+              );
 
             case AddToCartStatus.initial:
             case AddToCartStatus.noAccess:

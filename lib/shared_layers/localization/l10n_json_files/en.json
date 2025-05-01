@@ -144,6 +144,8 @@
   "saveAddress": "Save address",
   "pleaseEnterAddress": "Please enter the address",
   "pleaseEnterValidAddress": "Please enter a valid address",
+  "pleaseEnterValidRecipient": "Please enter a valid recipient",
+
   "passwordChangedSuccessfully": "Password Changed Successfully!",
   "//payment": "",
   "flowery": "Flowery",
@@ -164,5 +166,8 @@
   "//Section": "$$$ Comment $$$",
   "searchForAnyProductYouWant": "Search For Any Product You Want",
   "//notificationFeature": "",
-  "noNotificationFound": "No Notifications Found"
+  "noNotificationFound": "No Notifications Found",
+  "activeTab": "Active",
+  "completedTab":"Completed",
+  "noOrder": "No order found"
 }

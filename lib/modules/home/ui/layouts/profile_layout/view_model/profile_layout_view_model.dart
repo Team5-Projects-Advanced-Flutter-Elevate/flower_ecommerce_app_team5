@@ -1,10 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/about_us.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/terms_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../authentication/domain/use_cases/login/login_use_case.dart';
