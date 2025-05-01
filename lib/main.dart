@@ -121,11 +121,8 @@ class _MyAppState extends State<MyApp> {
             onGenerateInitialRoutes: (initialRoute) =>
                 GenerateRoute.onGenerateInitialRoutes(
                    initialRoute: initialRoute, loginInfo: storedLoginInfo),
-           // initialRoute: DefinedRoutes.bestSellerScreenRoute,
-             //home: const NewAddressScreen(),
-            //initialRoute: DefinedRoutes.checkoutSessionScreenRoute,
-            //   initialRoute: initialRoute,
-            //   loginInfo: storedLoginInfo,
+            // initialRoute: DefinedRoutes.bestSellerScreenRoute,
+            //home: const NewAddressScreen(),
             ),
           );
 
