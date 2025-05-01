@@ -1,4 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/main.dart';
 import 'package:flutter/foundation.dart';
@@ -11,11 +12,11 @@ class LocalNotificationsService {
   LocalNotificationsService(this._flutterLocalNotificationsPlugin);
   final AndroidNotificationChannel androidNotificationChannel =
       const AndroidNotificationChannel("channel_id", "Channel Name",
-          importance: Importance.max);
+          importance: Importance.max, showBadge: true);
 
   Future<void> init() async {
     AndroidInitializationSettings androidInitializationSettings =
-        const AndroidInitializationSettings("@mipmap/launcher_icon");
+        const AndroidInitializationSettings("drawable/ic_launcher_foreground");
 
     InitializationSettings initializationSettings =
         InitializationSettings(android: androidInitializationSettings);
@@ -50,7 +51,9 @@ class LocalNotificationsService {
             androidNotificationChannel.id, androidNotificationChannel.name,
             channelDescription: androidNotificationChannel.description,
             importance: Importance.max,
-            priority: Priority.high);
+            priority: Priority.high,
+            icon: "drawable/ic_launcher_foreground",
+            color: AppColors.mainColor);
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
 

@@ -19,4 +19,11 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
+    <!-- Default Flutter theme (modify this) -->
+    <style name="DefaultTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <!-- For Android 11 and below -->
+        <item name="android:colorAccent">@color/main_app_color</item>
+        <!-- For Android 12+ -->
+        <item name="colorPrimary">@color/main_app_color</item>
+    </style>
 </resources>

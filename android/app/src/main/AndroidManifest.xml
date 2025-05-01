@@ -18,7 +18,16 @@
         android:enableOnBackInvokedCallback="false"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:theme="@style/DefaultTheme">
+        <!-- Set default Firebase notification icon (for Android) -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher_foreground"
+            />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/main_app_color" />
     <activity
             android:name=".MainActivity"
             android:exported="true"
