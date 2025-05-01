@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_inherited_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/generate_route.dart';
 import 'package:flower_ecommerce_app_team5/core/themes/app_themes.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
 import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
+import 'package:flower_ecommerce_app_team5/firebase_options.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
@@ -22,6 +24,7 @@ LoginResponseDto? storedLoginInfo;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = MyBlocObserver();
   await configureDependencies();
   final loginUseCase = getIt.get<LoginUseCase>();
@@ -90,11 +93,15 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: GenerateRoute.onGenerateRoute,
             onGenerateInitialRoutes: (initialRoute) =>
                 GenerateRoute.onGenerateInitialRoutes(
-              initialRoute: initialRoute,
-              loginInfo: storedLoginInfo,
+                   initialRoute: initialRoute, loginInfo: storedLoginInfo),
+           // initialRoute: DefinedRoutes.bestSellerScreenRoute,
+             //home: const NewAddressScreen(),
+            //initialRoute: DefinedRoutes.checkoutSessionScreenRoute,
+            //   initialRoute: initialRoute,
+            //   loginInfo: storedLoginInfo,
             ),
-          ),
-        );
+          );
+
       },
     );
   }

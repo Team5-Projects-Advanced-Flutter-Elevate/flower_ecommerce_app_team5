@@ -181,4 +181,10 @@ class LocaleKeys {
   // Filter
   static const String filter = 'filter';
   static const String sort = 'sort';
+
+  static const String active='activeTab';
+  static const String complete='completedTab';
+  static const String noOrder='noOrder';
+
+
 }
