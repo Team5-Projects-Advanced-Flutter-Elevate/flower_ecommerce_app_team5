@@ -9,9 +9,8 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../../modules/edit_profile/ui/change_password_screen.dart';
-import '../../modules/home/ui/layouts/saved_address/ui/saved_address_screen.dart';
+import '../../modules/saved_address/ui/saved_address_screen.dart';
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -50,7 +49,7 @@ class GenerateRoute {
         );
       case DefinedRoutes.savedAddressScreenRoute:
         return MaterialPageRoute(
-          builder: (context) => SavedAddressScreen(),
+          builder: (context) => const SavedAddressScreen(),
         );
       default:
         return _errorRoute();

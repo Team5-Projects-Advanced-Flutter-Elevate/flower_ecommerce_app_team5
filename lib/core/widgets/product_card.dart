@@ -45,8 +45,11 @@ class ProductCard extends BaseStatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-            border: Border.all(color: AppColors.white[70]!),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
+          border: Border.all(color: AppColors.white[70]!),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(8),
+          ),
+        ),
         child: Padding(
           padding: EdgeInsets.all(inherit.screenWidth * 0.02),
           child: Column(
@@ -69,8 +72,8 @@ class ProductCard extends BaseStatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: inherit.theme.textTheme.labelSmall!.copyWith(
                             fontWeight: FontWeight.normal,
-                            fontSize:
-                                12 * (inherit.screenWidth / Constants.designWidth)),
+                            fontSize: 12 *
+                                (inherit.screenWidth / Constants.designWidth)),
                       ),
                       SizedBox(
                         height: inherit.screenHeight * 0.001,
@@ -82,23 +85,28 @@ class ProductCard extends BaseStatelessWidget {
                             priceAfterDiscountIfExist != null
                                 ? "EGP ${priceAfterDiscountIfExist!}"
                                 : "EGP $price",
-                            style: inherit.theme.textTheme.labelMedium!.copyWith(
-                                fontWeight: FontWeight.w600,
-                                fontSize:
-                                    14 * (inherit.screenWidth / Constants.designWidth)),
+                            style: inherit.theme.textTheme.labelMedium!
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14 *
+                                        (inherit.screenWidth /
+                                            Constants.designWidth)),
                           ),
                           Text(
                             priceAfterDiscountIfExist != null ? "$price" : "",
                             style: inherit.theme.textTheme.labelSmall!.copyWith(
-                                fontSize:
-                                    12 * (inherit.screenWidth / Constants.designWidth),
+                                fontSize: 12 *
+                                    (inherit.screenWidth /
+                                        Constants.designWidth),
                                 fontWeight: FontWeight.w400,
                                 decoration: TextDecoration.lineThrough),
                           ),
                           Text(getPercentageOfDiscount(),
-                              style: inherit.theme.textTheme.labelSmall!.copyWith(
-                                fontSize:
-                                    12 * (inherit.screenWidth / Constants.designWidth),
+                              style:
+                                  inherit.theme.textTheme.labelSmall!.copyWith(
+                                fontSize: 12 *
+                                    (inherit.screenWidth /
+                                        Constants.designWidth),
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.green,
                               ))
@@ -131,7 +139,8 @@ class ProductCard extends BaseStatelessWidget {
                                     Icon(
                                       Icons.shopping_cart_outlined,
                                       size: 18 *
-                                          (inherit.screenWidth / Constants.designWidth),
+                                          (inherit.screenWidth /
+                                              Constants.designWidth),
                                     ),
                                     SizedBox(
                                       width: inherit.screenWidth * 0.02,

@@ -122,46 +122,6 @@ import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
     as _i692;
 import '../../modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart'
     as _i901;
-import '../../modules/home/ui/layouts/saved_address/data/api/api_client/saved_address_api_client.dart'
-    as _i283;
-import '../../modules/home/ui/layouts/saved_address/data/api/api_client_provider/saved_address_client_provider.dart'
-    as _i170;
-import '../../modules/home/ui/layouts/saved_address/data/data_sources_contract/saved_address/delete_address_remote_data_source.dart'
-    as _i892;
-import '../../modules/home/ui/layouts/saved_address/data/data_sources_contract/saved_address/saved_address_remote_data_source.dart'
-    as _i599;
-import '../../modules/home/ui/layouts/saved_address/data/data_sources_contract/saved_address/update_address_remote_data_source.dart'
-    as _i944;
-import '../../modules/home/ui/layouts/saved_address/data/data_sources_imp/saved_address/delete_address_remote_data_source_imp.dart'
-    as _i540;
-import '../../modules/home/ui/layouts/saved_address/data/data_sources_imp/saved_address/saved_address_remote_data_source_imp.dart'
-    as _i481;
-import '../../modules/home/ui/layouts/saved_address/data/data_sources_imp/saved_address/update_address_remote_data_source_imp.dart'
-    as _i59;
-import '../../modules/home/ui/layouts/saved_address/data/respositories_imp/saved_address/delete_address_repositories_imp.dart'
-    as _i295;
-import '../../modules/home/ui/layouts/saved_address/data/respositories_imp/saved_address/saved_address_repositories_imp.dart'
-    as _i478;
-import '../../modules/home/ui/layouts/saved_address/data/respositories_imp/saved_address/update_address_repositories_imp.dart'
-    as _i581;
-import '../../modules/home/ui/layouts/saved_address/domain/repositories_contracts/saved_address/delete_address_repository.dart'
-    as _i609;
-import '../../modules/home/ui/layouts/saved_address/domain/repositories_contracts/saved_address/saved_address_repository.dart'
-    as _i201;
-import '../../modules/home/ui/layouts/saved_address/domain/repositories_contracts/saved_address/update_address_repository.dart'
-    as _i698;
-import '../../modules/home/ui/layouts/saved_address/domain/use_cases/saved_address/delete_address_use_case.dart'
-    as _i635;
-import '../../modules/home/ui/layouts/saved_address/domain/use_cases/saved_address/get_saved_address_use_case.dart'
-    as _i279;
-import '../../modules/home/ui/layouts/saved_address/domain/use_cases/saved_address/update_address_use_case.dart'
-    as _i321;
-import '../../modules/home/ui/layouts/saved_address/ui/view_model/delete_address_view_model.dart'
-    as _i321;
-import '../../modules/home/ui/layouts/saved_address/ui/view_model/saved_address_view_model.dart'
-    as _i704;
-import '../../modules/home/ui/layouts/saved_address/ui/view_model/update_address_view_model.dart'
-    as _i818;
 import '../../modules/home/ui/view_model/home_screen_view_model.dart' as _i867;
 import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
 import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
@@ -178,6 +138,46 @@ import '../../modules/occasion/domain/use_cases/occasion_usecase.dart' as _i41;
 import '../../modules/occasion/ui/occasion_cubit.dart' as _i855;
 import '../../modules/product_details/ui/view_model/product_details_view_model.dart'
     as _i902;
+import '../../modules/saved_address/data/api/api_client/saved_address_api_client.dart'
+    as _i714;
+import '../../modules/saved_address/data/api/api_client_provider/saved_address_client_provider.dart'
+    as _i418;
+import '../../modules/saved_address/data/data_sources_contract/saved_address/delete_address_remote_data_source.dart'
+    as _i27;
+import '../../modules/saved_address/data/data_sources_contract/saved_address/saved_address_remote_data_source.dart'
+    as _i964;
+import '../../modules/saved_address/data/data_sources_contract/saved_address/update_address_remote_data_source.dart'
+    as _i1033;
+import '../../modules/saved_address/data/data_sources_imp/saved_address/delete_address_remote_data_source_imp.dart'
+    as _i453;
+import '../../modules/saved_address/data/data_sources_imp/saved_address/saved_address_remote_data_source_imp.dart'
+    as _i733;
+import '../../modules/saved_address/data/data_sources_imp/saved_address/update_address_remote_data_source_imp.dart'
+    as _i331;
+import '../../modules/saved_address/data/respositories_imp/saved_address/delete_address_repositories_imp.dart'
+    as _i330;
+import '../../modules/saved_address/data/respositories_imp/saved_address/saved_address_repositories_imp.dart'
+    as _i408;
+import '../../modules/saved_address/data/respositories_imp/saved_address/update_address_repositories_imp.dart'
+    as _i788;
+import '../../modules/saved_address/domain/repositories_contracts/saved_address/delete_address_repository.dart'
+    as _i762;
+import '../../modules/saved_address/domain/repositories_contracts/saved_address/saved_address_repository.dart'
+    as _i530;
+import '../../modules/saved_address/domain/repositories_contracts/saved_address/update_address_repository.dart'
+    as _i32;
+import '../../modules/saved_address/domain/use_cases/saved_address/delete_address_use_case.dart'
+    as _i384;
+import '../../modules/saved_address/domain/use_cases/saved_address/get_saved_address_use_case.dart'
+    as _i856;
+import '../../modules/saved_address/domain/use_cases/saved_address/update_address_use_case.dart'
+    as _i861;
+import '../../modules/saved_address/ui/view_model/delete_address_view_model.dart'
+    as _i658;
+import '../../modules/saved_address/ui/view_model/saved_address_view_model.dart'
+    as _i485;
+import '../../modules/saved_address/ui/view_model/update_address_view_model.dart'
+    as _i841;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -216,17 +216,17 @@ extension GetItInjectableX on _i174.GetIt {
       () => dioService.provideDio(),
       preResolve: true,
     );
-    gh.factory<_i902.ProductDetailsViewModel>(
-        () => _i902.ProductDetailsViewModel());
     await gh.factoryAsync<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
+    gh.factory<_i902.ProductDetailsViewModel>(
+        () => _i902.ProductDetailsViewModel());
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i737.UploadImageApiClient>(
         () => _i737.UploadImageApiClient(gh<_i361.Dio>()));
-    gh.lazySingleton<_i283.SavedAddressApiClient>(
+    gh.lazySingleton<_i714.SavedAddressApiClient>(
         () => savedAddressClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
@@ -238,29 +238,28 @@ extension GetItInjectableX on _i174.GetIt {
         () => occasionApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
-    gh.factory<_i892.DeleteAddressRemoteDataSource>(() =>
-        _i540.DeleteAddressRemoteDataSourceImp(
-            gh<_i283.SavedAddressApiClient>()));
-    gh.factory<_i609.DeleteAddressRepository>(() =>
-        _i295.DeleteAddressRepositoryImp(
-            gh<_i892.DeleteAddressRemoteDataSource>()));
+    gh.factory<_i964.SavedAddressRemoteDataSource>(() =>
+        _i733.SavedAddressRemoteDataSourceImp(
+            gh<_i714.SavedAddressApiClient>()));
+    gh.factory<_i27.DeleteAddressRemoteDataSource>(() =>
+        _i453.DeleteAddressRemoteDataSourceImp(
+            gh<_i714.SavedAddressApiClient>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
         () => _i701.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()));
-    gh.factory<_i599.SavedAddressRemoteDataSource>(() =>
-        _i481.SavedAddressRemoteDataSourceImp(
-            gh<_i283.SavedAddressApiClient>()));
     gh.factory<_i713.EditProfileOnlineDataSource>(
         () => _i914.EditProfileOnlineDataSourceImpl(
               gh<_i319.ProfileApiClient>(),
               gh<_i737.UploadImageApiClient>(),
             ));
+    gh.factory<_i530.SavedAddressRepository>(() =>
+        _i408.SavedAddressRepositoryImp(
+            gh<_i964.SavedAddressRemoteDataSource>()));
     gh.factory<_i766.LoginRemoteDataSource>(
         () => _i132.LoginRemoteDataSourceImp(gh<_i343.AuthApiClient>()));
     gh.factory<_i362.OccasionOnlineDataSource>(() =>
         _i713.OccasionOnlineDataSourceImpl(gh<_i941.OccasionApiClient>()));
-    gh.factory<_i201.SavedAddressRepository>(() =>
-        _i478.SavedAddressRepositoryImp(
-            gh<_i599.SavedAddressRemoteDataSource>()));
+    gh.factory<_i856.GetSavedAddressUseCase>(
+        () => _i856.GetSavedAddressUseCase(gh<_i530.SavedAddressRepository>()));
     await gh.factoryAsync<String>(
       () => localeInitializer
           .initCurrentLocal(gh<_i629.SecureStorageService<dynamic>>()),
@@ -271,16 +270,20 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i629.SecureStorageService<dynamic>>(),
           gh<String>(instanceName: 'initCurrentLocal'),
         ));
+    gh.factory<_i1033.UpdateAddressRemoteDataSource>(() =>
+        _i331.UpdateAddressRemoteDataSourceImp(
+            gh<_i714.SavedAddressApiClient>()));
     gh.factory<_i23.BestSellerRemoteDataSource>(() =>
         _i393.BestSellerRemoteDataSourceImp(gh<_i41.BestSellerApiClient>()));
     gh.factory<_i881.ProfileRepo>(
         () => _i182.ProfileRepoImpl(gh<_i713.EditProfileOnlineDataSource>()));
     gh.factory<_i319.OccasionRepo>(
         () => _i276.OccasionRepoImpl(gh<_i362.OccasionOnlineDataSource>()));
-    gh.factory<_i635.DeleteAddressUseCase>(
-        () => _i635.DeleteAddressUseCase(gh<_i609.DeleteAddressRepository>()));
     gh.factory<_i1003.HomeRepo>(
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
+    gh.factory<_i762.DeleteAddressRepository>(() =>
+        _i330.DeleteAddressRepositoryImp(
+            gh<_i27.DeleteAddressRemoteDataSource>()));
     gh.factory<_i871.RegisterOnlineDataSource>(
         () => _i219.RegisterOnlineDataSourceImpl(gh<_i343.AuthApiClient>()));
     gh.factory<_i828.DeleteFromCartUseCase>(
@@ -291,18 +294,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i369.GetCategoriesUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i386.GetOccasionsUseCase>(
         () => _i386.GetOccasionsUseCase(gh<_i1003.HomeRepo>()));
-    gh.factory<_i944.UpdateAddressRemoteDataSource>(() =>
-        _i59.UpdateAddressRemoteDataSourceImp(
-            gh<_i283.SavedAddressApiClient>()));
     gh.factory<_i90.GetHomeDataUseCase>(
         () => _i90.GetHomeDataUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i147.LoginLocalDataSource>(() => _i916.LoginLocalDataSourceImpl(
         storageService: gh<_i629.SecureStorageService<dynamic>>()));
     gh.factory<_i41.OccasionUseCase>(
         () => _i41.OccasionUseCase(gh<_i319.OccasionRepo>()));
-    gh.factory<_i698.UpdateAddressRepository>(() =>
-        _i581.UpdateAddressRepositoryImp(
-            gh<_i944.UpdateAddressRemoteDataSource>()));
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
         _i79.LoginAsGuestOfflineDataSourceImpl(
             gh<_i629.SecureStorageService<dynamic>>()));
@@ -316,16 +313,17 @@ extension GetItInjectableX on _i174.GetIt {
         _i911.BestSellerRepositoryImp(gh<_i23.BestSellerRemoteDataSource>()));
     gh.factory<_i496.RegisterRepo>(
         () => _i161.RegisterRepoImpl(gh<_i871.RegisterOnlineDataSource>()));
-    gh.factory<_i321.UpdateAddressUseCase>(
-        () => _i321.UpdateAddressUseCase(gh<_i698.UpdateAddressRepository>()));
     gh.factory<_i782.RegisterUseCase>(
         () => _i782.RegisterUseCase(gh<_i496.RegisterRepo>()));
-    gh.factory<_i321.DeleteAddressViewModel>(
-        () => _i321.DeleteAddressViewModel(gh<_i635.DeleteAddressUseCase>()));
     gh.factory<_i450.LoginRepo>(() => _i639.LoginRepoImp(
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
         ));
+    gh.factory<_i485.SavedAddressViewModel>(
+        () => _i485.SavedAddressViewModel(gh<_i856.GetSavedAddressUseCase>()));
+    gh.factory<_i32.UpdateAddressRepository>(() =>
+        _i788.UpdateAddressRepositoryImp(
+            gh<_i1033.UpdateAddressRemoteDataSource>()));
     gh.factory<_i70.ChangePasswordUseCase>(
         () => _i70.ChangePasswordUseCase(gh<_i881.ProfileRepo>()));
     gh.factory<_i85.EditeProfileUseCase>(
@@ -334,12 +332,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i359.UploadImageUseCase(gh<_i881.ProfileRepo>()));
     gh.factory<_i502.GetBestSellerProductsUseCase>(() =>
         _i502.GetBestSellerProductsUseCase(gh<_i76.BestSellerRepository>()));
-    gh.factory<_i279.GetSavedAddressUseCase>(
-        () => _i279.GetSavedAddressUseCase(gh<_i201.SavedAddressRepository>()));
     gh.factory<_i692.HomeCubit>(
         () => _i692.HomeCubit(gh<_i90.GetHomeDataUseCase>()));
-    gh.factory<_i818.UpdateAddressViewModel>(
-        () => _i818.UpdateAddressViewModel(gh<_i321.UpdateAddressUseCase>()));
+    gh.factory<_i861.UpdateAddressUseCase>(
+        () => _i861.UpdateAddressUseCase(gh<_i32.UpdateAddressRepository>()));
+    gh.factory<_i841.UpdateAddressViewModel>(
+        () => _i841.UpdateAddressViewModel(gh<_i861.UpdateAddressUseCase>()));
     gh.factory<_i460.BestSellerViewModel>(() =>
         _i460.BestSellerViewModel(gh<_i502.GetBestSellerProductsUseCase>()));
     gh.factory<_i44.CategoriesLayoutViewModel>(
@@ -347,14 +345,16 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i369.GetCategoriesUseCase>(),
               gh<_i1019.GetAllProductsUseCase>(),
             ));
+    gh.factory<_i384.DeleteAddressUseCase>(
+        () => _i384.DeleteAddressUseCase(gh<_i762.DeleteAddressRepository>()));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
-    gh.factory<_i704.SavedAddressViewModel>(
-        () => _i704.SavedAddressViewModel(gh<_i279.GetSavedAddressUseCase>()));
+    gh.factory<_i658.DeleteAddressViewModel>(
+        () => _i658.DeleteAddressViewModel(gh<_i384.DeleteAddressUseCase>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
     gh.factory<_i867.HomeScreenViewModel>(() => _i867.HomeScreenViewModel(
@@ -390,7 +390,7 @@ class _$StoragesInitializer extends _i241.StoragesInitializer {}
 
 class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 
-class _$SavedAddressClientProvider extends _i170.SavedAddressClientProvider {}
+class _$SavedAddressClientProvider extends _i418.SavedAddressClientProvider {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 
