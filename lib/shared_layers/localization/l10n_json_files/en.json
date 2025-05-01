@@ -165,6 +165,8 @@
   "canceledPayment": "Payment Operation Has Been Canceled!",
   "//Section": "$$$ Comment $$$",
   "searchForAnyProductYouWant": "Search For Any Product You Want",
+  "//notificationFeature": "",
+  "noNotificationFound": "No Notifications Found",
   "activeTab": "Active",
   "completedTab":"Completed",
   "noOrder": "No order found"

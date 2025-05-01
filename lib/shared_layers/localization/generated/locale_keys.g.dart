@@ -186,5 +186,6 @@ class LocaleKeys {
   static const String complete='completedTab';
   static const String noOrder='noOrder';
 
-
+  // Notification
+  static const String noNotificationFound = 'noNotificationFound';
 }

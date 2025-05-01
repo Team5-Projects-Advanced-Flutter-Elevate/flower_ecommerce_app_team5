@@ -115,13 +115,19 @@ class _EditProfileScreenState
             Padding(
               padding:
                   EdgeInsets.all(12.0 * (screenWidth / Constants.designWidth)),
-              child: Badge(
-                backgroundColor: AppColors.mainColor,
-                label: Text('3',
-                    style: theme.textTheme.bodySmall!
-                        .copyWith(color: AppColors.white)),
-                child: Icon(Icons.notifications_none_outlined,
-                    size: 24 * (screenWidth / Constants.designWidth)),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, DefinedRoutes.notificationScreen);
+                },
+                child: Badge(
+                  backgroundColor: AppColors.mainColor,
+                  // label: Text('3',
+                  //     style: theme.textTheme.bodySmall!
+                  //         .copyWith(color: AppColors.white)),
+                  child: Icon(Icons.notifications_none_outlined,
+                      size: 24 * (screenWidth / Constants.designWidth)),
+                ),
               ),
             ),
           ],

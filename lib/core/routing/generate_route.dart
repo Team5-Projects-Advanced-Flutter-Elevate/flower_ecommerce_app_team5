@@ -15,6 +15,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_res
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/notifications_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/ui/checkout_session_screen.dart';
@@ -99,6 +100,10 @@ class GenerateRoute {
           builder: (context) => CheckoutSessionScreen(
             paymentRequestParameters: args as PaymentRequestParametersEntity,
           ),
+        );
+      case DefinedRoutes.notificationScreen:
+        return MaterialPageRoute(
+          builder: (context) => const NotificationsScreen(),
         );
       case DefinedRoutes.onNotificationOpenedApp:
         return MaterialPageRoute(

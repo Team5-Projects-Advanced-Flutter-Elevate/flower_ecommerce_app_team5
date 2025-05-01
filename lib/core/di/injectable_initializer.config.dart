@@ -193,6 +193,22 @@ import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
 import '../../modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart'
     as _i901;
 import '../../modules/home/ui/view_model/home_screen_view_model.dart' as _i867;
+import '../../modules/notifications_list/data/api/api_client/notifications_api_client.dart'
+    as _i762;
+import '../../modules/notifications_list/data/api/api_client_provider/notifications_client_provider.dart'
+    as _i985;
+import '../../modules/notifications_list/data/data_sources_contract/notifications/notifications_remote_data_source.dart'
+    as _i897;
+import '../../modules/notifications_list/data/data_sources_imp/notifications/notifications_remote_data_source_imp.dart'
+    as _i902;
+import '../../modules/notifications_list/data/repositories_imp/notifications/notifications_repository_imp.dart'
+    as _i624;
+import '../../modules/notifications_list/domain/repositories_contracts/notifications/notifications_repo.dart'
+    as _i14;
+import '../../modules/notifications_list/domain/use_cases/notifications/get_all_notifications_use_case.dart'
+    as _i861;
+import '../../modules/notifications_list/ui/view_model/notification_view_model.dart'
+    as _i585;
 import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
 import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
     as _i507;
@@ -270,6 +286,7 @@ extension GetItInjectableX on _i174.GetIt {
     final bestSellerClientProvider = _$BestSellerClientProvider();
     final checkOutApiClientProvider = _$CheckOutApiClientProvider();
     final paymentApiClientProvider = _$PaymentApiClientProvider();
+    final notificationsClientProvider = _$NotificationsClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final editProfileApiClientProvider = _$EditProfileApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
@@ -302,6 +319,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i737.UploadImageApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i979.PaymentApiClient>(
         () => paymentApiClientProvider.providerApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i762.NotificationsApiClient>(
+        () => notificationsClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i319.ProfileApiClient>(
@@ -381,6 +400,9 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
     gh.factory<_i1013.ForgetPasswordRepo>(() => _i811.ForgetPasswordRepoImpl(
         gh<_i150.ForgetPasswordRemoteDataSource>()));
+    gh.factory<_i897.NotificationsRemoteDataSource>(() =>
+        _i902.NotificationsRemoteDataSourceImp(
+            gh<_i762.NotificationsApiClient>()));
     gh.factory<_i435.AboutUsUseCase>(
         () => _i435.AboutUsUseCase(gh<_i936.AboutUsRepo>()));
     gh.factory<_i9.ResetCodeUseCase>(
@@ -447,6 +469,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i502.GetBestSellerProductsUseCase(gh<_i76.BestSellerRepository>()));
     gh.factory<_i692.HomeCubit>(
         () => _i692.HomeCubit(gh<_i90.GetHomeDataUseCase>()));
+    gh.factory<_i14.NotificationsRepo>(() => _i624.NotificationsRepositoryImp(
+        gh<_i897.NotificationsRemoteDataSource>()));
     gh.factory<_i460.BestSellerViewModel>(() =>
         _i460.BestSellerViewModel(gh<_i502.GetBestSellerProductsUseCase>()));
     gh.factory<_i44.CategoriesLayoutViewModel>(
@@ -474,6 +498,8 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i110.ResetPasswordUseCase>(),
               gh<_i9.ResetCodeUseCase>(),
             ));
+    gh.factory<_i861.GetAllNotificationsUseCase>(
+        () => _i861.GetAllNotificationsUseCase(gh<_i14.NotificationsRepo>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
     gh.factory<_i430.EditProfileViewModelCubit>(
@@ -504,6 +530,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i435.AboutUsUseCase>(),
           gh<_i721.TermsUseCase>(),
         ));
+    gh.factory<_i585.NotificationViewModel>(() =>
+        _i585.NotificationViewModel(gh<_i861.GetAllNotificationsUseCase>()));
     return this;
   }
 }
@@ -520,6 +548,8 @@ class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 class _$CheckOutApiClientProvider extends _i97.CheckOutApiClientProvider {}
 
 class _$PaymentApiClientProvider extends _i177.PaymentApiClientProvider {}
+
+class _$NotificationsClientProvider extends _i985.NotificationsClientProvider {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 
