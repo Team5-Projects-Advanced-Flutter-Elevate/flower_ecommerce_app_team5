@@ -11,20 +11,18 @@ import '../../data/models/saved_address_response/saved_address_response_dto.dart
 @injectable
 class UpdateAddressViewModel extends Cubit<UpdateAddressState> {
   UpdateAddressUseCase updateAddressUseCase;
-  AddressEntity address;
-  String userId;
 
-  UpdateAddressViewModel(this.updateAddressUseCase,this.address,this.userId)
+  UpdateAddressViewModel(this.updateAddressUseCase)
       : super(const UpdateAddressState());
 
   Future<void> doIntent(UpdateAddressIntent intent) {
     switch (intent) {
       case UpdateAddress():
-        return _updateAddressUseCase(address);
+        return _updateAddressUseCase(intent.addressEntity,intent.userId);
     }
   }
 
-  Future<void> _updateAddressUseCase(AddressEntity address) async {
+  Future<void> _updateAddressUseCase(AddressEntity address,String userId) async {
     emit(const UpdateAddressState(updateAddressStatus: UpdateAddressStatus.loading));
     var useCaseResult = await updateAddressUseCase(address,userId);
     switch (useCaseResult) {

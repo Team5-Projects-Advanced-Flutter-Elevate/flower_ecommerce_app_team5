@@ -138,8 +138,6 @@ import '../../modules/home/ui/layouts/saved_address/data/data_sources_imp/saved_
     as _i481;
 import '../../modules/home/ui/layouts/saved_address/data/data_sources_imp/saved_address/update_address_remote_data_source_imp.dart'
     as _i59;
-import '../../modules/home/ui/layouts/saved_address/data/models/saved_address_response/saved_address_response_dto.dart'
-    as _i120;
 import '../../modules/home/ui/layouts/saved_address/data/respositories_imp/saved_address/delete_address_repositories_imp.dart'
     as _i295;
 import '../../modules/home/ui/layouts/saved_address/data/respositories_imp/saved_address/saved_address_repositories_imp.dart'
@@ -158,8 +156,12 @@ import '../../modules/home/ui/layouts/saved_address/domain/use_cases/saved_addre
     as _i279;
 import '../../modules/home/ui/layouts/saved_address/domain/use_cases/saved_address/update_address_use_case.dart'
     as _i321;
+import '../../modules/home/ui/layouts/saved_address/ui/view_model/delete_address_view_model.dart'
+    as _i321;
 import '../../modules/home/ui/layouts/saved_address/ui/view_model/saved_address_view_model.dart'
     as _i704;
+import '../../modules/home/ui/layouts/saved_address/ui/view_model/update_address_view_model.dart'
+    as _i818;
 import '../../modules/home/ui/view_model/home_screen_view_model.dart' as _i867;
 import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
 import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
@@ -318,6 +320,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i321.UpdateAddressUseCase(gh<_i698.UpdateAddressRepository>()));
     gh.factory<_i782.RegisterUseCase>(
         () => _i782.RegisterUseCase(gh<_i496.RegisterRepo>()));
+    gh.factory<_i321.DeleteAddressViewModel>(
+        () => _i321.DeleteAddressViewModel(gh<_i635.DeleteAddressUseCase>()));
     gh.factory<_i450.LoginRepo>(() => _i639.LoginRepoImp(
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
@@ -334,6 +338,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i279.GetSavedAddressUseCase(gh<_i201.SavedAddressRepository>()));
     gh.factory<_i692.HomeCubit>(
         () => _i692.HomeCubit(gh<_i90.GetHomeDataUseCase>()));
+    gh.factory<_i818.UpdateAddressViewModel>(
+        () => _i818.UpdateAddressViewModel(gh<_i321.UpdateAddressUseCase>()));
     gh.factory<_i460.BestSellerViewModel>(() =>
         _i460.BestSellerViewModel(gh<_i502.GetBestSellerProductsUseCase>()));
     gh.factory<_i44.CategoriesLayoutViewModel>(
@@ -341,16 +347,14 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i369.GetCategoriesUseCase>(),
               gh<_i1019.GetAllProductsUseCase>(),
             ));
-    gh.factory<_i704.SavedAddressViewModel>(() => _i704.SavedAddressViewModel(
-          gh<_i279.GetSavedAddressUseCase>(),
-          gh<_i120.AddressEntity>(),
-        ));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
+    gh.factory<_i704.SavedAddressViewModel>(
+        () => _i704.SavedAddressViewModel(gh<_i279.GetSavedAddressUseCase>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
     gh.factory<_i867.HomeScreenViewModel>(() => _i867.HomeScreenViewModel(

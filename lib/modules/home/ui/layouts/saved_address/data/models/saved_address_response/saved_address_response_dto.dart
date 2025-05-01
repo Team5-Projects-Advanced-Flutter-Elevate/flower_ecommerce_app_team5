@@ -2,39 +2,37 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../domain/entities/saved_address/saved_address_response_entity.dart';
+
 part 'saved_address_response_dto.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class SavedAddressResponseDto extends Equatable {
-  const SavedAddressResponseDto({
+  SavedAddressResponseDto({
     required this.message,
-    required this.address,
+    required this.addresses,
   });
 
   final String? message;
   static const String messageKey = "message";
 
-  final List<Address>? address;
-  static const String addressKey = "address";
+  final List<Address>? addresses;
+  static const String addressesKey = "addresses";
 
 
-  factory SavedAddressResponseDto.fromJson(Map<String, dynamic> json) => _$SavedAddressResponseDtoFromJson(json);
-
-  Map<String, dynamic> toJson() => _$SavedAddressResponseDtoToJson(this);
+  factory SavedAddressResponseDto.fromJson(Map<String, dynamic> json) => SavedAddressResponseDto.fromJson(json);
 
   @override
   List<Object?> get props => [
-    message, address, ];
+    message, addresses, ];
   SavedAddressResponseEntity convertToEntity(){
     return SavedAddressResponseEntity(
-      address: address?.map((e) => e.convertToEntity(),).toList(),
+      address: addresses?.map((e) => e.convertToEntity(),).toList(),
       message: message,
     );
   }
-
 }
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class Address extends Equatable {
   Address({
     required this.street,
@@ -71,8 +69,6 @@ class Address extends Equatable {
 
 
   factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AddressToJson(this);
 
   @override
   List<Object?> get props => [
@@ -113,3 +109,7 @@ class AddressEntity{
   final String? username;
   static const String usernameKey = "username";
 }
+
+
+
+// SavedAddressResponseDto

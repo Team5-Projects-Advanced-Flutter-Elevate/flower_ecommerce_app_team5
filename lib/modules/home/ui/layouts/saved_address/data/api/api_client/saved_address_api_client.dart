@@ -9,8 +9,8 @@ abstract class SavedAddressApiClient{
 
   factory SavedAddressApiClient(Dio dio)= _SavedAddressApiClient;
 
-  @PATCH(ApisEndpoints.addAddress)
-  Future<SavedAddressResponseDto> getSavedAddress(AddressEntity address);
+  @GET(ApisEndpoints.getAddress)
+  Future<SavedAddressResponseDto> getSavedAddress();
 
   @PATCH(ApisEndpoints.updateAddress)
   Future<SavedAddressResponseDto> updateSavedAddress(AddressEntity address,@Path("id") String productId);

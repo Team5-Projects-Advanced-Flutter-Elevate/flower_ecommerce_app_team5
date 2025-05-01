@@ -13,10 +13,10 @@ class SavedAddressRemoteDataSourceImp implements SavedAddressRemoteDataSource {
   SavedAddressRemoteDataSourceImp(this.savedAddressApiClient);
 
   @override
-  Future<ApiResult<SavedAddressResponseDto>> getSavedAddress(AddressEntity address) async {
+  Future<ApiResult<SavedAddressResponseDto>> getSavedAddress() async {
     var apiResult = await ApiExecutor.executeApi<SavedAddressResponseDto>(
       () async {
-        return savedAddressApiClient.getSavedAddress(address);
+        return savedAddressApiClient.getSavedAddress();
       },
     );
     switch (apiResult) {

@@ -3,10 +3,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/saved_address
 sealed class SavedAddressIntent{
 
 }
-class GetSavedAddress extends SavedAddressIntent{
-  GetSavedAddress(this.addressEntity);
-  AddressEntity addressEntity;
-}
+class GetSavedAddress extends SavedAddressIntent{}
 
 sealed class UpdateAddressIntent{
 

@@ -10,8 +10,8 @@ class SavedAddressRepositoryImp implements SavedAddressRepository {
   SavedAddressRemoteDataSource savedAddressRemoteDataSource;
   SavedAddressRepositoryImp(this.savedAddressRemoteDataSource);
   @override
-  Future<ApiResult<SavedAddressResponseEntity>> getSavedAddress(AddressEntity address) async {
-    var result = await savedAddressRemoteDataSource.getSavedAddress(address);
+  Future<ApiResult<SavedAddressResponseEntity>> getSavedAddress() async {
+    var result = await savedAddressRemoteDataSource.getSavedAddress();
     switch(result){
       case Success<SavedAddressResponseDto>():
         return Success(data: result.data.convertToEntity());

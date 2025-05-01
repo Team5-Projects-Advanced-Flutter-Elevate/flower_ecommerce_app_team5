@@ -10,20 +10,18 @@ import '../../data/models/saved_address_response/saved_address_response_dto.dart
 @injectable
 class DeleteAddressViewModel extends Cubit<DeleteAddressState> {
   DeleteAddressUseCase deleteAddressUseCase;
-  AddressEntity address;
-  String userId;
 
-  DeleteAddressViewModel(this.deleteAddressUseCase,this.address,this.userId)
+  DeleteAddressViewModel(this.deleteAddressUseCase)
       : super(const DeleteAddressState());
 
   Future<void> doIntent(DeleteAddressIntent intent) {
     switch (intent) {
       case DeleteAddress():
-        return _deleteAddressUseCase(address);
+        return _deleteAddressUseCase(intent.addressEntity,intent.userId);
     }
   }
 
-  Future<void> _deleteAddressUseCase(AddressEntity address) async {
+  Future<void> _deleteAddressUseCase(AddressEntity address,String userId) async {
     emit(const DeleteAddressState(deleteAddressStatus: DeleteAddressStatus.loading));
     var useCaseResult = await deleteAddressUseCase(address,userId);
     switch (useCaseResult) {

@@ -5,6 +5,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/saved_address
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/saved_address/ui/widget/saved_address_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../../core/widgets/error_state_widget.dart';
 import '../../../../../../core/widgets/loading_state_widget.dart';
 import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
@@ -12,40 +13,40 @@ import '../../../../../../shared_layers/localization/generated/locale_keys.g.dar
 
 class SavedAddressScreen extends StatefulWidget {
   SavedAddressScreen({super.key});
+
   @override
   State<SavedAddressScreen> createState() => _SavedAddressScreenState();
 }
 
-class _SavedAddressScreenState extends State<SavedAddressScreen> {
+class _SavedAddressScreenState extends BaseStatefulWidgetState<SavedAddressScreen> {
   SavedAddressViewModel viewModel = getIt.get<SavedAddressViewModel>();
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-    viewModel.doIntent(GetSavedAddress(viewModel.address));
+    viewModel.doIntent(GetSavedAddress());
   }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => viewModel,
       child: Scaffold(
-        appBar: AppBar(title: Row(children: [
-          IconButton(
+        appBar: AppBar(
+          forceMaterialTransparency: true,
+          titleSpacing: 0.0,
+          leading:  IconButton(
             icon: const Icon(Icons.arrow_back_ios,
                 size: 20, color: Colors.black),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
-          Text(LocaleKeys.savedAddress,style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+          title: Text(LocaleKeys.savedAddress,style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w500
-          ),)
-        ],),),
-        body:  BlocConsumer<SavedAddressViewModel,SavedAddressState>(
+          ),),),
+        body:  BlocBuilder<SavedAddressViewModel,SavedAddressState>(
           builder: (context, state) {
             switch(state.savedAddressStatus){
               case SavedAddressStatus.initial:
-                return const SizedBox();
               case SavedAddressStatus.loading:
                 return const LoadingWidget();
               case SavedAddressStatus.success:
@@ -67,17 +68,6 @@ class _SavedAddressScreenState extends State<SavedAddressScreen> {
                 }
               case SavedAddressStatus.error:
                 return ErrorStateWidget(error: state.error.toString());
-            }
-          },
-          buildWhen: (previous, current) {
-            if(current.savedAddressStatus case SavedAddressStatus.success){
-              return true;
-            }
-            return false;
-          },
-          listener: (context,state) {
-            if(state.savedAddressStatus == SavedAddressStatus.error){
-              ErrorStateWidget(error: state.error.toString(),);
             }
           },
         ),

@@ -8,7 +8,7 @@ import '../../repositories_contracts/saved_address/saved_address_repository.dart
 class GetSavedAddressUseCase {
   SavedAddressRepository savedAddressRepository;
   GetSavedAddressUseCase(this.savedAddressRepository);
-  Future<ApiResult<SavedAddressResponseEntity>> call(AddressEntity address) {
-    return savedAddressRepository.getSavedAddress(address);
+  Future<ApiResult<SavedAddressResponseEntity>> call() {
+    return savedAddressRepository.getSavedAddress();
   }
 }
