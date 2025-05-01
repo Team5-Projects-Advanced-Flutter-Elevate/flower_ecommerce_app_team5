@@ -18,7 +18,7 @@ class SaveAddress {
 
   Map<String, dynamic> toJson() => {
     "message": message,
-    "addresses": addresses.map((x) => x?.toJson()).toList(),
+    "addresses": addresses.map((x) => x.toJson()).toList(),
   };
 
 }

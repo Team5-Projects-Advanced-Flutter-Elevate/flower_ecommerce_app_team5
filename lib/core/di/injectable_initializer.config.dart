@@ -9,6 +9,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    as _i163;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -140,6 +142,10 @@ import '../../modules/edit_profile/domain/use_cases/upload_image_use_case.dart'
     as _i359;
 import '../../modules/edit_profile/ui/view_model/edit_profile_view_model.dart'
     as _i430;
+import '../../modules/firebase_cloud_messaging/data/apis/firebase_cloud_messaging_api.dart'
+    as _i23;
+import '../../modules/firebase_cloud_messaging/data/apis/local_notifications_api.dart'
+    as _i261;
 import '../../modules/home/data/api/api_client/home_api_client.dart' as _i293;
 import '../../modules/home/data/api/api_client_provider/home_api_client_provider.dart'
     as _i939;
@@ -187,6 +193,22 @@ import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
 import '../../modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart'
     as _i901;
 import '../../modules/home/ui/view_model/home_screen_view_model.dart' as _i867;
+import '../../modules/notifications_list/data/api/api_client/notifications_api_client.dart'
+    as _i762;
+import '../../modules/notifications_list/data/api/api_client_provider/notifications_client_provider.dart'
+    as _i985;
+import '../../modules/notifications_list/data/data_sources_contract/notifications/notifications_remote_data_source.dart'
+    as _i897;
+import '../../modules/notifications_list/data/data_sources_imp/notifications/notifications_remote_data_source_imp.dart'
+    as _i902;
+import '../../modules/notifications_list/data/repositories_imp/notifications/notifications_repository_imp.dart'
+    as _i624;
+import '../../modules/notifications_list/domain/repositories_contracts/notifications/notifications_repo.dart'
+    as _i14;
+import '../../modules/notifications_list/domain/use_cases/notifications/get_all_notifications_use_case.dart'
+    as _i861;
+import '../../modules/notifications_list/ui/view_model/notification_view_model.dart'
+    as _i585;
 import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
 import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
     as _i507;
@@ -200,6 +222,17 @@ import '../../modules/occasion/domain/repositories_contracts/ocassion_repo.dart'
     as _i319;
 import '../../modules/occasion/domain/use_cases/occasion_usecase.dart' as _i41;
 import '../../modules/occasion/ui/occasion_cubit.dart' as _i855;
+import '../../modules/order_page/data/api/api_client/my_orders_api_client.dart'
+    as _i583;
+import '../../modules/order_page/data/api/api_client_provider/my_orders_api_client_provider.dart'
+    as _i372;
+import '../../modules/order_page/data/data_source_contract/order_page.dart'
+    as _i160;
+import '../../modules/order_page/data/data_source_impl/order_page.dart' as _i20;
+import '../../modules/order_page/data/repo_impl/order_page.dart' as _i23;
+import '../../modules/order_page/domain/repo/order_page.dart' as _i484;
+import '../../modules/order_page/domain/usecase/order_page.dart' as _i865;
+import '../../modules/order_page/ui/cubit/order_page_view_model.dart' as _i811;
 import '../../modules/payment/data/api/api_client/payment_api_client.dart'
     as _i979;
 import '../../modules/payment/data/api/api_client_provider/payment_api_client_provider.dart'
@@ -232,6 +265,8 @@ import '../../shared_layers/storage/initializer/storage_initializer.dart'
     as _i241;
 import '../apis/api_manager.dart' as _i669;
 import '../utilities/dio/dio_service/dio_service.dart' as _i738;
+import '../utilities/local_notifications/flutter_local_notification_provider.dart'
+    as _i1018;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -246,13 +281,17 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final dioService = _$DioService();
     final storagesInitializer = _$StoragesInitializer();
+    final flutterLocaleNotificationProvider =
+        _$FlutterLocaleNotificationProvider();
     final bestSellerClientProvider = _$BestSellerClientProvider();
     final checkOutApiClientProvider = _$CheckOutApiClientProvider();
     final paymentApiClientProvider = _$PaymentApiClientProvider();
+    final notificationsClientProvider = _$NotificationsClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final editProfileApiClientProvider = _$EditProfileApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
     final occasionApiClientProvider = _$OccasionApiClientProvider();
+    final myOrdersApiClientProvider = _$MyOrdersApiClientProvider();
     final localeInitializer = _$LocaleInitializer();
     gh.factory<_i669.ApiManager>(() => _i669.ApiManager());
     await gh.factoryAsync<_i361.Dio>(
@@ -265,8 +304,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i902.ProductDetailsViewModel>(
         () => _i902.ProductDetailsViewModel());
+    gh.singleton<_i163.FlutterLocalNotificationsPlugin>(
+        () => flutterLocaleNotificationProvider.providePlugin());
     gh.factory<_i937.TermsLocalDataSource>(
         () => _i139.TermsLocalDataSourceImpl());
+    gh.singleton<_i261.LocalNotificationsService>(() =>
+        _i261.LocalNotificationsService(
+            gh<_i163.FlutterLocalNotificationsPlugin>()));
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i363.CheckOutApiClient>(
@@ -275,6 +319,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i737.UploadImageApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i979.PaymentApiClient>(
         () => paymentApiClientProvider.providerApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i762.NotificationsApiClient>(
+        () => notificationsClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i319.ProfileApiClient>(
@@ -283,12 +329,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => homeApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i941.OccasionApiClient>(
         () => occasionApiClientProvider.apiClient(gh<_i361.Dio>()));
+    gh.singleton<_i583.MyOrdersApiClient>(
+        () => myOrdersApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.factory<_i1042.NewAddressOnlineDataSource>(
         () => _i265.NewAddressOnlineDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.factory<_i113.CheckOutDataSource>(
         () => _i455.CheckOutDataSourceImpl(gh<_i363.CheckOutApiClient>()));
+    gh.factory<_i160.OrderPageOnlineDataSource>(() =>
+        _i20.OrderPageOnlineDataSourceImpl(gh<_i583.MyOrdersApiClient>()));
+    gh.singleton<_i23.FirebaseCloudMessagingAPi>(() =>
+        _i23.FirebaseCloudMessagingAPi(gh<_i261.LocalNotificationsService>()));
     gh.factory<_i925.AboutUsLocalDataSource>(
         () => _i1049.AboutUsLocalDataSourceImpl());
     gh.factory<_i936.AboutUsRepo>(
@@ -303,6 +355,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i196.ResetCodeRepoImpl(gh<_i779.ResetCodeRemoteDataSource>()));
     gh.singleton<_i629.SecureStorageService<dynamic>>(
         () => _i701.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()));
+    gh.factory<_i484.OrderPageRepo>(
+        () => _i23.OrderPageRepoImpl(gh<_i160.OrderPageOnlineDataSource>()));
     gh.factory<_i713.EditProfileOnlineDataSource>(
         () => _i914.EditProfileOnlineDataSourceImpl(
               gh<_i319.ProfileApiClient>(),
@@ -346,6 +400,9 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
     gh.factory<_i1013.ForgetPasswordRepo>(() => _i811.ForgetPasswordRepoImpl(
         gh<_i150.ForgetPasswordRemoteDataSource>()));
+    gh.factory<_i897.NotificationsRemoteDataSource>(() =>
+        _i902.NotificationsRemoteDataSourceImp(
+            gh<_i762.NotificationsApiClient>()));
     gh.factory<_i435.AboutUsUseCase>(
         () => _i435.AboutUsUseCase(gh<_i936.AboutUsRepo>()));
     gh.factory<_i9.ResetCodeUseCase>(
@@ -370,6 +427,8 @@ extension GetItInjectableX on _i174.GetIt {
         storageService: gh<_i629.SecureStorageService<dynamic>>()));
     gh.factory<_i41.OccasionUseCase>(
         () => _i41.OccasionUseCase(gh<_i319.OccasionRepo>()));
+    gh.factory<_i865.OrderPageUsecase>(
+        () => _i865.OrderPageUsecase(gh<_i484.OrderPageRepo>()));
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
         _i79.LoginAsGuestOfflineDataSourceImpl(
             gh<_i629.SecureStorageService<dynamic>>()));
@@ -395,7 +454,7 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
         ));
-    gh.factory<_i82.CheckOutCubit>(() => _i82.CheckOutCubit(
+    gh.singleton<_i82.CheckOutCubit>(() => _i82.CheckOutCubit(
           gh<_i297.GetAllAddressesUseCase>(),
           gh<_i112.MakeCashOrderUseCase>(),
           gh<_i834.MakeCheckoutSessionUseCase>(),
@@ -410,6 +469,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i502.GetBestSellerProductsUseCase(gh<_i76.BestSellerRepository>()));
     gh.factory<_i692.HomeCubit>(
         () => _i692.HomeCubit(gh<_i90.GetHomeDataUseCase>()));
+    gh.factory<_i14.NotificationsRepo>(() => _i624.NotificationsRepositoryImp(
+        gh<_i897.NotificationsRemoteDataSource>()));
     gh.factory<_i460.BestSellerViewModel>(() =>
         _i460.BestSellerViewModel(gh<_i502.GetBestSellerProductsUseCase>()));
     gh.factory<_i44.CategoriesLayoutViewModel>(
@@ -429,12 +490,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i801.PaymentViewModel(gh<_i834.MakeCheckoutSessionUseCase>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
+    gh.factory<_i811.MyOrdersViewModelCubit>(
+        () => _i811.MyOrdersViewModelCubit(gh<_i865.OrderPageUsecase>()));
     gh.factory<_i105.ForgetPasswordViewModel>(
         () => _i105.ForgetPasswordViewModel(
               gh<_i823.ForgetPasswordUseCase>(),
               gh<_i110.ResetPasswordUseCase>(),
               gh<_i9.ResetCodeUseCase>(),
             ));
+    gh.factory<_i861.GetAllNotificationsUseCase>(
+        () => _i861.GetAllNotificationsUseCase(gh<_i14.NotificationsRepo>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
     gh.factory<_i430.EditProfileViewModelCubit>(
@@ -465,6 +530,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i435.AboutUsUseCase>(),
           gh<_i721.TermsUseCase>(),
         ));
+    gh.factory<_i585.NotificationViewModel>(() =>
+        _i585.NotificationViewModel(gh<_i861.GetAllNotificationsUseCase>()));
     return this;
   }
 }
@@ -473,11 +540,16 @@ class _$DioService extends _i738.DioService {}
 
 class _$StoragesInitializer extends _i241.StoragesInitializer {}
 
+class _$FlutterLocaleNotificationProvider
+    extends _i1018.FlutterLocaleNotificationProvider {}
+
 class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 
 class _$CheckOutApiClientProvider extends _i97.CheckOutApiClientProvider {}
 
 class _$PaymentApiClientProvider extends _i177.PaymentApiClientProvider {}
+
+class _$NotificationsClientProvider extends _i985.NotificationsClientProvider {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 
@@ -487,5 +559,7 @@ class _$EditProfileApiClientProvider
 class _$HomeApiClientProvider extends _i939.HomeApiClientProvider {}
 
 class _$OccasionApiClientProvider extends _i507.OccasionApiClientProvider {}
+
+class _$MyOrdersApiClientProvider extends _i372.MyOrdersApiClientProvider {}
 
 class _$LocaleInitializer extends _i631.LocaleInitializer {}

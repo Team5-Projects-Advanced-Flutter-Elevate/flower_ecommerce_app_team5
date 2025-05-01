@@ -1,24 +1,28 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/forget_password_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/reset_code_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/reset_password_screen.dart';
-import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/best_seller_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/track_order_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/ui/on_notification_opened_app.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/notifications_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/ui/checkout_session_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/search/search_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../modules/check_out/ui/check_out_view.dart';
 import '../../modules/edit_profile/ui/change_password_screen.dart';
 import '../../modules/home/ui/layouts/add_new_address/new_address_screen.dart';
@@ -29,12 +33,18 @@ class GenerateRoute {
     var name = settings.name;
     switch (name) {
       // Put the Navigated Routes Her
-      case DefinedRoutes.forgetPasswordScreenRoute :
-        return MaterialPageRoute(builder: (context) => ForgetPasswordScreen(),);
-      case DefinedRoutes.resetPasswordScreenRoute :
-        return MaterialPageRoute(builder: (context) => ResetPasswordScreen(),);
-      case DefinedRoutes.resetCodeScreenRoute :
-        return MaterialPageRoute(builder: (context) => ResetCodeScreen(),);
+      case DefinedRoutes.forgetPasswordScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const ForgetPasswordScreen(),
+        );
+      case DefinedRoutes.resetPasswordScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const ResetPasswordScreen(),
+        );
+      case DefinedRoutes.resetCodeScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const ResetCodeScreen(),
+        );
       case DefinedRoutes.register:
         return MaterialPageRoute(
           builder: (context) => const RegisterView(),
@@ -65,9 +75,13 @@ class GenerateRoute {
           builder: (context) => const ChangePasswordScreen(),
         );
       case DefinedRoutes.checkOut:
+        CheckOutCubit cubit = getIt<CheckOutCubit>();
         return MaterialPageRoute(
-          builder: (context) => CheckOutView(
-            cartResponseEntity: args as CartResponseEntity,
+          builder: (context) => BlocProvider.value(
+            value: cubit..doIntent(GetAllAddressesIntent()),
+            child: CheckOutView(
+              cartResponseEntity: args as CartResponseEntity,
+            ),
           ),
         );
       case DefinedRoutes.trackOrder:
@@ -85,6 +99,16 @@ class GenerateRoute {
         return MaterialPageRoute(
           builder: (context) => CheckoutSessionScreen(
             paymentRequestParameters: args as PaymentRequestParametersEntity,
+          ),
+        );
+      case DefinedRoutes.notificationScreen:
+        return MaterialPageRoute(
+          builder: (context) => const NotificationsScreen(),
+        );
+      case DefinedRoutes.onNotificationOpenedApp:
+        return MaterialPageRoute(
+          builder: (context) => OnNotificationOpenedApp(
+            notification: args as RemoteNotification,
           ),
         );
       default:

@@ -18,7 +18,7 @@ class GetTerms {
 
   Map<String, dynamic> toJson() => {
         "terms_and_conditions":
-            termsAndConditions.map((x) => x?.toJson()).toList(),
+            termsAndConditions.map((x) => x.toJson()).toList(),
       };
 }
 
@@ -60,8 +60,8 @@ class TermsAndConditionContent {
     required this.ar,
   });
 
-  final dynamic? en;
-  final dynamic? ar;
+  final dynamic en;
+  final dynamic ar;
 
   factory TermsAndConditionContent.fromJson(Map<String, dynamic> json) {
     return TermsAndConditionContent(

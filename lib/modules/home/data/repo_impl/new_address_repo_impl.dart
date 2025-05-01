@@ -1,9 +1,7 @@
 import 'package:flower_ecommerce_app_team5/modules/home/data/datasource_contract/new_address.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/entities/new_address_response.dart';
 import '../../domain/repo_contract/new_address_repo.dart';
-import '../models/new_address_response/new_address_response.dart';
 
 @Injectable(as: NewAddressRepo)
 class NewAddressRepoImpl implements NewAddressRepo {

@@ -51,7 +51,8 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
                         visualDensity: VisualDensity.compact,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         value: widget.addressModel.id!,
-                        groupValue: state.selectedDeliveryAddress,
+                        groupValue: state.selectedDeliveryAddress ??
+                            state.addressesResponseEntity?.addresses?[0].id,
                         onChanged: (val) {
                           if (val != null) {
                             context

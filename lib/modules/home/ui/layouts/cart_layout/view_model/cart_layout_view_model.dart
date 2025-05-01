@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/login/login_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_item_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/add_to_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/delete_from_cart.dart';
@@ -35,7 +36,10 @@ class CartCubit extends Cubit<CartState> {
       case AddToCartIntent():
         _addToCart(intent.request);
       case DeleteFromCartIntent():
-        _deleteFromCart(intent.id);
+        _deleteFromCart(
+          intent.cartItemEntity,
+          intent.count,
+        );
     }
   }
 
@@ -89,6 +93,7 @@ class CartCubit extends Cubit<CartState> {
   void _addToCart(AddToCartRequest request) async {
     emit(state.copyWith(
       addToCartStatus: AddToCartStatus.loading,
+      addingProductId: request.product,
     ));
     var userData = await loginUseCase.getStoredLoginInfo();
     bool isLogin = userData != null;
@@ -115,11 +120,15 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  void _deleteFromCart(String id) async {
+  void _deleteFromCart(CartItemEntity cartItemEntity, int count) async {
     emit(state.copyWith(
       deleteFromCartStatus: DeleteFromCartStatus.loading,
+      totalPrice: state.totalPrice -
+          (cartItemEntity.productEntity!.priceAfterDiscount!.toInt() * count),
     ));
-    var result = await deleteFromCartUseCase.execute(id);
+    var result = await deleteFromCartUseCase.execute(
+      cartItemEntity.productEntity!.id!,
+    );
     switch (result) {
       case Success<CartResponseEntity>():
         emit(state.copyWith(
@@ -160,7 +169,11 @@ class AddToCartIntent extends CartIntent {
 }
 
 class DeleteFromCartIntent extends CartIntent {
-  final String id;
+  final CartItemEntity cartItemEntity;
+  final int count;
 
-  DeleteFromCartIntent({required this.id});
+  DeleteFromCartIntent({
+    required this.cartItemEntity,
+    required this.count,
+  });
 }
