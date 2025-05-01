@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/states.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
   var selectedArea;
 
   NewAddressViewModelCubit viewModel = getIt.get<NewAddressViewModelCubit>();
+  AddressModelEntity? newAddress;
 
   @override
   void initState() {
@@ -83,7 +85,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                     size: 20,
                     color: Colors.black,
                   ),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    Navigator.pop(context, newAddress);
+                  },
                 ),
               ),
               title: Text(LocaleKeys.addressTitle.tr(),
@@ -207,13 +211,24 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                           var lat = latLong?['latitude'];
                           var long = latLong?['longitude'];
 
-                          viewModel.processIntent(AddAddress(
+                          viewModel.processIntent(
+                            AddAddress(
                               addressController.text,
                               phoneController.text,
                               selectedGovernorate,
                               latLong?['latitude'].toString(),
                               latLong?['longitude'].toString(),
-                              recipientController.text));
+                              recipientController.text,
+                            ),
+                          );
+                          newAddress = AddressModelEntity(
+                            street: addressController.text,
+                            lat: latLong?['latitude'].toString(),
+                            phone: phoneController.text,
+                            long: latLong?['longitude'].toString(),
+                            city: selectedGovernorate,
+                            username: recipientController.text,
+                          );
                         },
                         child: Text(
                           LocaleKeys.saveAddress.tr(),

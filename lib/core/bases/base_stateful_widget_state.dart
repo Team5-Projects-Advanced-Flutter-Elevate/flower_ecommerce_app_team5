@@ -36,7 +36,8 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
       // This will throw if context is inaccessible
       final ctx = context;
       // Verify we can use it
-      if (ctx.mounted) { // Additional safety check
+      if (ctx.mounted) {
+        // Additional safety check
         return ctx;
       }
     } catch (_) {}
@@ -45,42 +46,54 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
     return globalKeyNavigator.currentContext!;//getIt.get<GlobalKey<NavigatorState>>().currentContext!;
   }
 
-
   Future<void> displayAlertDialog(
       {required Widget title,
       bool showOkButton = false,
       bool showConfirmButton = false,
       bool isDismissible = false,
+      bool autoDismissible = false,
+      Duration autoDismissDuration = const Duration(
+        seconds: 1,
+      ),
       VoidFunction onOkButtonClick,
       VoidFunction onConfirmButtonClick}) {
     return showDialog(
       context: context,
       barrierDismissible: isDismissible,
       builder: (context) {
+        if (autoDismissible) {
+          Future.delayed(autoDismissDuration, () {
+            Navigator.pop(context);
+          });
+        }
         return AlertDialog(
           title: title,
           actions: [
             if (showOkButton)
               FilledButton(
-                  onPressed: () => onOkButtonClick == null
-                      ? Navigator.pop(context)
-                      : onOkButtonClick(),
-                  child: Text(
-                    LocaleKeys.ok.tr(),
-                    style: theme.textTheme.labelMedium!
-                        .copyWith(color: Colors.white),
-                  )),
+                onPressed: () => onOkButtonClick == null
+                    ? Navigator.pop(context)
+                    : onOkButtonClick(),
+                child: Text(
+                  LocaleKeys.ok.tr(),
+                  style: theme.textTheme.labelMedium!
+                      .copyWith(color: Colors.white),
+                ),
+              ),
             if (showConfirmButton)
               Center(
                 child: FilledButton(
-                    onPressed: onConfirmButtonClick,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 16),
-                      child: Text(LocaleKeys.confirm.tr(),
-                          style: theme.textTheme.labelMedium!
-                              .copyWith(color: Colors.white)),
-                    )),
+                  onPressed: onConfirmButtonClick,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 4.0, horizontal: 16),
+                    child: Text(
+                      LocaleKeys.confirm.tr(),
+                      style: theme.textTheme.labelMedium!
+                          .copyWith(color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
           ],
         );

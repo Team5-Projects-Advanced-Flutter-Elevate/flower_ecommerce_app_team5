@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_response_entity.dart';
 
-enum CheckOutStatus {
+enum LoadCheckoutAddressesStatus {
   initial,
   loading,
   success,
@@ -40,18 +40,20 @@ extension SelectedPaymentMethodExtension on SelectedPaymentMethod {
 
 // ignore: must_be_immutable
 class CheckOutState extends Equatable {
-  final CheckOutStatus status;
+  final LoadCheckoutAddressesStatus status;
   final MakeCashOnDeliveryStatus makeCashOnDeliveryStatus;
   final MakeCreditCardStatus makeCreditCardStatus;
   final Object? error;
-  final AddressResponseEntity? addressesResponseEntity;
-  String? selectedDeliveryAddress;
+  AddressResponseEntity? addressesResponseEntity;
   final AddressModelEntity? addressModelEntityOfSelectedAddress;
+  String? selectedDeliveryAddress;
+  final int rebuildKey;
+
   SelectedPaymentMethod? selectedPaymentMethod;
   bool isGift;
 
   CheckOutState({
-    this.status = CheckOutStatus.initial,
+    this.status = LoadCheckoutAddressesStatus.initial,
     this.makeCashOnDeliveryStatus = MakeCashOnDeliveryStatus.initial,
     this.makeCreditCardStatus = MakeCreditCardStatus.initial,
     this.error,
@@ -60,10 +62,11 @@ class CheckOutState extends Equatable {
     this.selectedPaymentMethod,
     this.isGift = false,
     this.addressModelEntityOfSelectedAddress,
+    this.rebuildKey = 0,
   });
 
   CheckOutState copyWith({
-    CheckOutStatus? status,
+    LoadCheckoutAddressesStatus? status,
     MakeCashOnDeliveryStatus? makeCashOnDeliveryStatus,
     MakeCreditCardStatus? makeCreditCardStatus,
     Object? error,
@@ -73,6 +76,7 @@ class CheckOutState extends Equatable {
     SelectedPaymentMethod? selectedPaymentMethod,
     bool? isGift,
     AddressModelEntity? addressModelEntityOfSelectedAddress,
+    int? rebuildKey,
   }) {
     return CheckOutState(
       status: status ?? this.status,
@@ -90,6 +94,7 @@ class CheckOutState extends Equatable {
       addressModelEntityOfSelectedAddress:
           addressModelEntityOfSelectedAddress ??
               this.addressModelEntityOfSelectedAddress,
+      rebuildKey: rebuildKey ?? this.rebuildKey,
     );
   }
 
@@ -104,5 +109,6 @@ class CheckOutState extends Equatable {
         makeCashOnDeliveryStatus,
         addressModelEntityOfSelectedAddress,
         makeCreditCardStatus,
+        rebuildKey,
       ];
 }

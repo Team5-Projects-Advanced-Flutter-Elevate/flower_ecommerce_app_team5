@@ -227,9 +227,11 @@ abstract class AppThemes {
             borderRadius: BorderRadius.circular(100),
           ),
         ),
-        padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(
-          vertical: 8,
-        )),
+        padding: const WidgetStatePropertyAll(
+          EdgeInsets.symmetric(
+            vertical: 8,
+          ),
+        ),
       ),
     ),
     radioTheme: RadioThemeData(
