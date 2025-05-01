@@ -23,4 +23,5 @@ class ApisEndpoints {
   static const String checkoutSessionEndpoint =
       'api/v1/orders/checkout?url=http://localhost:3000';
   static const String getAddresses = 'api/v1/addresses';
+  static const String getNotificationList='api/v1/notifications?sort=-createdAt';
 }

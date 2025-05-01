@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/di/injectable_initializer.dart';
 import '../../../../../shared_layers/localization/enums/languages_enum.dart';
+import '../../../../notification/ui/get_notification_screen.dart';
 import '../add_new_address/new_address_screen.dart';
 
 class ProfileLayout extends StatefulWidget {
@@ -59,10 +60,15 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                           width: 89,
                           height: 25,
                         ),
-                        Icon(
-                          Icons.notifications_none_outlined,
-                          size: 24,
-                          color: AppColors.gray,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsPageScreen(),));
+                          },
+                          child: Icon(
+                            Icons.notifications_none_outlined,
+                            size: 24,
+                            color: AppColors.gray,
+                          ),
                         )
                       ],
                     ),

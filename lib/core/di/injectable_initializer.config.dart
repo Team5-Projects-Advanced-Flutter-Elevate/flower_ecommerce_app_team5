@@ -187,6 +187,21 @@ import '../../modules/home/ui/layouts/home_layout/view_model/home_cubit.dart'
 import '../../modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart'
     as _i901;
 import '../../modules/home/ui/view_model/home_screen_view_model.dart' as _i867;
+import '../../modules/notification/data/api/api_client/notification_api_client.dart'
+    as _i79;
+import '../../modules/notification/data/api/api_client_provider/notification_list_provider.dart'
+    as _i626;
+import '../../modules/notification/data/data_source_contract/notification_list.dart'
+    as _i565;
+import '../../modules/notification/data/data_source_impl/notitfication_list.dart'
+    as _i761;
+import '../../modules/notification/data/repo_impl/get_notification_list.dart'
+    as _i396;
+import '../../modules/notification/domain/repo_contract/get_notification_list.dart'
+    as _i199;
+import '../../modules/notification/domain/usecase/get_notification_list_use_case.dart'
+    as _i826;
+import '../../modules/notification/ui/cubit/viewModel.dart' as _i941;
 import '../../modules/occasion/data/api/api_client/api_client.dart' as _i941;
 import '../../modules/occasion/data/api/api_client_provider/occasion_api_client_provider.dart'
     as _i507;
@@ -249,6 +264,7 @@ extension GetItInjectableX on _i174.GetIt {
     final bestSellerClientProvider = _$BestSellerClientProvider();
     final checkOutApiClientProvider = _$CheckOutApiClientProvider();
     final paymentApiClientProvider = _$PaymentApiClientProvider();
+    final notificationClientProvider = _$NotificationClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final editProfileApiClientProvider = _$EditProfileApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
@@ -259,12 +275,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => dioService.provideDio(),
       preResolve: true,
     );
+    gh.factory<_i902.ProductDetailsViewModel>(
+        () => _i902.ProductDetailsViewModel());
     await gh.factoryAsync<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
-    gh.factory<_i902.ProductDetailsViewModel>(
-        () => _i902.ProductDetailsViewModel());
     gh.factory<_i937.TermsLocalDataSource>(
         () => _i139.TermsLocalDataSourceImpl());
     gh.lazySingleton<_i41.BestSellerApiClient>(
@@ -275,6 +291,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i737.UploadImageApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i979.PaymentApiClient>(
         () => paymentApiClientProvider.providerApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i79.NotificationApiClient>(
+        () => notificationClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i319.ProfileApiClient>(
@@ -342,6 +360,9 @@ extension GetItInjectableX on _i174.GetIt {
         _i940.ResetPasswordRepoImpl(gh<_i881.ResetPasswordRemoteDataSource>()));
     gh.factory<_i107.CheckOutRepo>(() => _i868.CheckOutRepoImpl(
         checkOutDataSource: gh<_i113.CheckOutDataSource>()));
+    gh.factory<_i565.GetNotificationListOnlineDataSource>(() =>
+        _i761.GetNotificationOnlineDataSourceImpl(
+            gh<_i79.NotificationApiClient>()));
     gh.factory<_i1003.HomeRepo>(
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
     gh.factory<_i1013.ForgetPasswordRepo>(() => _i811.ForgetPasswordRepoImpl(
@@ -417,6 +438,9 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i369.GetCategoriesUseCase>(),
               gh<_i1019.GetAllProductsUseCase>(),
             ));
+    gh.factory<_i199.GetNotificationListRepo>(() =>
+        _i396.GetNotificationListRepoImpl(
+            gh<_i565.GetNotificationListOnlineDataSource>()));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     gh.factory<_i304.NewAddressUseCase>(
@@ -425,6 +449,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
     gh.factory<_i823.ForgetPasswordUseCase>(
         () => _i823.ForgetPasswordUseCase(gh<_i1013.ForgetPasswordRepo>()));
+    gh.factory<_i826.GetNotificationListUseCase>(() =>
+        _i826.GetNotificationListUseCase(gh<_i199.GetNotificationListRepo>()));
     gh.factory<_i801.PaymentViewModel>(
         () => _i801.PaymentViewModel(gh<_i834.MakeCheckoutSessionUseCase>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
@@ -437,6 +463,9 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
+    gh.factory<_i941.NotificationsViewModelCubit>(() =>
+        _i941.NotificationsViewModelCubit(
+            gh<_i826.GetNotificationListUseCase>()));
     gh.factory<_i430.EditProfileViewModelCubit>(
         () => _i430.EditProfileViewModelCubit(
               gh<_i543.LoginUseCase>(),
@@ -478,6 +507,8 @@ class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 class _$CheckOutApiClientProvider extends _i97.CheckOutApiClientProvider {}
 
 class _$PaymentApiClientProvider extends _i177.PaymentApiClientProvider {}
+
+class _$NotificationClientProvider extends _i626.NotificationClientProvider {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 
