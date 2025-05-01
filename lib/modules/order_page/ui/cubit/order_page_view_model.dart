@@ -9,6 +9,7 @@ class MyOrdersViewModelCubit extends Cubit<GetMyOrdersState> {
   final OrderPageUsecase orderPageUsecase;
 
   Future<void> _LoadMyOrders() async {
+    emit(GetMyOrdersLoading());
     try {
       final data = await orderPageUsecase.getMyOrder();
       emit(GetMyOrdersSuccess(data));

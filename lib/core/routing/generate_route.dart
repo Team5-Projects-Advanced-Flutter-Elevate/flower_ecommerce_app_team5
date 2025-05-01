@@ -10,6 +10,7 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/vi
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/best_seller_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/track_order_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/ui/on_notification_opened_app.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
