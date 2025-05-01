@@ -99,9 +99,13 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                       ),
                       InkWell(
                         onTap: () {
-                          cartCubit.doIntent(DeleteFromCartIntent(
-                            id: widget.cartItemEntity.productEntity!.id!,
-                          ));
+                          cartCubit.doIntent(
+                            DeleteFromCartIntent(
+                              cartItemEntity: widget.cartItemEntity,
+                              count: counter.value,
+                            ),
+                          );
+                          counter.value = 1;
                         },
                         child: ImageIcon(
                           AssetImage(

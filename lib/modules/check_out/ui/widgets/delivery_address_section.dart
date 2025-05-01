@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
@@ -21,6 +22,7 @@ class DeliveryAddressSection extends StatefulWidget {
 
 class _DeliveryAddressSectionState
     extends BaseStatefulWidgetState<DeliveryAddressSection> {
+  CheckOutCubit cubit = getIt<CheckOutCubit>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,10 +49,10 @@ class _DeliveryAddressSectionState
                   previous.status != current.status,
               builder: (context, state) {
                 switch (state.status) {
-                  case CheckOutStatus.initial:
-                  case CheckOutStatus.loading:
+                  case LoadCheckoutAddressesStatus.initial:
+                  case LoadCheckoutAddressesStatus.loading:
                     return const LoadingWidget();
-                  case CheckOutStatus.success:
+                  case LoadCheckoutAddressesStatus.success:
                     final addresses =
                         state.addressesResponseEntity?.addresses ?? [];
                     return Column(
@@ -81,11 +83,14 @@ class _DeliveryAddressSectionState
                           height: screenHeight * 0.02,
                         ),
                         OutlinedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
+                          onPressed: () async {
+                            var newAddress = await Navigator.pushNamed(
                               context,
                               DefinedRoutes.addNewAddress,
                             );
+                            if (newAddress != null) {
+                              cubit.doIntent(GetAllAddressesIntent());
+                            }
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +106,7 @@ class _DeliveryAddressSectionState
                         ),
                       ],
                     );
-                  case CheckOutStatus.error:
+                  case LoadCheckoutAddressesStatus.error:
                     return ErrorStateWidget(error: state.error!);
                 }
               },

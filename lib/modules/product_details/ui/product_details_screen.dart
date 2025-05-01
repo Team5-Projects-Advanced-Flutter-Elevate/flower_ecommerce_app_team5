@@ -19,7 +19,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-
 class ProductDetailsScreen extends StatefulWidget {
   final ProductEntity productEntity;
 
@@ -60,43 +59,51 @@ class _ProductDetailsScreenState
                       width: screenWidth,
                       child: BlocListener<CartCubit, CartState>(
                         listener: (context, state) {
-                          switch (state.addToCartStatus) {
-                            case AddToCartStatus.initial:
-                              break;
-                            case AddToCartStatus.noAccess:
-                              hideAlertDialog();
-                              displayAlertDialog(
-                                title: Text(
-                                  LocaleKeys.pleaseLoginFirst.tr(),
-                                ),
-                                showOkButton: true,
-                                onOkButtonClick: () {
+                          if (state.addToCartStatus ==
+                              AddToCartStatus.noAccess) {
+                            displayAlertDialog(
+                              title: Text(
+                                LocaleKeys.pleaseLoginFirst.tr(),
+                              ),
+                              showOkButton: true,
+                              onOkButtonClick: () =>
                                   Navigator.pushReplacementNamed(
-                                    context,
-                                    DefinedRoutes.loginScreenRoute,
-                                  );
-                                },
-                              );
-                              break;
-                            case AddToCartStatus.loading:
-                              displayAlertDialog(
-                                title: const LoadingWidget(),
-                              );
-                            case AddToCartStatus.success:
-                              hideAlertDialog();
-                              AppDialogs.showMessage(
                                 context,
-                                message:
-                                    LocaleKeys.addedToCartSuccessfully.tr(),
-                                isSuccess: true,
-                              );
-                            case AddToCartStatus.error:
-                              hideAlertDialog();
-                              AppDialogs.showMessage(
-                                context,
-                                message: LocaleKeys.soldOut.tr(),
-                                isSuccess: false,
-                              );
+                                DefinedRoutes.loginScreenRoute,
+                              ),
+                            );
+                            return;
+                          }
+                          if (state.addToCartStatus ==
+                              AddToCartStatus.success) {
+                            // AppDialogs.showMessage(
+                            //   context,
+                            //   message: LocaleKeys.addedToCartSuccessfully.tr(),
+                            //   isSuccess: true,
+                            // );
+                            displayAlertDialog(
+                              title: Text(
+                                LocaleKeys.addedToCartSuccessfully.tr(),
+                              ),
+                              isDismissible: true,
+                              showOkButton: true,
+                              autoDismissible: true,
+                            );
+                          } else if (state.addToCartStatus ==
+                              AddToCartStatus.error) {
+                            // AppDialogs.showMessage(
+                            //   context,
+                            //   message: LocaleKeys.soldOut.tr(),
+                            //   isSuccess: false,
+                            // );
+                            displayAlertDialog(
+                              title: Text(
+                                LocaleKeys.soldOut.tr(),
+                              ),
+                              isDismissible: true,
+                              showOkButton: true,
+                              autoDismissible: true,
+                            );
                           }
                         },
                         child: BlocBuilder<ProductDetailsViewModel,
@@ -271,18 +278,31 @@ class _ProductDetailsScreenState
                                   style: theme.textTheme.bodyMedium)
                             ]),
                           ),
-                          FilledButton(
-                              onPressed: () {
-                                getIt<CartCubit>().doIntent(
-                                  AddToCartIntent(
-                                    request: AddToCartRequest(
-                                      product: widget.productEntity.id!,
-                                      quantity: 1,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Text(LocaleKeys.addToCart.tr()))
+                          BlocBuilder<CartCubit, CartState>(
+                            builder: (context, state) {
+                              return FilledButton(
+                                  onPressed: state.addToCartStatus ==
+                                          AddToCartStatus.loading
+                                      ? null
+                                      : () {
+                                          getIt<CartCubit>().doIntent(
+                                            AddToCartIntent(
+                                              request: AddToCartRequest(
+                                                product:
+                                                    widget.productEntity.id!,
+                                                quantity: 1,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                  child: state.addToCartStatus ==
+                                          AddToCartStatus.loading
+                                      ? CircularProgressIndicator(
+                                          color: AppColors.white,
+                                        )
+                                      : Text(LocaleKeys.addToCart.tr()));
+                            },
+                          )
                         ],
                       ),
                     ),

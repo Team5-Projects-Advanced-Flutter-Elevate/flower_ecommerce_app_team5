@@ -21,6 +21,8 @@ class ProductCard extends BaseStatelessWidget {
   final num? price;
   final num? priceAfterDiscountIfExist;
   final void Function()? onProductCardClick;
+  final bool isLoading;
+  final bool disabled;
 
   const ProductCard({
     super.key,
@@ -32,6 +34,8 @@ class ProductCard extends BaseStatelessWidget {
     this.width,
     this.height,
     this.id,
+    this.isLoading = false,
+    this.disabled = false,
   });
 
   @override
@@ -115,45 +119,65 @@ class ProductCard extends BaseStatelessWidget {
                       ),
                       Expanded(
                         flex: 15,
-                        child: FilledButton(
-                            onPressed: () {
-                              homeScreenViewModel.setAppSectionsIndex(0);
-                              getIt<CartCubit>().doIntent(
-                                AddToCartIntent(
-                                  request: AddToCartRequest(
-                                    product: id,
-                                    quantity: 1,
-                                  ),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: FilledButton(
+                              onPressed: disabled
+                                  ? null
+                                  : () {
+                                      homeScreenViewModel
+                                          .setAppSectionsIndex(0);
+                                      getIt<CartCubit>().doIntent(
+                                        AddToCartIntent(
+                                          request: AddToCartRequest(
+                                            product: id,
+                                            quantity: 1,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                              style: FilledButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 2,
                                 ),
-                              );
-                            },
-                            style: FilledButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.shopping_cart_outlined,
-                                  size: 18 *
-                                      (inherit.screenWidth /
-                                          Constants.designWidth),
-                                ),
-                                SizedBox(
-                                  width: inherit.screenWidth * 0.02,
-                                ),
-                                Text(
-                                  LocaleKeys.addToCart.tr(),
-                                  style: inherit.theme.textTheme.labelLarge!
-                                      .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13 *
+                              ),
+                              child: isLoading
+                                  ? SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(
+                                        color: AppColors.white,
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.shopping_cart_outlined,
+                                          size: 18 *
                                               (inherit.screenWidth /
                                                   Constants.designWidth),
-                                          color: AppColors.white),
-                                )
-                              ],
-                            )),
+                                        ),
+                                        SizedBox(
+                                          width: inherit.screenWidth * 0.02,
+                                        ),
+                                        Text(
+                                          LocaleKeys.addToCart.tr(),
+                                          style: inherit
+                                              .theme.textTheme.labelLarge!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13 *
+                                                      (inherit.screenWidth /
+                                                          Constants
+                                                              .designWidth),
+                                                  color: AppColors.white),
+                                        )
+                                      ],
+                                    )),
+                        ),
                       )
                     ],
                   ))
