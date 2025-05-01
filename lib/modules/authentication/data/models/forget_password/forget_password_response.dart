@@ -1,6 +1,5 @@
 /// message : "success"
 /// token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTE3NzU4ODM2ZWU4YmU3MDYyYjZjYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQyODI5NzI1fQ.ejKRJalBszaIsr_CnYc1AdcWTslaq3w7MH_b2xC5oQk"
-
 class ForgetPasswordResponse {
   ForgetPasswordResponse({
     this.message,

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/validation/validation_functions.dart';
+import 'package:flower_ecommerce_app_team5/main.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/l10n_manager/localization_manager.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
     } catch (_) {}
 
     // Fallback: Find the nearest context from the root
-    return getIt.get<GlobalKey<NavigatorState>>().currentContext!;
+    return globalKeyNavigator.currentContext!;//getIt.get<GlobalKey<NavigatorState>>().currentContext!;
   }
 
   Future<void> displayAlertDialog(

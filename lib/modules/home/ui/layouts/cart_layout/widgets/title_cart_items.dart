@@ -48,10 +48,10 @@ class TitleAndCartItems extends BaseStatelessWidget {
                     DeleteFromCartStatus.success) {
                   displayAlertDialog(
                     title: Text(
-                      LocaleKeys.addedToCartSuccessfully.tr(),
+                      LocaleKeys.deletedSuccessfully.tr(),
+                      textAlign: TextAlign.center,
                     ),
                     isDismissible: true,
-                    showOkButton: true,
                     autoDismissible: true,
                   );
                   // AppDialogs.showMessage(

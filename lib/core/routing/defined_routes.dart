@@ -15,4 +15,5 @@ abstract class DefinedRoutes {
   static const String checkOut = "/checkOut";
   static const String trackOrder = "/trackOrder";
   static const String addNewAddress = "/addNewAddress";
+  static const String onNotificationOpenedApp = "/onNotificationOpenedApp";
 }

@@ -12,9 +12,7 @@ import '../../../domain/entities/cities_states_entity/get_cities.dart';
 import '../../../domain/entities/cities_states_entity/get_states.dart';
 
 class NewAddressScreen extends StatefulWidget {
-  const NewAddressScreen({
-    super.key,
-  });
+  const NewAddressScreen({super.key});
 
   @override
   State<NewAddressScreen> createState() => _NewAddressScreenState();
@@ -168,9 +166,8 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                                 setState(() {
                                   selectedGovernorate = value;
                                   selectedGovernorateId = governorates
-                                          .firstWhere((g) => g.nameEn == value)
-                                          .id ??
-                                      '';
+                                      .firstWhere((g) => g.nameEn == value)
+                                      .id;
 
                                   filteredCities = allCities
                                       .where((c) =>
@@ -213,7 +210,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                               .getLatLongFromCountry(selectedGovernorate);
                           var lat = latLong?['latitude'];
                           var long = latLong?['longitude'];
-                          print(lat);
+
                           viewModel.processIntent(
                             AddAddress(
                               addressController.text,

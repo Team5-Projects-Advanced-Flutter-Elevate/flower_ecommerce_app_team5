@@ -22,6 +22,7 @@ class _OrderCardState extends BaseStatefulWidgetState<OrderCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: AppColors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color:AppColors.gray),

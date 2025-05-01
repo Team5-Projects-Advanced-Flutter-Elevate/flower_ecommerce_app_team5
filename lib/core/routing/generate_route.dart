@@ -1,16 +1,16 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/forget_password_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/reset_code_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/reset_password_screen.dart';
-import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/best_seller_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/track_order_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/ui/on_notification_opened_app.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
@@ -34,15 +34,15 @@ class GenerateRoute {
       // Put the Navigated Routes Her
       case DefinedRoutes.forgetPasswordScreenRoute:
         return MaterialPageRoute(
-          builder: (context) => ForgetPasswordScreen(),
+          builder: (context) => const ForgetPasswordScreen(),
         );
       case DefinedRoutes.resetPasswordScreenRoute:
         return MaterialPageRoute(
-          builder: (context) => ResetPasswordScreen(),
+          builder: (context) => const ResetPasswordScreen(),
         );
       case DefinedRoutes.resetCodeScreenRoute:
         return MaterialPageRoute(
-          builder: (context) => ResetCodeScreen(),
+          builder: (context) => const ResetCodeScreen(),
         );
       case DefinedRoutes.register:
         return MaterialPageRoute(
@@ -98,6 +98,12 @@ class GenerateRoute {
         return MaterialPageRoute(
           builder: (context) => CheckoutSessionScreen(
             paymentRequestParameters: args as PaymentRequestParametersEntity,
+          ),
+        );
+      case DefinedRoutes.onNotificationOpenedApp:
+        return MaterialPageRoute(
+          builder: (context) => OnNotificationOpenedApp(
+            notification: args as RemoteNotification,
           ),
         );
       default:

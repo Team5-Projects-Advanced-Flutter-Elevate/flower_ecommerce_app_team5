@@ -19,8 +19,8 @@ class TermsAndConditionEntity {
 }
 
 class TermsAndConditionContentEntity {
-  final dynamic? en;
-  final dynamic? ar;
+  final dynamic en;
+  final dynamic ar;
 
   TermsAndConditionContentEntity({
     required this.en,

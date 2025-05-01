@@ -43,10 +43,10 @@ class Metadata {
     required this.totalItems,
   });
 
-  final int? currentPage;
-  final int? totalPages;
-  final int? limit;
-  final int? totalItems;
+  final num? currentPage;
+  final num? totalPages;
+  final num? limit;
+  final num? totalItems;
 
   factory Metadata.fromJson(Map<String, dynamic> json) {
     return Metadata(
@@ -91,7 +91,7 @@ class Order {
   final String? id;
   final String? user;
   final List<OrderItem> orderItems;
-  final int? totalPrice;
+  final num? totalPrice;
   final String? paymentType;
   final bool? isPaid;
   final bool? isDelivered;
@@ -99,7 +99,7 @@ class Order {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final String? orderNumber;
-  final int? v;
+  final num? v;
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
@@ -161,8 +161,8 @@ class OrderItem {
   });
 
   final Product? product;
-  final int? price;
-  final int? quantity;
+  final num? price;
+  final num? quantity;
   final String? id;
 
   factory OrderItem.fromJson(Map<String, dynamic> json) {
@@ -213,24 +213,24 @@ class Product {
     required this.productId,
   });
 
-  final int? rateAvg;
-  final int? rateCount;
+  final num? rateAvg;
+  final num? rateCount;
   final String? id;
   final String? title;
   final String? slug;
   final String? description;
   final String? imgCover;
   final List<String> images;
-  final int? price;
-  final int? priceAfterDiscount;
-  final int? quantity;
+  final num? price;
+  final num? priceAfterDiscount;
+  final num? quantity;
   final String? category;
   final String? occasion;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final int? v;
-  final int? sold;
-  final int? discount;
+  final num? v;
+  final num? sold;
+  final num? discount;
   final String? productId;
 
   factory Product.fromJson(Map<String, dynamic> json) {

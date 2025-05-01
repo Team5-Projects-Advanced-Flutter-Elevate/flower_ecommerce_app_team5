@@ -25,7 +25,7 @@ class AboutUs {
   }
 
   Map<String, dynamic> toJson() => {
-        "about_app": aboutApp.map((x) => x?.toJson()).toList(),
+        "about_app": aboutApp.map((x) => x.toJson()).toList(),
       };
 }
 
@@ -81,12 +81,12 @@ class AboutAppContent {
     required this.ar,
   });
 
-  final dynamic? en;
-  final dynamic? ar;
+  final dynamic en;
+  final dynamic ar;
 
   AboutAppContent copyWith({
-    dynamic? en,
-    dynamic? ar,
+    dynamic en,
+    dynamic ar,
   }) {
     return AboutAppContent(
       en: en ?? this.en,
