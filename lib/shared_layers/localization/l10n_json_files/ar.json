@@ -103,7 +103,8 @@
     "sold": "تم بيعه: {}",
     "rate": "التقييم: {}",
     "rateCount": "عدد التقييمات: {}",
-    "addNewAddress": "اضف عنوان جديد"
+    "addNewAddress": "اضف عنوان جديد",
+    "savedAddressListIsEmpty" : "لا توجد عناويين"
 
 
   }

@@ -3,5 +3,5 @@ import '../../../data/models/saved_address_response/saved_address_response_dto.d
 import '../../entities/saved_address/saved_address_response_entity.dart';
 
 abstract interface class UpdateAddressRepository {
-  Future<ApiResult<SavedAddressResponseEntity>> updateAddress(AddressEntity address,String productId);
+  Future<ApiResult<SavedAddressResponseEntity>> updateAddress(String productId);
 }

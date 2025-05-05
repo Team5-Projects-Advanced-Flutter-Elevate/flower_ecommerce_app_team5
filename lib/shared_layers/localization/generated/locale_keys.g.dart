@@ -128,4 +128,5 @@ class LocaleKeys {
       'changePasswordConfirmPasswordHint';
   static const String changePasswordUpdateButton = 'changePasswordUpdateButton';
   static const String addNewAddress = 'addNewAddress';
+  static const String savedAddressListIsEmpty = 'SavedAddressListIsEmpty';
 }

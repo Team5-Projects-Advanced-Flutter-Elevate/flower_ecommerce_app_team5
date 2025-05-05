@@ -13,7 +13,7 @@ abstract class SavedAddressApiClient{
   Future<SavedAddressResponseDto> getSavedAddress();
 
   @PATCH(ApisEndpoints.updateAddress)
-  Future<SavedAddressResponseDto> updateSavedAddress(AddressEntity address,@Path("id") String productId);
+  Future<SavedAddressResponseDto> updateSavedAddress(@Path("id") String productId);
 
   @DELETE(ApisEndpoints.deleteAddress)
   Future<SavedAddressResponseDto> deleteSavedAddress(@Path("id") String productId);

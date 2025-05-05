@@ -13,10 +13,10 @@ class UpdateAddressRemoteDataSourceImp implements UpdateAddressRemoteDataSource 
   UpdateAddressRemoteDataSourceImp(this.updateAddressApiClient);
 
   @override
-  Future<ApiResult<SavedAddressResponseDto>> updateAddress(AddressEntity address,String productId) async {
+  Future<ApiResult<SavedAddressResponseDto>> updateAddress(String productId) async {
     var apiResult = await ApiExecutor.executeApi<SavedAddressResponseDto>(
           () async {
-        return updateAddressApiClient.updateSavedAddress(address,productId);
+        return updateAddressApiClient.updateSavedAddress(productId);
       },
     );
     switch (apiResult) {

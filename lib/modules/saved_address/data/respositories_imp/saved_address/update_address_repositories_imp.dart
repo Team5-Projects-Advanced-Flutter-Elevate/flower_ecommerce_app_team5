@@ -10,8 +10,8 @@ class UpdateAddressRepositoryImp implements UpdateAddressRepository {
   UpdateAddressRemoteDataSource updateAddressRemoteDataSource;
   UpdateAddressRepositoryImp(this.updateAddressRemoteDataSource);
   @override
-  Future<ApiResult<SavedAddressResponseEntity>> updateAddress(AddressEntity address,String productId) async {
-    var result = await updateAddressRemoteDataSource.updateAddress(address,productId);
+  Future<ApiResult<SavedAddressResponseEntity>> updateAddress(String productId) async {
+    var result = await updateAddressRemoteDataSource.updateAddress(productId);
     switch(result){
       case Success<SavedAddressResponseDto>():
         return Success(data: result.data.convertToEntity());

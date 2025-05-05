@@ -1,24 +1,16 @@
-import 'package:flower_ecommerce_app_team5/modules/saved_address/data/models/saved_address_response/saved_address_response_dto.dart';
 
-sealed class SavedAddressIntent{
-
-}
-class GetSavedAddress extends SavedAddressIntent{}
-
-sealed class UpdateAddressIntent{
+sealed class AddressIntent{
 
 }
-class UpdateAddress extends UpdateAddressIntent{
-  UpdateAddress(this.addressEntity,this.userId);
-  AddressEntity addressEntity;
-  String userId;
+class GetAddress extends AddressIntent{
 }
 
-sealed class DeleteAddressIntent{
-
+class UpdateAddress extends AddressIntent{
+  UpdateAddress(this.productId);
+  String productId;
 }
-class DeleteAddress extends DeleteAddressIntent{
-  DeleteAddress(this.addressEntity,this.userId);
-  AddressEntity addressEntity;
-  String userId;
+
+class DeleteAddress extends AddressIntent{
+  DeleteAddress(this.productId);
+  String productId;
 }

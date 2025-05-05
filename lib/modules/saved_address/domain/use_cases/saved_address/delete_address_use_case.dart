@@ -8,7 +8,7 @@ import '../../repositories_contracts/saved_address/delete_address_repository.dar
 class DeleteAddressUseCase {
   DeleteAddressRepository deleteAddressRepository;
   DeleteAddressUseCase(this.deleteAddressRepository);
-  Future<ApiResult<SavedAddressResponseEntity>> call(AddressEntity address,String productId) {
+  Future<ApiResult<SavedAddressResponseEntity>> call(String productId) {
     return deleteAddressRepository.deleteAddress(productId);
   }
 }

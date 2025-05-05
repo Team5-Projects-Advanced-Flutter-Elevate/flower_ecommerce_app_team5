@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/modules/saved_address/ui/view_model/saved_address_intent.dart';
 import 'package:flower_ecommerce_app_team5/modules/saved_address/ui/view_model/saved_address_state.dart';
@@ -19,12 +20,12 @@ class SavedAddressScreen extends StatefulWidget {
 
 class _SavedAddressScreenState
     extends BaseStatefulWidgetState<SavedAddressScreen> {
-  SavedAddressViewModel viewModel = getIt.get<SavedAddressViewModel>();
+  AddressViewModel viewModel = getIt.get<AddressViewModel>();
   @override
   void initState() {
     super.initState();
 
-    viewModel.doIntent(GetSavedAddress());
+    viewModel.doIntent(GetAddress());
   }
 
   @override
@@ -43,50 +44,50 @@ class _SavedAddressScreenState
             },
           ),
           title: Text(
-            LocaleKeys.savedAddress,
+            LocaleKeys.savedAddress.tr(),
             style: Theme.of(context)
                 .textTheme
                 .headlineMedium
                 ?.copyWith(fontWeight: FontWeight.w500),
           ),
         ),
-        body: BlocBuilder<SavedAddressViewModel, SavedAddressState>(
+        body: BlocBuilder<AddressViewModel, AddressState>(
           builder: (context, state) {
-            switch (state.savedAddressStatus) {
-              case SavedAddressStatus.initial:
-              case SavedAddressStatus.loading:
+            switch (state.addressStatus) {
+              case AddressStatus.initial:
+              case AddressStatus.loading:
                 return const LoadingWidget();
-              case SavedAddressStatus.success:
-                if (state.savedAddress!.address!.isEmpty) {
+              case AddressStatus.success:
+                if (state.address!.address!.isEmpty) {
                   return Column(
                     children: [
-                      Text("Saved Address List is Empty"),
+                      Text(LocaleKeys.savedAddressListIsEmpty.tr()),
                     ],
                   );
                 } else {
                   return Column(
                     children: [
                       Expanded(
-                          child: ListView.separated(
-                        itemBuilder: (context, index) => SavedAddressCard(
-                          response: state.savedAddress!.address![index],
+                        child: ListView.builder(
+                          itemBuilder: (context, index) => SavedAddressCard(
+                            response: state.address!.address![index],
+                          ),
+                          itemCount: state.address!.address!.length,
                         ),
-                        separatorBuilder: (context, index) => const SizedBox(
-                          height: 16,
-                        ),
-                        itemCount: state.savedAddress!.address!.length ?? 0,
-                      )),
+                      ),
                       const SizedBox(
                         height: 48,
                       ),
                       ElevatedButton(
                           onPressed: () {},
-                          child: const Text(LocaleKeys.addNewAddress)),
-                      const Spacer(),
+                          child: Text(LocaleKeys.addNewAddress.tr())),
+                      const SizedBox(
+                        height: 48,
+                      ),
                     ],
                   );
                 }
-              case SavedAddressStatus.error:
+              case AddressStatus.error:
                 return ErrorStateWidget(error: state.error.toString());
             }
           },

@@ -55,10 +55,7 @@ class _SavedAddressApiClient implements SavedAddressApiClient {
   }
 
   @override
-  Future<SavedAddressResponseDto> updateSavedAddress(
-    AddressEntity address,
-    String productId,
-  ) async {
+  Future<SavedAddressResponseDto> updateSavedAddress(String productId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

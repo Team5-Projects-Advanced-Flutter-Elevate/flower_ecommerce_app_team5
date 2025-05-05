@@ -111,5 +111,6 @@
   "changePasswordConfirmPasswordLabel": "Confirm Password",
   "changePasswordConfirmPasswordHint": "Confirm your new password",
   "changePasswordUpdateButton": "Update",
-  "addNewAddress": "Add New Address"
+  "addNewAddress": "Add New Address",
+  "savedAddressListIsEmpty": "Saved Address List is Empty"
 }

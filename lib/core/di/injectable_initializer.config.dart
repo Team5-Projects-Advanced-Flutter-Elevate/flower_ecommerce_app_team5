@@ -172,12 +172,8 @@ import '../../modules/saved_address/domain/use_cases/saved_address/get_saved_add
     as _i856;
 import '../../modules/saved_address/domain/use_cases/saved_address/update_address_use_case.dart'
     as _i861;
-import '../../modules/saved_address/ui/view_model/delete_address_view_model.dart'
-    as _i658;
 import '../../modules/saved_address/ui/view_model/saved_address_view_model.dart'
     as _i485;
-import '../../modules/saved_address/ui/view_model/update_address_view_model.dart'
-    as _i841;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -216,12 +212,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => dioService.provideDio(),
       preResolve: true,
     );
+    gh.factory<_i902.ProductDetailsViewModel>(
+        () => _i902.ProductDetailsViewModel());
     await gh.factoryAsync<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
-    gh.factory<_i902.ProductDetailsViewModel>(
-        () => _i902.ProductDetailsViewModel());
     gh.lazySingleton<_i41.BestSellerApiClient>(
         () => bestSellerClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i737.UploadImageApiClient>(
@@ -319,8 +315,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
         ));
-    gh.factory<_i485.SavedAddressViewModel>(
-        () => _i485.SavedAddressViewModel(gh<_i856.GetSavedAddressUseCase>()));
     gh.factory<_i32.UpdateAddressRepository>(() =>
         _i788.UpdateAddressRepositoryImp(
             gh<_i1033.UpdateAddressRemoteDataSource>()));
@@ -336,8 +330,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i692.HomeCubit(gh<_i90.GetHomeDataUseCase>()));
     gh.factory<_i861.UpdateAddressUseCase>(
         () => _i861.UpdateAddressUseCase(gh<_i32.UpdateAddressRepository>()));
-    gh.factory<_i841.UpdateAddressViewModel>(
-        () => _i841.UpdateAddressViewModel(gh<_i861.UpdateAddressUseCase>()));
     gh.factory<_i460.BestSellerViewModel>(() =>
         _i460.BestSellerViewModel(gh<_i502.GetBestSellerProductsUseCase>()));
     gh.factory<_i44.CategoriesLayoutViewModel>(
@@ -353,10 +345,13 @@ extension GetItInjectableX on _i174.GetIt {
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
-    gh.factory<_i658.DeleteAddressViewModel>(
-        () => _i658.DeleteAddressViewModel(gh<_i384.DeleteAddressUseCase>()));
     gh.factory<_i543.LoginUseCase>(
         () => _i543.LoginUseCase(gh<_i450.LoginRepo>()));
+    gh.factory<_i485.AddressViewModel>(() => _i485.AddressViewModel(
+          gh<_i856.GetSavedAddressUseCase>(),
+          gh<_i384.DeleteAddressUseCase>(),
+          gh<_i861.UpdateAddressUseCase>(),
+        ));
     gh.factory<_i867.HomeScreenViewModel>(() => _i867.HomeScreenViewModel(
           gh<_i44.CategoriesLayoutViewModel>(),
           gh<_i855.OccasionViewModelCubit>(),

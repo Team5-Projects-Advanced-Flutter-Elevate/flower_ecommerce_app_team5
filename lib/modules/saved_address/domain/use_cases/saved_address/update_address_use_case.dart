@@ -8,7 +8,7 @@ import '../../repositories_contracts/saved_address/update_address_repository.dar
 class UpdateAddressUseCase {
   UpdateAddressRepository updateAddressRepository;
   UpdateAddressUseCase(this.updateAddressRepository);
-  Future<ApiResult<SavedAddressResponseEntity>> call(AddressEntity address,String productId) {
-    return updateAddressRepository.updateAddress(address,productId);
+  Future<ApiResult<SavedAddressResponseEntity>> call(String productId) {
+    return updateAddressRepository.updateAddress(productId);
   }
 }
