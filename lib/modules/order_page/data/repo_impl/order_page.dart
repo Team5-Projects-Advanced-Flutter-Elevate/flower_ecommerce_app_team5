@@ -10,8 +10,7 @@ class OrderPageRepoImpl implements OrderPageRepo {
   OrderPageRepoImpl(this.orderPageOnlineDataSource);
 
   @override
-  Future<List<GetMyOrdersEntity>> getMyOrder() {
-    // TODO: implement getMyOrder
+  Future<GetMyOrdersEntity> getMyOrder() {
     return orderPageOnlineDataSource.getMyOrder();
   }
 }

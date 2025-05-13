@@ -30,6 +30,11 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     homeScreenViewModel = Provider.of(context);
     print("selected app section index ${homeScreenViewModel.selectedAppSectionIndex}");

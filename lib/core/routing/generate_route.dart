@@ -21,6 +21,7 @@ import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payme
 import 'package:flower_ecommerce_app_team5/modules/payment/ui/checkout_session_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/search/search_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/track_order_details/ui/track_order_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../modules/check_out/ui/check_out_view.dart';
@@ -110,6 +111,10 @@ class GenerateRoute {
           builder: (context) => OnNotificationOpenedApp(
             notification: args as RemoteNotification,
           ),
+        );
+      case DefinedRoutes.trackOrderDetailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const TrackOrderDetailsScreen(),
         );
       default:
         return _errorRoute();

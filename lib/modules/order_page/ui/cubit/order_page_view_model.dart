@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 @injectable
 class MyOrdersViewModelCubit extends Cubit<GetMyOrdersState> {
   MyOrdersViewModelCubit(this.orderPageUsecase) : super(GetMyOrdersInitial());
-  final OrderPageUsecase orderPageUsecase;
+  final OrderPageUseCase orderPageUsecase;
 
   Future<void> _LoadMyOrders() async {
     emit(GetMyOrdersLoading());

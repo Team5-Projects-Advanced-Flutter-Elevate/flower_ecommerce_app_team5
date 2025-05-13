@@ -13,13 +13,13 @@ class OrderPageOnlineDataSourceImpl implements OrderPageOnlineDataSource {
   OrderPageOnlineDataSourceImpl(this._myOrdersApiClient);
 
   @override
-  Future<List<GetMyOrdersEntity>> getMyOrder() async {
+  Future<GetMyOrdersEntity> getMyOrder() async {
     var result = await ApiExecutor.executeApi(
         () async => await _myOrdersApiClient.getMyOrdersData());
 
     switch (result) {
       case Success<GetMyOrders>():
-        return [result.data.toEntity()];
+        return result.data.toEntity();
       case Error<GetMyOrders>():
         throw Exception(result.error); // or handle it appropriately
     }

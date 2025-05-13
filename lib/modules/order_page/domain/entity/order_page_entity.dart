@@ -2,12 +2,12 @@ class GetMyOrdersEntity {
   const GetMyOrdersEntity({
     required this.message,
     required this.metadata,
-    required this.orders,
+    required this.orderEntities,
   });
 
   final String? message;
   final MetadataEntity? metadata;
-  final List<OrderEntity> orders;
+  final List<OrderEntity> orderEntities;
 }
 
 class MetadataEntity {
@@ -52,6 +52,24 @@ class OrderEntity {
   final DateTime? updatedAt;
   final String? orderNumber;
   final num? v;
+
+  @override
+  String toString() {
+    return 'Order{'
+        'id: $id, '
+        'user: $user, '
+        'orderItems: $orderItems, '
+        'totalPrice: $totalPrice, '
+        'paymentType: $paymentType, '
+        'isPaid: $isPaid, '
+        'isDelivered: $isDelivered, '
+        'state: $state, '
+        'createdAt: $createdAt, '
+        'updatedAt: $updatedAt, '
+        'orderNumber: $orderNumber, '
+        'v: $v'
+        '}';
+  }
 }
 
 class OrderItemEntity {
@@ -110,4 +128,29 @@ class ProductEntity {
   final num? sold;
   final num? discount;
   final String? productId;
+
+  @override
+  String toString() {
+    return 'Product{'
+        'rateAvg: $rateAvg, '
+        'rateCount: $rateCount, '
+        'id: $id, '
+        'title: $title, '
+        'slug: $slug, '
+        'description: $description'
+        'imgCover: $imgCover, '
+        'images: $images, '
+        'price: $price, '
+        'priceAfterDiscount: $priceAfterDiscount, '
+        'quantity: $quantity, '
+        'category: $category, '
+        'occasion: $occasion, '
+        'createdAt: $createdAt, '
+        'updatedAt: $updatedAt, '
+        'v: $v, '
+        'sold: $sold, '
+        'discount: $discount, '
+        'productId: $productId'
+        '}';
+  }
 }

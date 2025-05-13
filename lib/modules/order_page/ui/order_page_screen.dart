@@ -58,8 +58,8 @@ class _MyOrderPageScreenState
             if (state is GetMyOrdersLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is GetMyOrdersSuccess) {
-              final allOrders =
-                  state.orders.expand((group) => group.orders).toList();
+              final allOrders = state.orders.orderEntities;
+
               final activeOrders = allOrders
                   .where((order) =>
                       order.isDelivered == false && order.orderItems.isNotEmpty)
@@ -68,6 +68,7 @@ class _MyOrderPageScreenState
                   .where((order) =>
                       order.isDelivered == true && order.orderItems.isNotEmpty)
                   .toList();
+              print(activeOrders[0].totalPrice);
 
               return DefaultTabController(
                 length: 2,
@@ -113,7 +114,7 @@ class _MyOrderPageScreenState
                                       title: item.product?.title,
                                       imageUrl: item.product?.imgCover,
                                       orderNumber: order.orderNumber,
-                                      price: item.product?.price,
+                                      price: order.totalPrice,
                                     );
                                   },
                                 ),

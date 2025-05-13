@@ -253,6 +253,16 @@ import '../../modules/payment/ui/view_model/payment_view_model.dart' as _i801;
 import '../../modules/product_details/ui/view_model/product_details_view_model.dart'
     as _i902;
 import '../../modules/search/view_model/search_cubit.dart' as _i861;
+import '../../shared_layers/database/firestore/data/data_sources_abstracts/order_collection.dart'
+    as _i884;
+import '../../shared_layers/database/firestore/data/data_sources_imp/order_collection_imp.dart'
+    as _i333;
+import '../../shared_layers/database/firestore/data/respositores_imp/firestore_repo_imp.dart'
+    as _i714;
+import '../../shared_layers/database/firestore/domain/repositories_contracts/firestore_repo.dart'
+    as _i233;
+import '../../shared_layers/database/firestore/ui/firestore_provider.dart'
+    as _i491;
 import '../../shared_layers/localization/initializer/locale_initializer.dart'
     as _i631;
 import '../../shared_layers/localization/l10n_manager/localization_manager.dart'
@@ -285,8 +295,8 @@ extension GetItInjectableX on _i174.GetIt {
         _$FlutterLocaleNotificationProvider();
     final bestSellerClientProvider = _$BestSellerClientProvider();
     final checkOutApiClientProvider = _$CheckOutApiClientProvider();
-    final paymentApiClientProvider = _$PaymentApiClientProvider();
     final notificationsClientProvider = _$NotificationsClientProvider();
+    final paymentApiClientProvider = _$PaymentApiClientProvider();
     final authApiClientProvider = _$AuthApiClientProvider();
     final editProfileApiClientProvider = _$EditProfileApiClientProvider();
     final homeApiClientProvider = _$HomeApiClientProvider();
@@ -317,10 +327,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => checkOutApiClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i737.UploadImageApiClient>(
         () => _i737.UploadImageApiClient(gh<_i361.Dio>()));
-    gh.lazySingleton<_i979.PaymentApiClient>(
-        () => paymentApiClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i762.NotificationsApiClient>(
         () => notificationsClientProvider.provideApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i979.PaymentApiClient>(
+        () => paymentApiClientProvider.providerApiClient(gh<_i361.Dio>()));
     gh.singleton<_i343.AuthApiClient>(
         () => authApiClientProvider.provideApiClient(gh<_i361.Dio>()));
     gh.singleton<_i319.ProfileApiClient>(
@@ -343,6 +353,7 @@ extension GetItInjectableX on _i174.GetIt {
         _i23.FirebaseCloudMessagingAPi(gh<_i261.LocalNotificationsService>()));
     gh.factory<_i925.AboutUsLocalDataSource>(
         () => _i1049.AboutUsLocalDataSourceImpl());
+    gh.factory<_i884.OrderCollection>(() => _i333.OrderCollectionImp());
     gh.factory<_i936.AboutUsRepo>(
         () => _i219.AboutUsRepoImpl(gh<_i925.AboutUsLocalDataSource>()));
     gh.factory<_i779.ResetCodeRemoteDataSource>(
@@ -374,6 +385,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i132.LoginRemoteDataSourceImp(gh<_i343.AuthApiClient>()));
     gh.factory<_i362.OccasionOnlineDataSource>(() =>
         _i713.OccasionOnlineDataSourceImpl(gh<_i941.OccasionApiClient>()));
+    gh.factory<_i233.FirestoreRepo>(
+        () => _i714.FirestoreRepoImp(gh<_i884.OrderCollection>()));
     await gh.factoryAsync<String>(
       () => localeInitializer
           .initCurrentLocal(gh<_i629.SecureStorageService<dynamic>>()),
@@ -427,8 +440,8 @@ extension GetItInjectableX on _i174.GetIt {
         storageService: gh<_i629.SecureStorageService<dynamic>>()));
     gh.factory<_i41.OccasionUseCase>(
         () => _i41.OccasionUseCase(gh<_i319.OccasionRepo>()));
-    gh.factory<_i865.OrderPageUsecase>(
-        () => _i865.OrderPageUsecase(gh<_i484.OrderPageRepo>()));
+    gh.factory<_i865.OrderPageUseCase>(
+        () => _i865.OrderPageUseCase(gh<_i484.OrderPageRepo>()));
     gh.factory<_i138.LoginAsGuestOfflineDataSource>(() =>
         _i79.LoginAsGuestOfflineDataSourceImpl(
             gh<_i629.SecureStorageService<dynamic>>()));
@@ -438,6 +451,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i640.GetCartItemsUseCase(homeRepo: gh<_i1003.HomeRepo>()));
     gh.factory<_i855.OccasionViewModelCubit>(
         () => _i855.OccasionViewModelCubit(gh<_i41.OccasionUseCase>()));
+    gh.factory<_i491.FirestoreViewModel>(
+        () => _i491.FirestoreViewModel(gh<_i233.FirestoreRepo>()));
     gh.factory<_i76.BestSellerRepository>(() =>
         _i911.BestSellerRepositoryImp(gh<_i23.BestSellerRemoteDataSource>()));
     gh.factory<_i112.MakeCashOrderUseCase>(
@@ -491,7 +506,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
     gh.factory<_i811.MyOrdersViewModelCubit>(
-        () => _i811.MyOrdersViewModelCubit(gh<_i865.OrderPageUsecase>()));
+        () => _i811.MyOrdersViewModelCubit(gh<_i865.OrderPageUseCase>()));
     gh.factory<_i105.ForgetPasswordViewModel>(
         () => _i105.ForgetPasswordViewModel(
               gh<_i823.ForgetPasswordUseCase>(),
@@ -547,9 +562,9 @@ class _$BestSellerClientProvider extends _i664.BestSellerClientProvider {}
 
 class _$CheckOutApiClientProvider extends _i97.CheckOutApiClientProvider {}
 
-class _$PaymentApiClientProvider extends _i177.PaymentApiClientProvider {}
-
 class _$NotificationsClientProvider extends _i985.NotificationsClientProvider {}
+
+class _$PaymentApiClientProvider extends _i177.PaymentApiClientProvider {}
 
 class _$AuthApiClientProvider extends _i1019.AuthApiClientProvider {}
 
