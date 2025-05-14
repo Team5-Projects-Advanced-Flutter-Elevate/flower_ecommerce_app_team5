@@ -10,12 +10,13 @@ class MyOrdersViewModelCubit extends Cubit<GetMyOrdersState> {
 
   Future<void> _LoadMyOrders() async {
     emit(GetMyOrdersLoading());
-    try {
-      final data = await orderPageUsecase.getMyOrder();
-      emit(GetMyOrdersSuccess(data));
-    } catch (e) {
-      emit(GetMyOrdersError(e.toString()));
-    }
+    final data = await orderPageUsecase.getMyOrder();
+    emit(GetMyOrdersSuccess(data));
+    // try {
+    //
+    // } catch (e) {
+    //   emit(GetMyOrdersError(e.toString()));
+    // }
   }
 
   void processIntent(orderPageIntent intent) {

@@ -10,7 +10,8 @@ class TrackOrderDetailsScreen extends StatefulWidget {
   const TrackOrderDetailsScreen({super.key});
 
   @override
-  State<TrackOrderDetailsScreen> createState() => _TrackOrderDetailsScreenState();
+  State<TrackOrderDetailsScreen> createState() =>
+      _TrackOrderDetailsScreenState();
 }
 
 class _TrackOrderDetailsScreenState extends State<TrackOrderDetailsScreen> {
@@ -33,28 +34,35 @@ class _TrackOrderDetailsScreenState extends State<TrackOrderDetailsScreen> {
                   case Status.success:
                     var orderEntity = state.orderEntity;
                     var driverEntity = state.driverEntity;
-                    return Column(
-                      children: [
-                        Column(
-                          children: [
-                            Text(driverEntity?.firstName ?? ""),
-                            Text(driverEntity?.phone ?? ""),
-                          ],
-                        ),
-                        if (orderEntity?.receivedUserOrderAt != null)
-                          Text(
-                              "Received User Order At ${orderEntity!.receivedUserOrderAt!.getDateFormat()}\n"),
-                        if (orderEntity?.preparedUserOrderAt != null)
-                          Text(
-                              "Prepared User Order At ${orderEntity!.preparedUserOrderAt!.getDateFormat()}"),
-                        if (orderEntity?.outForDeliveryAt != null)
-                          Text(
-                              "Out Fore Delivery At ${orderEntity!.outForDeliveryAt!.getDateFormat()}"),
-                        if (orderEntity?.deliveredAt != null)
-                          Text(
-                              "Delivered At ${orderEntity!.deliveredAt!.getDateFormat()}"),
-                      ],
-                    );
+                    return orderEntity == null
+                        ? const Column(
+                            children: [
+                              Text("Order Is Still Pending"),
+                              Icon(Icons.pending_actions)
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              Column(
+                                children: [
+                                  Text(driverEntity?.firstName ?? ""),
+                                  Text(driverEntity?.phone ?? ""),
+                                ],
+                              ),
+                              if (orderEntity.receivedUserOrderAt != null)
+                                Text(
+                                    "Received User Order At ${orderEntity.receivedUserOrderAt!.getDateFormat()}\n"),
+                              if (orderEntity.preparedUserOrderAt != null)
+                                Text(
+                                    "Prepared User Order At ${orderEntity.preparedUserOrderAt!.getDateFormat()}"),
+                              if (orderEntity.outForDeliveryAt != null)
+                                Text(
+                                    "Out Fore Delivery At ${orderEntity.outForDeliveryAt!.getDateFormat()}"),
+                              if (orderEntity.deliveredAt != null)
+                                Text(
+                                    "Delivered At ${orderEntity.deliveredAt!.getDateFormat()}"),
+                            ],
+                          );
                   case Status.error:
                     return ErrorStateWidget(error: state.error!);
                 }

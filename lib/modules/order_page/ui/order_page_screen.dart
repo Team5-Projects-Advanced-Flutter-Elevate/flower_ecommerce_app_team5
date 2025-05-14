@@ -62,11 +62,13 @@ class _MyOrderPageScreenState
 
               final activeOrders = allOrders
                   .where((order) =>
-                      order.isDelivered == false && order.orderItems.isNotEmpty)
+                      order.isDelivered == false &&
+                      (order.orderItems?.isNotEmpty ?? false))
                   .toList();
               final completeOrders = allOrders
                   .where((order) =>
-                      order.isDelivered == true && order.orderItems.isNotEmpty)
+                      order.isDelivered == true &&
+                      (order.orderItems?.isNotEmpty ?? false))
                   .toList();
               print(activeOrders[0].totalPrice);
 
@@ -108,13 +110,9 @@ class _MyOrderPageScreenState
                                   itemCount: activeOrders.length,
                                   itemBuilder: (context, index) {
                                     final order = activeOrders[index];
-                                    final item = order.orderItems.first;
 
                                     return OrderCard(
-                                      title: item.product?.title,
-                                      imageUrl: item.product?.imgCover,
-                                      orderNumber: order.orderNumber,
-                                      price: order.totalPrice,
+                                      orderEntity: order,
                                     );
                                   },
                                 ),
@@ -126,13 +124,9 @@ class _MyOrderPageScreenState
                                   itemCount: completeOrders.length,
                                   itemBuilder: (context, index) {
                                     final order = completeOrders[index];
-                                    final item = order.orderItems.first;
 
                                     return OrderCard(
-                                      title: item.product?.title,
-                                      imageUrl: item.product?.imgCover,
-                                      orderNumber: order.orderNumber,
-                                      price: item.product?.price,
+                                      orderEntity: order,
                                     );
                                   },
                                 ),

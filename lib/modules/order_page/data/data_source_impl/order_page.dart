@@ -1,6 +1,5 @@
 import 'package:flower_ecommerce_app_team5/modules/order_page/data/data_source_contract/order_page.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../../core/apis/api_executor/api_executor.dart';
 import '../../../../core/apis/api_result/api_result.dart';
 import '../../domain/entity/order_page_entity.dart';
@@ -9,7 +8,8 @@ import '../model/order_page_response.dart';
 
 @Injectable(as: OrderPageOnlineDataSource)
 class OrderPageOnlineDataSourceImpl implements OrderPageOnlineDataSource {
-  MyOrdersApiClient _myOrdersApiClient;
+  final MyOrdersApiClient _myOrdersApiClient;
+
   OrderPageOnlineDataSourceImpl(this._myOrdersApiClient);
 
   @override

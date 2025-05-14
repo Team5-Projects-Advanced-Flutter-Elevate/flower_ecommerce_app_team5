@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flower_ecommerce_app_team5/core/entities/driver/driver_entity.dart';
-import 'package:flower_ecommerce_app_team5/core/entities/order/order_entity.dart';
+import 'package:flower_ecommerce_app_team5/core/entities/order/order_entity_firestore.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/database/firestore/domain/repositories_contracts/firestore_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -47,7 +47,7 @@ enum Status { idle, loading, success, error }
 
 class FirestoreState extends Equatable {
   final Status orderStatus;
-  final OrderEntity? orderEntity;
+  final OrderEntityFirestore? orderEntity;
   final DriverEntity? driverEntity;
   final Object? error;
 
