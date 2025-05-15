@@ -88,7 +88,7 @@ class _OrderCardState extends BaseStatefulWidgetState<OrderCard> {
                     onPressed: () {
                       debugPrint("====== order id ${widget.orderEntity.id}");
                       Navigator.pushNamed(
-                          context, DefinedRoutes.trackOrderDetailsScreenRoute,
+                          context, DefinedRoutes.trackOrder,
                           arguments: widget.orderEntity.id);
                     },
                     style: ElevatedButton.styleFrom(

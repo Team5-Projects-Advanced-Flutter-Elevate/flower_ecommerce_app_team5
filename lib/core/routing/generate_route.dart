@@ -115,7 +115,7 @@ class GenerateRoute {
         );
       case DefinedRoutes.trackOrder:
         return MaterialPageRoute(
-          builder: (context) =>const TrackOrderView()
+          builder: (context) => TrackOrderView(orderId: args as String,)
         );
       case DefinedRoutes.trackOrderDetailsScreenRoute:
         return MaterialPageRoute(
