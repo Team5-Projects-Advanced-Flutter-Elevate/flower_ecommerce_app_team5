@@ -169,5 +169,12 @@
   "noNotificationFound": "No Notifications Found",
   "activeTab": "Active",
   "completedTab":"Completed",
-  "noOrder": "No order found"
+  "noOrder": "No order found",
+  "showMap": "Show map",
+  "isYourDeliveryHeroForToday": "is your delivery hero for today",
+  "estimatedArrival": "Estimated Arrival",
+  "receivedYourOrder": "Received your order",
+  "preparingYourOrder": "Preparing your order",
+  "outForDelivery": "Out for delivery",
+  "delivered": "Delivered"
 }

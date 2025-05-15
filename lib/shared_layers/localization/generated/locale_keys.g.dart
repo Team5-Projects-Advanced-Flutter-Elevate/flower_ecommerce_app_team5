@@ -188,4 +188,11 @@ class LocaleKeys {
 
   // Notification
   static const String noNotificationFound = 'noNotificationFound';
+  static const showMap = 'showMap';
+  static const isYourDeliveryHeroForToday = 'isYourDeliveryHeroForToday';
+  static const estimatedArrival = 'estimatedArrival';
+  static const receivedYourOrder = 'receivedYourOrder';
+  static const preparingYourOrder = 'preparingYourOrder';
+  static const outForDelivery = 'outForDelivery';
+  static const delivered = 'delivered';
 }

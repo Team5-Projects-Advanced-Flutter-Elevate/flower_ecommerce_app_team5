@@ -39,6 +39,7 @@ abstract class AppThemes {
         fontSize: 16,
         fontWeight: FontWeight.w500, // Medium weight
         color: AppColors.gray,
+
       ),
 
       // Title Text Styles (Used for headings)
@@ -229,7 +230,7 @@ abstract class AppThemes {
         ),
         padding: const WidgetStatePropertyAll(
           EdgeInsets.symmetric(
-            vertical: 8,
+            vertical: 12,
           ),
         ),
       ),

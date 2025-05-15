@@ -3,10 +3,11 @@ import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/bases/base_inherited_widget.dart';
 import '../../../../core/bases/base_statless_widget.dart';
+import '../../../../core/routing/defined_routes.dart';
 import '../../../../shared_layers/localization/generated/locale_keys.g.dart';
 
-class TrackOrderScreen extends BaseStatelessWidget {
-  const TrackOrderScreen({super.key});
+class OrderPlacedSuccessfullyScreen extends BaseStatelessWidget {
+  const OrderPlacedSuccessfullyScreen({super.key});
 
   @override
   Widget customBuild(BuildContext context, BaseInheritedWidget inherit) {
@@ -43,7 +44,9 @@ class TrackOrderScreen extends BaseStatelessWidget {
               height: inherit.screenHeight * 0.03,
             ),
             FilledButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, DefinedRoutes.trackOrder);
+              },
               child: Text(
                 LocaleKeys.trackOrder.tr(),
               ),

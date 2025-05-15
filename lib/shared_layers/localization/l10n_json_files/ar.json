@@ -175,6 +175,12 @@
   "noNotificationFound": "لا توجد إشعارات",
   "activeTab": "مفعل",
   "completedTab" :"مكتمل",
-  "noOrder": "لا يوجد طلبات"
-
+  "noOrder": "لا يوجد طلبات",
+  "showMap": "عرض الخريطة",
+  "isYourDeliveryHeroForToday": "هو بطل التوصيل الخاص بك اليوم",
+  "estimatedArrival": "وقت الوصول المتوقع",
+  "receivedYourOrder": "تم استلام طلبك",
+  "preparingYourOrder": "جارٍ تجهيز طلبك",
+  "outForDelivery": "خرج للتوصيل",
+  "delivered": "تم التوصيل"
 }

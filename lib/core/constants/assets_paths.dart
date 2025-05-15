@@ -14,6 +14,10 @@ abstract class AssetsPaths {
       "assets/animations/flower_loading_animation.json";
 
   static const String _successIcon = "assets/icons/success_icon.png";
+  static const String _deliveryBoyIcon = "assets/icons/delivery_boy.png";
+  static const String _callIcon = "assets/icons/call_icon.png";
+  static const String _whatsAppIcon = "assets/icons/whatsapp_icon.png";
+  static const String _carIcon = "assets/icons/car_image.png";
 
   static String get homeIcon => _homeIcon;
 
@@ -36,4 +40,12 @@ abstract class AssetsPaths {
   static String get flowerIconWithBackground => _flowerIconWithBackground;
 
   static String get successIcon => _successIcon;
+
+  static String get deliveryBoyIcon => _deliveryBoyIcon;
+
+  static String get callIcon => _callIcon;
+
+  static String get whatsAppIcon => _whatsAppIcon;
+
+  static String get carIcon => _carIcon;
 }
