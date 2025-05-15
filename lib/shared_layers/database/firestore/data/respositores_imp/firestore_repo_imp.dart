@@ -9,7 +9,7 @@ class FirestoreRepoImp implements FirestoreRepo {
   final OrderCollection _orderCollection;
   FirestoreRepoImp(this._orderCollection);
   @override
-  Stream<QuerySnapshot<OrderEntityFirestore>> getOrderSnapshot(String orderId) async* {
+  Stream<QuerySnapshot<OrderEntityFirestore?>> getOrderSnapshot(String orderId) async* {
     yield* _orderCollection.getOrderSnapshot(orderId);
   }
 }

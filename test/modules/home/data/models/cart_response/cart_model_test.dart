@@ -1,6 +1,6 @@
+import 'package:flower_ecommerce_app_team5/core/models/product/product_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/cart_item_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/cart_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/product_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_model_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -24,7 +24,7 @@ void main() {
                 id: 'id',
                 price: 1,
                 quantity: 1,
-                product: Product(
+                product: ProductDto(
                   id: 'id',
                   title: 'title',
                   description: 'description',

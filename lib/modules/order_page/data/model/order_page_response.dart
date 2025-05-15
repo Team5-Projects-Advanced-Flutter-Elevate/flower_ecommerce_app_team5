@@ -34,7 +34,7 @@ class GetMyOrders {
   GetMyOrdersEntity toEntity() => GetMyOrdersEntity(
         message: message,
         metadata: metadata?.toEntity(),
-        orderEntities: orders.map((e) => e.toEntity()).toList(),
+        orderEntities: orders.map((e) => e.convertIntoEntity()).toList(),
       );
 }
 

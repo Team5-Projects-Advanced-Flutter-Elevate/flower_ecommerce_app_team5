@@ -1,9 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/product_do/product_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/cash_order_response/cash_order_response_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../../../../core/entities/order/order_entity.dart';
 import '../../../../../core/models/order/order_dto.dart';
 part 'cash_order_response_dto.g.dart';
 
@@ -24,7 +21,7 @@ class CashOrderResponseDto extends Equatable {
 
   CashOrderResponseEntity convertIntoEntity() {
     return CashOrderResponseEntity(
-        message: message, order: order?.toEntity());
+        message: message, order: order?.convertIntoEntity());
   }
 
   @override

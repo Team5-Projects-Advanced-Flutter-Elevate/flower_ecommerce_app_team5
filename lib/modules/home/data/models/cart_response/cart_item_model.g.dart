@@ -11,7 +11,7 @@ CartItemModel _$CartItemModelFromJson(Map<String, dynamic> json) =>
       id: json['_id'] as String?,
       product: json['product'] == null
           ? null
-          : Product.fromJson(json['product'] as Map<String, dynamic>),
+          : ProductDto.fromJson(json['product'] as Map<String, dynamic>),
       price: (json['price'] as num?)?.toDouble(),
       quantity: (json['quantity'] as num?)?.toInt(),
     );

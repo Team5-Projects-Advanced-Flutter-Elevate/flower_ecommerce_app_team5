@@ -1,3 +1,5 @@
+import '../order_item/order_item_entity.dart';
+
 class OrderEntityFirestore {
   OrderEntityFirestore({
     this.id,
@@ -72,52 +74,7 @@ class StoreEntity {
   String? latLong;
 }
 
-class OrderItemEntity {
-  OrderItemEntity({this.product, this.price, this.quantity, this.id});
 
-  ProductEntity? product;
-  num? price;
-  num? quantity;
-  String? id;
-}
-
-class ProductEntity {
-  ProductEntity({
-    this.id,
-    this.title,
-    this.slug,
-    this.description,
-    this.imgCover,
-    this.images,
-    this.price,
-    this.priceAfterDiscount,
-    this.quantity,
-    this.category,
-    this.occasion,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
-    this.discount,
-    this.sold,
-  });
-
-  String? id;
-  String? title;
-  String? slug;
-  String? description;
-  String? imgCover;
-  List<String>? images;
-  num? price;
-  num? priceAfterDiscount;
-  num? quantity;
-  String? category;
-  String? occasion;
-  String? createdAt;
-  String? updatedAt;
-  num? v;
-  num? discount;
-  num? sold;
-}
 
 class UserEntity {
   UserEntity({

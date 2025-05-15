@@ -1,5 +1,7 @@
 import 'package:flower_ecommerce_app_team5/modules/order_page/domain/entity/order_page_entity.dart';
 
+import '../order_item/order_item_entity.dart';
+
 class OrderEntity {
   const OrderEntity({
     required this.id,
@@ -24,8 +26,8 @@ class OrderEntity {
   final bool? isPaid;
   final bool? isDelivered;
   final String? state;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  final String? createdAt;
+  final String? updatedAt;
   final String? orderNumber;
   final num? v;
 

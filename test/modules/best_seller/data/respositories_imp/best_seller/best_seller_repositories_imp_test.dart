@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
+import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/data_sources_contract/best_seller/best_seller_remote_data_source.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/data/respositories_imp/best_seller/best_seller_repositories_imp.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/entities/best_seller/best_seller_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/domain/repositories_contracts/best_seller/best_seller_repository.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -22,7 +21,7 @@ void main() {
       late BestSellerRepository bestSellerRepository;
       late BestSellerRemoteDataSource bestSellerRemoteDataSource;
       BestSellerResponseEntity bestSellerResponseEntity =
-          const  BestSellerResponseEntity(
+            const BestSellerResponseEntity(
         message: "Success",
         bestSellerProducts: [
           ProductEntity(

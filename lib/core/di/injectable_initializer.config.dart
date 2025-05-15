@@ -499,14 +499,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i304.NewAddressUseCase(gh<_i469.NewAddressRepo>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
+    gh.factory<_i811.MyOrdersViewModelCubit>(
+        () => _i811.MyOrdersViewModelCubit(gh<_i865.OrderPageUseCase>()));
     gh.factory<_i823.ForgetPasswordUseCase>(
         () => _i823.ForgetPasswordUseCase(gh<_i1013.ForgetPasswordRepo>()));
     gh.factory<_i801.PaymentViewModel>(
         () => _i801.PaymentViewModel(gh<_i834.MakeCheckoutSessionUseCase>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
-    gh.factory<_i811.MyOrdersViewModelCubit>(
-        () => _i811.MyOrdersViewModelCubit(gh<_i865.OrderPageUseCase>()));
     gh.factory<_i105.ForgetPasswordViewModel>(
         () => _i105.ForgetPasswordViewModel(
               gh<_i823.ForgetPasswordUseCase>(),

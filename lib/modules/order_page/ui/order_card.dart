@@ -9,6 +9,7 @@ import '../../../shared_layers/localization/generated/locale_keys.g.dart';
 
 class OrderCard extends StatefulWidget {
   final OrderEntity orderEntity;
+
   const OrderCard({super.key, required this.orderEntity});
 
   @override
@@ -33,26 +34,37 @@ class _OrderCardState extends BaseStatefulWidgetState<OrderCard> {
           children: [
             // Image
             Expanded(
-              child: ListView.builder(
-                itemCount: widget.orderEntity.orderItems?.length ?? 0,
+              child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: CachedNetworkImage(
-                      imageUrl: widget.orderEntity.orderItems?[index].product
-                              ?.imgCover ??
-                          "",
-                      scale: 5.0,
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              CircularProgressIndicator(
-                                  value: downloadProgress.progress),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    ),
-                  );
-                },
+                physics: const PageScrollPhysics(),
+                child: Row(
+                  children: List.generate(
+                    widget.orderEntity.orderItems?.length ?? 0,
+                    (index) {
+                      return SizedBox(
+                        width: (screenWidth / 2) - 36,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: CachedNetworkImage(
+                              imageUrl: widget.orderEntity.orderItems?[index]
+                                      .product?.imgCover ??
+                                  "",
+                              width: (screenWidth / 2) - 36,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                      CircularProgressIndicator(
+                                          value: downloadProgress.progress),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
             const SizedBox(width: 16),
@@ -72,12 +84,16 @@ class _OrderCardState extends BaseStatefulWidgetState<OrderCard> {
                   SizedBox(height: screenHeight * 0.005),
                   ElevatedButton(
                     onPressed: () {
+                      print("====== order id ${widget.orderEntity.id}");
                       Navigator.pushNamed(
-                          context, DefinedRoutes.trackOrderDetailsScreenRoute);
+                          context, DefinedRoutes.trackOrderDetailsScreenRoute,
+                          arguments: widget.orderEntity.id);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.mainColor,
                       foregroundColor: AppColors.white,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 24),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -98,9 +114,11 @@ class _OrderCardState extends BaseStatefulWidgetState<OrderCard> {
   String getOrderTitle() {
     String orderTitle = "";
     if (widget.orderEntity.orderItems != null) {
-      for (var item in widget.orderEntity.orderItems!) {
-        if (item.product?.title == null) continue;
-        orderTitle += item.product!.title!;
+      var orderItems = widget.orderEntity.orderItems!;
+      for (int i = 0; i < orderItems.length; i++) {
+        if (orderItems[i].product?.title == null) continue;
+        orderTitle += orderItems[i].product!.title!;
+        if (i != orderItems.length - 1) orderTitle += ' | ';
       }
     }
     return orderTitle;

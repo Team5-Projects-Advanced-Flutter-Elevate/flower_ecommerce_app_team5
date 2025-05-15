@@ -21,9 +21,11 @@ class FirestoreViewModel extends Cubit<FirestoreState> {
         var orderData = orderDoc.data();
         var driverDocRef = orderDoc.reference.parent.parent?.withConverter(
           fromFirestore: (snapshot, options) {
-            return DriverDto.fromJson(snapshot);
+            if (snapshot.data() == null) return null;
+            return DriverDto.fromJson(snapshot.data());
           },
           toFirestore: (driverDto, options) {
+            if(driverDto == null) return {};
             return driverDto.toJson();
           },
         );

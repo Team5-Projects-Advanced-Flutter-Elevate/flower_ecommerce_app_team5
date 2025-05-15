@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TrackOrderDetailsScreen extends StatefulWidget {
-  const TrackOrderDetailsScreen({super.key});
+  final String orderId;
+
+  const TrackOrderDetailsScreen({super.key, required this.orderId});
 
   @override
   State<TrackOrderDetailsScreen> createState() =>
@@ -16,6 +18,13 @@ class TrackOrderDetailsScreen extends StatefulWidget {
 
 class _TrackOrderDetailsScreenState extends State<TrackOrderDetailsScreen> {
   FirestoreViewModel firestoreViewModel = getIt.get<FirestoreViewModel>();
+
+  @override
+  void initState() {
+    super.initState();
+    print("=====> order Id from inside ${widget.orderId}");
+    firestoreViewModel.listenToOrderUpdates(widget.orderId);
+  }
 
   @override
   Widget build(BuildContext context) {

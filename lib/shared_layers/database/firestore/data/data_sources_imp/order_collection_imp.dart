@@ -10,15 +10,20 @@ import '../data_sources_abstracts/order_collection.dart';
 @Injectable(as: OrderCollection)
 class OrderCollectionImp implements OrderCollection {
   @override
-  Stream<QuerySnapshot<OrderEntityFirestore>> getOrderSnapshot(String orderId) async* {
+  Stream<QuerySnapshot<OrderEntityFirestore?>> getOrderSnapshot(
+      String orderId) async* {
+    print("====> order Id inside getOrderSnapshot $orderId}");
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     yield* firestore
         .collectionGroup(FirestoreConstants.ordersCollection)
         .withConverter(
           fromFirestore: (snapshot, options) {
-            return OrderDtoFirestore.fromJson(snapshot.data()).convertIntoEntity();
+            if (snapshot.data() == null) return null;
+            return OrderDtoFirestore.fromJson(snapshot.data())
+                .convertIntoEntity();
           },
           toFirestore: (orderEntity, options) {
+            if (orderEntity == null) return {};
             return OrderDtoFirestore.convertIntoDto(orderEntity).toJson();
           },
         )

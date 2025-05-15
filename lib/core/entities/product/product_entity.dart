@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class ProductEntity extends Equatable {
+class ProductEntity extends Equatable{
   const ProductEntity({
     this.id,
     this.title,
@@ -13,14 +13,15 @@ class ProductEntity extends Equatable {
     this.quantity,
     this.category,
     this.occasion,
-    //this.createdAt,
-    //this.updatedAt,
-    //this.v,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
     this.discount,
-    this.sold,
     this.rateAvg,
     this.rateCount,
-    this.bestSellerId,
+    this.productId,
+    this.sold,
+    this.bestSellerId
   });
 
   final String? id;
@@ -34,19 +35,39 @@ class ProductEntity extends Equatable {
   final num? quantity;
   final String? category;
   final String? occasion;
-
-  //final DateTime? createdAt;
-  //final DateTime? updatedAt;
-  //final num? v;
+  final String? createdAt;
+  final String? updatedAt;
+  final num? v;
   final num? discount;
   final num? sold;
   final num? rateAvg;
   final num? rateCount;
+  final String? productId;
   final String? bestSellerId;
 
   @override
   String toString() {
-    return "$id, $title, $slug, $description, $imgCover, $images, $price, $priceAfterDiscount, $quantity, $category, $occasion, $discount, $sold, $rateAvg, $rateCount, $bestSellerId, ";
+    return 'Product{'
+        'rateAvg: $rateAvg, '
+        'rateCount: $rateCount, '
+        'id: $id, '
+        'title: $title, '
+        'slug: $slug, '
+        'description: $description'
+        'imgCover: $imgCover, '
+        'images: $images, '
+        'price: $price, '
+        'priceAfterDiscount: $priceAfterDiscount, '
+        'quantity: $quantity, '
+        'category: $category, '
+        'occasion: $occasion, '
+        'createdAt: $createdAt, '
+        'updatedAt: $updatedAt, '
+        'v: $v, '
+        'sold: $sold, '
+        'discount: $discount, '
+        'productId: $productId'
+        '}';
   }
 
   @override

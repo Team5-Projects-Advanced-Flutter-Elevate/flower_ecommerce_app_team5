@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/forget_password_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/reset_code_screen.dart';
@@ -13,7 +14,6 @@ import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/track_or
 import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/ui/on_notification_opened_app.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/notifications_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
@@ -114,7 +114,8 @@ class GenerateRoute {
         );
       case DefinedRoutes.trackOrderDetailsScreenRoute:
         return MaterialPageRoute(
-          builder: (context) => const TrackOrderDetailsScreen(),
+          builder: (context) =>
+              TrackOrderDetailsScreen(orderId: (args as String)),
         );
       default:
         return _errorRoute();

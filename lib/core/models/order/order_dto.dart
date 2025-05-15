@@ -1,5 +1,7 @@
 import 'package:flower_ecommerce_app_team5/core/models/order_item/order_item_dto.dart';
 
+import '../../entities/order/order_entity.dart';
+
 class OrderDto {
   OrderDto({
     required this.id,
@@ -18,14 +20,14 @@ class OrderDto {
 
   final String? id;
   final String? user;
-  final List<OrderItem> orderItems;
+  final List<OrderItemDto> orderItems;
   final num? totalPrice;
   final String? paymentType;
   final bool? isPaid;
   final bool? isDelivered;
   final String? state;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  final String? createdAt;
+  final String? updatedAt;
   final String? orderNumber;
   final num? v;
 
@@ -42,8 +44,8 @@ class OrderDto {
       isPaid: json["isPaid"],
       isDelivered: json["isDelivered"],
       state: json["state"],
-      createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
-      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
+      createdAt: json["createdAt"] ,
+      updatedAt: json["updatedAt"] ,
       orderNumber: json["orderNumber"],
       v: json["__v"],
     );
@@ -58,16 +60,16 @@ class OrderDto {
     "isPaid": isPaid,
     "isDelivered": isDelivered,
     "state": state,
-    "createdAt": createdAt?.toIso8601String(),
-    "updatedAt": updatedAt?.toIso8601String(),
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
     "orderNumber": orderNumber,
     "__v": v,
   };
 
-  OrderEntity toEntity() => OrderEntity(
+  OrderEntity convertIntoEntity() => OrderEntity(
     id: id,
     user: user,
-    orderItems: orderItems.map((e) => e.toEntity()).toList(),
+    orderItems: orderItems.map((e) => e.convertIntoEntity()).toList(),
     totalPrice: totalPrice,
     paymentType: paymentType,
     isPaid: isPaid,

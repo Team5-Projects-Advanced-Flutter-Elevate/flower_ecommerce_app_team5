@@ -1,3 +1,5 @@
+import '../../entities/product/product_entity.dart';
+
 /// _id : "673e308c115992017182816d"
 /// title : "Moko Chocolate Set | Esperance Rose"
 /// slug : "moko-chocolate-set-or-esperance-rose"
@@ -15,26 +17,26 @@
 /// discount : 50
 /// sold : 1055
 class ProductDto {
-  ProductDto({
-    this.id,
-    this.title,
-    this.slug,
-    this.description,
-    this.imgCover,
-    this.images,
-    this.price,
-    this.priceAfterDiscount,
-    this.quantity,
-    this.category,
-    this.occasion,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
-    this.discount,
-    this.sold,
-    this.rateAvg,
-    this.rateCount,
-  });
+  ProductDto(
+      {this.id,
+      this.title,
+      this.slug,
+      this.description,
+      this.imgCover,
+      this.images,
+      this.price,
+      this.priceAfterDiscount,
+      this.quantity,
+      this.category,
+      this.occasion,
+      this.createdAt,
+      this.updatedAt,
+      this.v,
+      this.discount,
+      this.sold,
+      this.rateAvg,
+      this.rateCount,
+      this.bestSellerId});
 
   factory ProductDto.fromJson(Map<String, dynamic> json) {
     return ProductDto(
@@ -43,8 +45,7 @@ class ProductDto {
       slug: json["slug"],
       description: json["description"],
       imgCover: json["imgCover"],
-      images:
-      json["images"] == null
+      images: json["images"] == null
           ? []
           : List<String>.from(json["images"]!.map((x) => x)),
       price: json["price"],
@@ -80,6 +81,7 @@ class ProductDto {
   num? sold;
   num? rateAvg;
   num? rateCount;
+  final String? bestSellerId;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};

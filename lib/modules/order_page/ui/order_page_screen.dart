@@ -102,11 +102,13 @@ class _MyOrderPageScreenState
                     ),
                     Expanded(
                       child: TabBarView(
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
                           // Active Orders Tab
                           activeOrders.isEmpty
                               ? Center(child: Text(LocaleKeys.noOrder.tr()))
                               : ListView.builder(
+                                  shrinkWrap: true,
                                   itemCount: activeOrders.length,
                                   itemBuilder: (context, index) {
                                     final order = activeOrders[index];
