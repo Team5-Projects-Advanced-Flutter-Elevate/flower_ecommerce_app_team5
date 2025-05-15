@@ -26,16 +26,15 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
   List<GetCities> governorates = [];
   List<City> allCities = [];
   List<City> filteredCities = [];
-  var selectedGovernorate;
-  var selectedGovernorateId;
-  var selectedArea;
+  late String? selectedGovernorate;
+  late String selectedGovernorateId;
+  late String? selectedArea;
 
   NewAddressViewModelCubit viewModel = getIt.get<NewAddressViewModelCubit>();
   AddressModelEntity? newAddress;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     viewModel.loadGovernorates().then((value) {
       setState(() {
@@ -60,7 +59,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
           if (state is AddressSuccess) {
             displayAlertDialog(
               title: const Text(
-                'Saved Successfuly',
+                'Saved Successfully',
               ),
               showOkButton: true,
               onOkButtonClick: () {
@@ -68,7 +67,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
               },
             );
           } else if (state is AddressError) {
-            print('errror${state.errorMessage}');
+            debugPrint('error${state.errorMessage}');
           }
         },
         builder: (context, state) {
@@ -164,7 +163,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                               items: governorates.map((e) => e.nameEn).toList(),
                               onChanged: (value) {
                                 setState(() {
-                                  selectedGovernorate = value;
+                                  selectedGovernorate = value ?? '';
                                   selectedGovernorateId = governorates
                                       .firstWhere((g) => g.nameEn == value)
                                       .id;
@@ -193,8 +192,8 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                                   .toList(),
                               onChanged: (value) {
                                 setState(() {
-                                  selectedArea = value;
-                                  print(selectedArea);
+                                  selectedArea = value ?? '';
+                                  debugPrint(selectedArea);
                                 });
                               },
                             ),
@@ -207,9 +206,9 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                       ElevatedButton(
                         onPressed: () async {
                           var latLong = await viewModel
-                              .getLatLongFromCountry(selectedGovernorate);
-                          var lat = latLong?['latitude'];
-                          var long = latLong?['longitude'];
+                              .getLatLongFromCountry(selectedGovernorate ?? '');
+                          //var lat = latLong?['latitude'];
+                          //var long = latLong?['longitude'];
 
                           viewModel.processIntent(
                             AddAddress(

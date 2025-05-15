@@ -1,5 +1,5 @@
+import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';

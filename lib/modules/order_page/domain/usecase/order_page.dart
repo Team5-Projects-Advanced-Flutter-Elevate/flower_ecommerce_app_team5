@@ -3,12 +3,12 @@ import 'package:flower_ecommerce_app_team5/modules/order_page/domain/repo/order_
 import 'package:injectable/injectable.dart';
 
 @injectable
-class OrderPageUsecase {
+class OrderPageUseCase {
   OrderPageRepo orderPageRepo;
 
-  OrderPageUsecase(this.orderPageRepo);
+  OrderPageUseCase(this.orderPageRepo);
 
-  Future<List<GetMyOrdersEntity>> getMyOrder() {
+  Future<GetMyOrdersEntity> getMyOrder() {
     return orderPageRepo.getMyOrder();
   }
 }

@@ -69,7 +69,7 @@ class _TermsScreenState extends BaseStatefulWidgetState<TermsScreen> {
               },
             );
           } else if (state is AboutUsError) {
-            print('err${state.error}');
+            debugPrint('err${state.error}');
             return ErrorStateWidget(error: state.error);
           }
           return const SizedBox();

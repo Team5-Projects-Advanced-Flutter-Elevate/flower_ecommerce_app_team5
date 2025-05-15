@@ -6,8 +6,6 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cas
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
-import 'reset_code_use_case_test.mocks.dart';
 import 'reset_password_use_case_test.mocks.dart';
 
 @GenerateMocks([ResetPasswordRepo])

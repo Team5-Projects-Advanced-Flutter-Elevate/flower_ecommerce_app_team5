@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/core/apis/api_error/api_error_handler.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/bases/base_stateful_widget_state.dart';
@@ -7,7 +6,11 @@ import '../../../../core/colors/app_colors.dart';
 import '../../../../core/constants/constants.dart';
 
 class OrderTimeLine extends StatefulWidget {
-  const OrderTimeLine({super.key});
+  final List<String> timestamps;
+  final int activeStep;
+
+  const OrderTimeLine(
+      {super.key, required this.timestamps, required this.activeStep});
 
   @override
   State<OrderTimeLine> createState() => _OrderTimeLineState();
@@ -16,19 +19,11 @@ class OrderTimeLine extends StatefulWidget {
 class _OrderTimeLineState extends BaseStatefulWidgetState<OrderTimeLine> {
   final List<String> titles = [
     LocaleKeys.receivedYourOrder.tr(),
-    LocaleKeys.preparingYourOrder.tr() ,
+    LocaleKeys.preparingYourOrder.tr(),
     LocaleKeys.outForDelivery.tr(),
     LocaleKeys.delivered.tr(),
   ];
 
-  final List<String> timestamps = [
-    "03 Sep 2024 - 2:10",
-    "03 Sep 2024 - 2:10",
-    "03 Sep 2024 - 2:10",
-    "03 Sep 2024 - 2:10",
-  ];
-
-  final int activeStep = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +33,7 @@ class _OrderTimeLineState extends BaseStatefulWidgetState<OrderTimeLine> {
       itemBuilder: (context, index) {
         final isFirst = index == 0;
         final isLast = index == titles.length - 1;
-        final isActive = index == activeStep;
+        final isActive = index == widget.activeStep;
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -57,7 +52,7 @@ class _OrderTimeLineState extends BaseStatefulWidgetState<OrderTimeLine> {
                     CircleAvatar(
                       radius: 10,
                       backgroundColor:
-                      isActive ? AppColors.mainColor : AppColors.gray,
+                          isActive ? AppColors.mainColor : AppColors.gray,
                     ),
                     CircleAvatar(
                       radius: 8,
@@ -66,7 +61,7 @@ class _OrderTimeLineState extends BaseStatefulWidgetState<OrderTimeLine> {
                     CircleAvatar(
                       radius: 5,
                       backgroundColor:
-                      isActive ? AppColors.mainColor : AppColors.white,
+                          isActive ? AppColors.mainColor : AppColors.white,
                     ),
                   ],
                 ),
@@ -93,7 +88,7 @@ class _OrderTimeLineState extends BaseStatefulWidgetState<OrderTimeLine> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    timestamps[index],
+                    widget.timestamps[index],
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: AppColors.gray,
                       fontSize: 10 * (screenWidth / Constants.designWidth),
@@ -107,6 +102,4 @@ class _OrderTimeLineState extends BaseStatefulWidgetState<OrderTimeLine> {
       },
     );
   } // ou can make this dynamic
-
-
 }

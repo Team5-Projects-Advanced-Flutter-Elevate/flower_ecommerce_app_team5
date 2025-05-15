@@ -43,7 +43,8 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
     } catch (_) {}
 
     // Fallback: Find the nearest context from the root
-    return globalKeyNavigator.currentContext!;//getIt.get<GlobalKey<NavigatorState>>().currentContext!;
+    return globalKeyNavigator
+        .currentContext!; //getIt.get<GlobalKey<NavigatorState>>().currentContext!;
   }
 
   Future<void> displayAlertDialog(
@@ -63,6 +64,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
       builder: (context) {
         if (autoDismissible) {
           Future.delayed(autoDismissDuration, () {
+            if (!context.mounted) return;
             Navigator.pop(context);
           });
         }

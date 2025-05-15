@@ -1,16 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
-import '../../../../../../core/utilities/app_dialogs.dart';
-import '../../../../../../core/widgets/loading_state_widget.dart';
 import '../../../../../../core/widgets/product_card.dart';
 import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 

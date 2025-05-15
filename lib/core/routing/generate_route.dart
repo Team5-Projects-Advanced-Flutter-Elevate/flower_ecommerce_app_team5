@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/forget_password_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/reset_code_screen.dart';
@@ -13,7 +14,6 @@ import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/order_pl
 import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/ui/on_notification_opened_app.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/notifications_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
@@ -22,6 +22,7 @@ import 'package:flower_ecommerce_app_team5/modules/payment/ui/checkout_session_s
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/search/search_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/track_order/ui/track_order_view.dart';
+import 'package:flower_ecommerce_app_team5/modules/track_order_details/ui/track_order_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../modules/check_out/ui/check_out_view.dart';
@@ -114,7 +115,12 @@ class GenerateRoute {
         );
       case DefinedRoutes.trackOrder:
         return MaterialPageRoute(
-          builder: (context) =>const TrackOrderView()
+          builder: (context) => TrackOrderView(orderId: args as String,)
+        );
+      case DefinedRoutes.trackOrderDetailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) =>
+              TrackOrderDetailsScreen(orderId: (args as String)),
         );
       default:
         return _errorRoute();
@@ -129,7 +135,7 @@ class GenerateRoute {
       if (loginInfo != null)
         MaterialPageRoute(
             builder: (context) =>
-                const TrackOrderView() //HomeScreen(authEntity: storedAuthEntity),
+                const HomeScreen() //HomeScreen(authEntity: storedAuthEntity),
             )
       else
         MaterialPageRoute(

@@ -33,6 +33,7 @@ class PaymentRequestParametersDto extends Equatable {
 
   @JsonKey(includeToJson: false)
   @override
+  // ignore_for_file: hash_and_equals
   int get hashCode => super.hashCode;
 }
 

@@ -7,9 +7,9 @@ import '../datasource_contract/new_address.dart';
 
 @Injectable(as: NewAddressOnlineDataSource)
 class NewAddressOnlineDataSourceImpl implements NewAddressOnlineDataSource {
-  final HomeApiClient _ApiClient;
+  final HomeApiClient _apiClient;
 
-  NewAddressOnlineDataSourceImpl(this._ApiClient);
+  NewAddressOnlineDataSourceImpl(this._apiClient);
   @override
   Future<void> addAddress(
       var street, var phone, var city, var lat, var long, var name) async {
@@ -30,6 +30,6 @@ class NewAddressOnlineDataSourceImpl implements NewAddressOnlineDataSource {
     };
 
     await ApiExecutor.executeApi(
-        () async => await _ApiClient.saveAddress(map));
+        () async => await _apiClient.saveAddress(map));
   }
 }

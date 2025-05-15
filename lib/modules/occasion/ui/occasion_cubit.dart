@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/domain/use_cases/occasion_usecase.dart';
 import 'package:injectable/injectable.dart';
 import 'occasion_state.dart';

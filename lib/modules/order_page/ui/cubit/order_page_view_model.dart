@@ -6,27 +6,28 @@ import 'package:injectable/injectable.dart';
 @injectable
 class MyOrdersViewModelCubit extends Cubit<GetMyOrdersState> {
   MyOrdersViewModelCubit(this.orderPageUsecase) : super(GetMyOrdersInitial());
-  final OrderPageUsecase orderPageUsecase;
+  final OrderPageUseCase orderPageUsecase;
 
-  Future<void> _LoadMyOrders() async {
+  Future<void> _loadMyOrders() async {
     emit(GetMyOrdersLoading());
-    try {
-      final data = await orderPageUsecase.getMyOrder();
-      emit(GetMyOrdersSuccess(data));
-    } catch (e) {
-      emit(GetMyOrdersError(e.toString()));
-    }
+    final data = await orderPageUsecase.getMyOrder();
+    emit(GetMyOrdersSuccess(data));
+    // try {
+    //
+    // } catch (e) {
+    //   emit(GetMyOrdersError(e.toString()));
+    // }
   }
 
-  void processIntent(orderPageIntent intent) {
+  void processIntent(OrderPageIntent intent) {
     switch (intent) {
       case LoadOrderPageIntent():
-        _LoadMyOrders();
+        _loadMyOrders();
         break;
     }
   }
 }
 
-sealed class orderPageIntent {}
+sealed class OrderPageIntent {}
 
-class LoadOrderPageIntent extends orderPageIntent {}
+class LoadOrderPageIntent extends OrderPageIntent {}

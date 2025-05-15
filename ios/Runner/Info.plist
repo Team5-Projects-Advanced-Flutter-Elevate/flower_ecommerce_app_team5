@@ -5,12 +5,9 @@
 		<!-- Required for all websites -->
 		<key>NSAppTransportSecurity</key>
 		<dict>
-			<key>NSAllowsArbitraryLoadsInWebContent</key>
-			<true/>
-		<!-- App Transport Security Settings -->
-		<key>NSAppTransportSecurity</key>
-		<dict>
 			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+			<key>NSAllowsArbitraryLoadsInWebContent</key>
 			<true/>
 		</dict>
 

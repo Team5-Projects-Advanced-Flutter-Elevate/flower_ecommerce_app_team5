@@ -58,16 +58,19 @@ class _MyOrderPageScreenState
             if (state is GetMyOrdersLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is GetMyOrdersSuccess) {
-              final allOrders =
-                  state.orders.expand((group) => group.orders).toList();
+              final allOrders = state.orders.orderEntities;
+
               final activeOrders = allOrders
                   .where((order) =>
-                      order.isDelivered == false && order.orderItems.isNotEmpty)
+                      order.isDelivered == false &&
+                      (order.orderItems?.isNotEmpty ?? false))
                   .toList();
               final completeOrders = allOrders
                   .where((order) =>
-                      order.isDelivered == true && order.orderItems.isNotEmpty)
+                      order.isDelivered == true &&
+                      (order.orderItems?.isNotEmpty ?? false))
                   .toList();
+              debugPrint("${activeOrders[0].totalPrice}");
 
               return DefaultTabController(
                 length: 2,
@@ -99,21 +102,19 @@ class _MyOrderPageScreenState
                     ),
                     Expanded(
                       child: TabBarView(
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
                           // Active Orders Tab
                           activeOrders.isEmpty
                               ? Center(child: Text(LocaleKeys.noOrder.tr()))
                               : ListView.builder(
+                                  shrinkWrap: true,
                                   itemCount: activeOrders.length,
                                   itemBuilder: (context, index) {
                                     final order = activeOrders[index];
-                                    final item = order.orderItems.first;
 
                                     return OrderCard(
-                                      title: item.product?.title,
-                                      imageUrl: item.product?.imgCover,
-                                      orderNumber: order.orderNumber,
-                                      price: item.product?.price,
+                                      orderEntity: order,
                                     );
                                   },
                                 ),
@@ -125,13 +126,9 @@ class _MyOrderPageScreenState
                                   itemCount: completeOrders.length,
                                   itemBuilder: (context, index) {
                                     final order = completeOrders[index];
-                                    final item = order.orderItems.first;
 
                                     return OrderCard(
-                                      title: item.product?.title,
-                                      imageUrl: item.product?.imgCover,
-                                      orderNumber: order.orderNumber,
-                                      price: item.product?.price,
+                                      orderEntity: order,
                                     );
                                   },
                                 ),

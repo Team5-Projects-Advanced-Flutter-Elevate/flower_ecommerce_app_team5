@@ -19,7 +19,6 @@ import 'package:provider/provider.dart';
 import '../../../../../core/di/injectable_initializer.dart';
 import '../../../../../shared_layers/localization/enums/languages_enum.dart';
 import '../../../../order_page/ui/order_page_screen.dart';
-import '../add_new_address/new_address_screen.dart';
 
 class ProfileLayout extends StatefulWidget {
   const ProfileLayout({super.key});
@@ -130,7 +129,7 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => MyOrderPageScreen(),));
+                        Navigator.push(context,MaterialPageRoute(builder: (context) => const MyOrderPageScreen(),));
 
                       },
                       child: ListTile(

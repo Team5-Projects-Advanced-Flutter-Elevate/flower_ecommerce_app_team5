@@ -18,4 +18,5 @@ abstract class DefinedRoutes {
   static const String onNotificationOpenedApp = "/onNotificationOpenedApp";
   static const String notificationScreen = "notificationScreen";
   static const String trackOrder = "/trackOrder";
+  static const String trackOrderDetailsScreenRoute = "trackOrderDetailsScreenRoute";
 }

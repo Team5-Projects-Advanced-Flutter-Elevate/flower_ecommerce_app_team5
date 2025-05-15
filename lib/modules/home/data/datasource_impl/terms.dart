@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flower_ecommerce_app_team5/modules/home/data/datasource_contract/terms.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/terms.dart';
 import 'package:flutter/services.dart';

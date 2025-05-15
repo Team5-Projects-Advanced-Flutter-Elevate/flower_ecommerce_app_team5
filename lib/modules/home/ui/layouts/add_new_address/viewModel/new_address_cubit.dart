@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/new_address_use_case.dart';
@@ -72,11 +73,11 @@ class NewAddressViewModelCubit extends Cubit<AddressState> {
           'longitude': location.longitude,
         };
       } else {
-        print("No location found for the country.");
+        debugPrint("No location found for the country.");
         return null;
       }
     } catch (e) {
-      print("Error getting coordinates: $e");
+      debugPrint("Error getting coordinates: $e");
       return null;
     }
   }
@@ -85,12 +86,12 @@ class NewAddressViewModelCubit extends Cubit<AddressState> {
 sealed class NewAddressOnIntent {}
 
 class AddAddress extends NewAddressOnIntent {
-  var street;
-  var phone;
-  var city;
-  var lat;
-  var long;
-  var name;
+  String? street;
+  String? phone;
+  String? city;
+  String? lat;
+  String? long;
+  String? name;
 
   AddAddress(
       this.street, this.phone, this.city, this.lat, this.long, this.name);

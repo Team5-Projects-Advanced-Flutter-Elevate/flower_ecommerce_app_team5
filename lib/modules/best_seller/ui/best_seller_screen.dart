@@ -1,13 +1,10 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/core/utilities/app_dialogs.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';

@@ -1,10 +1,8 @@
+import 'package:flower_ecommerce_app_team5/core/models/product/product_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/home_data_response_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 import '../all_gategories_reponse/category_dm.dart';
 import '../all_occasions_response/occasion_dm.dart';
-import '../product_do/product_dto.dart';
-
 part 'home_data_response.g.dart';
 
 @JsonSerializable()

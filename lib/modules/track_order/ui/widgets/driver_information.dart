@@ -32,12 +32,10 @@ class DriverInformation extends BaseStatelessWidget {
   Future<void> _openWhatsApp(String phoneNumber) async {
     // Format the phone number by removing any non-digit characters
     String formattedNumber = phoneNumber.replaceAll(RegExp(r'[^\d]'), '');
-    
+
     // Create WhatsApp URL - note that WhatsApp expects phone numbers with country code but no '+'
-    final Uri whatsappUri = Uri.parse(
-      'https://wa.me/$formattedNumber'
-    );
-    
+    final Uri whatsappUri = Uri.parse('https://wa.me/$formattedNumber');
+
     if (await canLaunchUrl(whatsappUri)) {
       await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
     } else {
@@ -48,7 +46,7 @@ class DriverInformation extends BaseStatelessWidget {
   @override
   Widget customBuild(BuildContext context, BaseInheritedWidget inherit) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Row(
         children: [
           Expanded(
@@ -74,7 +72,7 @@ class DriverInformation extends BaseStatelessWidget {
                   LocaleKeys.isYourDeliveryHeroForToday.tr(),
                   style: inherit.theme.textTheme.labelLarge?.copyWith(
                     fontSize:
-                    10 * (inherit.screenWidth / Constants.designWidth),
+                        10 * (inherit.screenWidth / Constants.designWidth),
                   ),
                 ),
               ],
@@ -91,6 +89,7 @@ class DriverInformation extends BaseStatelessWidget {
                       AssetsPaths.callIcon,
                     ),
                     color: AppColors.mainColor,
+                    size: 18,
                   ),
                 ),
                 SizedBox(
@@ -100,8 +99,8 @@ class DriverInformation extends BaseStatelessWidget {
                   onTap: () => _openWhatsApp(driverPhoneNumber),
                   child: Image.asset(
                     AssetsPaths.whatsAppIcon,
-                    width: inherit.screenWidth * 0.08,
-                    height: inherit.screenHeight * 0.08,
+                    width: inherit.screenWidth * 0.06,
+                    height: inherit.screenHeight * 0.06,
                   ),
                 ),
               ],

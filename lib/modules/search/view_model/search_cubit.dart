@@ -1,11 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../core/apis/api_result/api_result.dart';
 import '../../home/domain/entities/all_product_response_entity.dart';
-import '../../home/domain/entities/product_entity.dart';
 import '../../home/domain/use_cases/get_all_products_use_case.dart';
 
 part 'search_state.dart';
