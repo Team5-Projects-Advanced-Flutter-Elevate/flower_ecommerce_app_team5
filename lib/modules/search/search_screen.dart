@@ -10,7 +10,6 @@ import '../../core/colors/app_colors.dart';
 import '../../core/constants/constants.dart';
 import '../../core/di/injectable_initializer.dart';
 import '../../core/routing/defined_routes.dart';
-import '../../core/utilities/app_dialogs.dart';
 import '../../core/widgets/loading_state_widget.dart';
 import '../../core/widgets/product_card.dart';
 import '../../shared_layers/localization/generated/locale_keys.g.dart';

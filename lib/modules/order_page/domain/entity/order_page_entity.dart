@@ -1,6 +1,5 @@
 import 'package:flower_ecommerce_app_team5/core/entities/order/order_entity.dart';
 
-import '../../../../core/entities/order/order_entity_firestore.dart';
 
 class GetMyOrdersEntity {
   const GetMyOrdersEntity({

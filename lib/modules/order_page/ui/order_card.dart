@@ -19,7 +19,7 @@ class OrderCard extends StatefulWidget {
 class _OrderCardState extends BaseStatefulWidgetState<OrderCard> {
   @override
   Widget build(BuildContext context) {
-    print("======> price ${widget.orderEntity.totalPrice}");
+    debugPrint("======> price ${widget.orderEntity.totalPrice}");
 
     return Card(
       color: AppColors.white,
@@ -45,19 +45,21 @@ class _OrderCardState extends BaseStatefulWidgetState<OrderCard> {
                         width: (screenWidth / 2) - 36,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: CachedNetworkImage(
-                              imageUrl: widget.orderEntity.orderItems?[index]
-                                      .product?.imgCover ??
-                                  "",
-                              width: (screenWidth / 2) - 36,
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) =>
-                                      CircularProgressIndicator(
-                                          value: downloadProgress.progress),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
+                          child: Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: CachedNetworkImage(
+                                imageUrl: widget.orderEntity.orderItems?[index]
+                                        .product?.imgCover ??
+                                    "",
+                                width: (screenWidth / 2) - 36,
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                        CircularProgressIndicator(
+                                            value: downloadProgress.progress),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                              ),
                             ),
                           ),
                         ),
@@ -84,7 +86,7 @@ class _OrderCardState extends BaseStatefulWidgetState<OrderCard> {
                   SizedBox(height: screenHeight * 0.005),
                   ElevatedButton(
                     onPressed: () {
-                      print("====== order id ${widget.orderEntity.id}");
+                      debugPrint("====== order id ${widget.orderEntity.id}");
                       Navigator.pushNamed(
                           context, DefinedRoutes.trackOrderDetailsScreenRoute,
                           arguments: widget.orderEntity.id);

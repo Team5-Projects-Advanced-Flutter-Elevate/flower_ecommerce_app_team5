@@ -70,7 +70,7 @@ class _MyOrderPageScreenState
                       order.isDelivered == true &&
                       (order.orderItems?.isNotEmpty ?? false))
                   .toList();
-              print(activeOrders[0].totalPrice);
+              debugPrint("${activeOrders[0].totalPrice}");
 
               return DefaultTabController(
                 length: 2,

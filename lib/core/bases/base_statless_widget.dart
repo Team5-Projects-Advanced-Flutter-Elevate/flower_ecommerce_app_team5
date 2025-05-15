@@ -43,6 +43,7 @@ abstract class BaseStatelessWidget extends StatelessWidget {
       builder: (context) {
         if (autoDismissible) {
           Future.delayed(autoDismissDuration, () {
+            if(!context.mounted) return;
             Navigator.pop(context);
           });
         }

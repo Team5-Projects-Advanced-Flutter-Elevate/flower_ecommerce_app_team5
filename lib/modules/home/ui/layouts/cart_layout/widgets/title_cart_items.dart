@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
-import '../../../../../../core/utilities/app_dialogs.dart';
 import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import 'cart_list_view.dart';
 

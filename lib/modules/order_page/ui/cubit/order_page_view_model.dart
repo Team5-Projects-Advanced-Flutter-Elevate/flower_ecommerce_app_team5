@@ -8,7 +8,7 @@ class MyOrdersViewModelCubit extends Cubit<GetMyOrdersState> {
   MyOrdersViewModelCubit(this.orderPageUsecase) : super(GetMyOrdersInitial());
   final OrderPageUseCase orderPageUsecase;
 
-  Future<void> _LoadMyOrders() async {
+  Future<void> _loadMyOrders() async {
     emit(GetMyOrdersLoading());
     final data = await orderPageUsecase.getMyOrder();
     emit(GetMyOrdersSuccess(data));
@@ -19,15 +19,15 @@ class MyOrdersViewModelCubit extends Cubit<GetMyOrdersState> {
     // }
   }
 
-  void processIntent(orderPageIntent intent) {
+  void processIntent(OrderPageIntent intent) {
     switch (intent) {
       case LoadOrderPageIntent():
-        _LoadMyOrders();
+        _loadMyOrders();
         break;
     }
   }
 }
 
-sealed class orderPageIntent {}
+sealed class OrderPageIntent {}
 
-class LoadOrderPageIntent extends orderPageIntent {}
+class LoadOrderPageIntent extends OrderPageIntent {}

@@ -37,7 +37,7 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     homeScreenViewModel = Provider.of(context);
-    print("selected app section index ${homeScreenViewModel.selectedAppSectionIndex}");
+    debugPrint("selected app section index ${homeScreenViewModel.selectedAppSectionIndex}");
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarColor: AppColors.white,

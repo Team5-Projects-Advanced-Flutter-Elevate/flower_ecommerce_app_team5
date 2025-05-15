@@ -39,25 +39,28 @@ class OrderDtoFirestore {
 
   factory OrderDtoFirestore.fromJson(Map<String, dynamic>? json) {
     return OrderDtoFirestore(
-      id: json?["_id"],
-      user: json?["user"] == null ? null : UserDto.fromJson(json?["user"]),
-      orderItems:
-          json?["orderItems"] == null
-              ? []
-              : List<OrderItemDto>.from(
+        id: json?["_id"],
+        user: json?["user"] == null ? null : UserDto.fromJson(json?["user"]),
+        orderItems: json?["orderItems"] == null
+            ? []
+            : List<OrderItemDto>.from(
                 json?["orderItems"]!.map((x) => OrderItemDto.fromJson(x)),
               ),
-      totalPrice: json?["totalPrice"],
-      paymentType: json?["paymentType"],
-      isPaid: json?["isPaid"],
-      isDelivered: json?["isDelivered"],
-      state: json?["state"],
-      createdAt: json?["createdAt"] ?? "",
-      updatedAt: json?["updatedAt"] ?? "",
-      orderNumber: json?["orderNumber"],
-      v: json?["__v"],
-      store: json?["store"] == null ? null : StoreDto.fromJson(json?["store"]),
-    );
+        totalPrice: json?["totalPrice"],
+        paymentType: json?["paymentType"],
+        isPaid: json?["isPaid"],
+        isDelivered: json?["isDelivered"],
+        state: json?["state"],
+        createdAt: json?["createdAt"] ?? "",
+        updatedAt: json?["updatedAt"] ?? "",
+        orderNumber: json?["orderNumber"],
+        v: json?["__v"],
+        store:
+            json?["store"] == null ? null : StoreDto.fromJson(json?["store"]),
+        receivedUserOrderAt: json?['receivedUserOrderAt'],
+        preparedUserOrderAt: json?['preparedUserOrderAt'],
+        outForDeliveryAt: json?['outForDeliveryAt'],
+        deliveredAt: json?['deliveredAt']);
   }
 
   String? id;
@@ -115,10 +118,9 @@ class OrderDtoFirestore {
     return OrderDtoFirestore(
       id: entity.id,
       user: UserDto.convertIntoDto(entity.user),
-      orderItems:
-          entity.orderItems
-              ?.map((e) => OrderItemDto.convertIntoDto(e))
-              .toList(),
+      orderItems: entity.orderItems
+          ?.map((e) => OrderItemDto.convertIntoDto(e))
+          .toList(),
       totalPrice: entity.totalPrice,
       paymentType: entity.paymentType,
       isPaid: entity.isPaid,

@@ -3,9 +3,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layou
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../core/bases/base_stateful_widget_state.dart';
-import '../../../../../core/colors/app_colors.dart';
 import '../../../../../core/di/injectable_initializer.dart';
 import '../../../../../core/widgets/error_state_widget.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
@@ -71,7 +69,7 @@ class _AboutUsScreenState extends BaseStatefulWidgetState<AboutUsScreen> {
               },
             );
           } else if (state is AboutUsError) {
-            print('err${state.error}');
+            debugPrint('err${state.error}');
             return ErrorStateWidget(error: state.error);
           }
           return const SizedBox();

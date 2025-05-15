@@ -158,7 +158,7 @@ import '../../modules/home/data/datasource_impl/about_us.dart' as _i1049;
 import '../../modules/home/data/datasource_impl/home_data_source_impl.dart'
     as _i524;
 import '../../modules/home/data/datasource_impl/new_address.dart' as _i265;
-import '../../modules/home/data/datasource_impl/Terms.dart' as _i139;
+import '../../modules/home/data/datasource_impl/terms.dart' as _i139;
 import '../../modules/home/data/repo_impl/about_us.dart' as _i219;
 import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
 import '../../modules/home/data/repo_impl/new_address_repo_impl.dart' as _i150;
