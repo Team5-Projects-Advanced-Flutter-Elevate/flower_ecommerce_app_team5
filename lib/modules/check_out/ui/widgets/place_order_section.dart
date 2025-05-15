@@ -50,7 +50,7 @@ class PlaceOrderSection extends BaseStatelessWidget {
                 case MakeCashOnDeliveryStatus.success:
                   Navigator.pushNamed(
                     context,
-                    DefinedRoutes.trackOrder,
+                    DefinedRoutes.orderPlacedSuccessfully,
                   );
                 case MakeCashOnDeliveryStatus.error:
                   displayAlertDialog(
