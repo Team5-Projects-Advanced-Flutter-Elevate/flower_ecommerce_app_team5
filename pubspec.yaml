@@ -97,6 +97,7 @@ dependencies:
   logger: ^2.5.0
   timelines_plus: ^1.0.6
   timeline_tile: ^2.0.0
+  url_launcher: ^6.3.1
 
 
 
