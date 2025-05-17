@@ -43,8 +43,6 @@ class DriverInformation extends BaseStatelessWidget {
 
   @override
   Widget customBuild(BuildContext context, BaseInheritedWidget inherit) {
-    print(driverEntity?.firstName);
-    print(driverEntity?.lastName);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Row(
