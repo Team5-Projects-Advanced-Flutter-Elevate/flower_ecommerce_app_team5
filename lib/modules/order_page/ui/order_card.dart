@@ -54,9 +54,10 @@ class _OrderCardState extends BaseStatefulWidgetState<OrderCard> {
                                     "",
                                 width: (screenWidth / 2) - 36,
                                 progressIndicatorBuilder:
-                                    (context, url, downloadProgress) =>
-                                        CircularProgressIndicator(
-                                            value: downloadProgress.progress),
+                                    (context, url, downloadProgress) => Center(
+                                  child: CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                                ),
                                 errorWidget: (context, url, error) =>
                                     const Icon(Icons.error),
                               ),
@@ -87,8 +88,7 @@ class _OrderCardState extends BaseStatefulWidgetState<OrderCard> {
                   ElevatedButton(
                     onPressed: () {
                       debugPrint("====== order id ${widget.orderEntity.id}");
-                      Navigator.pushNamed(
-                          context, DefinedRoutes.trackOrder,
+                      Navigator.pushNamed(context, DefinedRoutes.trackOrder,
                           arguments: widget.orderEntity.id);
                     },
                     style: ElevatedButton.styleFrom(

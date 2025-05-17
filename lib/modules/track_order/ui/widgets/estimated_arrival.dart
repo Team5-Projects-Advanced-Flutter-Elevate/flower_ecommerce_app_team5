@@ -7,7 +7,8 @@ import '../../../../core/colors/app_colors.dart';
 import '../../../../shared_layers/localization/generated/locale_keys.g.dart';
 
 class EstimatedArrival extends BaseStatelessWidget {
-  const EstimatedArrival({super.key});
+  final String? estimatedArrival;
+  const EstimatedArrival({super.key,required this.estimatedArrival});
 
   @override
   Widget customBuild(BuildContext context, BaseInheritedWidget inherit) {
@@ -26,7 +27,7 @@ class EstimatedArrival extends BaseStatelessWidget {
                 ),
               ),
               Text(
-                '03 Sep 2024, 11:00 AM',
+                estimatedArrival ?? LocaleKeys.pending.tr(),
                 style: inherit.theme.textTheme.labelLarge?.copyWith(
                   color: AppColors.black,
                 ),

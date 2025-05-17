@@ -34,10 +34,10 @@ class _TrackOrderViewState extends BaseStatefulWidgetState<TrackOrderView> {
 
   late OrderEntityFirestore? orderEntity;
   List<String> timestamps = [
-    "Pending...",
-    "Pending...",
-    "Pending...",
-    "Pending...",
+    LocaleKeys.pending.tr(),
+    LocaleKeys.pending.tr(),
+    LocaleKeys.pending.tr(),
+    LocaleKeys.pending.tr(),
   ];
   int activeStep = 0;
   @override
@@ -91,13 +91,20 @@ class _TrackOrderViewState extends BaseStatefulWidgetState<TrackOrderView> {
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 3,
-                              child: EstimatedArrival(),
+                              child: EstimatedArrival(
+                                estimatedArrival: orderEntity
+                                    ?.receivedUserOrderAt
+                                    ?.getDataFormatAfterAdding(
+                                        const Duration(hours: 2)),
+                              ),
                             ),
-                            const Expanded(
+                            Expanded(
                               flex: 2,
-                              child: DriverInformation(),
+                              child: DriverInformation(
+                                driverEntity: driverEntity,
+                              ),
                             ),
                             SizedBox(
                               height: screenHeight * 0.03,

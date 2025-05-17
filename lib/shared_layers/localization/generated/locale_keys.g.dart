@@ -87,6 +87,8 @@ class LocaleKeys {
   static const String occasionScreenTitle = 'occasionScreenTitle';
   static const String occasionScreenSubTitle = 'occasionScreenSubTitle';
   static const String noProductsFound = 'noProductsFound';
+  static const String noOccasionsFound = 'noOccasionsFound';
+  static const String noCategoriesFound = 'noCategoriesFound';
   static const String bloomWithBestSeller = 'bloomWithBestSeller';
   static const String noProducts = 'noProducts';
   static const String addToCart = 'addToCart';
@@ -195,4 +197,8 @@ class LocaleKeys {
   static const preparingYourOrder = 'preparingYourOrder';
   static const outForDelivery = 'outForDelivery';
   static const delivered = 'delivered';
+
+  // Track Order
+  static const pending = 'pending';
+  static const unknownWord = 'unknownWord';
 }

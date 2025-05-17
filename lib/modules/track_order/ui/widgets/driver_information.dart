@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/entities/driver/driver_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/bases/base_inherited_widget.dart';
@@ -9,11 +10,8 @@ import '../../../../core/constants/constants.dart';
 import '../../../../shared_layers/localization/generated/locale_keys.g.dart';
 
 class DriverInformation extends BaseStatelessWidget {
-  const DriverInformation({super.key});
-
-  // Add driver contact information
-  final String driverPhoneNumber = '+201065618744'; // Example phone number
-  final String driverName = 'mahmoud';
+  final DriverEntity? driverEntity;
+  const DriverInformation({super.key, required this.driverEntity});
 
   // Function to make a phone call
   Future<void> _makePhoneCall(String phoneNumber) async {
@@ -45,6 +43,8 @@ class DriverInformation extends BaseStatelessWidget {
 
   @override
   Widget customBuild(BuildContext context, BaseInheritedWidget inherit) {
+    print(driverEntity?.firstName);
+    print(driverEntity?.lastName);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Row(
@@ -64,7 +64,10 @@ class DriverInformation extends BaseStatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  driverName,
+                  driverEntity?.firstName == null &&
+                          driverEntity?.lastName == null
+                      ? LocaleKeys.unknownWord.tr()
+                      : "${driverEntity?.firstName ?? ''} ${driverEntity?.lastName ?? ''}",
                   style: inherit.theme.textTheme.labelLarge
                       ?.copyWith(color: AppColors.black),
                 ),
@@ -83,7 +86,7 @@ class DriverInformation extends BaseStatelessWidget {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () => _makePhoneCall(driverPhoneNumber),
+                  onTap: () => _makePhoneCall(driverEntity?.phone ?? '+20'),
                   child: ImageIcon(
                     AssetImage(
                       AssetsPaths.callIcon,
@@ -96,7 +99,7 @@ class DriverInformation extends BaseStatelessWidget {
                   width: inherit.screenWidth * 0.05,
                 ),
                 GestureDetector(
-                  onTap: () => _openWhatsApp(driverPhoneNumber),
+                  onTap: () => _openWhatsApp(driverEntity?.phone ?? '+20'),
                   child: Image.asset(
                     AssetsPaths.whatsAppIcon,
                     width: inherit.screenWidth * 0.06,

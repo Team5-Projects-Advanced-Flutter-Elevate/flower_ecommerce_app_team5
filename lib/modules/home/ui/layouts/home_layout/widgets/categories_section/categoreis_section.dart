@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/bases/base_statless_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/home_layout/view_model/home_cubit.dart';
@@ -11,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'categoreis_list_view.dart';
 import '../headline_section.dart';
 
-class CategoriesSection extends StatelessWidget {
+class CategoriesSection extends BaseStatelessWidget {
   const CategoriesSection({
     super.key,
     required this.screenHeight,
@@ -20,7 +21,7 @@ class CategoriesSection extends StatelessWidget {
   final double screenHeight;
 
   @override
-  Widget build(BuildContext context) {
+  Widget customBuild(BuildContext context, inherit) {
     HomeScreenViewModel homeScreenViewModel = Provider.of(context);
     return Expanded(
       flex: 2,
@@ -46,10 +47,17 @@ class CategoriesSection extends StatelessWidget {
                   );
                 case HomeStatus.success:
                   return Expanded(
-                    child: CategoriesListView(
-                      categories:
-                          state.homeDataResponseEntity?.categories ?? [],
-                    ),
+                    child: state.homeDataResponseEntity?.categories == null ||
+                            state.homeDataResponseEntity!.categories!.isEmpty
+                        ? Center(
+                            child: Text(
+                            LocaleKeys.noCategoriesFound.tr(),
+                            style: inherit.theme.textTheme.bodyLarge,
+                          ))
+                        : CategoriesListView(
+                            categories:
+                                state.homeDataResponseEntity?.categories ?? [],
+                          ),
                   );
                 case HomeStatus.error:
                   return ErrorStateWidget(error: state.error!);

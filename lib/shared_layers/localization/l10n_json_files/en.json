@@ -85,6 +85,8 @@
   "occasionScreenTitle": "Occasion",
   "occasionScreenSubTitle": "Bloom with our exquisite best sellers",
   "noProductsFound": "No Products Found",
+  "noOccasionsFound": "No Occasions Found",
+  "noCategoriesFound": "No Categories Found",
   "pleaseLoginFirst": "Please login first",
   "cartEmpty": "Cart is Empty",
   "addItemsToCart": "Please add some items to cart",
@@ -176,5 +178,7 @@
   "receivedYourOrder": "Received your order",
   "preparingYourOrder": "Preparing your order",
   "outForDelivery": "Out for delivery",
-  "delivered": "Delivered"
+  "delivered": "Delivered",
+  "pending": "Pending...",
+  "unknownWord": "Unknown"
 }

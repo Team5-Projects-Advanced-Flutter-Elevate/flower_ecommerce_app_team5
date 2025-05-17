@@ -5,4 +5,12 @@ extension IntExtension on int {
     final DateFormat formatter = DateFormat('dd MMM yyyy, hh:mm a');
     return formatter.format(DateTime.fromMillisecondsSinceEpoch(this));
   }
+
+  String getDataFormatAfterAdding(Duration addedDuration) {
+    final DateFormat formatter = DateFormat('dd MMM yyyy, hh:mm a');
+    final newDateTime = DateTime.fromMillisecondsSinceEpoch(
+      this,
+    ).add(addedDuration);
+    return formatter.format(newDateTime);
+  }
 }
