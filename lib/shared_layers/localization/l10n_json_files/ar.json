@@ -94,20 +94,8 @@
   "profileUpdatedSuccessfully": "تم تحديث الملف الشخصي بنجاح!",
   "change": "تغيير",
   "update": "تحديث",
-
-    "//productDetailsScreen": "",
-    "egp": "ج.م {}",
-    "status": "الحالة: ",
-    "inStock": "متوفر في المخزون",
-    "notInStock": "غير متوفر في المخزون",
-    "pricesIncludeTax": "جميع الأسعار تشمل الضريبة",
-    "description": "الوصف: ",
-    "information": "المعلومات: ",
-    "sold": "تم بيعه: {}",
-    "rate": "التقييم: {}",
-    "rateCount": "عدد التقييمات: {}",
     "addNewAddress": "اضف عنوان جديد",
-    "savedAddressListIsEmpty" : "لا توجد عناويين"
+    "savedAddressListIsEmpty" : "لا توجد عناويين",
 
   "//productDetailsScreen": "",
   "egp": "ج.م {}",

@@ -149,7 +149,6 @@ class LocaleKeys {
   static const String changePasswordUpdateButton = 'changePasswordUpdateButton';
   static const String addNewAddress = 'addNewAddress';
   static const String savedAddressListIsEmpty = 'SavedAddressListIsEmpty';
-  static const changePasswordUpdateButton = 'changePasswordUpdateButton';
 
   // Search
   static const String searchForAnyProductYouWant = 'searchForAnyProductYouWant';

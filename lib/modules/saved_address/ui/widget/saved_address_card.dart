@@ -12,71 +12,48 @@ import '../../data/models/saved_address_response/saved_address_response_dto.dart
 import '../view_model/saved_address_intent.dart';
 import '../view_model/saved_address_view_model.dart';
 
-class SavedAddressCard extends BaseStatelessWidget {
-  const SavedAddressCard({super.key, required this.response});
+class SavedAddressCard extends StatelessWidget {
+  const SavedAddressCard({
+    super.key,
+    required this.response,
+  });
+
   final AddressEntity response;
 
   @override
-  Widget customBuild(BuildContext context, BaseInheritedWidget inherit) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.white[60]!),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-      ),
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
+  Widget build(BuildContext context) {
+    return BlocBuilder<AddressViewModel, AddressState>(
+      builder: (context, state) {
+        final viewModel = context.read<AddressViewModel>();
+
+        return Container(
+          margin: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.white[60]!),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Address details...
               Row(
                 children: [
-                  const Icon(Icons.location_on_rounded, size: 20),
-                  const SizedBox(width: 4),
-                  Text(
-                    response.city ?? "",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
+                  IconButton(
+                    icon: Image.asset(AssetsPaths.deleteIcon),
+                    onPressed: () => viewModel.doIntent(DeleteAddress(response.id!)),
+                  ),
+                  IconButton(
+                    icon: Image.asset(AssetsPaths.edit),
+                    onPressed: () => viewModel.doIntent(UpdateAddress(response.id!)),
                   ),
                 ],
               ),
-              const SizedBox(height: 16.0),
-              Text(
-                response.street ?? "",
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 13,
-                ),
-              ),
             ],
           ),
-          Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  context.read<AddressViewModel>().doIntent(
-                    DeleteAddress(response.id ?? ""),
-                  );
-                },
-                child: Image.asset(AssetsPaths.deleteIcon, width: 24, height: 24),
-              ),
-              const SizedBox(width: 4),
-              InkWell(
-                onTap: () {
-                  context.read<AddressViewModel>().doIntent(
-                    UpdateAddress(response.id ?? ""),
-                  );
-                },
-                child: Image.asset(AssetsPaths.edit, width: 18, height: 18),
-              )
-            ],
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 }

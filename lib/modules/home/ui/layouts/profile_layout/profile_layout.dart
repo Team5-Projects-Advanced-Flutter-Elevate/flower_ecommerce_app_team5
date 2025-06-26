@@ -142,24 +142,14 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                       onTap: () {
                         Navigator.pushNamed(
                           context,
-                          DefinedRoutes.addNewAddress,
+                          DefinedRoutes.savedAddressScreenRoute,
                         );
                       },
                       child: ListTile(
                         title: Text(LocaleKeys.savedAddress.tr()),
                         leading: const Icon(Icons.location_on),
                         trailing: const Icon(Icons.arrow_forward_ios),
-                      ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.pushNamed(context,DefinedRoutes.savedAddressScreenRoute);
-                      },
-                      child: ListTile(
-                        title: Text(LocaleKeys.savedAddress.tr()),
-                        leading: const Icon(Icons.location_on),
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                      ),
-                    ),
+                      )),
                     Divider(
                       color: AppColors.gray,
                     ),

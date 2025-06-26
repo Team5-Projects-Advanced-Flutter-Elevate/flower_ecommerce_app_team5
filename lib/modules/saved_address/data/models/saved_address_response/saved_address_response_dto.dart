@@ -80,7 +80,8 @@ class Address extends Equatable {
         long: long,
         street: street,
         username: username,
-        phone: phone
+        phone: phone,
+      id: id,
     );
   }
 }
@@ -89,7 +90,7 @@ class AddressEntity{
 
   AddressEntity({this.id,this.city, this.lat, this.long, this.street, this.username, this.phone});
   final String? id;
-  static const String idKey = "id";
+  static const String idKey = "_id";
 
   final String? street;
   static const String streetKey = "street";

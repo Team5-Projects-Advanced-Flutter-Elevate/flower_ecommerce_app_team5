@@ -10,89 +10,64 @@ import '../../../../../../core/bases/base_stateful_widget_state.dart';
 import '../../../../../../core/widgets/error_state_widget.dart';
 import '../../../../../../core/widgets/loading_state_widget.dart';
 import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
+import '../../../core/routing/defined_routes.dart';
 
-class SavedAddressScreen extends StatefulWidget {
+class SavedAddressScreen extends StatelessWidget {
   const SavedAddressScreen({super.key});
 
   @override
-  State<SavedAddressScreen> createState() => _SavedAddressScreenState();
-}
-
-class _SavedAddressScreenState
-    extends BaseStatefulWidgetState<SavedAddressScreen> {
-  AddressViewModel viewModel = getIt.get<AddressViewModel>();
-  @override
-  void initState() {
-    super.initState();
-
-    viewModel.doIntent(GetAddress());
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => viewModel,
-      child: Scaffold(
-        appBar: AppBar(
-          forceMaterialTransparency: true,
-          titleSpacing: 0.0,
-          leading: IconButton(
-            icon:
-                const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text(
-            LocaleKeys.savedAddress.tr(),
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(fontWeight: FontWeight.w500),
-          ),
-        ),
-        body: BlocBuilder<AddressViewModel, AddressState>(
-          builder: (context, state) {
-            switch (state.addressStatus) {
-              case AddressStatus.initial:
-              case AddressStatus.loading:
-                return const LoadingWidget();
-              case AddressStatus.success:
-                if (state.address!.address!.isEmpty) {
-                  return Column(
-                    children: [
-                      Text(LocaleKeys.savedAddressListIsEmpty.tr()),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          itemBuilder: (context, index) => SavedAddressCard(
-                            response: state.address!.address![index],
-                          ),
-                          itemCount: state.address!.address!.length,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 48,
-                      ),
-                      ElevatedButton(
-                          onPressed: () {},
-                          child: Text(LocaleKeys.addNewAddress.tr())),
-                      const SizedBox(
-                        height: 48,
-                      ),
-                    ],
-                  );
-                }
-              case AddressStatus.error:
-                return ErrorStateWidget(error: state.error.toString());
-            }
-          },
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(LocaleKeys.savedAddress.tr()),
+      ),
+      body: BlocConsumer<AddressViewModel, AddressState>(
+        listener: (context, state) {
+          if (state.addressStatus == AddressStatus.error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error.toString())),
+            );
+          }
+        },
+        builder: (context, state) {
+          switch (state.addressStatus) {
+            case AddressStatus.initial:
+            case AddressStatus.loading:
+              return const LoadingWidget();
+            case AddressStatus.success:
+              return _buildAddressList(context, state);
+            case AddressStatus.error:
+              return ErrorStateWidget(error: state.error.toString());
+          }
+        },
       ),
     );
+  }
+
+  Widget _buildAddressList(BuildContext context, AddressState state) {
+    if (state.address?.address?.isEmpty ?? true) {
+      return Center(child: Text(LocaleKeys.savedAddressListIsEmpty.tr()));
+    }
+
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: state.address!.address!.length,
+            itemBuilder: (context, index) => SavedAddressCard(
+              response: state.address!.address![index],
+            ),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () => _navigateToAddAddress(context),
+          child: Text(LocaleKeys.addNewAddress.tr()),
+        ),
+      ],
+    );
+  }
+
+  void _navigateToAddAddress(BuildContext context) {
+    Navigator.pushNamed(context, DefinedRoutes.editProfileScreenRoute);
   }
 }

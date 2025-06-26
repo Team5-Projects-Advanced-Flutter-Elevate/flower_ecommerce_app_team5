@@ -33,9 +33,9 @@ class AddressViewModel extends Cubit<AddressState> {
     var useCaseResult = await savedAddressUseCase();
     switch (useCaseResult) {
       case Success<SavedAddressResponseEntity>():
-        emit(AddressState(addressStatus: AddressStatus.success,address: useCaseResult.data));
+        emit(state.copyWith(addressStatus: AddressStatus.success,address: useCaseResult.data));
       case Error<SavedAddressResponseEntity>():
-        emit(AddressState(addressStatus: AddressStatus.error, error: useCaseResult.error));
+        emit(state.copyWith(addressStatus: AddressStatus.error,error: useCaseResult.error));
     }
   }
 
@@ -44,9 +44,9 @@ class AddressViewModel extends Cubit<AddressState> {
     var useCaseResult = await deleteAddressUseCase(productId);
     switch (useCaseResult) {
       case Success<SavedAddressResponseEntity>():
-        emit(AddressState(addressStatus: AddressStatus.success,address: useCaseResult.data));
+        emit(state.copyWith(addressStatus: AddressStatus.success,address: useCaseResult.data));
       case Error<SavedAddressResponseEntity>():
-        emit(AddressState(addressStatus: AddressStatus.error, error: useCaseResult.error));
+        emit(state.copyWith(addressStatus: AddressStatus.error,error: useCaseResult.error));
     }
   }
 
@@ -55,9 +55,9 @@ class AddressViewModel extends Cubit<AddressState> {
     var useCaseResult = await updateAddressUseCase(productId);
     switch (useCaseResult) {
       case Success<SavedAddressResponseEntity>():
-        emit(AddressState(addressStatus: AddressStatus.success,address: useCaseResult.data));
+        emit(state.copyWith(addressStatus: AddressStatus.success,address: useCaseResult.data));
       case Error<SavedAddressResponseEntity>():
-        emit(AddressState(addressStatus: AddressStatus.error, error: useCaseResult.error));
+        emit(state.copyWith(addressStatus: AddressStatus.error,error: useCaseResult.error));
     }
   }
 }
