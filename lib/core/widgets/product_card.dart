@@ -4,11 +4,11 @@ import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import '../../modules/home/data/models/cart_response/add_to_cart_request.dart';
 
@@ -21,6 +21,8 @@ class ProductCard extends BaseStatelessWidget {
   final num? price;
   final num? priceAfterDiscountIfExist;
   final void Function()? onProductCardClick;
+  final bool isLoading;
+  final bool disabled;
 
   const ProductCard({
     super.key,
@@ -32,10 +34,13 @@ class ProductCard extends BaseStatelessWidget {
     this.width,
     this.height,
     this.id,
+    this.isLoading = false,
+    this.disabled = false,
   });
 
   @override
   Widget customBuild(BuildContext context, inherit) {
+    HomeScreenViewModel homeScreenViewModel = Provider.of(context);
     return InkWell(
       onTap: onProductCardClick,
       splashColor: Colors.transparent,
@@ -117,23 +122,38 @@ class ProductCard extends BaseStatelessWidget {
                       ),
                       Expanded(
                         flex: 15,
-                        child: BlocBuilder<CartCubit, CartState>(
-                          builder: (context, state) {
-                            return FilledButton(
-                                onPressed: () {
-                                  getIt<CartCubit>().doIntent(
-                                    AddToCartIntent(
-                                      request: AddToCartRequest(
-                                        product: id,
-                                        quantity: 1,
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: FilledButton(
+                              onPressed: disabled
+                                  ? null
+                                  : () {
+                                      homeScreenViewModel
+                                          .setAppSectionsIndex(0);
+                                      getIt<CartCubit>().doIntent(
+                                        AddToCartIntent(
+                                          request: AddToCartRequest(
+                                            product: id,
+                                            quantity: 1,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                              style: FilledButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 2,
+                                ),
+                              ),
+                              child: isLoading
+                                  ? SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(
+                                        color: AppColors.white,
+                                        strokeWidth: 2,
                                       ),
-                                    ),
-                                  );
-                                },
-                                style: FilledButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 2)),
-                                child: Row(
+                                    )
+                                  :Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
@@ -156,8 +176,7 @@ class ProductCard extends BaseStatelessWidget {
                                               color: AppColors.white),
                                     )
                                   ],
-                                ));
-                          },
+                                )),
                         ),
                       )
                     ],

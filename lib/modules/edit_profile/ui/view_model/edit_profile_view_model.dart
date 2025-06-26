@@ -1,10 +1,10 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/core/utilities/dio/dio_service/dio_service.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/user_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/login/login_use_case.dart';
-import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_input_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edite_profile_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edit_profile_input_model.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/data/models/edite_profile/edit_profile_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/entities/upload_image_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/use_cases/change_password_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/domain/use_cases/upload_image_use_case.dart';
@@ -18,17 +18,20 @@ import '../../../home/data/models/change_password/change_password_response.dart'
 
 @injectable
 class EditProfileViewModelCubit extends Cubit<EditProfileState> {
-  EditProfileViewModelCubit(this._loginUseCase, this._editeProfileUseCase,
+  EditProfileViewModelCubit(this._loginUseCase, this._editProfileUseCase,
       this._uploadImageUseCase, this._changePasswordUseCase)
-      : super(ProfileInitial());
+      : super(const EditProfileState());
   final LoginUseCase _loginUseCase;
-  final EditeProfileUseCase _editeProfileUseCase;
+  final EditProfileUseCase _editProfileUseCase;
   final UploadImageUseCase _uploadImageUseCase;
   final ChangePasswordUseCase _changePasswordUseCase;
   LoginResponseDto? loginResponseDto;
-  User? user;
-  String profilePhoto = '';
-  bool isButtonEnabled = false;
+
+  //UserDto? user;
+
+  bool updateControllers = false;
+  bool didProfileChanged = false;
+
   void processIntent(ProfileIntent intent) {
     switch (intent) {
       case LoadProfileIntent():
@@ -40,85 +43,121 @@ class EditProfileViewModelCubit extends Cubit<EditProfileState> {
       case ChangePasswordIntent():
         _changePassword(intent.password, intent.newPassword);
         break;
-      case EditeProfileIntent():
+      case EditProfileIntent():
         _updateProfileData(intent.editProfileInputModel);
         break;
     }
   }
 
   void _uploadProfileImage(File imageFile) async {
-    emit(ProfileLoading());
+    emit(state.copyWith(uploadImageStatus: EditProfileStatus.loading));
     var useCaseResult = await _uploadImageUseCase.execute(imageFile: imageFile);
     switch (useCaseResult) {
       case Success<UploadImageResponseEntity?>():
-        emit(ProfileSuccess());
+        ApiResult<EditProfileResponse?> editProfileResult =
+            await _editProfileUseCase.execute(
+                editProfileInputModel: EditProfileInputModel());
+        switch (editProfileResult) {
+          case Success<EditProfileResponse?>():
+            loginResponseDto?.user?.photo = editProfileResult.data?.user?.photo;
+            _loginUseCase.cashUserData(
+                loginResponseDto: loginResponseDto ?? LoginResponseDto());
+            // To notify the profile layout when popping back;
+            if (!didProfileChanged) didProfileChanged = true;
+            emit(state.copyWith(
+                uploadImageStatus: EditProfileStatus.success,
+                profilePhotoLink: editProfileResult.data?.user?.photo));
+          case Error<EditProfileResponse?>():
+            emit(state.copyWith(
+                uploadImageStatus: EditProfileStatus.error,
+                error: editProfileResult.error));
+        }
       case Error<UploadImageResponseEntity?>():
-        emit(ProfileError(useCaseResult.error));
+        emit(state.copyWith(
+            uploadImageStatus: EditProfileStatus.error,
+            error: useCaseResult.error));
     }
   }
 
-  void changeButtonState(String? confirmPassword, String? newPassword) {
-    if (confirmPassword == newPassword) {
-      emit(ProfileEnableChangePasswordButton());
-    }
+  void changeButtonState(bool isEnabled) {
+    emit(EditProfileState(
+        changeButtonStatus:
+            isEnabled ? ButtonStatus.enable : ButtonStatus.disable));
   }
 
   Future<void> _getProfileData() async {
     try {
-      emit(ProfileLoading());
+      emit(state.copyWith(getProfileDataStatus: EditProfileStatus.loading));
       var profileData = await _loginUseCase.getStoredLoginInfo();
-      var name = profileData?.user?.firstName ?? 'Guest';
-      var email = profileData?.user?.email ?? 'Guest-User';
-      var id = profileData?.user?.sId ?? 'Guest';
-      var image = profileData?.user?.photo ?? 'Guest';
       loginResponseDto = profileData;
-      user = profileData!.user;
-      profilePhoto = image;
-      emit(ProfileDataSuccess(name, email, id, image, profileData.user!.phone!,
-          profileData.user!.gender!, profileData.user!.lastName!));
+      final user = UserDto(
+          firstName: profileData?.user?.firstName ?? 'Guest',
+          lastName: profileData?.user?.lastName ?? 'Guest',
+          email: profileData?.user?.email ?? 'Guest-User',
+          sId: profileData?.user?.sId ?? 'Guest',
+          // photo: profileData?.user?.photo ?? 'Guest',
+          phone: profileData?.user?.phone ?? "+20",
+          gender: profileData?.user?.gender ?? "");
+      updateControllers = true;
+      emit(state.copyWith(
+          getProfileDataStatus: EditProfileStatus.success,
+          user: user,
+          profilePhotoLink: profileData?.user?.photo,
+          userLoginStatus: profileData == null
+              ? UserLoginStatus.guest
+              : UserLoginStatus.loggedIn));
     } catch (e) {
-      emit(ProfileError(e.toString()));
+      emit(state.copyWith(
+          getProfileDataStatus: EditProfileStatus.error, error: e));
     }
   }
 
-  _changePassword(String password, String newPassword) async {
-    emit(ProfileLoading());
+  void _changePassword(String password, String newPassword) async {
+    emit(state.copyWith(changePasswordStatus: EditProfileStatus.loading));
     var result = await _changePasswordUseCase.execute(
         password: password, newPassword: newPassword);
     switch (result) {
       case Success<ChangePasswordResponse?>():
-        loginResponseDto?.token = result.data?.token;
+        // The loginResponseDto here will equal to null because we didn't get profile data in changePasswordScreen
+        // loginResponseDto?.token = result.data?.token;
+        // print("Caching: ${loginResponseDto == null}");
+        final cachedLoginInfo = await _loginUseCase.getStoredLoginInfo();
+        cachedLoginInfo?.token = result.data?.token;
         _loginUseCase.cashUserData(
-            loginResponseDto: loginResponseDto ?? LoginResponseDto());
+            loginResponseDto: cachedLoginInfo ?? LoginResponseDto());
         DioServiceExtension.updateDioWithToken(result.data?.token ?? '');
-        emit(ProfileSuccess());
+        emit(state.copyWith(changePasswordStatus: EditProfileStatus.success));
         break;
       case Error<ChangePasswordResponse?>():
-        emit(ProfileError(result.error));
+        emit(state.copyWith(
+            changePasswordStatus: EditProfileStatus.error,
+            error: result.error));
         break;
     }
   }
 
-  _updateProfileData(EditProfileInputModel editProfileInputModel) async {
-    if (user!.phone == editProfileInputModel.phone &&
-        user!.email == editProfileInputModel.email &&
-        user!.firstName == editProfileInputModel.firstName &&
-        user!.lastName == editProfileInputModel.lastName) {
+  void _updateProfileData(EditProfileInputModel editProfileInputModel) async {
+    if (loginResponseDto?.user?.phone == editProfileInputModel.phone &&
+        loginResponseDto?.user?.email == editProfileInputModel.email &&
+        loginResponseDto?.user?.firstName == editProfileInputModel.firstName &&
+        loginResponseDto?.user?.lastName == editProfileInputModel.lastName) {
       return;
     }
-    emit(ProfileLoading());
-    ApiResult<EditProfileResponse?> result = await _editeProfileUseCase.execute(
+    emit(state.copyWith(updateProfileStatus: EditProfileStatus.loading));
+    ApiResult<EditProfileResponse?> result = await _editProfileUseCase.execute(
         editProfileInputModel: editProfileInputModel);
     switch (result) {
       case Success<EditProfileResponse?>():
-        user = result.data!.user;
+        loginResponseDto?.user = result.data?.user;
         _loginUseCase.cashUserData(loginResponseDto: loginResponseDto!);
-        emit(ProfileDataSuccess(user!.firstName!, user!.email!, user!.sId!,
-            user!.photo!, user!.phone!, user!.gender!, user!.lastName!));
-        emit(ProfileSuccess());
+        // To notify the profile layout when popping back;
+        if (!didProfileChanged) didProfileChanged = true;
+        emit(state.copyWith(updateProfileStatus: EditProfileStatus.success));
         break;
       case Error<EditProfileResponse?>():
-        emit(ProfileError(result.error));
+        emit(state.copyWith(
+            updateProfileStatus: EditProfileStatus.error, error: result.error));
+
         break;
     }
   }
@@ -130,17 +169,19 @@ class LoadProfileIntent extends ProfileIntent {}
 
 class LoadProfileImageIntent extends ProfileIntent {
   final File imageFile;
+
   LoadProfileImageIntent(this.imageFile);
 }
 
 class ChangePasswordIntent extends ProfileIntent {
   final String password;
   final String newPassword;
+
   ChangePasswordIntent({required this.password, required this.newPassword});
 }
 
-class EditeProfileIntent extends ProfileIntent {
+class EditProfileIntent extends ProfileIntent {
   final EditProfileInputModel editProfileInputModel;
 
-  EditeProfileIntent(this.editProfileInputModel);
+  EditProfileIntent(this.editProfileInputModel);
 }

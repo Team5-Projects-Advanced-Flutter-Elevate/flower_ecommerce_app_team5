@@ -1,12 +1,14 @@
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
+import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../../core/bases/base_statless_widget.dart';
 import 'category_item.dart';
+
 // ignore: must_be_immutable
 class CategoriesListView extends BaseStatelessWidget {
-   const CategoriesListView({
+  const CategoriesListView({
     super.key,
     required this.categories,
   });
@@ -14,11 +16,14 @@ class CategoriesListView extends BaseStatelessWidget {
   final List<CategoryEntity> categories;
 
   @override
-  Widget customBuild(BuildContext context,  inherit) {
+  Widget customBuild(BuildContext context, inherit) {
     HomeScreenViewModel homeScreenViewModel = Provider.of(context);
+    bool isCurrentLocaleEnglish = inherit.localizationManager.currentLocale ==
+        LanguagesEnum.en.getLanguageCode();
     return Padding(
       padding: EdgeInsets.only(
-        left: inherit.screenWidth * 0.05,
+        left: isCurrentLocaleEnglish ? inherit.screenWidth * 0.05 : 0,
+        right: isCurrentLocaleEnglish ? 0 : inherit.screenWidth * 0.05,
       ),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
@@ -27,8 +32,8 @@ class CategoriesListView extends BaseStatelessWidget {
           hoverColor: Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           onTap: () {
-            homeScreenViewModel.selectedAppSectionIndex = 1;
-            homeScreenViewModel.doIntent(AnimateToPage(pageIndex: 1));
+            homeScreenViewModel.setAppSectionsIndex(1);
+            homeScreenViewModel.doIntent(JumpToPage(pageIndex: 1));
             homeScreenViewModel.categoriesLayoutViewModel.selectedCategoryId =
                 categories[index].id;
           },

@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
+import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/all_product_response_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:injectable/injectable.dart';
 
@@ -23,6 +23,7 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
   List<ProductEntity> productsList = [];
   String? selectedCategoryId;
   int initialCategoryIndex = 0;
+
   void _tabChange(String? categoryId) {
     if (categoryId == selectedCategoryId) return;
 
@@ -59,9 +60,10 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
     }
   }
 
-  void _getAllProduct({String? categoryId}) async {
+  void _getAllProduct({String? categoryId, String? sortKey}) async {
     emit(CategoriesLayoutViewModelLoading());
-    final result = await _getAllProductsUseCase.execute(categoryId: categoryId);
+    final result = await _getAllProductsUseCase.execute(
+        categoryId: categoryId, sortKey: sortKey);
     switch (result) {
       case Success<AllProductResponseEntity>():
         productsList = result.data.products ?? [];
@@ -79,7 +81,7 @@ class CategoriesLayoutViewModel extends Cubit<CategoriesLayoutViewModelState> {
         _getCategories();
         break;
       case GetProductsIntent():
-        _getAllProduct(categoryId: intent.categoryId);
+        _getAllProduct(categoryId: intent.categoryId, sortKey: intent.sortKey);
         break;
       case TabBarChangedIntent():
         _tabChange(intent.categoryId);
@@ -99,7 +101,8 @@ final class GetInitialCategoryIndex extends CategoriesLayoutViewModelIntent {}
 
 final class GetProductsIntent extends CategoriesLayoutViewModelIntent {
   final String? categoryId;
-  GetProductsIntent({this.categoryId});
+  final String? sortKey;
+  GetProductsIntent({this.sortKey, this.categoryId});
 }
 
 final class TabBarChangedIntent extends CategoriesLayoutViewModelIntent {

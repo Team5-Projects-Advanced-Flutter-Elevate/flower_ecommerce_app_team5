@@ -123,9 +123,17 @@ class _HomeApiClient implements HomeApiClient {
   }
 
   @override
-  Future<AllProductResponse> getAllProduct({String? categoryId}) async {
+  Future<AllProductResponse> getAllProduct({
+    String? categoryId,
+    String? searchKey,
+    String? sortKey,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'category': categoryId};
+    final queryParameters = <String, dynamic>{
+      r'category': categoryId,
+      r'keyword': searchKey,
+      r'sort': sortKey,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
@@ -249,6 +257,40 @@ class _HomeApiClient implements HomeApiClient {
     late CartResponse _value;
     try {
       _value = CartResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<SaveAddress> saveAddress(Map<String, dynamic> body) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _options = _setStreamType<SaveAddress>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'api/v1/addresses',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SaveAddress _value;
+    try {
+      _value = SaveAddress.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

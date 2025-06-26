@@ -1,5 +1,6 @@
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flutter/material.dart';
+
 abstract class AppDialogs {
   static void showMessage(
     context, {
@@ -8,26 +9,17 @@ abstract class AppDialogs {
   }) =>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Center(
-            child: Text(
-              message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+          content: Text(
+            message,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
           ),
           backgroundColor: isSuccess ? AppColors.green : AppColors.red,
           dismissDirection: DismissDirection.horizontal,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(15),
-            ),
-          ),
-          margin: const EdgeInsets.all(8),
-          behavior: SnackBarBehavior.floating,
+          behavior: SnackBarBehavior.fixed,
         ),
       );
 
@@ -42,4 +34,5 @@ abstract class AppDialogs {
       );
 
   static void removeDialog(context) => Navigator.pop(context);
+
 }

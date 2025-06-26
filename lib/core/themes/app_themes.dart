@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppThemes {
-
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.white,
+      surfaceTintColor: AppColors.white,
     ),
     textTheme: TextTheme(
       // Body Text Styles
@@ -39,6 +39,7 @@ abstract class AppThemes {
         fontSize: 16,
         fontWeight: FontWeight.w500, // Medium weight
         color: AppColors.gray,
+
       ),
 
       // Title Text Styles (Used for headings)
@@ -117,7 +118,6 @@ abstract class AppThemes {
       ),
       indicatorColor: Colors.transparent,
       indicatorShape: const RoundedRectangleBorder(),
-
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return GoogleFonts.inter(
@@ -138,7 +138,7 @@ abstract class AppThemes {
       labelColor: AppColors.mainColor,
       unselectedLabelColor: AppColors.white[70],
       indicatorColor: AppColors.mainColor,
-      labelPadding: const EdgeInsets.symmetric(horizontal: 12,vertical: 5),
+      labelPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
       indicatorSize: TabBarIndicatorSize.label,
       tabAlignment: TabAlignment.start,
       labelStyle: TextStyle(
@@ -228,11 +228,32 @@ abstract class AppThemes {
             borderRadius: BorderRadius.circular(100),
           ),
         ),
+        padding: const WidgetStatePropertyAll(
+          EdgeInsets.symmetric(
+            vertical: 12,
+          ),
+        ),
       ),
     ),
     radioTheme: RadioThemeData(
       fillColor: WidgetStatePropertyAll(
         AppColors.mainColor,
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.mainColor,
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 16,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        textStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     ),
   );

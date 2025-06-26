@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/bases/base_statless_widget.dart';
 import '../../../../../../core/colors/app_colors.dart';
-import '../../../../../../core/utilities/app_dialogs.dart';
 import '../../../../../../shared_layers/localization/generated/locale_keys.g.dart';
 import 'cart_list_view.dart';
 
@@ -46,11 +45,19 @@ class TitleAndCartItems extends BaseStatelessWidget {
               listener: (context, state) {
                 if (state.deleteFromCartStatus ==
                     DeleteFromCartStatus.success) {
-                  AppDialogs.showMessage(
-                    context,
-                    message: LocaleKeys.deletedSuccessfully.tr(),
-                    isSuccess: false,
+                  displayAlertDialog(
+                    title: Text(
+                      LocaleKeys.deletedSuccessfully.tr(),
+                      textAlign: TextAlign.center,
+                    ),
+                    isDismissible: true,
+                    autoDismissible: true,
                   );
+                  // AppDialogs.showMessage(
+                  //   context,
+                  //   message: LocaleKeys.deletedSuccessfully.tr(),
+                  //   isSuccess: false,
+                  // );
                 }
               },
               child: CartListView(

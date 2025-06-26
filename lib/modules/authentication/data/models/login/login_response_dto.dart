@@ -1,13 +1,15 @@
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/user_dto.dart';
+
 class LoginResponseDto {
   String? message;
-  User? user;
+  UserDto? user;
   String? token;
 
   LoginResponseDto({this.message, this.user, this.token});
 
   LoginResponseDto.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
+    user = json['user'] != null ? UserDto.fromJson(json['user']) : null;
     token = json['token'];
   }
 
@@ -22,66 +24,6 @@ class LoginResponseDto {
   }
 }
 
-class User {
-  String? sId;
-  String? firstName;
-  String? lastName;
-  String? email;
-  String? gender;
-  String? phone;
-  String? photo;
-  String? role;
-  List<Address>? addresses;
-  String? createdAt;
-
-  User({
-    this.sId,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.gender,
-    this.phone,
-    this.photo,
-    this.role,
-    this.addresses,
-    this.createdAt,
-  });
-
-  User.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    email = json['email'];
-    gender = json['gender'];
-    phone = json['phone'];
-    photo = json['photo'];
-    role = json['role'];
-    if (json['addresses'] != null) {
-      addresses = <Address>[];
-      json['addresses'].forEach((v) {
-        addresses!.add(Address.fromJson(v));
-      });
-    }
-    createdAt = json['createdAt'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
-    data['firstName'] = firstName;
-    data['lastName'] = lastName;
-    data['email'] = email;
-    data['gender'] = gender;
-    data['phone'] = phone;
-    data['photo'] = photo;
-    data['role'] = role;
-    if (addresses != null) {
-      data['addresses'] = addresses!.map((v) => v.toJson()).toList();
-    }
-    data['createdAt'] = createdAt;
-    return data;
-  }
-}
 
 class Address {
   String? street;

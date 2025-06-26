@@ -1,6 +1,7 @@
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/occasion_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
+import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,11 +15,14 @@ class OccasionsListView extends BaseStatelessWidget {
   final List<OccasionEntity> occasions;
 
   @override
-  Widget customBuild(BuildContext context,  inherit) {
+  Widget customBuild(BuildContext context, inherit) {
     HomeScreenViewModel homeScreenViewModel = Provider.of(context);
+    bool isCurrentLocaleEnglish = inherit.localizationManager.currentLocale ==
+        LanguagesEnum.en.getLanguageCode();
     return Padding(
       padding: EdgeInsets.only(
-        left: inherit.screenWidth * 0.05,
+        left: isCurrentLocaleEnglish ? inherit.screenWidth * 0.05 : 0,
+        right: isCurrentLocaleEnglish ? 0 : inherit.screenWidth * 0.05,
       ),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,

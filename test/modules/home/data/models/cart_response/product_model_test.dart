@@ -1,5 +1,5 @@
-import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/product_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/product_entity.dart';
+import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
+import 'package:flower_ecommerce_app_team5/core/models/product/product_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -8,7 +8,7 @@ void main() {
       'when call toEntity with non null values it should return ProductEntity',
       () {
         // arrange
-        var productModel = Product(
+        var productModel = ProductDto(
           id: 'id',
           title: 'title',
           description: 'description',
@@ -21,14 +21,14 @@ void main() {
           rateCount: 1,
           price: 1,
           occasion: 'occasion',
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
+          createdAt: DateTime.now().toString(),
+          updatedAt: DateTime.now().toString(),
           category: 'category',
           images: ['images'],
           slug: 'slug',
           v: 1,
         ); // act
-        var result = productModel.toEntity();
+        var result = productModel.convertIntoEntity();
         // ensure productModel is not null
         var mappedResult = productModel.toJson();
         mappedResult.forEach((key, value) {
@@ -43,9 +43,9 @@ void main() {
       'when call toEntity with  nullable values it should return nullable  cartItemEntity',
       () {
         // arrange
-        var productModel = Product();
+        var productModel = ProductDto();
         // act
-        var result = productModel.toEntity();
+        var result = productModel.convertIntoEntity();
         // ensure productModel is null
         var mappedResult = productModel.toJson();
         mappedResult.forEach((key, value) {

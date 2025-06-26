@@ -34,6 +34,7 @@ class LocaleKeys {
       'specialCharactersRulePassword';
   static const String pleaseConfirmPassword = 'pleaseConfirmPassword';
   static const String noMatch = 'noMatch';
+  static const String namesLengthRule = 'namesLengthRule';
 
   // Auth
   static const String alreadyHaveAnAccount = 'alreadyHaveAnAccount';
@@ -59,6 +60,20 @@ class LocaleKeys {
   static const String guestLogin = 'guestLogin';
   static const String checkGuest = 'checkGuest';
   static const String pleaseLoginFirst = 'pleaseLoginFirst';
+  static const newPassword = 'newPassword';
+  static const enterYourPassword = 'enterYourPassword';
+  static const resetPassword = 'resetPassword';
+  static const enterYourEmail = 'enterYourEmail';
+  static const emailVerification = 'emailVerification';
+  static const resend = ' resend';
+  static const wait30Minute = 'wait30Minute';
+  static const dontReceive = "dontReceive";
+  static const emailVerificationRole = "emailVerificationRole";
+  static const passwordVerificationRole = "passwordVerificationRole";
+  static const emailVerificationText = "emailVerificationText";
+  static const otpSend = "otpSend";
+  static const validOtp = "validOtp";
+  static const passwordResetSuccessfully = "passwordResetSuccessfully";
 
   // App
   static const String home = 'home';
@@ -69,9 +84,11 @@ class LocaleKeys {
   static const String viewAll = 'viewAll';
   static const String bestSeller = 'bestSeller';
   static const String occasions = 'occasions';
-  static const String occsionScreenTitle = 'occsionScreenTitle';
+  static const String occasionScreenTitle = 'occasionScreenTitle';
   static const String occasionScreenSubTitle = 'occasionScreenSubTitle';
   static const String noProductsFound = 'noProductsFound';
+  static const String noOccasionsFound = 'noOccasionsFound';
+  static const String noCategoriesFound = 'noCategoriesFound';
   static const String bloomWithBestSeller = 'bloomWithBestSeller';
   static const String noProducts = 'noProducts';
   static const String addToCart = 'addToCart';
@@ -99,18 +116,21 @@ class LocaleKeys {
   static const String languageKey = 'languageKey';
   static const String confirmLogout = 'confirmLogout';
   static const String editProfile = 'editProfile';
+  static const String profileUpdatedSuccessfully = 'profileUpdatedSuccessfully';
+  static const String change = 'change';
+  static const String update = 'update';
 
-  // Product
-  static const String egp = 'egp';
-  static const String status = 'status';
-  static const String inStock = 'inStock';
-  static const String notInStock = 'notInStock';
-  static const String pricesIncludeTax = 'pricesIncludeTax';
-  static const String description = 'description';
-  static const String information = 'information';
-  static const String sold = 'sold';
-  static const String rate = 'rate';
-  static const String rateCount = 'rateCount';
+  // Product Details
+  static const egp = 'egp';
+  static const status = 'status';
+  static const inStock = 'inStock';
+  static const notInStock = 'notInStock';
+  static const pricesIncludeTax = 'pricesIncludeTax';
+  static const description = 'description';
+  static const information = 'information';
+  static const sold = 'sold';
+  static const rate = 'rate';
+  static const rateCount = 'rateCount';
 
   // Change Password
   static const String changePasswordTitle = 'changePasswordTitle';
@@ -129,4 +149,59 @@ class LocaleKeys {
   static const String changePasswordUpdateButton = 'changePasswordUpdateButton';
   static const String addNewAddress = 'addNewAddress';
   static const String savedAddressListIsEmpty = 'SavedAddressListIsEmpty';
+  static const changePasswordUpdateButton = 'changePasswordUpdateButton';
+
+  // Search
+  static const String searchForAnyProductYouWant = 'searchForAnyProductYouWant';
+  static const passwordChangedSuccessfully = 'passwordChangedSuccessfully';
+
+  // Payment
+  static const flowery = 'flowery';
+  static const deliveryAddress = 'deliveryAddress';
+  static const noAddressesFound = 'noAddressesFound';
+  static const addNew = 'addNew';
+  static const paymentMethod = 'paymentMethod';
+  static const cashOnDelivery = 'cashOnDelivery';
+  static const creditCard = 'creditCard';
+  static const itIsAGift = 'itIsAGift';
+  static const pleaseSelectDeliveryAddress = 'pleaseSelectDeliveryAddress';
+  static const pleaseSelectPaymentMethod = 'pleaseSelectPaymentMethod';
+  static const placeOrder = 'placeOrder';
+  static const trackOrder = 'trackOrder';
+  static const orderPlacedSuccess = 'orderPlacedSuccess';
+  static const String successfulPayment = "successfulPayment";
+  static const String canceledPayment = "canceledPayment";
+  static const String addressTitle = 'address';
+  static const String addressHint = 'addressHint';
+  static const String phoneNumberHint = 'phoneNumberHint';
+  static const String recipientNameHint = 'recipientNameHint';
+  static const String city = 'city';
+  static const String area = 'area';
+  static const String saveAddress = 'saveAddress';
+  static const String recipient = 'recipient';
+  static const String pleaseEnterAddress = 'pleaseEnterAddress';
+  static const String pleaseEnterValidAddress = 'pleaseEnterValidAddress';
+  static const String pleaseEnterValidRecipient = 'pleaseEnterValidRecipient';
+
+  // Filter
+  static const String filter = 'filter';
+  static const String sort = 'sort';
+
+  static const String active='activeTab';
+  static const String complete='completedTab';
+  static const String noOrder='noOrder';
+
+  // Notification
+  static const String noNotificationFound = 'noNotificationFound';
+  static const showMap = 'showMap';
+  static const isYourDeliveryHeroForToday = 'isYourDeliveryHeroForToday';
+  static const estimatedArrival = 'estimatedArrival';
+  static const receivedYourOrder = 'receivedYourOrder';
+  static const preparingYourOrder = 'preparingYourOrder';
+  static const outForDelivery = 'outForDelivery';
+  static const delivered = 'delivered';
+
+  // Track Order
+  static const pending = 'pending';
+  static const unknownWord = 'unknownWord';
 }

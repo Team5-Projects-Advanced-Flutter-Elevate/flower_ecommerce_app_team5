@@ -1,5 +1,9 @@
 class ApisEndpoints {
   static const String baseUrl = 'https://flower.elevateegy.com/';
+  static const String loginEndPoint = 'api/v1/auth/signin';
+  static const String forgetPasswordEndPoint = 'api/v1/auth/forgotPassword';
+  static const String resetPasswordEndPoint = 'api/v1/auth/resetPassword';
+  static const String resetCodeEndPoint = 'api/v1/auth/verifyResetCode';
   static const String loginEndpoint = 'api/v1/auth/signin';
   static const String register = 'api/v1/auth/signup';
   static const String bestSellerEndpoint = 'api/v1/best-seller';
@@ -17,4 +21,11 @@ class ApisEndpoints {
   static const String getAddress = 'api/v1/addresses';
   static const String updateAddress = 'api/v1/address/{id}';
   static const String deleteAddress = 'api/v1/addresses/{id}';
+  static const String addNewAddress = 'api/v1/addresses';
+  static const String cashOrderEndpoint = 'api/v1/orders';
+  static const String checkoutSessionEndpoint =
+      'api/v1/orders/checkout?url=http://localhost:3000';
+  static const String getAddresses = 'api/v1/addresses';
+  static const String getNotifications = 'api/v1/notifications';
+  static const String getMyOrders='api/v1/orders';
 }

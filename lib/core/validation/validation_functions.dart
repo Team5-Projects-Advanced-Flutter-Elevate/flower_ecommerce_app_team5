@@ -39,16 +39,50 @@ class ValidateFunctions {
   String? validationOfFirstOrLastName(String? inputText,
       {bool isFirstName = true}) {
     RegExp nameRegExp = RegExp(r'^[A-Za-z]+$');
+
     if (inputText?.trim().isEmpty == true || inputText == null) {
       return isFirstName
           ? LocaleKeys.pleaseEnterFirstName.tr()
           : LocaleKeys.pleaseEnterLastName.tr();
+    }
+    if (inputText.trim().length < 3) {
+      return LocaleKeys.namesLengthRule.tr();
     }
     if (!nameRegExp.hasMatch(inputText)) {
       return LocaleKeys.namesRules.tr();
     }
     return null;
   }
+
+  String? validationOfAddress(String? inputText) {
+    final RegExp addressRegex = RegExp(r"^[\p{L}\d\s,.\-\/#]+$", unicode: true);
+
+    if (inputText == null || inputText.trim().isEmpty) {
+      return LocaleKeys.pleaseEnterAddress.tr();
+    }
+
+    if (!addressRegex.hasMatch(inputText.trim())) {
+      return LocaleKeys.pleaseEnterValidAddress.tr();
+    }
+
+    return null;
+  }
+  String? validationOfrecipient(String? inputText) {
+    final RegExp addressRegex = RegExp(r"^[\p{L}\d\s,.\-\/#]+$", unicode: true);
+
+    if (inputText == null || inputText.trim().isEmpty) {
+      return LocaleKeys.pleaseEnterValidRecipient.tr();
+    }
+
+    if (!addressRegex.hasMatch(inputText.trim())) {
+      return LocaleKeys.pleaseEnterValidRecipient.tr();
+    }
+
+    return null;
+  }
+
+
+
 
   String? validationOfEmail(String? inputText) {
     RegExp gmailRegExp =

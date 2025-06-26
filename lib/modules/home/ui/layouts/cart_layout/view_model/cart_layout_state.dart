@@ -9,6 +9,8 @@ enum CartStatus {
   noAccess,
 }
 
+enum UserLoginStatus { loggedIn, guest }
+
 enum CounterStatus {
   increment,
   decrement,
@@ -29,13 +31,17 @@ enum DeleteFromCartStatus {
   error,
 }
 
+// ignore: must_be_immutable
 class CartState extends Equatable {
   final CartStatus status;
+  final UserLoginStatus userLoginStatus;
   final Object? error;
   final CartResponseEntity? cartResponseEntity;
   final CounterStatus? counterStatus;
   final AddToCartStatus addToCartStatus;
   final DeleteFromCartStatus deleteFromCartStatus;
+  final int rebuildKey;
+  final String? addingProductId;
 
   int totalPrice;
 
@@ -47,25 +53,34 @@ class CartState extends Equatable {
     this.counterStatus,
     this.addToCartStatus = AddToCartStatus.initial,
     this.deleteFromCartStatus = DeleteFromCartStatus.initial,
+    this.userLoginStatus = UserLoginStatus.loggedIn,
+    this.rebuildKey = 0,
+    this.addingProductId,
   });
 
   CartState copyWith({
     CartStatus? state,
+    UserLoginStatus? userLoginStatus,
     Object? error,
     CartResponseEntity? cartResponseEntity,
     int? totalPrice,
     CounterStatus? counterStatus,
     AddToCartStatus? addToCartStatus,
     DeleteFromCartStatus? deleteFromCartStatus,
+    int? rebuildKey,
+    String? addingProductId,
   }) {
     return CartState(
       status: state ?? status,
+      userLoginStatus: userLoginStatus ?? this.userLoginStatus,
       error: error ?? this.error,
       cartResponseEntity: cartResponseEntity ?? this.cartResponseEntity,
       totalPrice: totalPrice ?? this.totalPrice,
       counterStatus: counterStatus ?? this.counterStatus,
       addToCartStatus: addToCartStatus ?? this.addToCartStatus,
       deleteFromCartStatus: deleteFromCartStatus ?? this.deleteFromCartStatus,
+      rebuildKey: rebuildKey ?? this.rebuildKey,
+      addingProductId: addingProductId ?? this.addingProductId,
     );
   }
 
@@ -78,5 +93,8 @@ class CartState extends Equatable {
         counterStatus,
         addToCartStatus,
         deleteFromCartStatus,
+        userLoginStatus,
+        rebuildKey,
+        addingProductId,
       ];
 }
