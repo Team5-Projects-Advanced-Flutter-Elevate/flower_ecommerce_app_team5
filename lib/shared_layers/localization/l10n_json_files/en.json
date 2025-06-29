@@ -180,5 +180,7 @@
   "outForDelivery": "Out for delivery",
   "delivered": "Delivered",
   "pending": "Pending...",
-  "unknownWord": "Unknown"
+  "unknownWord": "Unknown",
+  "addNewAddress": "Add New Address",
+  "savedAddressListIsEmpty": "Saved Address List Is Empty"
 }

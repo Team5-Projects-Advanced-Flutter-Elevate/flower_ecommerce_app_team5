@@ -186,5 +186,7 @@
   "outForDelivery": "خرج للتوصيل",
   "delivered": "تم التوصيل",
   "pending": "قيد الانتظار...",
-  "unknownWord": "غير معروف"
+  "unknownWord": "غير معروف",
+  "addNewAddress": "اضافه عنوان جدبد",
+  "savedAddressListIsEmpty": "هذة القائمه فارغه "
 }

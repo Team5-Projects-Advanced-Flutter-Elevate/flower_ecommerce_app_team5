@@ -201,4 +201,6 @@ class LocaleKeys {
   // Track Order
   static const pending = 'pending';
   static const unknownWord = 'unknownWord';
+  static const addNewAddress = 'Add New Address';
+  static const savedAddressListIsEmpty = 'Saved Address List Is Empty';
 }

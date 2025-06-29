@@ -25,4 +25,6 @@ class ApisEndpoints {
   static const String getAddresses = 'api/v1/addresses';
   static const String getNotifications = 'api/v1/notifications';
   static const String getMyOrders='api/v1/orders';
+  static const String updateAddresses='api/v1/addresses/{id}';
+  static const String deleteAddresses='api/v1/addresses/{id}';
 }

@@ -28,6 +28,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../modules/check_out/ui/check_out_view.dart';
 import '../../modules/edit_profile/ui/change_password_screen.dart';
 import '../../modules/home/ui/layouts/add_new_address/new_address_screen.dart';
+import '../../modules/saved_address/ui/saved_address_screen.dart';
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -121,6 +122,11 @@ class GenerateRoute {
         return MaterialPageRoute(
           builder: (context) =>
               TrackOrderDetailsScreen(orderId: (args as String)),
+        );
+      case DefinedRoutes.savedAddressScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) =>
+              const SavedAddressScreen(),
         );
       default:
         return _errorRoute();

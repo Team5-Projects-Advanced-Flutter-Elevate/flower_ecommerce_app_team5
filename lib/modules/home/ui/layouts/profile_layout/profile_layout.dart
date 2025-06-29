@@ -142,7 +142,7 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                       onTap: () {
                         Navigator.pushNamed(
                           context,
-                          DefinedRoutes.addNewAddress,
+                          DefinedRoutes.savedAddressScreenRoute,
                         );
                       },
                       child: ListTile(

@@ -98,7 +98,7 @@ abstract class AppThemes {
     progressIndicatorTheme: ProgressIndicatorThemeData(
       color: AppColors.mainColor,
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       backgroundColor: AppColors.white,
     ),
     navigationBarTheme: NavigationBarThemeData(
@@ -134,7 +134,7 @@ abstract class AppThemes {
         }
       }),
     ),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       labelColor: AppColors.mainColor,
       unselectedLabelColor: AppColors.white[70],
       indicatorColor: AppColors.mainColor,
