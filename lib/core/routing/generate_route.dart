@@ -77,6 +77,10 @@ class GenerateRoute {
         return MaterialPageRoute(
           builder: (context) => const ChangePasswordScreen(),
         );
+      case DefinedRoutes.savedAddressScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const SavedAddressScreen(),
+        );
       case DefinedRoutes.checkOut:
         CheckOutCubit cubit = getIt<CheckOutCubit>();
         return MaterialPageRoute(

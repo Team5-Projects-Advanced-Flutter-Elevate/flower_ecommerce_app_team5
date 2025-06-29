@@ -13,7 +13,25 @@ class AddressState extends Equatable {
       {this.addressStatus = AddressStatus.initial,
         this.address,
         this.error});
+  const AddressState({
+    this.addressStatus = AddressStatus.initial,
+    this.address,
+    this.error,
+  });
+
+  AddressState copyWith({
+    AddressStatus? addressStatus,
+    SavedAddressResponseEntity? address,
+    Object? error,
+  }) {
+    return AddressState(
+      addressStatus: addressStatus ?? this.addressStatus,
+      address: address ?? this.address,
+      error: error ?? this.error,
+    );
+  }
 
   @override
   List<Object?> get props => [addressStatus, address, error];
 }
+

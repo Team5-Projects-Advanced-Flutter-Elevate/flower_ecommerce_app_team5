@@ -94,6 +94,8 @@
   "profileUpdatedSuccessfully": "تم تحديث الملف الشخصي بنجاح!",
   "change": "تغيير",
   "update": "تحديث",
+    "addNewAddress": "اضف عنوان جديد",
+    "savedAddressListIsEmpty" : "لا توجد عناويين",
 
   "//productDetailsScreen": "",
   "egp": "ج.م {}",

@@ -146,7 +146,9 @@ class LocaleKeys {
       'changePasswordConfirmPasswordLabel';
   static const String changePasswordConfirmPasswordHint =
       'changePasswordConfirmPasswordHint';
-  static const changePasswordUpdateButton = 'changePasswordUpdateButton';
+  static const String changePasswordUpdateButton = 'changePasswordUpdateButton';
+  static const String addNewAddress = 'addNewAddress';
+  static const String savedAddressListIsEmpty = 'SavedAddressListIsEmpty';
 
   // Search
   static const String searchForAnyProductYouWant = 'searchForAnyProductYouWant';

@@ -19,14 +19,13 @@ void main() {
   });
 
   test('should call SecureStorageService.setStringValue with correct key and value', () async {
-    // ✅ تنفيذ `isGuest()`
+
     final result = await dataSource.isGuest();
 
-    // ✅ تحقق أن `setStringValue` تم استدعاؤها بالقيم الصحيحة
     verify(mockStorageService.setStringValue(StorageConstants.isGuestKey, 'true')).called(1);
 
-    // ✅ تحقق أن النتيجة `StorageSuccessResult<void>`
     expect(result, isA<StorageSuccessResult<void>>());
+
     expect((result as StorageSuccessResult).data, StorageConstants.successMessage);
   });
 }

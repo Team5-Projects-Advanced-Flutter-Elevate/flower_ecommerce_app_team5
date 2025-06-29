@@ -149,8 +149,7 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                         title: Text(LocaleKeys.savedAddress.tr()),
                         leading: const Icon(Icons.location_on),
                         trailing: const Icon(Icons.arrow_forward_ios),
-                      ),
-                    ),
+                      )),
                     Divider(
                       color: AppColors.gray,
                     ),

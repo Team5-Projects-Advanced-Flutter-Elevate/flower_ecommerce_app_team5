@@ -10,6 +10,7 @@ abstract class DefinedRoutes {
   static const String changePasswordScreenRoute = "ChangePasswordScreen";
   static const String occasionScreenRoute = "OccasionScreen";
   static const String productDetailsScreenRoute = "ProductDetailsScreen";
+  static const String savedAddressScreenRoute = "SavedAddressScreen";
   static const String checkoutSessionScreenRoute = "checkOutSessionScreen";
   static const String searchScreenRoute = "SearchScreen";
   static const String checkOut = "/checkOut";

@@ -134,7 +134,6 @@
   "//filterSection": "$$$ Comment $$$",
   "filter": "filter",
   "sort": "Sort by",
-  "changePasswordUpdateButton": "Update",
   "address": "Address",
   "recipient": "Recipient Name",
   "addressTitle": "Address",
@@ -181,6 +180,7 @@
   "delivered": "Delivered",
   "pending": "Pending...",
   "unknownWord": "Unknown",
+  "changePasswordUpdateButton": "Update",
   "addNewAddress": "Add New Address",
-  "savedAddressListIsEmpty": "Saved Address List Is Empty"
+  "savedAddressListIsEmpty": "Saved Address List is Empty"
 }

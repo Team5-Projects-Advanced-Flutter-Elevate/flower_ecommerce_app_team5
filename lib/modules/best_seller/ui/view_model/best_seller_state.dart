@@ -10,15 +10,15 @@ class BestSellerState extends Equatable {
 
   const BestSellerState(
       {this.bestSellerStatus = BestSellerStatus.initial,
-      this.bestSellerProducts,
-      this.error});
+        this.bestSellerProducts,
+        this.error});
 
   @override
   List<Object?> get props => [bestSellerStatus, bestSellerProducts, error];
-  // BestSellerState copyWith(
-  //     {BestSellerStatus? bestSellerStatus, Object? error}) {
-  //   return BestSellerState(
-  //       bestSellerStatus: bestSellerStatus ?? this.bestSellerStatus,
-  //       error: error ?? this.error);
-  // }
+// BestSellerState copyWith(
+//     {BestSellerStatus? bestSellerStatus, Object? error}) {
+//   return BestSellerState(
+//       bestSellerStatus: bestSellerStatus ?? this.bestSellerStatus,
+//       error: error ?? this.error);
+// }
 }
