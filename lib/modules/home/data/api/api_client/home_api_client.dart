@@ -42,4 +42,8 @@ abstract class HomeApiClient {
 
   @PATCH(ApisEndpoints.addNewAddress)
   Future<SaveAddress> saveAddress(@Body() Map<String, dynamic> body);
+
+  @PUT(ApisEndpoints.updateCartQuantity)
+  Future<CartResponse> updateCartQuantity(
+      @Path("id") String productId, @Body() Map<String, dynamic> body);
 }

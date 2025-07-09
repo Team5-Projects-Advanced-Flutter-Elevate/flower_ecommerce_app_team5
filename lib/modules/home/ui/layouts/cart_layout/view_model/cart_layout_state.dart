@@ -31,6 +31,13 @@ enum DeleteFromCartStatus {
   error,
 }
 
+enum UpdateCartQuantityStatus {
+  initial,
+  loading,
+  success,
+  error,
+}
+
 // ignore: must_be_immutable
 class CartState extends Equatable {
   final CartStatus status;
@@ -38,12 +45,13 @@ class CartState extends Equatable {
   final Object? error;
   final CartResponseEntity? cartResponseEntity;
   final CounterStatus? counterStatus;
+  final List<Map<String?, int>>? counters;
   final AddToCartStatus addToCartStatus;
   final DeleteFromCartStatus deleteFromCartStatus;
   final int rebuildKey;
   final String? addingProductId;
-
   int totalPrice;
+  final UpdateCartQuantityStatus updateCartQuantityStatus;
 
   CartState({
     this.status = CartStatus.initial,
@@ -56,6 +64,8 @@ class CartState extends Equatable {
     this.userLoginStatus = UserLoginStatus.loggedIn,
     this.rebuildKey = 0,
     this.addingProductId,
+    this.counters,
+    this.updateCartQuantityStatus = UpdateCartQuantityStatus.initial,
   });
 
   CartState copyWith({
@@ -69,6 +79,8 @@ class CartState extends Equatable {
     DeleteFromCartStatus? deleteFromCartStatus,
     int? rebuildKey,
     String? addingProductId,
+    List<Map<String?, int>>? counters,
+    UpdateCartQuantityStatus? updateCartQuantityStatus,
   }) {
     return CartState(
       status: state ?? status,
@@ -81,6 +93,9 @@ class CartState extends Equatable {
       deleteFromCartStatus: deleteFromCartStatus ?? this.deleteFromCartStatus,
       rebuildKey: rebuildKey ?? this.rebuildKey,
       addingProductId: addingProductId ?? this.addingProductId,
+      counters: counters ?? this.counters,
+      updateCartQuantityStatus:
+          updateCartQuantityStatus ?? this.updateCartQuantityStatus,
     );
   }
 
@@ -96,5 +111,7 @@ class CartState extends Equatable {
         userLoginStatus,
         rebuildKey,
         addingProductId,
+        counters,
+        updateCartQuantityStatus,
       ];
 }

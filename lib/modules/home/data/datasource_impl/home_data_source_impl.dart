@@ -5,6 +5,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_gategori
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/data/models/new_address_response/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/all_product_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
@@ -108,6 +109,19 @@ class HomeDataSourceImpl implements HomeDataSource {
   Future<ApiResult<CartResponseEntity>> deleteFromCart(String productId) async {
     var result = await ApiExecutor.executeApi(
         () async => await _homeApiClient.deleteFromCart(productId));
+    switch (result) {
+      case Success<CartResponse>():
+        return Success(data: result.data.toEntity());
+      case Error<CartResponse>():
+        return Error(error: result.error);
+    }
+  }
+
+  @override
+  Future<ApiResult<CartResponseEntity>> updateCartQuantity(
+      String productId, Map<String, dynamic> quantity) async {
+    var result = await ApiExecutor.executeApi(() async =>
+        await _homeApiClient.updateCartQuantity(productId, quantity));
     switch (result) {
       case Success<CartResponse>():
         return Success(data: result.data.toEntity());

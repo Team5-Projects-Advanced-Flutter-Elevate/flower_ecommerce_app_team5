@@ -1,4 +1,3 @@
-
 import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 
 class CartItemEntity {
@@ -7,5 +6,10 @@ class CartItemEntity {
   final double? price;
   final int? quantity;
 
-  CartItemEntity({this.id, this.productEntity, this.price, this.quantity});
+  CartItemEntity({
+    this.id,
+    this.productEntity,
+    this.price,
+    this.quantity,
+  });
 }

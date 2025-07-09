@@ -7,23 +7,22 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_res
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/add_to_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/delete_from_cart.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/get_cart_items_use_case.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/update_cart_quantity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../../core/apis/api_result/api_result.dart';
 
 @singleton
 class CartCubit extends Cubit<CartState> {
-  CartCubit(
-    this.getCartItemsUseCase,
-    this.loginUseCase,
-    this.addToCartUseCase,
-    this.deleteFromCartUseCase,
-  ) : super(CartState());
+  CartCubit(this.getCartItemsUseCase, this.loginUseCase, this.addToCartUseCase,
+      this.deleteFromCartUseCase, this.updateCartQuantityUseCase)
+      : super(CartState());
 
   GetCartItemsUseCase getCartItemsUseCase;
   LoginUseCase loginUseCase;
   AddToCartUseCase addToCartUseCase;
   DeleteFromCartUseCase deleteFromCartUseCase;
+  UpdateCartQuantityUseCase updateCartQuantityUseCase;
 
   void doIntent(CartIntent intent) {
     switch (intent) {
@@ -40,6 +39,31 @@ class CartCubit extends Cubit<CartState> {
           intent.cartItemEntity,
           intent.count,
         );
+      case UpdateCartQuantityIntent():
+        _updateCartQuantity(
+          intent.productId,
+          {'quantity': intent.quantity},
+        );
+    }
+  }
+
+  void _updateCartQuantity(
+      String productId, Map<String, dynamic> quantity) async {
+    emit(state.copyWith(
+      updateCartQuantityStatus: UpdateCartQuantityStatus.loading,
+    ));
+    var result = await updateCartQuantityUseCase.execute(productId, quantity);
+    switch (result) {
+      case Success<CartResponseEntity>():
+        emit(state.copyWith(
+          updateCartQuantityStatus: UpdateCartQuantityStatus.success,
+          cartResponseEntity: result.data,
+        ));
+      case Error<CartResponseEntity>():
+        emit(state.copyWith(
+          updateCartQuantityStatus: UpdateCartQuantityStatus.error,
+          error: result.error,
+        ));
     }
   }
 
@@ -48,7 +72,6 @@ class CartCubit extends Cubit<CartState> {
       counterStatus: CounterStatus.increment,
       totalPrice: state.totalPrice + price,
     ));
-    log(state.totalPrice.toString());
   }
 
   void _decrement(int price) {
@@ -72,15 +95,17 @@ class CartCubit extends Cubit<CartState> {
     var result = await getCartItemsUseCase.execute();
     switch (result) {
       case Success<CartResponseEntity>():
-        state.totalPrice =
-            result.data.cartModelEntity?.totalPriceAfterDiscount?.toInt() ?? 0;
         emit(
           state.copyWith(
-            state: CartStatus.success,
-            cartResponseEntity: result.data,
-            addToCartStatus: AddToCartStatus.initial,
-            deleteFromCartStatus: DeleteFromCartStatus.initial,
-          ),
+              state: CartStatus.success,
+              cartResponseEntity: result.data,
+              addToCartStatus: AddToCartStatus.initial,
+              deleteFromCartStatus: DeleteFromCartStatus.initial,
+              totalPrice: state.totalPrice != 0
+                  ? state.totalPrice
+                  : result.data.cartModelEntity?.totalPriceAfterDiscount
+                          ?.toInt() ??
+                      0),
         );
       case Error<CartResponseEntity>():
         emit(state.copyWith(
@@ -110,6 +135,7 @@ class CartCubit extends Cubit<CartState> {
         emit(state.copyWith(
           addToCartStatus: AddToCartStatus.success,
         ));
+        _getCartItems();
       case Error<CartResponseEntity>():
         emit(
           state.copyWith(
@@ -175,5 +201,15 @@ class DeleteFromCartIntent extends CartIntent {
   DeleteFromCartIntent({
     required this.cartItemEntity,
     required this.count,
+  });
+}
+
+class UpdateCartQuantityIntent extends CartIntent {
+  final String productId;
+  final int quantity;
+
+  UpdateCartQuantityIntent({
+    required this.productId,
+    required this.quantity,
   });
 }
