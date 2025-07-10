@@ -6,8 +6,9 @@ class ApiErrorModel {
   final String? error;
 
   factory ApiErrorModel.fromJson(Map<String, dynamic> json) {
+    var keys = json.keys.toList();
     return ApiErrorModel(
-      error: json["error"],
+      error: json[keys.isNotEmpty ? keys.first : ""],
     );
   }
 
