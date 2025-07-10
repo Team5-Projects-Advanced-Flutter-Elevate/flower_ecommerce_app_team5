@@ -53,7 +53,7 @@ class ProductDetailsViewModel extends Cubit<ProductDetailsState> {
       try {
         _paletteGenerator = await PaletteGenerator.fromImageProvider(
             NetworkImage(images[i]),
-            size: const Size(50, 30));
+            size: const Size(5, 10));
         imagesDominantColors
             .add(_paletteGenerator.dominantColor?.color ?? AppColors.white);
       } catch (e) {
