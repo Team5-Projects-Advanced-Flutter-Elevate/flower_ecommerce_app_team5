@@ -24,7 +24,7 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
   @override
   void initState() {
     super.initState();
-    counter.value = widget.cartItemEntity.quantity ?? 1;
+    counter.value = widget.cartItemEntity.quantity?.toInt() ?? 1;
   }
 
   @override
@@ -107,7 +107,7 @@ class _CartItemState extends BaseStatefulWidgetState<CartItem> {
                           ],
                         ),
                       ),
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           cartCubit.doIntent(
                             DeleteFromCartIntent(

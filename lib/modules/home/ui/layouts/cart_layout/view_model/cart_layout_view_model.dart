@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/use_cases/login/login_use_case.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart';
@@ -95,24 +94,35 @@ class CartCubit extends Cubit<CartState> {
     var result = await getCartItemsUseCase.execute();
     switch (result) {
       case Success<CartResponseEntity>():
-        emit(
-          state.copyWith(
-              state: CartStatus.success,
-              cartResponseEntity: result.data,
-              addToCartStatus: AddToCartStatus.initial,
-              deleteFromCartStatus: DeleteFromCartStatus.initial,
-              totalPrice: state.totalPrice != 0
-                  ? state.totalPrice
-                  : result.data.cartModelEntity?.totalPriceAfterDiscount
-                          ?.toInt() ??
-                      0),
-        );
+        int totalPrice = _getTotalPrice(
+          result.data.cartModelEntity!.cartItems!,
+        ).toInt();
+        emit(state.copyWith(
+          state: CartStatus.success,
+          cartResponseEntity: result.data,
+          addToCartStatus: AddToCartStatus.initial,
+          deleteFromCartStatus: DeleteFromCartStatus.initial,
+          totalPrice: totalPrice != 0 ? totalPrice : state.totalPrice,
+        ));
       case Error<CartResponseEntity>():
         emit(state.copyWith(
           state: CartStatus.error,
           error: result.error,
         ));
     }
+  }
+
+  num _getTotalPrice(List<CartItemEntity> cartItems) {
+    num totalPrice = 0;
+    for (var item in cartItems) {
+      if (item.productEntity != null &&
+          item.quantity != null &&
+          item.productEntity!.priceAfterDiscount != null) {
+        totalPrice +=
+            (item.productEntity!.priceAfterDiscount! * item.quantity!);
+      }
+    }
+    return totalPrice;
   }
 
   void _addToCart(AddToCartRequest request) async {
@@ -135,7 +145,6 @@ class CartCubit extends Cubit<CartState> {
         emit(state.copyWith(
           addToCartStatus: AddToCartStatus.success,
         ));
-        _getCartItems();
       case Error<CartResponseEntity>():
         emit(
           state.copyWith(

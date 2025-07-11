@@ -186,5 +186,6 @@
   "outForDelivery": "خرج للتوصيل",
   "delivered": "تم التوصيل",
   "pending": "قيد الانتظار...",
-  "unknownWord": "غير معروف"
+  "unknownWord": "غير معروف",
+  "alreadyAdded": "تمت اضافته من قبل"
 }

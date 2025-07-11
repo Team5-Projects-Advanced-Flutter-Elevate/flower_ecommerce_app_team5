@@ -4,7 +4,7 @@ class CartItemEntity {
   final String? id;
   final ProductEntity? productEntity;
   final double? price;
-  final int? quantity;
+  final num? quantity;
 
   CartItemEntity({
     this.id,

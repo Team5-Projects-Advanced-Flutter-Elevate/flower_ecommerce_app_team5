@@ -24,6 +24,8 @@ class CategoryProductsView extends BaseStatelessWidget {
           displayAlertDialog(
             title: Text(
               LocaleKeys.pleaseLoginFirst.tr(),
+              textAlign: TextAlign.center,
+
             ),
             showOkButton: true,
             onOkButtonClick: () => Navigator.pushReplacementNamed(
@@ -34,31 +36,23 @@ class CategoryProductsView extends BaseStatelessWidget {
           return;
         }
         if (state.addToCartStatus == AddToCartStatus.success) {
-          // AppDialogs.showMessage(
-          //   context,
-          //   message: LocaleKeys.addedToCartSuccessfully.tr(),
-          //   isSuccess: true,
-          // );
           displayAlertDialog(
             title: Text(
               LocaleKeys.addedToCartSuccessfully.tr(),
+              textAlign: TextAlign.center,
+
             ),
             isDismissible: true,
-            showOkButton: true,
             autoDismissible: true,
           );
         } else if (state.addToCartStatus == AddToCartStatus.error) {
-          // AppDialogs.showMessage(
-          //   context,
-          //   message: LocaleKeys.soldOut.tr(),
-          //   isSuccess: false,
-          // );
           displayAlertDialog(
             title: Text(
               LocaleKeys.soldOut.tr(),
+              textAlign: TextAlign.center,
+
             ),
             isDismissible: true,
-            showOkButton: true,
             autoDismissible: true,
           );
         }

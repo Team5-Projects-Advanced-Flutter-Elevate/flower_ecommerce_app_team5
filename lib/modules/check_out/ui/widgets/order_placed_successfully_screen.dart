@@ -7,7 +7,9 @@ import '../../../../core/routing/defined_routes.dart';
 import '../../../../shared_layers/localization/generated/locale_keys.g.dart';
 
 class OrderPlacedSuccessfullyScreen extends BaseStatelessWidget {
-  const OrderPlacedSuccessfullyScreen({super.key});
+  const OrderPlacedSuccessfullyScreen({super.key, required this.orderId});
+
+  final String orderId;
 
   @override
   Widget customBuild(BuildContext context, BaseInheritedWidget inherit) {
@@ -16,6 +18,15 @@ class OrderPlacedSuccessfullyScreen extends BaseStatelessWidget {
         title: Text(
           LocaleKeys.trackOrder.tr(),
         ),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                DefinedRoutes.homeScreenRoute,
+                (route) => false,
+              );
+            },
+            icon: const Icon(Icons.arrow_back_ios)),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -45,7 +56,8 @@ class OrderPlacedSuccessfullyScreen extends BaseStatelessWidget {
             ),
             FilledButton(
               onPressed: () {
-                Navigator.pushNamed(context, DefinedRoutes.trackOrder);
+                Navigator.pushNamed(context, DefinedRoutes.trackOrder,
+                    arguments: orderId);
               },
               child: Text(
                 LocaleKeys.trackOrder.tr(),
