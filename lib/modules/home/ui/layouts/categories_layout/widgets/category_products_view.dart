@@ -19,6 +19,8 @@ class CategoryProductsView extends BaseStatelessWidget {
   @override
   Widget customBuild(BuildContext context, inherit) {
     return BlocListener<CartCubit, CartState>(
+      listenWhen: (previous, current) =>
+          current.addToCartStatus != previous.addToCartStatus,
       listener: (context, state) {
         if (state.addToCartStatus == AddToCartStatus.noAccess) {
           displayAlertDialog(
@@ -34,11 +36,6 @@ class CategoryProductsView extends BaseStatelessWidget {
           return;
         }
         if (state.addToCartStatus == AddToCartStatus.success) {
-          // AppDialogs.showMessage(
-          //   context,
-          //   message: LocaleKeys.addedToCartSuccessfully.tr(),
-          //   isSuccess: true,
-          // );
           displayAlertDialog(
             title: Text(
               LocaleKeys.addedToCartSuccessfully.tr(),
@@ -48,11 +45,6 @@ class CategoryProductsView extends BaseStatelessWidget {
             autoDismissible: true,
           );
         } else if (state.addToCartStatus == AddToCartStatus.error) {
-          // AppDialogs.showMessage(
-          //   context,
-          //   message: LocaleKeys.soldOut.tr(),
-          //   isSuccess: false,
-          // );
           displayAlertDialog(
             title: Text(
               LocaleKeys.soldOut.tr(),
