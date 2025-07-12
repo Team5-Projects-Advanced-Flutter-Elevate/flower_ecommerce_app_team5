@@ -92,14 +92,11 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
             appBar: AppBar(
               automaticallyImplyLeading: false,
               forceMaterialTransparency: true,
-              leadingWidth: screenWidth * 0.08,
-              leading: Padding(
-                padding: const EdgeInsets.only(left: 18.0),
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios,
-                      size: 20, color: Colors.black),
-                  onPressed: () => Navigator.pop(context, newAddress),
-                ),
+              titleSpacing: 0,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios,
+                    size: 20, color: Colors.black),
+                onPressed: () => Navigator.pop(context, newAddress),
               ),
               title: Text(LocaleKeys.addressTitle.tr(),
                   style: Theme.of(context).textTheme.headlineMedium),
