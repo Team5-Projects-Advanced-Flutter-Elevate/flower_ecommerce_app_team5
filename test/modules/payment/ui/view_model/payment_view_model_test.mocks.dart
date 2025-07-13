@@ -3,18 +3,24 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart'
-    as _i4;
-import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/checkout_session_response/checkout_response_entity.dart'
     as _i5;
-import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart'
-    as _i6;
-import 'package:flower_ecommerce_app_team5/modules/payment/domain/use_cases/payment/make_checkout_session_use_case.dart'
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart'
+    as _i10;
+import 'package:flower_ecommerce_app_team5/modules/home/domain/repo_contract/home_repo.dart'
     as _i2;
+import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/get_cart_items_use_case.dart'
+    as _i9;
+import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/checkout_session_response/checkout_response_entity.dart'
+    as _i6;
+import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart'
+    as _i7;
+import 'package:flower_ecommerce_app_team5/modules/payment/domain/use_cases/payment/make_checkout_session_use_case.dart'
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i7;
+import 'package:mockito/src/dummies.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -29,18 +35,28 @@ import 'package:mockito/src/dummies.dart' as _i7;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeHomeRepo_0 extends _i1.SmartFake implements _i2.HomeRepo {
+  _FakeHomeRepo_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [MakeCheckoutSessionUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMakeCheckoutSessionUseCase extends _i1.Mock
-    implements _i2.MakeCheckoutSessionUseCase {
+    implements _i3.MakeCheckoutSessionUseCase {
   MockMakeCheckoutSessionUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i4.ApiResult<_i5.CheckoutResponseEntity>> call(
-          {required _i6.PaymentRequestParametersEntity?
+  _i4.Future<_i5.ApiResult<_i6.CheckoutResponseEntity>> call(
+          {required _i7.PaymentRequestParametersEntity?
               paymentRequestParameters}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -49,8 +65,8 @@ class MockMakeCheckoutSessionUseCase extends _i1.Mock
           {#paymentRequestParameters: paymentRequestParameters},
         ),
         returnValue:
-            _i3.Future<_i4.ApiResult<_i5.CheckoutResponseEntity>>.value(
-                _i7.dummyValue<_i4.ApiResult<_i5.CheckoutResponseEntity>>(
+            _i4.Future<_i5.ApiResult<_i6.CheckoutResponseEntity>>.value(
+                _i8.dummyValue<_i5.ApiResult<_i6.CheckoutResponseEntity>>(
           this,
           Invocation.method(
             #call,
@@ -58,5 +74,41 @@ class MockMakeCheckoutSessionUseCase extends _i1.Mock
             {#paymentRequestParameters: paymentRequestParameters},
           ),
         )),
-      ) as _i3.Future<_i4.ApiResult<_i5.CheckoutResponseEntity>>);
+      ) as _i4.Future<_i5.ApiResult<_i6.CheckoutResponseEntity>>);
+}
+
+/// A class which mocks [GetCartItemsUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetCartItemsUseCase extends _i1.Mock
+    implements _i9.GetCartItemsUseCase {
+  MockGetCartItemsUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.HomeRepo get homeRepo => (super.noSuchMethod(
+        Invocation.getter(#homeRepo),
+        returnValue: _FakeHomeRepo_0(
+          this,
+          Invocation.getter(#homeRepo),
+        ),
+      ) as _i2.HomeRepo);
+
+  @override
+  _i4.Future<_i5.ApiResult<_i10.CartResponseEntity>> execute() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+        ),
+        returnValue: _i4.Future<_i5.ApiResult<_i10.CartResponseEntity>>.value(
+            _i8.dummyValue<_i5.ApiResult<_i10.CartResponseEntity>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i5.ApiResult<_i10.CartResponseEntity>>);
 }
