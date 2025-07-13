@@ -26,131 +26,152 @@ class CheckoutSessionScreen extends StatefulWidget {
 }
 
 class _CheckoutSessionScreenState
-    extends BaseStatefulWidgetState<CheckoutSessionScreen> with AutomaticKeepAliveClientMixin{
+    extends BaseStatefulWidgetState<CheckoutSessionScreen>
+    with AutomaticKeepAliveClientMixin {
   final PaymentViewModel paymentViewModel = getIt.get<PaymentViewModel>();
 
   @override
   void initState() {
     super.initState();
-    print("Inside init state of payment ---------------- ");
     paymentViewModel.doIntent(MakeCheckoutSessionIntent(
         paymentRequestParameters: widget.paymentRequestParameters));
   }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocProvider(
-      create: (context) => paymentViewModel,
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            backgroundColor: AppColors.mainColor,
-            leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
+    return RepaintBoundary(
+      child: BlocProvider(
+        create: (context) => paymentViewModel,
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              backgroundColor: AppColors.mainColor,
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                  )),
+              centerTitle: true,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(AssetsPaths.flowerIconWithBackground, width: 25),
+                  SizedBox(
+                    width: screenWidth * 0.01,
+                  ),
+                  Text(
+                    LocaleKeys.flowery.tr(),
+                    style: theme.textTheme.labelMedium!.copyWith(
+                        color: Colors.white,
+                        fontFamily: GoogleFonts.imFellEnglish.toString()),
+                  )
+                ],
+              ),
+            ),
+            body: Stack(children: [
+              BlocConsumer<PaymentViewModel, PaymentState>(
+                listener: (context, state) {
+                  switch (state.cartItemsStatus) {
+                    case Status.initial:
+                      break;
+                    case Status.loading:
+                      displayAlertDialog(
+                        title: const LoadingWidget(),
+                        isDismissible: false,
+                      );
+                    case Status.success:
+                      hideAlertDialog();
+                      if (state.cartResponseEntity?.cartModelEntity
+                                  ?.cartItems !=
+                              null &&
+                          state.cartResponseEntity!.cartModelEntity!.cartItems!
+                              .isEmpty) {
+                        displayAlertDialog(
+                          title: Text(LocaleKeys.successfulPayment.tr()),
+                          showOkButton: true,
+                          onOkButtonClick: () {
+                            Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                DefinedRoutes.homeScreenRoute,
+                                (route) => false);
+                          },
+                        );
+                      } else {
+                        displayAlertDialog(
+                          title: Text(LocaleKeys.somethingWentWrong.tr()),
+                          showOkButton: true,
+                          onOkButtonClick: () {
+                            Navigator.pop(context);
+                          },
+                        );
+                      }
+
+                    case Status.error:
+                      hideAlertDialog();
+                      displayAlertDialog(
+                        title: ErrorStateWidget(error: state.cartItemsError!),
+                        isDismissible: false,
+                      );
+                  }
                 },
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                )),
-            centerTitle: true,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(AssetsPaths.flowerIconWithBackground, width: 25),
-                SizedBox(
-                  width: screenWidth * 0.01,
-                ),
-                Text(
-                  LocaleKeys.flowery.tr(),
-                  style: theme.textTheme.labelMedium!.copyWith(
-                      color: Colors.white,
-                      fontFamily: GoogleFonts.imFellEnglish.toString()),
-                )
-              ],
-            ),
-          ),
-          body: Stack(children: [
-            BlocConsumer<PaymentViewModel, PaymentState>(
-              listener: (context, state) {
-                switch (state.cartItemsStatus) {
-                  case Status.initial:
-                    break;
-                  case Status.loading:
-                    displayAlertDialog(
-                      title: const LoadingWidget(),
-                      isDismissible: false,
-                    );
-                  case Status.success:
-                    hideAlertDialog();
-                    displayAlertDialog(
-                      title: Text(LocaleKeys.successfulPayment.tr()),
-                      showOkButton: true,
-                      onOkButtonClick: () {
-                        Navigator.pushNamedAndRemoveUntil(context,
-                            DefinedRoutes.homeScreenRoute, (route) => false);
-                      },
-                    );
-                  case Status.error:
-                    hideAlertDialog();
-                    displayAlertDialog(
-                      title: ErrorStateWidget(error: state.cartItemsError!),
-                      isDismissible: false,
-                    );
-                }
-              },
-              builder: (context, state) {
-                print("rebuilding inside builder of blocConsumer -----------");
-                switch (state.checkoutSessionStatus) {
-                  case Status.initial:
-                    return const SizedBox();
-                  case Status.loading:
-                    return const LoadingWidget();
-                  case Status.success:
-                    return InAppWebView(
-                      initialSettings: InAppWebViewSettings(
-                        javaScriptEnabled: true,
-                        transparentBackground: true,
-                      ),
-                      initialUrlRequest: URLRequest(
-                        url: WebUri(
-                            state.checkoutResponseEntity?.session?.url ?? ""),
-                      ),
-                      onUpdateVisitedHistory: (controller, url, isReload) {
-                        if (("$url" ==
-                                state.checkoutResponseEntity?.session
-                                    ?.successUrl) &&
-                            url != null) {
-                          //paymentViewModel.doIntent(GetCartItemsIntent());
-                        } else if (("$url" ==
-                                state.checkoutResponseEntity?.session
-                                    ?.cancelUrl) &&
-                            url != null) {
-                          displayAlertDialog(
-                            title: Text(LocaleKeys.canceledPayment.tr()),
-                            showOkButton: true,
-                            onOkButtonClick: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  DefinedRoutes.homeScreenRoute,
-                                  (route) => false);
-                            },
-                          );
-                        }
-                      },
-                    );
-                  case Status.error:
-                    return CustomScrollView(slivers: [
-                      SliverFillRemaining(
-                        child: ErrorStateWidget(
-                            error: state.checkoutSessionsError!),
-                      )
-                    ]);
-                }
-              },
-            ),
-          ])),
+                builder: (context, state) {
+                  debugPrint(
+                      "rebuilding inside builder of blocConsumer -----------");
+                  switch (state.checkoutSessionStatus) {
+                    case Status.initial:
+                      return const SizedBox();
+                    case Status.loading:
+                      return const LoadingWidget();
+                    case Status.success:
+                      return InAppWebView(
+                        initialSettings: InAppWebViewSettings(
+                          javaScriptEnabled: true,
+                          transparentBackground: true,
+                        ),
+                        initialUrlRequest: URLRequest(
+                          url: WebUri(
+                              state.checkoutResponseEntity?.session?.url ?? ""),
+                        ),
+                        onUpdateVisitedHistory: (controller, url, isReload) {
+                          if (("$url" ==
+                                  state.checkoutResponseEntity?.session
+                                      ?.successUrl) &&
+                              url != null) {
+                            paymentViewModel.doIntent(GetCartItemsIntent());
+                          } else if (("$url" ==
+                                  state.checkoutResponseEntity?.session
+                                      ?.cancelUrl) &&
+                              url != null) {
+                            displayAlertDialog(
+                              title: Text(LocaleKeys.canceledPayment.tr()),
+                              showOkButton: true,
+                              onOkButtonClick: () {
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    DefinedRoutes.homeScreenRoute,
+                                    (route) => false);
+                              },
+                            );
+                          }
+                        },
+                      );
+                    case Status.error:
+                      return CustomScrollView(slivers: [
+                        SliverFillRemaining(
+                          child: ErrorStateWidget(
+                              error: state.checkoutSessionsError!),
+                        )
+                      ]);
+                  }
+                },
+              ),
+            ])),
+      ),
     );
   }
 

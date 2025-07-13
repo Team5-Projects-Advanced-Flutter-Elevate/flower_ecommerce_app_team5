@@ -473,7 +473,7 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
         ));
-    gh.singleton<_i82.CheckOutCubit>(() => _i82.CheckOutCubit(
+    gh.factory<_i82.CheckOutCubit>(() => _i82.CheckOutCubit(
           gh<_i297.GetAllAddressesUseCase>(),
           gh<_i112.MakeCashOrderUseCase>(),
           gh<_i834.MakeCheckoutSessionUseCase>(),
