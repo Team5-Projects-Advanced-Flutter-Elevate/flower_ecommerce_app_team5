@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/category_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/enums/languages_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../../core/bases/base_statless_widget.dart';
-import '../../../categories_layout/view_model/categories_layout_view_model.dart';
 import 'category_item.dart';
 
 // ignore: must_be_immutable
