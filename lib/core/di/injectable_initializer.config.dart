@@ -465,10 +465,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i782.RegisterUseCase(gh<_i496.RegisterRepo>()));
     gh.factory<_i110.ResetPasswordUseCase>(
         () => _i110.ResetPasswordUseCase(gh<_i731.ResetPasswordRepo>()));
-    gh.factory<_i801.PaymentViewModel>(() => _i801.PaymentViewModel(
-          gh<_i834.MakeCheckoutSessionUseCase>(),
-          gh<_i640.GetCartItemsUseCase>(),
-        ));
     gh.factory<_i450.LoginRepo>(() => _i639.LoginRepoImp(
           gh<_i766.LoginRemoteDataSource>(),
           gh<_i147.LoginLocalDataSource>(),
@@ -490,6 +486,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i692.HomeCubit(gh<_i90.GetHomeDataUseCase>()));
     gh.factory<_i14.NotificationsRepo>(() => _i624.NotificationsRepositoryImp(
         gh<_i897.NotificationsRemoteDataSource>()));
+    gh.factory<_i811.MyOrdersViewModelCubit>(
+        () => _i811.MyOrdersViewModelCubit(gh<_i865.OrderPageUseCase>()));
     gh.factory<_i460.BestSellerViewModel>(() =>
         _i460.BestSellerViewModel(gh<_i502.GetBestSellerProductsUseCase>()));
     gh.factory<_i44.CategoriesLayoutViewModel>(
@@ -497,14 +495,17 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i369.GetCategoriesUseCase>(),
               gh<_i1019.GetAllProductsUseCase>(),
             ));
+    gh.factory<_i801.PaymentViewModel>(() => _i801.PaymentViewModel(
+          gh<_i834.MakeCheckoutSessionUseCase>(),
+          gh<_i640.GetCartItemsUseCase>(),
+          gh<_i865.OrderPageUseCase>(),
+        ));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     gh.factory<_i304.NewAddressUseCase>(
         () => _i304.NewAddressUseCase(gh<_i469.NewAddressRepo>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
-    gh.factory<_i811.MyOrdersViewModelCubit>(
-        () => _i811.MyOrdersViewModelCubit(gh<_i865.OrderPageUseCase>()));
     gh.factory<_i823.ForgetPasswordUseCase>(
         () => _i823.ForgetPasswordUseCase(gh<_i1013.ForgetPasswordRepo>()));
     gh.factory<_i421.LoginAsGuestUseCase>(

@@ -19,6 +19,7 @@ import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payme
 import 'package:flower_ecommerce_app_team5/modules/payment/ui/checkout_session_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/search/search_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/successful_order_placed/ui/successful_order_placed_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/track_order/ui/track_order_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/track_order_details/ui/track_order_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -109,12 +110,17 @@ class GenerateRoute {
         );
       case DefinedRoutes.trackOrder:
         return MaterialPageRoute(
-          builder: (context) => TrackOrderView(orderId: args as String,)
-        );
+            builder: (context) => TrackOrderView(
+                  orderId: args as String,
+                ));
       case DefinedRoutes.trackOrderDetailsScreenRoute:
         return MaterialPageRoute(
           builder: (context) =>
               TrackOrderDetailsScreen(orderId: (args as String)),
+        );
+      case DefinedRoutes.successfulOrderPlacedScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => SuccessfulOrderPlacedScreen(orderId: args as String,),
         );
       default:
         return _errorRoute();

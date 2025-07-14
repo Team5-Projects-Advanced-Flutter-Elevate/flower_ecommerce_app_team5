@@ -36,7 +36,7 @@ class InvoiceSectionAndCheckoutButton extends BaseStatelessWidget {
           ),
           FilledButton(
             onPressed: () {
-              Navigator.pushNamed(
+              Navigator.pushReplacementNamed(
                 context,
                 DefinedRoutes.checkOut,
                 arguments: cartResponseEntity,

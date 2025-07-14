@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/get_cart_items_use_case.dart';
+import 'package:flower_ecommerce_app_team5/modules/order_page/domain/usecase/order_page.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/checkout_session_response/checkout_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/use_cases/payment/make_checkout_session_use_case.dart';
@@ -13,7 +14,8 @@ import 'package:mockito/mockito.dart';
 
 import 'payment_view_model_test.mocks.dart';
 
-@GenerateMocks([MakeCheckoutSessionUseCase, GetCartItemsUseCase])
+@GenerateMocks(
+    [MakeCheckoutSessionUseCase, GetCartItemsUseCase, OrderPageUseCase])
 void main() {
   group(
     "PaymentViewModel Testing",
@@ -21,6 +23,7 @@ void main() {
       late PaymentViewModel paymentViewModel;
       late MakeCheckoutSessionUseCase makeCheckoutSessionUseCase;
       late GetCartItemsUseCase getCartItemsUseCase;
+      late OrderPageUseCase orderPageUseCase;
       PaymentRequestParametersEntity paymentRequestParameters =
           const PaymentRequestParametersEntity(
               shippingAddress: ShippingAddressEntity(
@@ -37,12 +40,13 @@ void main() {
         () {
           makeCheckoutSessionUseCase = MockMakeCheckoutSessionUseCase();
           getCartItemsUseCase = MockGetCartItemsUseCase();
+          orderPageUseCase = MockOrderPageUseCase();
         },
       );
       setUp(
         () {
-          paymentViewModel =
-              PaymentViewModel(makeCheckoutSessionUseCase, getCartItemsUseCase);
+          paymentViewModel = PaymentViewModel(makeCheckoutSessionUseCase,
+              getCartItemsUseCase, orderPageUseCase);
         },
       );
       blocTest<PaymentViewModel, PaymentState>(

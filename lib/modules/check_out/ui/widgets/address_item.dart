@@ -31,7 +31,7 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: AppColors.white[90]!.withOpacity(0.25),
+            color: AppColors.white[90]!.withAlpha(64),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

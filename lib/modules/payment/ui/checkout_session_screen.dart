@@ -85,22 +85,52 @@ class _CheckoutSessionScreenState
                         isDismissible: false,
                       );
                     case Status.success:
-                      hideAlertDialog();
                       if (state.cartResponseEntity?.cartModelEntity
                                   ?.cartItems !=
                               null &&
                           state.cartResponseEntity!.cartModelEntity!.cartItems!
                               .isEmpty) {
-                        displayAlertDialog(
-                          title: Text(LocaleKeys.successfulPayment.tr()),
-                          showOkButton: true,
-                          onOkButtonClick: () {
-                            Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                DefinedRoutes.homeScreenRoute,
-                                (route) => false);
-                          },
-                        );
+                        switch (state.getAllOrdersStatus) {
+                          case Status.initial:
+                          case Status.loading:
+                            break;
+                          case Status.success:
+                            hideAlertDialog();
+                            if (state.latestOrderId != null) {
+                              // Todo: Navigate to success order page
+                              displayAlertDialog(
+                                title: Text(LocaleKeys.successfulPayment.tr()),
+                                showOkButton: true,
+                                onOkButtonClick: () {
+                                  Navigator.pushReplacementNamed(
+                                      context,
+                                      DefinedRoutes
+                                          .successfulOrderPlacedScreenRoute,
+                                      arguments: state.latestOrderId!);
+                                },
+                              );
+                            } else {
+                              displayAlertDialog(
+                                title: Text(LocaleKeys.successfulPayment.tr()),
+                                showOkButton: true,
+                                onOkButtonClick: () {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      DefinedRoutes.homeScreenRoute,
+                                      (route) => false);
+                                },
+                              );
+                            }
+                          case Status.error:
+                            displayAlertDialog(
+                              title:
+                                  ErrorStateWidget(error: state.ordersError!),
+                              showOkButton: true,
+                              onOkButtonClick: () {
+                                Navigator.pop(context);
+                              },
+                            );
+                        }
                       } else {
                         displayAlertDialog(
                           title: Text(LocaleKeys.somethingWentWrong.tr()),
@@ -115,7 +145,10 @@ class _CheckoutSessionScreenState
                       hideAlertDialog();
                       displayAlertDialog(
                         title: ErrorStateWidget(error: state.cartItemsError!),
-                        isDismissible: false,
+                        showOkButton: true,
+                        onOkButtonClick: () {
+                          Navigator.pop(context);
+                        },
                       );
                   }
                 },
@@ -143,6 +176,7 @@ class _CheckoutSessionScreenState
                                       ?.successUrl) &&
                               url != null) {
                             paymentViewModel.doIntent(GetCartItemsIntent());
+                            paymentViewModel.doIntent(GetLatestOrderIdIntent());
                           } else if (("$url" ==
                                   state.checkoutResponseEntity?.session
                                       ?.cancelUrl) &&

@@ -32,12 +32,23 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        if (homeScreenViewModel.pageController.initialPage !=
+            homeScreenViewModel.selectedAppSectionIndex) {
+          homeScreenViewModel.doIntent(JumpToPage(
+              pageIndex: homeScreenViewModel.selectedAppSectionIndex));
+        }
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     homeScreenViewModel = Provider.of(context);
-    debugPrint("selected app section index ${homeScreenViewModel.selectedAppSectionIndex}");
+    debugPrint(
+        "selected app section index ${homeScreenViewModel.selectedAppSectionIndex}");
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarColor: AppColors.white,
@@ -57,9 +68,8 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
                 selectedIndex: homeScreenViewModel.selectedAppSectionIndex,
                 onDestinationSelected: (value) {
                   setState(() {
-                    homeScreenViewModel.setAppSectionsIndex(value) ;
-                    homeScreenViewModel
-                        .doIntent(JumpToPage(pageIndex: value));
+                    homeScreenViewModel.setAppSectionsIndex(value);
+                    homeScreenViewModel.doIntent(JumpToPage(pageIndex: value));
                   });
                 },
                 destinations: [

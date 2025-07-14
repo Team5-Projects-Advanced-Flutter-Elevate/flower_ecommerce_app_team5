@@ -196,7 +196,7 @@ class _OccasionListScreenState
                                           price: product.price,
                                           priceAfterDiscountIfExist:
                                               product.priceAfterDiscount,
-                                          imageUrl: "${product.images?[index]}",
+                                          imageUrl: "${product.imgCover}",
                                         );
                                       },
                                     );
