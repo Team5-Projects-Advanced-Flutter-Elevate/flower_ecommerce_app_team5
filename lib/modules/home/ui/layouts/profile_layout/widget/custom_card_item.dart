@@ -8,9 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CustomCardItem extends StatelessWidget {
   final AddressEntity address;
   const CustomCardItem({
-    Key? key,
+    super.key,
     required this.address,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
