@@ -12,7 +12,7 @@ import '../../../payment/domain/use_cases/payment/make_cash_order_use_case.dart'
 import '../../../payment/domain/use_cases/payment/make_checkout_session_use_case.dart';
 import 'check_out_state.dart';
 
-@Singleton()
+@injectable
 class CheckOutCubit extends Cubit<CheckOutState> {
   CheckOutCubit(
     this.getAllAddressesUseCase,

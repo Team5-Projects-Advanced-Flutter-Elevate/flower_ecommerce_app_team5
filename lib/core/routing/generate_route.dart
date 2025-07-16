@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/forget_password_screen.dart';
@@ -9,7 +8,6 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/lo
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/best_seller_screen.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/order_placed_successfully_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/ui/on_notification_opened_app.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
@@ -21,10 +19,10 @@ import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payme
 import 'package:flower_ecommerce_app_team5/modules/payment/ui/checkout_session_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/product_details/ui/product_details_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/search/search_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/successful_order_placed/ui/successful_order_placed_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/track_order/ui/track_order_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/track_order_details/ui/track_order_details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../modules/check_out/ui/check_out_view.dart';
 import '../../modules/edit_profile/ui/change_password_screen.dart';
 import '../../modules/home/ui/layouts/add_new_address/new_address_screen.dart';
@@ -77,13 +75,9 @@ class GenerateRoute {
           builder: (context) => const ChangePasswordScreen(),
         );
       case DefinedRoutes.checkOut:
-        CheckOutCubit cubit = getIt<CheckOutCubit>();
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: cubit..doIntent(GetAllAddressesIntent()),
-            child: CheckOutView(
-              cartResponseEntity: args as CartResponseEntity,
-            ),
+          builder: (context) => CheckOutView(
+            cartResponseEntity: args as CartResponseEntity,
           ),
         );
       case DefinedRoutes.orderPlacedSuccessfully:
@@ -101,6 +95,7 @@ class GenerateRoute {
         );
       case DefinedRoutes.checkoutSessionScreenRoute:
         return MaterialPageRoute(
+          fullscreenDialog: true,
           builder: (context) => CheckoutSessionScreen(
             paymentRequestParameters: args as PaymentRequestParametersEntity,
           ),
@@ -124,6 +119,10 @@ class GenerateRoute {
         return MaterialPageRoute(
           builder: (context) =>
               TrackOrderDetailsScreen(orderId: (args as String)),
+        );
+      case DefinedRoutes.successfulOrderPlacedScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => SuccessfulOrderPlacedScreen(orderId: args as String,),
         );
       default:
         return _errorRoute();

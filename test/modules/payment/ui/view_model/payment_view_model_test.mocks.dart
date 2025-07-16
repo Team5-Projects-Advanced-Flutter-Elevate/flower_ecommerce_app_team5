@@ -3,18 +3,30 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i5;
 
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart'
-    as _i4;
-import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/checkout_session_response/checkout_response_entity.dart'
-    as _i5;
-import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart'
     as _i6;
-import 'package:flower_ecommerce_app_team5/modules/payment/domain/use_cases/payment/make_checkout_session_use_case.dart'
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart'
+    as _i11;
+import 'package:flower_ecommerce_app_team5/modules/home/domain/repo_contract/home_repo.dart'
     as _i2;
+import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/get_cart_items_use_case.dart'
+    as _i10;
+import 'package:flower_ecommerce_app_team5/modules/order_page/domain/entity/order_page_entity.dart'
+    as _i13;
+import 'package:flower_ecommerce_app_team5/modules/order_page/domain/repo/order_page.dart'
+    as _i3;
+import 'package:flower_ecommerce_app_team5/modules/order_page/domain/usecase/order_page.dart'
+    as _i12;
+import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/checkout_session_response/checkout_response_entity.dart'
+    as _i7;
+import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart'
+    as _i8;
+import 'package:flower_ecommerce_app_team5/modules/payment/domain/use_cases/payment/make_checkout_session_use_case.dart'
+    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i7;
+import 'package:mockito/src/dummies.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -29,18 +41,38 @@ import 'package:mockito/src/dummies.dart' as _i7;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeHomeRepo_0 extends _i1.SmartFake implements _i2.HomeRepo {
+  _FakeHomeRepo_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeOrderPageRepo_1 extends _i1.SmartFake implements _i3.OrderPageRepo {
+  _FakeOrderPageRepo_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [MakeCheckoutSessionUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMakeCheckoutSessionUseCase extends _i1.Mock
-    implements _i2.MakeCheckoutSessionUseCase {
+    implements _i4.MakeCheckoutSessionUseCase {
   MockMakeCheckoutSessionUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i4.ApiResult<_i5.CheckoutResponseEntity>> call(
-          {required _i6.PaymentRequestParametersEntity?
+  _i5.Future<_i6.ApiResult<_i7.CheckoutResponseEntity>> call(
+          {required _i8.PaymentRequestParametersEntity?
               paymentRequestParameters}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -49,8 +81,8 @@ class MockMakeCheckoutSessionUseCase extends _i1.Mock
           {#paymentRequestParameters: paymentRequestParameters},
         ),
         returnValue:
-            _i3.Future<_i4.ApiResult<_i5.CheckoutResponseEntity>>.value(
-                _i7.dummyValue<_i4.ApiResult<_i5.CheckoutResponseEntity>>(
+            _i5.Future<_i6.ApiResult<_i7.CheckoutResponseEntity>>.value(
+                _i9.dummyValue<_i6.ApiResult<_i7.CheckoutResponseEntity>>(
           this,
           Invocation.method(
             #call,
@@ -58,5 +90,85 @@ class MockMakeCheckoutSessionUseCase extends _i1.Mock
             {#paymentRequestParameters: paymentRequestParameters},
           ),
         )),
-      ) as _i3.Future<_i4.ApiResult<_i5.CheckoutResponseEntity>>);
+      ) as _i5.Future<_i6.ApiResult<_i7.CheckoutResponseEntity>>);
+}
+
+/// A class which mocks [GetCartItemsUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetCartItemsUseCase extends _i1.Mock
+    implements _i10.GetCartItemsUseCase {
+  MockGetCartItemsUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.HomeRepo get homeRepo => (super.noSuchMethod(
+        Invocation.getter(#homeRepo),
+        returnValue: _FakeHomeRepo_0(
+          this,
+          Invocation.getter(#homeRepo),
+        ),
+      ) as _i2.HomeRepo);
+
+  @override
+  _i5.Future<_i6.ApiResult<_i11.CartResponseEntity>> execute() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+        ),
+        returnValue: _i5.Future<_i6.ApiResult<_i11.CartResponseEntity>>.value(
+            _i9.dummyValue<_i6.ApiResult<_i11.CartResponseEntity>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i6.ApiResult<_i11.CartResponseEntity>>);
+}
+
+/// A class which mocks [OrderPageUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockOrderPageUseCase extends _i1.Mock implements _i12.OrderPageUseCase {
+  MockOrderPageUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.OrderPageRepo get orderPageRepo => (super.noSuchMethod(
+        Invocation.getter(#orderPageRepo),
+        returnValue: _FakeOrderPageRepo_1(
+          this,
+          Invocation.getter(#orderPageRepo),
+        ),
+      ) as _i3.OrderPageRepo);
+
+  @override
+  set orderPageRepo(_i3.OrderPageRepo? _orderPageRepo) => super.noSuchMethod(
+        Invocation.setter(
+          #orderPageRepo,
+          _orderPageRepo,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.Future<_i6.ApiResult<_i13.GetMyOrdersEntity>> getMyOrder() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getMyOrder,
+          [],
+        ),
+        returnValue: _i5.Future<_i6.ApiResult<_i13.GetMyOrdersEntity>>.value(
+            _i9.dummyValue<_i6.ApiResult<_i13.GetMyOrdersEntity>>(
+          this,
+          Invocation.method(
+            #getMyOrder,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i6.ApiResult<_i13.GetMyOrdersEntity>>);
 }

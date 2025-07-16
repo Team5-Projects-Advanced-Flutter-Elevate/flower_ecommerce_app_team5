@@ -191,7 +191,7 @@ abstract class AppThemes {
         }
         return ThemeData.light().textTheme.titleSmall?.copyWith(
                   color:
-                      AppColors.black.withOpacity(0.7), // Default label color
+                      AppColors.black.withAlpha(178), // Default label color
                 ) ??
             const TextStyle();
       }),

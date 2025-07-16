@@ -26,7 +26,8 @@ class CheckoutSessionScreen extends StatefulWidget {
 }
 
 class _CheckoutSessionScreenState
-    extends BaseStatefulWidgetState<CheckoutSessionScreen> {
+    extends BaseStatefulWidgetState<CheckoutSessionScreen>
+    with AutomaticKeepAliveClientMixin {
   final PaymentViewModel paymentViewModel = getIt.get<PaymentViewModel>();
 
   @override
@@ -38,93 +39,176 @@ class _CheckoutSessionScreenState
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => paymentViewModel,
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: AppColors.mainColor,
-            leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                )),
-            centerTitle: true,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(AssetsPaths.flowerIconWithBackground, width: 25),
-                SizedBox(
-                  width: screenWidth * 0.01,
-                ),
-                Text(
-                  LocaleKeys.flowery.tr(),
-                  style: theme.textTheme.labelMedium!.copyWith(
-                      color: Colors.white,
-                      fontFamily: GoogleFonts.imFellEnglish.toString()),
-                )
-              ],
+    super.build(context);
+    return RepaintBoundary(
+      child: BlocProvider(
+        create: (context) => paymentViewModel,
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              backgroundColor: AppColors.mainColor,
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                  )),
+              centerTitle: true,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(AssetsPaths.flowerIconWithBackground, width: 25),
+                  SizedBox(
+                    width: screenWidth * 0.01,
+                  ),
+                  Text(
+                    LocaleKeys.flowery.tr(),
+                    style: theme.textTheme.labelMedium!.copyWith(
+                        color: Colors.white,
+                        fontFamily: GoogleFonts.imFellEnglish.toString()),
+                  )
+                ],
+              ),
             ),
-          ),
-          body: Stack(children: [
-            BlocBuilder<PaymentViewModel, PaymentState>(
-              builder: (context, state) {
-                switch (state.checkoutSessionStatus) {
-                  case PaymentStatus.initial:
-                    return const SizedBox();
-                  case PaymentStatus.loading:
-                    return const LoadingWidget();
-                  case PaymentStatus.success:
-                    return InAppWebView(
-                      initialUrlRequest: URLRequest(
-                        url: WebUri(
-                            state.checkoutResponseEntity?.session?.url ?? ""),
-                      ),
-                      onUpdateVisitedHistory: (controller, url, isReload) {
-                        if (("$url" ==
-                                state.checkoutResponseEntity?.session
-                                    ?.successUrl) &&
-                            url != null) {
-                          displayAlertDialog(
-                            title: Text(LocaleKeys.successfulPayment.tr()),
-                            showOkButton: true,
-                            onOkButtonClick: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  DefinedRoutes.homeScreenRoute,
-                                  (route) => false);
-                            },
-                          );
-                        } else if (("$url" ==
-                                state.checkoutResponseEntity?.session
-                                    ?.cancelUrl) &&
-                            url != null) {
-                          displayAlertDialog(
-                            title: Text(LocaleKeys.canceledPayment.tr()),
-                            showOkButton: true,
-                            onOkButtonClick: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  DefinedRoutes.homeScreenRoute,
-                                  (route) => false);
-                            },
-                          );
+            body: Stack(children: [
+              BlocConsumer<PaymentViewModel, PaymentState>(
+                listener: (context, state) {
+                  switch (state.cartItemsStatus) {
+                    case Status.initial:
+                      break;
+                    case Status.loading:
+                      displayAlertDialog(
+                        title: const LoadingWidget(),
+                        isDismissible: false,
+                      );
+                    case Status.success:
+                      if (state.cartResponseEntity?.cartModelEntity
+                                  ?.cartItems !=
+                              null &&
+                          state.cartResponseEntity!.cartModelEntity!.cartItems!
+                              .isEmpty) {
+                        switch (state.getAllOrdersStatus) {
+                          case Status.initial:
+                          case Status.loading:
+                            break;
+                          case Status.success:
+                            hideAlertDialog();
+                            if (state.latestOrderId != null) {
+                              // Todo: Navigate to success order page
+                              displayAlertDialog(
+                                title: Text(LocaleKeys.successfulPayment.tr()),
+                                showOkButton: true,
+                                onOkButtonClick: () {
+                                  Navigator.pushReplacementNamed(
+                                      context,
+                                      DefinedRoutes
+                                          .successfulOrderPlacedScreenRoute,
+                                      arguments: state.latestOrderId!);
+                                },
+                              );
+                            } else {
+                              displayAlertDialog(
+                                title: Text(LocaleKeys.successfulPayment.tr()),
+                                showOkButton: true,
+                                onOkButtonClick: () {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      DefinedRoutes.homeScreenRoute,
+                                      (route) => false);
+                                },
+                              );
+                            }
+                          case Status.error:
+                            displayAlertDialog(
+                              title:
+                                  ErrorStateWidget(error: state.ordersError!),
+                              showOkButton: true,
+                              onOkButtonClick: () {
+                                Navigator.pop(context);
+                              },
+                            );
                         }
-                      },
-                    );
-                  case PaymentStatus.error:
-                    return CustomScrollView(slivers: [
-                      SliverFillRemaining(
-                        child: ErrorStateWidget(error: state.error!),
-                      )
-                    ]);
-                }
-              },
-            ),
-          ])),
+                      } else {
+                        displayAlertDialog(
+                          title: Text(LocaleKeys.somethingWentWrong.tr()),
+                          showOkButton: true,
+                          onOkButtonClick: () {
+                            Navigator.pop(context);
+                          },
+                        );
+                      }
+
+                    case Status.error:
+                      hideAlertDialog();
+                      displayAlertDialog(
+                        title: ErrorStateWidget(error: state.cartItemsError!),
+                        showOkButton: true,
+                        onOkButtonClick: () {
+                          Navigator.pop(context);
+                        },
+                      );
+                  }
+                },
+                builder: (context, state) {
+                  debugPrint(
+                      "rebuilding inside builder of blocConsumer -----------");
+                  switch (state.checkoutSessionStatus) {
+                    case Status.initial:
+                      return const SizedBox();
+                    case Status.loading:
+                      return const LoadingWidget();
+                    case Status.success:
+                      return InAppWebView(
+                        initialSettings: InAppWebViewSettings(
+                          javaScriptEnabled: true,
+                          transparentBackground: true,
+                        ),
+                        initialUrlRequest: URLRequest(
+                          url: WebUri(
+                              state.checkoutResponseEntity?.session?.url ?? ""),
+                        ),
+                        onUpdateVisitedHistory: (controller, url, isReload) {
+                          if (("$url" ==
+                                  state.checkoutResponseEntity?.session
+                                      ?.successUrl) &&
+                              url != null) {
+                            paymentViewModel.doIntent(GetCartItemsIntent());
+                            paymentViewModel.doIntent(GetLatestOrderIdIntent());
+                          } else if (("$url" ==
+                                  state.checkoutResponseEntity?.session
+                                      ?.cancelUrl) &&
+                              url != null) {
+                            displayAlertDialog(
+                              title: Text(LocaleKeys.canceledPayment.tr()),
+                              showOkButton: true,
+                              onOkButtonClick: () {
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    DefinedRoutes.homeScreenRoute,
+                                    (route) => false);
+                              },
+                            );
+                          }
+                        },
+                      );
+                    case Status.error:
+                      return CustomScrollView(slivers: [
+                        SliverFillRemaining(
+                          child: ErrorStateWidget(
+                              error: state.checkoutSessionsError!),
+                        )
+                      ]);
+                  }
+                },
+              ),
+            ])),
+      ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

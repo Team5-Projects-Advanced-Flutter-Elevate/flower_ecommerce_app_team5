@@ -35,7 +35,7 @@ class _MyOrderPageScreenState
         appBar: AppBar(
           automaticallyImplyLeading: false,
           forceMaterialTransparency: true,
-          leadingWidth: screenWidth * 0.08,
+          titleSpacing: 0,
           leading: IconButton(
             icon:
                 const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
