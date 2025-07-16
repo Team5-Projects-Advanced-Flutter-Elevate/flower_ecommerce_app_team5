@@ -180,5 +180,6 @@
   "outForDelivery": "Out for delivery",
   "delivered": "Delivered",
   "pending": "Pending...",
-  "unknownWord": "Unknown"
+  "unknownWord": "Unknown",
+  "alreadyAdded": "Already added"
 }

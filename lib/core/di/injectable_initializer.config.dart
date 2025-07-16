@@ -158,7 +158,7 @@ import '../../modules/home/data/datasource_impl/about_us.dart' as _i1049;
 import '../../modules/home/data/datasource_impl/home_data_source_impl.dart'
     as _i524;
 import '../../modules/home/data/datasource_impl/new_address.dart' as _i265;
-import '../../modules/home/data/datasource_impl/terms.dart' as _i139;
+import '../../modules/home/data/datasource_impl/terms.dart' as _i122;
 import '../../modules/home/data/repo_impl/about_us.dart' as _i219;
 import '../../modules/home/data/repo_impl/home_repo_impl.dart' as _i1042;
 import '../../modules/home/data/repo_impl/new_address_repo_impl.dart' as _i150;
@@ -182,6 +182,7 @@ import '../../modules/home/domain/use_cases/get_occasions_use_case.dart'
     as _i386;
 import '../../modules/home/domain/use_cases/new_address_use_case.dart' as _i304;
 import '../../modules/home/domain/use_cases/terms_use_case.dart' as _i721;
+import '../../modules/home/domain/use_cases/update_cart_quantity.dart' as _i188;
 import '../../modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart'
     as _i482;
 import '../../modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart'
@@ -308,16 +309,16 @@ extension GetItInjectableX on _i174.GetIt {
       () => dioService.provideDio(),
       preResolve: true,
     );
+    gh.factory<_i902.ProductDetailsViewModel>(
+        () => _i902.ProductDetailsViewModel());
     await gh.factoryAsync<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
       preResolve: true,
     );
-    gh.factory<_i902.ProductDetailsViewModel>(
-        () => _i902.ProductDetailsViewModel());
     gh.singleton<_i163.FlutterLocalNotificationsPlugin>(
         () => flutterLocaleNotificationProvider.providePlugin());
     gh.factory<_i937.TermsLocalDataSource>(
-        () => _i139.TermsLocalDataSourceImpl());
+        () => _i122.TermsLocalDataSourceImpl());
     gh.singleton<_i261.LocalNotificationsService>(() =>
         _i261.LocalNotificationsService(
             gh<_i163.FlutterLocalNotificationsPlugin>()));
@@ -343,8 +344,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => myOrdersApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
-    gh.factory<_i1042.NewAddressOnlineDataSource>(
-        () => _i265.NewAddressOnlineDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.factory<_i113.CheckOutDataSource>(
         () => _i455.CheckOutDataSourceImpl(gh<_i363.CheckOutApiClient>()));
     gh.factory<_i160.OrderPageOnlineDataSource>(() =>
@@ -356,6 +355,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i884.OrderCollection>(() => _i333.OrderCollectionImp());
     gh.factory<_i936.AboutUsRepo>(
         () => _i219.AboutUsRepoImpl(gh<_i925.AboutUsLocalDataSource>()));
+    gh.factory<_i1042.NewAddressOnlineDataSource>(
+        () => _i265.NewAddressOnlineDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.factory<_i779.ResetCodeRemoteDataSource>(
         () => _i808.ResetCodeRemoteDataSourceImpl(gh<_i343.AuthApiClient>()));
     gh.factory<_i150.ForgetPasswordRemoteDataSource>(() =>
@@ -493,6 +494,8 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i369.GetCategoriesUseCase>(),
               gh<_i1019.GetAllProductsUseCase>(),
             ));
+    gh.factory<_i188.UpdateCartQuantityUseCase>(
+        () => _i188.UpdateCartQuantityUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
     gh.factory<_i304.NewAddressUseCase>(
@@ -534,12 +537,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i543.LoginUseCase>(),
           gh<_i421.LoginAsGuestUseCase>(),
         ));
-    gh.singleton<_i671.CartCubit>(() => _i671.CartCubit(
-          gh<_i640.GetCartItemsUseCase>(),
-          gh<_i543.LoginUseCase>(),
-          gh<_i999.AddToCartUseCase>(),
-          gh<_i828.DeleteFromCartUseCase>(),
-        ));
     gh.factory<_i901.ProfileViewModelCubit>(() => _i901.ProfileViewModelCubit(
           gh<_i543.LoginUseCase>(),
           gh<_i435.AboutUsUseCase>(),
@@ -547,6 +544,13 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i585.NotificationViewModel>(() =>
         _i585.NotificationViewModel(gh<_i861.GetAllNotificationsUseCase>()));
+    gh.singleton<_i671.CartCubit>(() => _i671.CartCubit(
+          gh<_i640.GetCartItemsUseCase>(),
+          gh<_i543.LoginUseCase>(),
+          gh<_i999.AddToCartUseCase>(),
+          gh<_i828.DeleteFromCartUseCase>(),
+          gh<_i188.UpdateCartQuantityUseCase>(),
+        ));
     return this;
   }
 }

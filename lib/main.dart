@@ -25,6 +25,7 @@ import 'modules/authentication/domain/use_cases/login/login_use_case.dart';
 
 LoginResponseDto? storedLoginInfo;
 GlobalKey<NavigatorState> globalKeyNavigator = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -52,7 +53,7 @@ void main() async {
   PlatformDispatcher.instance.onError = FirebaseCrashlyticsService.recordErrors;
   // ===============
   runApp(BlocProvider(
-    create: (context) => getIt<CartCubit>(),
+    create: (context) => getIt<CartCubit>()..doIntent(GetCartItemsIntent()),
     child: MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -110,8 +111,8 @@ class _MyAppState extends State<MyApp> {
           validateFunctions: ValidateFunctions.getInstance(),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            navigatorKey:
-                globalKeyNavigator, //getIt.get<GlobalKey<NavigatorState>>(),
+            navigatorKey: globalKeyNavigator,
+            //getIt.get<GlobalKey<NavigatorState>>(),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
@@ -120,12 +121,11 @@ class _MyAppState extends State<MyApp> {
             onGenerateRoute: GenerateRoute.onGenerateRoute,
             onGenerateInitialRoutes: (initialRoute) =>
                 GenerateRoute.onGenerateInitialRoutes(
-                   initialRoute: initialRoute, loginInfo: storedLoginInfo),
+                    initialRoute: initialRoute, loginInfo: storedLoginInfo),
             // initialRoute: DefinedRoutes.bestSellerScreenRoute,
             //home: const NewAddressScreen(),
-            ),
-          );
-
+          ),
+        );
       },
     );
   }

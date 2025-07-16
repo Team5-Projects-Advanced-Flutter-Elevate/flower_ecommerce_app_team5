@@ -52,4 +52,10 @@ class HomeRepoImpl implements HomeRepo {
   Future<ApiResult<CartResponseEntity>> deleteFromCart(String productId) {
     return _homeDataSource.deleteFromCart(productId);
   }
+
+  @override
+  Future<ApiResult<CartResponseEntity>> updateCartQuantity(
+      String productId, Map<String, dynamic> quantity) {
+    return _homeDataSource.updateCartQuantity(productId, quantity);
+  }
 }

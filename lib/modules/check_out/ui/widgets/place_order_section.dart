@@ -51,6 +51,7 @@ class PlaceOrderSection extends BaseStatelessWidget {
                   Navigator.pushNamed(
                     context,
                     DefinedRoutes.orderPlacedSuccessfully,
+                    arguments: cartResponseEntity.cartModelEntity?.id,
                   );
                 case MakeCashOnDeliveryStatus.error:
                   displayAlertDialog(
@@ -65,6 +66,7 @@ class PlaceOrderSection extends BaseStatelessWidget {
                   Navigator.pushNamed(
                       context, DefinedRoutes.checkoutSessionScreenRoute,
                       arguments: PaymentRequestParametersEntity(
+
                         shippingAddress: ShippingAddressEntity(
                           street: state.addressModelEntityOfSelectedAddress!
                                   .street ??
