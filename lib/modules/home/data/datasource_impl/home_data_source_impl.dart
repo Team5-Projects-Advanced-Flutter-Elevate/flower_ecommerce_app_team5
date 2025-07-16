@@ -115,4 +115,17 @@ class HomeDataSourceImpl implements HomeDataSource {
         return Error(error: result.error);
     }
   }
+
+  @override
+  Future<ApiResult<CartResponseEntity>> updateCartQuantity(
+      String productId, Map<String, dynamic> quantity) async {
+    var result = await ApiExecutor.executeApi(() async =>
+        await _homeApiClient.updateCartQuantity(productId, quantity));
+    switch (result) {
+      case Success<CartResponse>():
+        return Success(data: result.data.toEntity());
+      case Error<CartResponse>():
+        return Error(error: result.error);
+    }
+  }
 }
