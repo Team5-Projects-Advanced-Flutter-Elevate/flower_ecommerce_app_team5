@@ -4,6 +4,7 @@ import 'package:flower_ecommerce_app_team5/modules/authentication/data/data_sour
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/data_sources_imp/register/register_online_datasource_impl.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/authentication_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/register_request.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/register/user_dm.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/domain/entities/authentication/authentication_response_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -23,7 +24,21 @@ void main() {
     test('register success ', () async {
       // arrange
       when(mockAuthApiClient.register(any)).thenAnswer(
-        (_) async => AuthenticationResponse(),
+        (_) async => AuthenticationResponse(
+          user: UserDm(
+            firstName: 'firstName',
+            lastName: 'lastName',
+            email: 'email',
+            phone: 'phone',
+            gender: 'gender',
+            id: 'id',
+            role: 'role',
+            createdAt: 'createdAt',
+            photo: 'photo',
+          ),
+          message: 'message',
+          token: 'token',
+        ),
       );
       // act
       var result = await registerOnlineDataSource.register(RegisterRequest());

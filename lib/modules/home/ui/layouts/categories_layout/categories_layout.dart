@@ -11,8 +11,6 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_scree
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-
 import '../../../../../core/colors/app_colors.dart';
 import '../../../../../core/constants/constants.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
@@ -26,17 +24,14 @@ class CategoriesLayout extends StatefulWidget {
 
 class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
   late CategoriesLayoutViewModel categoriesViewModel;
-  late HomeScreenViewModel homeScreenViewModel;
+  HomeScreenViewModel homeScreenViewModel = getIt.get<HomeScreenViewModel>();
+
+  bool isFirstTime = true;
+  int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    homeScreenViewModel = Provider.of(context);
     categoriesViewModel = homeScreenViewModel.categoriesLayoutViewModel;
     categoriesViewModel.processIntent(GetCategoriesIntent());
   }
@@ -45,145 +40,150 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => categoriesViewModel,
-      child: Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: SortWidget(viewModel: categoriesViewModel),
-        appBar: AppBar(
-          forceMaterialTransparency: true,
-          toolbarHeight: screenHeight * 0.1,
-          title: Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(
-                        context, DefinedRoutes.searchScreenRoute);
-                  },
-                  child: TextField(
-                    enabled: false,
-                    decoration: InputDecoration(
-                      hintText: LocaleKeys.search,
-                      hintStyle: GoogleFonts.inter(
-                        textStyle: theme.textTheme.bodyMedium!.copyWith(
-                          fontSize: 14 * (screenWidth / Constants.designWidth),
-                          color: AppColors.white[70],
+      child: BlocConsumer<CategoriesLayoutViewModel,
+          CategoriesLayoutViewModelState>(
+        listener: (context, state) {
+          if (isFirstTime && state.getCategoriesStatus == Status.success) {
+            isFirstTime = false;
+            categoriesViewModel.processIntent(GetProductsIntent(
+              categoryId: state.categories[0].id!,
+            ));
+          }
+        },
+        builder: (context, state) {
+          switch (state.getCategoriesStatus) {
+            case Status.initial:
+            case Status.loading:
+              return const LoadingWidget();
+            case Status.success:
+              return Scaffold(
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerFloat,
+                floatingActionButton:
+                    SortWidget(viewModel: categoriesViewModel),
+                appBar: AppBar(
+                  forceMaterialTransparency: true,
+                  toolbarHeight: screenHeight * 0.1,
+                  title: Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              DefinedRoutes.searchScreenRoute,
+                            );
+                          },
+                          child: TextField(
+                            enabled: false,
+                            decoration: InputDecoration(
+                              hintText: LocaleKeys.search,
+                              hintStyle: GoogleFonts.inter(
+                                textStyle: theme.textTheme.bodyMedium!.copyWith(
+                                  fontSize: 14 *
+                                      (screenWidth / Constants.designWidth),
+                                  color: AppColors.white[70],
+                                ),
+                              ),
+                              prefixIcon: Icon(Icons.search,
+                                  color: AppColors.white[70]),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide:
+                                    BorderSide(color: AppColors.white[70]!),
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide:
+                                    BorderSide(color: AppColors.white[70]!),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide:
+                                    BorderSide(color: AppColors.mainColor),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      prefixIcon:
-                          Icon(Icons.search, color: AppColors.white[70]),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: AppColors.white[70]!),
+                      const SizedBox(width: 10),
+                      InkWell(
+                        onTap: () {
+                          showSortBottomSheet(
+                              screenHeight: screenHeight,
+                              viewModel: categoriesViewModel,
+                              context: context,
+                              theme: theme,
+                              screenWidth: screenWidth);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal:
+                                20 * (screenWidth / Constants.designWidth),
+                            vertical:
+                                13 * (screenWidth / Constants.designWidth),
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: AppColors.white[70]!),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Icon(Icons.sort_sharp,
+                              color: AppColors.white[70]),
+                        ),
                       ),
-                      disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: AppColors.white[70]!),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: AppColors.mainColor),
-                      ),
-                    ),
+                    ],
+                  ),
+                  bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(kToolbarHeight - 20),
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: DefaultTabController(
+                          length: state.categories.length,
+                          initialIndex:
+                              categoriesViewModel.initialCategoryIndex,
+                          child: TabBar(
+                            onTap: (value) {
+                              if (currentIndex == value) return;
+                              categoriesViewModel
+                                  .processIntent(GetProductsIntent(
+                                categoryId: state.categories[value].id!,
+                              ));
+                              categoriesViewModel.selectedCategoryId =
+                                  state.categories[value].id!;
+                              currentIndex = value;
+                            },
+                            physics: const BouncingScrollPhysics(),
+                            isScrollable: true,
+                            indicatorPadding: EdgeInsets.zero,
+                            indicatorWeight: 2,
+                            tabs: state.categories
+                                .map((title) => Text(title.name ?? ""))
+                                .toList(),
+                          ),
+                        )),
                   ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              InkWell(
-                onTap: () {
-                  showSortBottomSheet(
-                      screenHeight: screenHeight,
-                      viewModel: categoriesViewModel,
-                      context: context,
-                      theme: theme,
-                      screenWidth: screenWidth);
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20 * (screenWidth / Constants.designWidth),
-                    vertical: 13 * (screenWidth / Constants.designWidth),
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.white[70]!),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(Icons.sort_sharp, color: AppColors.white[70]),
+                body: BlocBuilder<CategoriesLayoutViewModel,
+                    CategoriesLayoutViewModelState>(
+                  builder: (context, state) {
+                    switch (state.getProductsStatus) {
+                      case Status.initial:
+                      case Status.loading:
+                        return const LoadingWidget();
+                      case Status.success:
+                        return CategoryProductsView(
+                          state.products,
+                        );
+                      case Status.error:
+                        return ErrorStateWidget(error: state.getProductsError!);
+                    }
+                  },
                 ),
-              ),
-            ],
-          ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(kToolbarHeight - 20),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: BlocConsumer<CategoriesLayoutViewModel,
-                  CategoriesLayoutViewModelState>(listener: (context, state) {
-                if (state is CategoriesLayoutViewModelError) {
-                  displayAlertDialog(
-                      showOkButton: true,
-                      title: ErrorStateWidget(error: state.error));
-                }
-              }, buildWhen: (previous, current) {
-                return current is CategoriesLayoutViewModelSuccess;
-              }, builder: (context, state) {
-                // if(state is ChangeFilterRadioButton) return;
-                if (state is CategoriesLayoutViewModelSuccess ||
-                    state is CategoriesViewModelTabBarChanged) {
-                  categoriesViewModel.processIntent(GetInitialCategoryIndex());
-                  categoriesViewModel.processIntent(
-                    GetProductsIntent(
-                      categoryId: categoriesViewModel.selectedCategoryId,
-                    ),
-                  );
-                  //tabs.addAll(viewModel.categoriesList.map((e) => e.name!));
-                  return DefaultTabController(
-                    length: categoriesViewModel.categoriesList.length,
-                    initialIndex: categoriesViewModel.initialCategoryIndex,
-                    child: TabBar(
-                      onTap: (value) {
-                        // if (value == 0) {
-                        //   viewModel.processIntent(
-                        //       TabBarChangedIntent(categoryId: null));
-                        // }
-
-                        categoriesViewModel.processIntent(TabBarChangedIntent(
-                            categoryId:
-                                categoriesViewModel.categoriesList[value].id));
-                      },
-                      physics: const BouncingScrollPhysics(),
-                      isScrollable: true,
-                      indicatorPadding: EdgeInsets.zero,
-                      indicatorWeight: 2,
-                      tabs: categoriesViewModel.categoriesList
-                          .map((title) => Text(title.name ?? ""))
-                          .toList(),
-                    ),
-                  );
-                } else {
-                  return const LoadingWidget();
-                }
-              }),
-            ),
-          ),
-        ),
-        body: BlocConsumer<CategoriesLayoutViewModel,
-            CategoriesLayoutViewModelState>(listener: (context, state) {
-          if (state is CategoriesLayoutViewModelError) {
-            displayAlertDialog(
-              showOkButton: true,
-              title: ErrorStateWidget(
-                error: state.error,
-              ),
-            );
+              );
+            case Status.error:
+              return ErrorStateWidget(error: state.getCategoriesError!);
           }
-        }, builder: (context, state) {
-          if (state is CategoriesViewModelTabBarChanged) {
-            return CategoryProductsView(
-              categoriesViewModel.productsList,
-            );
-          } else {
-            return const LoadingWidget();
-          }
-        }),
+        },
       ),
     );
   }
@@ -196,5 +196,3 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
         getIt.get<CategoriesLayoutViewModel>();
   }
 }
-
-// ignore: must_be_immutable

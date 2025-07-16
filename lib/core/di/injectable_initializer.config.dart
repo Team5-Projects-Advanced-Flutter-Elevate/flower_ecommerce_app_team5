@@ -527,7 +527,7 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i359.UploadImageUseCase>(),
               gh<_i70.ChangePasswordUseCase>(),
             ));
-    gh.factory<_i867.HomeScreenViewModel>(() => _i867.HomeScreenViewModel(
+    gh.lazySingleton<_i867.HomeScreenViewModel>(() => _i867.HomeScreenViewModel(
           gh<_i44.CategoriesLayoutViewModel>(),
           gh<_i855.OccasionViewModelCubit>(),
         ));
