@@ -22,4 +22,7 @@ abstract interface class HomeDataSource {
   Future<ApiResult<CartResponseEntity>> addToCart(AddToCartRequest request);
 
   Future<ApiResult<CartResponseEntity>> deleteFromCart(String productId);
+
+  Future<ApiResult<CartResponseEntity>> updateCartQuantity(
+      String productId, Map<String, dynamic> quantity);
 }

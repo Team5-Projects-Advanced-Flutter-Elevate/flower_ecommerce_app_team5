@@ -41,35 +41,35 @@ class _CheckoutSessionScreenState
     return BlocProvider(
       create: (context) => paymentViewModel,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.mainColor,
-          leading: IconButton(
-              onPressed: () {
-              Navigator.pop(context);
-                },icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-              )),
-          centerTitle: true,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(AssetsPaths.flowerIconWithBackground, width: 25),
-              SizedBox(
-                width: screenWidth * 0.01,
-              ),
-              Text(
-                LocaleKeys.flowery.tr(),
-                style: theme.textTheme.labelMedium!.copyWith(
-                    color: Colors.white,
-                    fontFamily: GoogleFonts.imFellEnglish.toString()),
-              )
-            ],
+          appBar: AppBar(
+            backgroundColor: AppColors.mainColor,
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                )),
+            centerTitle: true,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(AssetsPaths.flowerIconWithBackground, width: 25),
+                SizedBox(
+                  width: screenWidth * 0.01,
+                ),
+                Text(
+                  LocaleKeys.flowery.tr(),
+                  style: theme.textTheme.labelMedium!.copyWith(
+                      color: Colors.white,
+                      fontFamily: GoogleFonts.imFellEnglish.toString()),
+                )
+              ],
+            ),
           ),
-        ),
-        body: Stack(
-          children: [
+          body: Stack(children: [
             BlocBuilder<PaymentViewModel, PaymentState>(
               builder: (context, state) {
                 switch (state.checkoutSessionStatus) {
