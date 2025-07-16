@@ -7,9 +7,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_respons
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/new_address_response/new_address_response.dart';
 import 'package:retrofit/retrofit.dart';
-
 import '../../models/cart_response/add_to_cart_request.dart';
-
 part 'home_api_client.g.dart';
 
 @RestApi(baseUrl: ApisEndpoints.baseUrl)
@@ -42,4 +40,10 @@ abstract class HomeApiClient {
 
   @PATCH(ApisEndpoints.addNewAddress)
   Future<SaveAddress> saveAddress(@Body() Map<String, dynamic> body);
+  
+  @PATCH(ApisEndpoints.editAddress)
+  editAddress(@Body() Map<String, dynamic> body);
+
+  @DELETE(ApisEndpoints.deleteAddress)
+  deleteAddress(@Body() Map<String, dynamic> body);
 }

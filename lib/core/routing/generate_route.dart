@@ -15,6 +15,8 @@ import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/ui/o
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/saved_address_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/update_address_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/notifications_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
@@ -121,6 +123,16 @@ class GenerateRoute {
         return MaterialPageRoute(
           builder: (context) =>
               TrackOrderDetailsScreen(orderId: (args as String)),
+        );
+        case DefinedRoutes.savedAddress:
+        return MaterialPageRoute(
+          builder: (context) =>
+              const SavedAddressScreen(),
+        );
+        case DefinedRoutes.updateAddress:
+        return MaterialPageRoute(
+          builder: (context) =>
+              const UpdateAddressScreen(),
         );
       default:
         return _errorRoute();

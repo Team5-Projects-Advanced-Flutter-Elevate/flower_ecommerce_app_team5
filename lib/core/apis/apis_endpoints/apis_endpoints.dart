@@ -19,6 +19,8 @@ class ApisEndpoints {
   static const String editProfile = 'api/v1/auth/editProfile';
   static const String changePassword = 'api/v1/auth/change-password';
   static const String addNewAddress = 'api/v1/addresses';
+  static const String editAddress = "api/v1/addresses/";
+  static const String deleteAddress = "api/v1/addresses/";
   static const String cashOrderEndpoint = 'api/v1/orders';
   static const String checkoutSessionEndpoint =
       'api/v1/orders/checkout?url=http://localhost:3000';

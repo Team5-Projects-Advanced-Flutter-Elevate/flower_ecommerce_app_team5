@@ -250,4 +250,36 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
           ),
         )),
       ) as _i9.Future<_i7.SaveAddress>);
+
+  @override
+  _i9.Future<_i7.SaveAddress> editAddress(Map<String, dynamic>? body) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #editAddress,
+          [body],
+        ),
+        returnValue: _i9.Future<_i7.SaveAddress>.value(_FakeSaveAddress_5(
+          this,
+          Invocation.method(
+            #editAddress,
+            [body],
+          ),
+        )),
+      ) as _i9.Future<_i7.SaveAddress>);
+
+  @override
+  _i9.Future<_i7.SaveAddress> deleteAddress(Map<String, dynamic>? body) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteAddress,
+          [body],
+        ),
+        returnValue: _i9.Future<_i7.SaveAddress>.value(_FakeSaveAddress_5(
+          this,
+          Invocation.method(
+            #deleteAddress,
+            [body],
+          ),
+        )),
+      ) as _i9.Future<_i7.SaveAddress>);
 }
