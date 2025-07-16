@@ -8,7 +8,6 @@ import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/gift_sec
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/payment_section.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/place_order_section.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
