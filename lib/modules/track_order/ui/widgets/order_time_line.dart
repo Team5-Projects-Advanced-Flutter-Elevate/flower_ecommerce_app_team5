@@ -33,7 +33,7 @@ class _OrderTimeLineState extends BaseStatefulWidgetState<OrderTimeLine> {
       itemBuilder: (context, index) {
         final isFirst = index == 0;
         final isLast = index == titles.length - 1;
-        final isActive = index == widget.activeStep;
+        final isActive = index < widget.activeStep;
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

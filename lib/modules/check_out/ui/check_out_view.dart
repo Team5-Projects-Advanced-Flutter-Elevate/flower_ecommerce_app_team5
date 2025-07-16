@@ -4,8 +4,6 @@ import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/delivery_address_section.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/gift_section.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/payment_section.dart';

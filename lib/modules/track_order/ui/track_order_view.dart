@@ -10,7 +10,6 @@ import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/bases/base_stateful_widget_state.dart';
-import '../../../core/routing/defined_routes.dart';
 import '../../../core/widgets/error_state_widget.dart';
 import '../../../core/widgets/loading_state_widget.dart';
 import '../../../shared_layers/database/firestore/ui/firestore_provider.dart';
@@ -52,11 +51,7 @@ class _TrackOrderViewState extends BaseStatefulWidgetState<TrackOrderView> {
           ),
           leading: IconButton(
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                DefinedRoutes.homeScreenRoute,
-                    (route) => false,
-              );
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
