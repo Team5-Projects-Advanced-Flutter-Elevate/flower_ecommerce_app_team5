@@ -140,11 +140,6 @@ class _CategoriesLayoutState extends BaseStatefulWidgetState<CategoriesLayout> {
                     initialIndex: categoriesViewModel.initialCategoryIndex,
                     child: TabBar(
                       onTap: (value) {
-                        // if (value == 0) {
-                        //   viewModel.processIntent(
-                        //       TabBarChangedIntent(categoryId: null));
-                        // }
-
                         categoriesViewModel.processIntent(TabBarChangedIntent(
                             categoryId:
                                 categoriesViewModel.categoriesList[value].id));

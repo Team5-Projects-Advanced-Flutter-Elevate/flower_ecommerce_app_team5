@@ -35,6 +35,7 @@ showSortBottomSheet(
     sortListTitles = Sort.values.map((e) => e.titleA).toList();
   }
   showModalBottomSheet(
+    //  backgroundColor: color.,
     context: context,
     builder: (BuildContext context) {
       return StatefulBuilder(
@@ -72,12 +73,43 @@ showSortBottomSheet(
                     ),
                   ),
                   Expanded(
-                    child: ListView.builder(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 12.0,
+                        right: 16,
+                        left: 16,
+                      ),
+                      child: ListView.separated(
+                        padding: const EdgeInsets.only(top: 8, bottom: 8),
                         itemCount: sortListValues.length,
                         itemBuilder: (context, index) {
-                          return Padding(
+                          return Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8),
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    spreadRadius: .5,
+                                    blurStyle: BlurStyle.outer,
+                                    color: AppColors.white[70]!, // Shadow color
+                                    blurRadius: 4.0, // Spread of the shadow
+                                    offset: const Offset(
+                                        0, 0), // Shadow position (x,y)
+                                  ),
+                                  BoxShadow(
+                                    color: AppColors.white[70]!, // Shadow color
+                                    blurRadius: 8.0, // Spread of the shadow
+                                    offset: const Offset(
+                                      4,
+                                      4,
+                                    ), // Shadow position (x,y)
+                                  ),
+                                ],
+                                color: AppColors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                    color: AppColors.white[50]!, width: 3)),
                             padding: const EdgeInsets.symmetric(
-                                vertical: 16, horizontal: 32),
+                                vertical: 8, horizontal: 16),
                             child: Row(
                               children: [
                                 Expanded(
@@ -102,7 +134,17 @@ showSortBottomSheet(
                               ],
                             ),
                           );
-                        }),
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: 20,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
