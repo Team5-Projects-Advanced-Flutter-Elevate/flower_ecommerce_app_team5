@@ -71,158 +71,162 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => viewModel,
-      child: BlocConsumer<NewAddressViewModelCubit, AddressState>(
-        listener: (context, state) {
-          if (state is AddressSuccess) {
-            displayAlertDialog(
-              title: const Text('Saved Successfully'),
-              showOkButton: true,
-              onOkButtonClick: () {
-                Navigator.pop(context, newAddress);
-              },
-            );
-          } else if (state is AddressError) {
-            debugPrint('Address Error: ${state.errorMessage}');
-          }
-        },
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              forceMaterialTransparency: true,
-              titleSpacing: 0,
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios,
-                    size: 20, color: Colors.black),
-                onPressed: () => Navigator.pop(context, newAddress),
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: BlocProvider(
+        create: (_) => viewModel,
+        child: BlocConsumer<NewAddressViewModelCubit, AddressState>(
+          listener: (context, state) {
+            if (state is AddressSuccess) {
+              displayAlertDialog(
+                title: const Text('Saved Successfully'),
+                showOkButton: true,
+                onOkButtonClick: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context, newAddress);
+                  addressController.clear();
+                  phoneController.clear();
+                  recipientController.clear();
+                },
+              );
+            } else if (state is AddressError) {
+              debugPrint('Address Error: ${state.errorMessage}');
+            }
+          },
+          builder: (context, state) {
+            return Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                forceMaterialTransparency: true,
+                titleSpacing: 0,
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios,
+                      size: 20, color: Colors.black),
+                  onPressed: () => Navigator.pop(context, newAddress),
+                ),
+                title: Text(LocaleKeys.addressTitle.tr(),
+                    style: Theme.of(context).textTheme.headlineMedium),
               ),
-              title: Text(LocaleKeys.addressTitle.tr(),
-                  style: Theme.of(context).textTheme.headlineMedium),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Image(image: AssetImage('assets/icons/map.png')),
-                      SizedBox(height: screenHeight * 0.02),
-                      _buildTextField(
-                        controller: addressController,
-                        label: LocaleKeys.addressTitle.tr(),
-                        hint: LocaleKeys.addressHint.tr(),
-                        validator: validateFunctions.validationOfAddress,
-                      ),
-                      SizedBox(height: screenHeight * 0.02),
-                      _buildTextField(
-                        controller: phoneController,
-                        label: LocaleKeys.phoneNumber.tr(),
-                        hint: LocaleKeys.phoneNumberHint.tr(),
-                        validator: validateFunctions.validationOfPhoneNumber,
-                      ),
-                      SizedBox(height: screenHeight * 0.02),
-                      _buildTextField(
-                        controller: recipientController,
-                        label: LocaleKeys.recipient.tr(),
-                        hint: LocaleKeys.recipientNameHint.tr(),
-                        validator: validateFunctions.validationOfrecipient,
-                      ),
-                      SizedBox(height: screenHeight * 0.02),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildDropdown(
-                              value: selectedGovernorate ?? '',
-                              items: governorates.map((e) => e.nameEn).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedGovernorate = value;
-                                  selectedGovernorateId = governorates
-                                      .firstWhere((g) => g.nameEn == value)
-                                      .id;
-                                  filteredCities = allCities
-                                      .where((c) =>
-                                          c.governorateId ==
-                                          selectedGovernorateId)
-                                      .toList();
-                                  selectedArea = filteredCities.isNotEmpty
-                                      ? filteredCities.first.cityNameEn
-                                      : null;
-                                });
-                              },
-                            ),
-                          ),
-                          SizedBox(width: screenWidth * 0.02),
-                          Expanded(
-                            child: _buildDropdown(
-                              value: selectedArea ?? '',
-                              items: filteredCities
-                                  .map((c) => c.cityNameEn)
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedArea = value;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: screenHeight * 0.04),
-                      (state is AddressLoading)
-                          ? const LoadingWidget()
-                          : ElevatedButton(
-                              onPressed: () async {
-                                if (_formKey.currentState?.validate() != true) {
-                                  return;
-                                }
-
-                                final latLong =
-                                    await viewModel.getLatLongFromCountry(
-                                        selectedGovernorate ?? '');
-                                final lat = latLong?['latitude'].toString();
-                                final long = latLong?['longitude'].toString();
-
-                                viewModel.processIntent(
-                                  AddAddress(
-                                    addressController.text,
-                                    phoneController.text,
-                                    selectedGovernorate,
-                                    lat,
-                                    long,
-                                    recipientController.text,
-                                  ),
-                                );
-
-                                newAddress = AddressModelEntity(
-                                  street: addressController.text,
-                                  lat: lat,
-                                  long: long,
-                                  phone: phoneController.text,
-                                  city: selectedGovernorate,
-                                  username: recipientController.text,
-                                );
-                                addressController.clear();
-                                phoneController.clear();
-                                recipientController.clear();
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                LocaleKeys.saveAddress.tr(),
-                                style: TextStyle(color: AppColors.white),
+              body: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Image(image: AssetImage('assets/icons/map.png')),
+                        SizedBox(height: screenHeight * 0.02),
+                        _buildTextField(
+                          controller: addressController,
+                          label: LocaleKeys.addressTitle.tr(),
+                          hint: LocaleKeys.addressHint.tr(),
+                          validator: validateFunctions.validationOfAddress,
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        _buildTextField(
+                          controller: phoneController,
+                          label: LocaleKeys.phoneNumber.tr(),
+                          hint: LocaleKeys.phoneNumberHint.tr(),
+                          validator: validateFunctions.validationOfPhoneNumber,
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        _buildTextField(
+                          controller: recipientController,
+                          label: LocaleKeys.recipient.tr(),
+                          hint: LocaleKeys.recipientNameHint.tr(),
+                          validator: validateFunctions.validationOfrecipient,
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildDropdown(
+                                value: selectedGovernorate ?? '',
+                                items: governorates.map((e) => e.nameEn).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedGovernorate = value;
+                                    selectedGovernorateId = governorates
+                                        .firstWhere((g) => g.nameEn == value)
+                                        .id;
+                                    filteredCities = allCities
+                                        .where((c) =>
+                                            c.governorateId ==
+                                            selectedGovernorateId)
+                                        .toList();
+                                    selectedArea = filteredCities.isNotEmpty
+                                        ? filteredCities.first.cityNameEn
+                                        : null;
+                                  });
+                                },
                               ),
                             ),
-                    ],
+                            SizedBox(width: screenWidth * 0.02),
+                            Expanded(
+                              child: _buildDropdown(
+                                value: selectedArea ?? '',
+                                items: filteredCities
+                                    .map((c) => c.cityNameEn)
+                                    .toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedArea = value;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight * 0.04),
+                        (state is AddressLoading)
+                            ? const LoadingWidget()
+                            : ElevatedButton(
+                                onPressed: () async {
+                                  if (_formKey.currentState?.validate() != true) {
+                                    return;
+                                  }
+
+                                  final latLong =
+                                      await viewModel.getLatLongFromCountry(
+                                          selectedGovernorate ?? '');
+                                  final lat = latLong?['latitude'].toString();
+                                  final long = latLong?['longitude'].toString();
+
+                                  viewModel.processIntent(
+                                    AddAddress(
+                                      addressController.text,
+                                      phoneController.text,
+                                      selectedGovernorate,
+                                      lat,
+                                      long,
+                                      recipientController.text,
+                                    ),
+                                  );
+                                  newAddress = AddressModelEntity(
+                                    street: addressController.text,
+                                    lat: lat,
+                                    long: long,
+                                    phone: phoneController.text,
+                                    city: selectedGovernorate,
+                                    username: recipientController.text,
+                                  );
+                                },
+                                child: Text(
+                                  LocaleKeys.saveAddress.tr(),
+                                  style: TextStyle(color: AppColors.white),
+                                ),
+                              ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
