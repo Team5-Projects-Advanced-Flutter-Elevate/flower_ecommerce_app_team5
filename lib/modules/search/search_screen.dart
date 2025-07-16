@@ -26,6 +26,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
   final SearchCubit viewModel = getIt.get<SearchCubit>();
   final TextEditingController textFieldController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -92,7 +93,7 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
                 title: Text(
                   LocaleKeys.pleaseLoginFirst.tr(),
                   textAlign: TextAlign.center,
-    ),
+                ),
                 showOkButton: true,
                 onOkButtonClick: () => Navigator.pushReplacementNamed(
                   context,
@@ -109,57 +110,40 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
                   );
                 });
 
-            case AddToCartStatus.success:
-              hideAlertDialog();
-              displayAlertDialog(
-                title: Text(
-                  LocaleKeys.addedToCartSuccessfully.tr(),
-    textAlign: TextAlign.center,
-
-    ),
-                isDismissible: true,
-                autoDismissible: true,
-              );
-
-            case AddToCartStatus.error:
-              hideAlertDialog();
-              displayAlertDialog(
-                title: Text(
-                  LocaleKeys.soldOut.tr(),
-    textAlign: TextAlign.center,
-
-    ),
-                isDismissible: true,
-                autoDismissible: true,
-              );
-
-            case AddToCartStatus.initial:
-            case AddToCartStatus.noAccess:
-          }
-        },
-        child: BlocBuilder<SearchCubit, SearchState>(
-          bloc: viewModel,
-          builder: (context, state) {
-            switch (state) {
-              case SearchInitial():
-                return Center(
-                  child: Text(
-                    LocaleKeys.searchForAnyProductYouWant.tr(),
-                    style: GoogleFonts.inter(
-                      textStyle: theme.textTheme.titleSmall!.copyWith(
-                          fontSize: 16 * (screenWidth / Constants.designWidth),
-                          color: AppColors.mainColor),
-                    ),
+              case AddToCartStatus.success:
+                hideAlertDialog();
+                displayAlertDialog(
+                  title: Text(
+                    LocaleKeys.addedToCartSuccessfully.tr(),
+                    textAlign: TextAlign.center,
                   ),
+                  isDismissible: true,
+                  autoDismissible: true,
                 );
-              case SearchLoading():
-                return const LoadingWidget();
-              case SearchSuccess():
-                var productsList = state.productsList;
-                if (productsList.isEmpty) {
+
+              case AddToCartStatus.error:
+                hideAlertDialog();
+                displayAlertDialog(
+                  title: Text(
+                    LocaleKeys.soldOut.tr(),
+                    textAlign: TextAlign.center,
+                  ),
+                  isDismissible: true,
+                  autoDismissible: true,
+                );
+
+              case AddToCartStatus.initial:
+              case AddToCartStatus.noAccess:
+            }
+          },
+          child: BlocBuilder<SearchCubit, SearchState>(
+            bloc: viewModel,
+            builder: (context, state) {
+              switch (state) {
+                case SearchInitial():
                   return Center(
                     child: Text(
-                      LocaleKeys.noProductsFound.tr(),
+                      LocaleKeys.searchForAnyProductYouWant.tr(),
                       style: GoogleFonts.inter(
                         textStyle: theme.textTheme.titleSmall!.copyWith(
                             fontSize:
@@ -168,44 +152,14 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
                       ),
                     ),
                   );
-                }
-                return Material(
-                  color: AppColors.white,
-                  child: GridView.builder(
-                    itemCount: productsList.length,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth * 0.04,
-                        vertical: screenHeight * 0.01),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 163 / 229,
-                            mainAxisSpacing: 17,
-                            crossAxisSpacing: 17),
-                    itemBuilder: (context, index) {
-                      return ProductCard(
-                          onProductCardClick: () {
-                            Navigator.pushNamed(context,
-                                DefinedRoutes.productDetailsScreenRoute,
-                                arguments: productsList[index]);
-                          },
-                          id: productsList[index].id,
-                          width: screenWidth * 0.45,
-                          height: screenHeight * 0.25,
-                          productTitle: productsList[index].title ?? "",
-                          price: productsList[index].price ?? 0,
-                          priceAfterDiscountIfExist:
-                              productsList[index].priceAfterDiscount,
-                          imageUrl: productsList[index].imgCover ?? "");
-                    },
-                  ),
-                );
-              case SearchError():
-                return CustomScrollView(slivers: [
-                  SliverFillRemaining(
-                    child: Center(
+                case SearchLoading():
+                  return const LoadingWidget();
+                case SearchSuccess():
+                  var productsList = state.productsList;
+                  if (productsList.isEmpty) {
+                    return Center(
                       child: Text(
-                        ApiErrorHandler.getInstance().handle(state.error),
+                        LocaleKeys.noProductsFound.tr(),
                         style: GoogleFonts.inter(
                           textStyle: theme.textTheme.titleSmall!.copyWith(
                               fontSize:
@@ -213,11 +167,58 @@ class _SearchScreenState extends BaseStatefulWidgetState<SearchScreen> {
                               color: AppColors.mainColor),
                         ),
                       ),
+                    );
+                  }
+                  return Material(
+                    color: AppColors.white,
+                    child: GridView.builder(
+                      itemCount: productsList.length,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.04,
+                          vertical: screenHeight * 0.01),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 163 / 229,
+                              mainAxisSpacing: 17,
+                              crossAxisSpacing: 17),
+                      itemBuilder: (context, index) {
+                        return ProductCard(
+                            onProductCardClick: () {
+                              Navigator.pushNamed(context,
+                                  DefinedRoutes.productDetailsScreenRoute,
+                                  arguments: productsList[index]);
+                            },
+                            id: productsList[index].id,
+                            width: screenWidth * 0.45,
+                            height: screenHeight * 0.25,
+                            productTitle: productsList[index].title ?? "",
+                            price: productsList[index].price ?? 0,
+                            priceAfterDiscountIfExist:
+                                productsList[index].priceAfterDiscount,
+                            imageUrl: productsList[index].imgCover ?? "");
+                      },
                     ),
-                  ),
-                ]);
-            }
-          },
+                  );
+                case SearchError():
+                  return CustomScrollView(slivers: [
+                    SliverFillRemaining(
+                      child: Center(
+                        child: Text(
+                          ApiErrorHandler.getInstance().handle(state.error),
+                          style: GoogleFonts.inter(
+                            textStyle: theme.textTheme.titleSmall!.copyWith(
+                                fontSize:
+                                    16 * (screenWidth / Constants.designWidth),
+                                color: AppColors.mainColor),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]);
+              }
+            },
+          ),
         ),
       ),
     );
