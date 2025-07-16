@@ -300,6 +300,10 @@ class _HomeApiClient implements HomeApiClient {
 
   @override
   Future<SaveAddress> editAddress(Map<String, dynamic> body) async {
+  Future<CartResponse> updateCartQuantity(
+    String productId,
+    Map<String, dynamic> body,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -307,12 +311,15 @@ class _HomeApiClient implements HomeApiClient {
     _data.addAll(body);
     final _options = _setStreamType<SaveAddress>(Options(
       method: 'PATCH',
+    final _options = _setStreamType<CartResponse>(Options(
+      method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
           'api/v1/addresses/',
+          '/api/v1/cart/${productId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -359,6 +366,9 @@ class _HomeApiClient implements HomeApiClient {
     late SaveAddress _value;
     try {
       _value = SaveAddress.fromJson(_result.data!);
+    late CartResponse _value;
+    try {
+      _value = CartResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

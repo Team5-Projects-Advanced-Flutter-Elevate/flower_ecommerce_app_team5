@@ -282,4 +282,27 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
           ),
         )),
       ) as _i9.Future<_i7.SaveAddress>);
+  _i9.Future<_i6.CartResponse> updateCartQuantity(
+    String? productId,
+    Map<String, dynamic>? body,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateCartQuantity,
+          [
+            productId,
+            body,
+          ],
+        ),
+        returnValue: _i9.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
+          this,
+          Invocation.method(
+            #updateCartQuantity,
+            [
+              productId,
+              body,
+            ],
+          ),
+        )),
+      ) as _i9.Future<_i6.CartResponse>);
 }

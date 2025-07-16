@@ -46,4 +46,8 @@ abstract class HomeApiClient {
 
   @DELETE(ApisEndpoints.deleteAddress)
   deleteAddress(@Body() Map<String, dynamic> body);
+
+  @PUT(ApisEndpoints.updateCartQuantity)
+  Future<CartResponse> updateCartQuantity(
+      @Path("id") String productId, @Body() Map<String, dynamic> body);
 }

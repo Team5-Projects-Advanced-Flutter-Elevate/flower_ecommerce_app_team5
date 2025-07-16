@@ -90,7 +90,9 @@ class GenerateRoute {
         );
       case DefinedRoutes.orderPlacedSuccessfully:
         return MaterialPageRoute(
-            builder: (context) => const OrderPlacedSuccessfullyScreen());
+            builder: (context) => OrderPlacedSuccessfullyScreen(
+                  orderId: args as String,
+                ));
       case DefinedRoutes.addNewAddress:
         return MaterialPageRoute(
           builder: (context) => const NewAddressScreen(),
@@ -117,8 +119,9 @@ class GenerateRoute {
         );
       case DefinedRoutes.trackOrder:
         return MaterialPageRoute(
-          builder: (context) => TrackOrderView(orderId: args as String,)
-        );
+            builder: (context) => TrackOrderView(
+                  orderId: args as String,
+                ));
       case DefinedRoutes.trackOrderDetailsScreenRoute:
         return MaterialPageRoute(
           builder: (context) =>
