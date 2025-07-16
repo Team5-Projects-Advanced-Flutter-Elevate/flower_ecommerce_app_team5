@@ -206,6 +206,10 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                                   city: selectedGovernorate,
                                   username: recipientController.text,
                                 );
+                                addressController.clear();
+                                phoneController.clear();
+                                recipientController.clear();
+                                Navigator.pop(context);
                               },
                               child: Text(
                                 LocaleKeys.saveAddress.tr(),
