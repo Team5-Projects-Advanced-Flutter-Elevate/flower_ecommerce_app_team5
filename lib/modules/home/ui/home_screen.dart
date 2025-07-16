@@ -67,10 +67,10 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
             child: NavigationBar(
                 selectedIndex: homeScreenViewModel.selectedAppSectionIndex,
                 onDestinationSelected: (value) {
-                  setState(() {
+                  if(homeScreenViewModel.selectedAppSectionIndex != value){setState(() {
                     homeScreenViewModel.setAppSectionsIndex(value);
                     homeScreenViewModel.doIntent(JumpToPage(pageIndex: value));
-                  });
+                  });}
                 },
                 destinations: [
                   NavigationDestination(

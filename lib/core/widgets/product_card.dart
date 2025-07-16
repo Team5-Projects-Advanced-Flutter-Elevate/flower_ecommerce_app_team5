@@ -5,11 +5,8 @@ import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/cached_image.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../../modules/home/data/models/cart_response/add_to_cart_request.dart';
 
 // ignore: must_be_immutable
@@ -40,7 +37,6 @@ class ProductCard extends BaseStatelessWidget {
 
   @override
   Widget customBuild(BuildContext context, inherit) {
-    HomeScreenViewModel homeScreenViewModel = Provider.of(context);
     return InkWell(
       onTap: onProductCardClick,
       splashColor: Colors.transparent,
@@ -125,8 +121,6 @@ class ProductCard extends BaseStatelessWidget {
                               onPressed: disabled
                                   ? null
                                   : () {
-                                      homeScreenViewModel
-                                          .setAppSectionsIndex(0);
                                       getIt<CartCubit>().doIntent(
                                         AddToCartIntent(
                                           request: AddToCartRequest(

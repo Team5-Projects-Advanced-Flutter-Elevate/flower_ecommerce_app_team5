@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_item_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
@@ -44,7 +45,11 @@ class TitleAndCartItems extends BaseStatelessWidget {
                   current.deleteFromCartStatus != previous.deleteFromCartStatus,
               listener: (context, state) {
                 if (state.deleteFromCartStatus ==
+                    DeleteFromCartStatus.loading) {
+                  displayAlertDialog(title: const LoadingWidget());
+                } else if (state.deleteFromCartStatus ==
                     DeleteFromCartStatus.success) {
+                  hideAlertDialog();
                   displayAlertDialog(
                     title: Text(
                       LocaleKeys.deletedSuccessfully.tr(),
@@ -53,11 +58,6 @@ class TitleAndCartItems extends BaseStatelessWidget {
                     isDismissible: true,
                     autoDismissible: true,
                   );
-                  // AppDialogs.showMessage(
-                  //   context,
-                  //   message: LocaleKeys.deletedSuccessfully.tr(),
-                  //   isSuccess: false,
-                  // );
                 }
               },
               child: CartListView(

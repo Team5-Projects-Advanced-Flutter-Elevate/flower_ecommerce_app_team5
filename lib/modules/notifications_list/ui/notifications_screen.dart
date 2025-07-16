@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
+import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/domain/entities/notifications/notifications_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/view_model/notification_state.dart';
@@ -73,7 +74,7 @@ class _NotificationsScreenState
                   },
                 );
               case Status.error:
-                return ErrorWidget(state.error!);
+                return ErrorStateWidget(error: state.error!);
             }
           },
         ),

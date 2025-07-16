@@ -82,7 +82,9 @@ class GenerateRoute {
         );
       case DefinedRoutes.orderPlacedSuccessfully:
         return MaterialPageRoute(
-            builder: (context) => const OrderPlacedSuccessfullyScreen());
+            builder: (context) => OrderPlacedSuccessfullyScreen(
+                  orderId: args as String,
+                ));
       case DefinedRoutes.addNewAddress:
         return MaterialPageRoute(
           builder: (context) => const NewAddressScreen(),
