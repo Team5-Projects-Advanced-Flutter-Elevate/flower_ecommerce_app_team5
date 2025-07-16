@@ -201,4 +201,5 @@ class LocaleKeys {
   // Track Order
   static const pending = 'pending';
   static const unknownWord = 'unknownWord';
+  static const alreadyAdded = 'alreadyAdded';
 }

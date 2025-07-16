@@ -41,8 +41,8 @@ extension SelectedPaymentMethodExtension on SelectedPaymentMethod {
 // ignore: must_be_immutable
 class CheckOutState extends Equatable {
   final LoadCheckoutAddressesStatus status;
-  final MakeCashOnDeliveryStatus makeCashOnDeliveryStatus;
-  final MakeCreditCardStatus makeCreditCardStatus;
+  MakeCashOnDeliveryStatus makeCashOnDeliveryStatus;
+  MakeCreditCardStatus makeCreditCardStatus;
   final Object? error;
   AddressResponseEntity? addressesResponseEntity;
   final AddressModelEntity? addressModelEntityOfSelectedAddress;

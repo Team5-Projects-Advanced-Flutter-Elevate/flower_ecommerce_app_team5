@@ -13,7 +13,7 @@ class GetMyOrdersSuccess extends GetMyOrdersState {
 }
 
 class GetMyOrdersError extends GetMyOrdersState {
-  final String errorMessage;
+  final Object errorMessage;
 
   GetMyOrdersError(this.errorMessage);
 }

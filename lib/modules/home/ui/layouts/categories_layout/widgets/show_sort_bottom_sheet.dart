@@ -17,18 +17,6 @@ showSortBottomSheet(
   String? selectedSortValue;
   List<String> sortListTitles;
   final sortListValues = Sort.values.map((e) => e.value).toList();
-
-  /*
-  LocalizationManager localizationManager = getIt.get<LocalizationManager>();
-  LanguagesEnum _currentLanguage =
-      getIt.get<LocalizationManager>().getSavedLocal() ==
-              LanguagesEnum.en.getLanguageCode()
-          ? LanguagesEnum.en
-          : LanguagesEnum.ar;
-  if (_currentLanguage == LanguagesEnum.ar) {
-    sortListTitles = Sort.values.map((e) => e.titleA).toList();
-  }
-  */
   if (LocaleKeys.filter.tr() == "filter") {
     sortListTitles = Sort.values.map((e) => e.title).toList();
   } else {
@@ -152,7 +140,7 @@ showSortBottomSheet(
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: viewModel.productsList.isEmpty ||
+                            onPressed: viewModel.state.products.isEmpty ||
                                     selectedSortValue == null
                                 ? null
                                 : () {

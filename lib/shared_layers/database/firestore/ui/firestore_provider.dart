@@ -47,7 +47,9 @@ class FirestoreViewModel extends Cubit<FirestoreState> {
           orderStatus: Status.success,
           orderEntity: orderData,
           driverEntity: driverData));
-    }, onError: (error) {});
+    }, onError: (error) {
+      emit(FirestoreState(orderStatus: Status.error, error: error));
+    });
   }
 
   void getOrderSnapshot(String orderId) async {

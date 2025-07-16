@@ -41,6 +41,15 @@ class PlaceOrderSection extends BaseStatelessWidget {
             ],
           ),
           BlocConsumer<CheckOutCubit, CheckOutState>(
+            listenWhen: (previous, current) {
+              if (previous.makeCashOnDeliveryStatus !=
+                      current.makeCashOnDeliveryStatus ||
+                  previous.makeCreditCardStatus !=
+                      current.makeCreditCardStatus) {
+                return true;
+              }
+              return false;
+            },
             listener: (context, state) {
               switch (state.makeCashOnDeliveryStatus) {
                 case MakeCashOnDeliveryStatus.initial:
@@ -51,6 +60,7 @@ class PlaceOrderSection extends BaseStatelessWidget {
                   Navigator.pushNamed(
                     context,
                     DefinedRoutes.orderPlacedSuccessfully,
+                    arguments: cartResponseEntity.cartModelEntity?.id,
                   );
                 case MakeCashOnDeliveryStatus.error:
                   displayAlertDialog(
@@ -62,9 +72,11 @@ class PlaceOrderSection extends BaseStatelessWidget {
                 case MakeCreditCardStatus.loading:
                   break;
                 case MakeCreditCardStatus.success:
+                  debugPrint("Navigating to checkoutSessionScreenRoute --------");
                   Navigator.pushNamed(
                       context, DefinedRoutes.checkoutSessionScreenRoute,
                       arguments: PaymentRequestParametersEntity(
+
                         shippingAddress: ShippingAddressEntity(
                           street: state.addressModelEntityOfSelectedAddress!
                                   .street ??

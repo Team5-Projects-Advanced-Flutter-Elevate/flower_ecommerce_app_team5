@@ -1,6 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/get_cart_items_use_case.dart';
+import 'package:flower_ecommerce_app_team5/modules/order_page/domain/usecase/order_page.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/checkout_session_response/checkout_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/payment_request_parameters/payment_request_parameter_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/use_cases/payment/make_checkout_session_use_case.dart';
@@ -12,13 +14,16 @@ import 'package:mockito/mockito.dart';
 
 import 'payment_view_model_test.mocks.dart';
 
-@GenerateMocks([MakeCheckoutSessionUseCase])
+@GenerateMocks(
+    [MakeCheckoutSessionUseCase, GetCartItemsUseCase, OrderPageUseCase])
 void main() {
   group(
     "PaymentViewModel Testing",
     () {
       late PaymentViewModel paymentViewModel;
       late MakeCheckoutSessionUseCase makeCheckoutSessionUseCase;
+      late GetCartItemsUseCase getCartItemsUseCase;
+      late OrderPageUseCase orderPageUseCase;
       PaymentRequestParametersEntity paymentRequestParameters =
           const PaymentRequestParametersEntity(
               shippingAddress: ShippingAddressEntity(
@@ -34,11 +39,14 @@ void main() {
       setUpAll(
         () {
           makeCheckoutSessionUseCase = MockMakeCheckoutSessionUseCase();
+          getCartItemsUseCase = MockGetCartItemsUseCase();
+          orderPageUseCase = MockOrderPageUseCase();
         },
       );
       setUp(
         () {
-          paymentViewModel = PaymentViewModel(makeCheckoutSessionUseCase);
+          paymentViewModel = PaymentViewModel(makeCheckoutSessionUseCase,
+              getCartItemsUseCase, orderPageUseCase);
         },
       );
       blocTest<PaymentViewModel, PaymentState>(
@@ -59,9 +67,9 @@ void main() {
               paymentRequestParameters: paymentRequestParameters));
         },
         expect: () => [
-          const PaymentState(checkoutSessionStatus: PaymentStatus.loading),
+          const PaymentState(checkoutSessionStatus: Status.loading),
           PaymentState(
-              checkoutSessionStatus: PaymentStatus.success,
+              checkoutSessionStatus: Status.success,
               checkoutResponseEntity: checkoutResponseEntity),
         ],
         verify: (bloc) {
@@ -78,8 +86,7 @@ void main() {
           when(makeCheckoutSessionUseCase.call(
                   paymentRequestParameters: paymentRequestParameters))
               .thenAnswer(
-            (realInvocation) =>
-                Future.value(Error(error: dioException)),
+            (realInvocation) => Future.value(Error(error: dioException)),
           );
           return paymentViewModel;
         },
@@ -88,10 +95,10 @@ void main() {
               paymentRequestParameters: paymentRequestParameters));
         },
         expect: () => [
-          const PaymentState(checkoutSessionStatus: PaymentStatus.loading),
+          const PaymentState(checkoutSessionStatus: Status.loading),
           PaymentState(
-              checkoutSessionStatus: PaymentStatus.error,
-              error: dioException),
+              checkoutSessionStatus: Status.error,
+              checkoutSessionsError: dioException),
         ],
         verify: (bloc) {
           verify(makeCheckoutSessionUseCase.call(

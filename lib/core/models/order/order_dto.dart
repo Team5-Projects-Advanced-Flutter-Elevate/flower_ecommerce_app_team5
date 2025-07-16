@@ -10,6 +10,7 @@ class OrderDto {
     required this.totalPrice,
     required this.paymentType,
     required this.isPaid,
+    required this.paidAt,
     required this.isDelivered,
     required this.state,
     required this.createdAt,
@@ -24,6 +25,7 @@ class OrderDto {
   final num? totalPrice;
   final String? paymentType;
   final bool? isPaid;
+  final String? paidAt;
   final bool? isDelivered;
   final String? state;
   final String? createdAt;
@@ -42,6 +44,7 @@ class OrderDto {
       totalPrice: json["totalPrice"],
       paymentType: json["paymentType"],
       isPaid: json["isPaid"],
+      paidAt: json["paidAt"],
       isDelivered: json["isDelivered"],
       state: json["state"],
       createdAt: json["createdAt"] ,
@@ -58,6 +61,7 @@ class OrderDto {
     "totalPrice": totalPrice,
     "paymentType": paymentType,
     "isPaid": isPaid,
+    "paidAt":paidAt,
     "isDelivered": isDelivered,
     "state": state,
     "createdAt": createdAt,
@@ -73,6 +77,7 @@ class OrderDto {
     totalPrice: totalPrice,
     paymentType: paymentType,
     isPaid: isPaid,
+    paidAt: paidAt,
     isDelivered: isDelivered,
     state: state,
     createdAt: createdAt,

@@ -3,7 +3,7 @@ import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_cubit.da
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@lazySingleton
 class HomeScreenViewModel extends ChangeNotifier {
   int _selectedAppSectionIndex = 0;
   final PageController pageController = PageController(initialPage: 0);

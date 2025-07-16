@@ -35,6 +35,7 @@ void main() {
         totalPrice: 52.48, // (19.99 * 2) + 12.50
         paymentType: 'credit_card',
         isPaid: true,
+        paidAt: '2023-10-01T10:30:00Z',
         isDelivered: false,
         state: 'processing',
         createdAt: '2023-10-01T10:30:00Z',

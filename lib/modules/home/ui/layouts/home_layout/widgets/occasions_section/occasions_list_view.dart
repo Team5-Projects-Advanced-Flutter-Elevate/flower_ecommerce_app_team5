@@ -21,8 +21,8 @@ class OccasionsListView extends BaseStatelessWidget {
         LanguagesEnum.en.getLanguageCode();
     return Padding(
       padding: EdgeInsets.only(
-        left: isCurrentLocaleEnglish ? inherit.screenWidth * 0.05 : 0,
-        right: isCurrentLocaleEnglish ? 0 : inherit.screenWidth * 0.05,
+        left: isCurrentLocaleEnglish ? inherit.screenWidth * 0.05 : inherit.screenWidth * 0.03,
+        right: isCurrentLocaleEnglish ? inherit.screenWidth * 0.03 : inherit.screenWidth * 0.05,
       ),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
