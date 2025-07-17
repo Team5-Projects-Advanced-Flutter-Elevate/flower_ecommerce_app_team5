@@ -90,8 +90,9 @@ class _FakeCartResponse_4 extends _i1.SmartFake implements _i6.CartResponse {
         );
 }
 
-class _FakeSaveAddress_5 extends _i1.SmartFake implements _i7.SaveAddress {
-  _FakeSaveAddress_5(
+class _FakeSaveAddressResponse_5 extends _i1.SmartFake
+    implements _i7.SaveAddressResponse {
+  _FakeSaveAddressResponse_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -236,20 +237,21 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
       ) as _i9.Future<_i6.CartResponse>);
 
   @override
-  _i9.Future<_i7.SaveAddress> saveAddress(Map<String, dynamic>? body) =>
+  _i9.Future<_i7.SaveAddressResponse> saveAddress(Map<String, dynamic>? body) =>
       (super.noSuchMethod(
         Invocation.method(
           #saveAddress,
           [body],
         ),
-        returnValue: _i9.Future<_i7.SaveAddress>.value(_FakeSaveAddress_5(
+        returnValue: _i9.Future<_i7.SaveAddressResponse>.value(
+            _FakeSaveAddressResponse_5(
           this,
           Invocation.method(
             #saveAddress,
             [body],
           ),
         )),
-      ) as _i9.Future<_i7.SaveAddress>);
+      ) as _i9.Future<_i7.SaveAddressResponse>);
 
   @override
   _i9.Future<_i6.CartResponse> updateCartQuantity(

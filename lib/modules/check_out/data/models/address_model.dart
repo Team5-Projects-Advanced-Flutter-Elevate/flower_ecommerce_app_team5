@@ -1,4 +1,4 @@
-import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'address_model.g.dart';
@@ -29,7 +29,7 @@ class AddressModel {
 
   Map<String, dynamic> toJson() => _$AddressModelToJson(this);
 
-  AddressModelEntity toEntity() => AddressModelEntity(
+  AddressEntity toEntity() => AddressEntity(
         street: street,
         phone: phone,
         city: city,

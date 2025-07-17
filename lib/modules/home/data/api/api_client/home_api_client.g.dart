@@ -265,13 +265,13 @@ class _HomeApiClient implements HomeApiClient {
   }
 
   @override
-  Future<SaveAddress> saveAddress(Map<String, dynamic> body) async {
+  Future<SaveAddressResponse> saveAddress(Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _options = _setStreamType<SaveAddress>(Options(
+    final _options = _setStreamType<SaveAddressResponse>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
@@ -288,9 +288,9 @@ class _HomeApiClient implements HomeApiClient {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SaveAddress _value;
+    late SaveAddressResponse _value;
     try {
-      _value = SaveAddress.fromJson(_result.data!);
+      _value = SaveAddressResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

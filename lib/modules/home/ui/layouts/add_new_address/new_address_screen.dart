@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/states.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +9,8 @@ import '../../../../../core/colors/app_colors.dart';
 import '../../../../../core/di/injectable_initializer.dart';
 import '../../../../../core/widgets/loading_state_widget.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
-import '../../../domain/entities/cities_states_entity/get_cities.dart';
-import '../../../domain/entities/cities_states_entity/get_states.dart';
+import '../../../domain/entities/cities_states_entity/governorate_entity.dart';
+import '../../../domain/entities/cities_states_entity/city_entity.dart';
 
 class NewAddressScreen extends StatefulWidget {
   const NewAddressScreen({super.key});
@@ -25,17 +25,17 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
   final TextEditingController recipientController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  List<GetCities> governorates = [];
+  List<Governorate> governorates = [];
   List<City> allCities = [];
   List<City> filteredCities = [];
 
   String? selectedGovernorate;
   String selectedGovernorateId = '';
-  String? selectedArea;
+  String? selectedCity;
 
   final NewAddressViewModelCubit viewModel =
       getIt.get<NewAddressViewModelCubit>();
-  AddressModelEntity? newAddress;
+  AddressEntity? newAddress;
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
             .where((city) => city.governorateId == selectedGovernorateId)
             .toList();
 
-        selectedArea =
+        selectedCity =
             filteredCities.isNotEmpty ? filteredCities.first.cityNameEn : null;
       }
 
@@ -157,7 +157,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                                             c.governorateId ==
                                             selectedGovernorateId)
                                         .toList();
-                                    selectedArea = filteredCities.isNotEmpty
+                                    selectedCity = filteredCities.isNotEmpty
                                         ? filteredCities.first.cityNameEn
                                         : null;
                                   });
@@ -167,13 +167,13 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                             SizedBox(width: screenWidth * 0.02),
                             Expanded(
                               child: _buildDropdown(
-                                value: selectedArea ?? '',
+                                value: selectedCity ?? '',
                                 items: filteredCities
                                     .map((c) => c.cityNameEn)
                                     .toList(),
                                 onChanged: (value) {
                                   setState(() {
-                                    selectedArea = value;
+                                    selectedCity = value;
                                   });
                                 },
                               ),
@@ -199,18 +199,18 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                                     AddAddress(
                                       addressController.text,
                                       phoneController.text,
-                                      selectedGovernorate,
+                                      selectedCity,
                                       lat,
                                       long,
                                       recipientController.text,
                                     ),
                                   );
-                                  newAddress = AddressModelEntity(
+                                  newAddress = AddressEntity(
                                     street: addressController.text,
                                     lat: lat,
                                     long: long,
                                     phone: phoneController.text,
-                                    city: selectedGovernorate,
+                                    city: selectedCity,
                                     username: recipientController.text,
                                   );
                                 },

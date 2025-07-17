@@ -41,7 +41,7 @@ abstract class HomeApiClient {
   Future<CartResponse> deleteFromCart(@Path("id") String productId);
 
   @PATCH(ApisEndpoints.addNewAddress)
-  Future<SaveAddress> saveAddress(@Body() Map<String, dynamic> body);
+  Future<SaveAddressResponse> saveAddress(@Body() Map<String, dynamic> body);
 
   @PUT(ApisEndpoints.updateCartQuantity)
   Future<CartResponse> updateCartQuantity(

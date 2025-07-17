@@ -184,9 +184,9 @@ class LocaleKeys {
   static const String filter = 'filter';
   static const String sort = 'sort';
 
-  static const String active='activeTab';
-  static const String complete='completedTab';
-  static const String noOrder='noOrder';
+  static const String active = 'activeTab';
+  static const String complete = 'completedTab';
+  static const String noOrder = 'noOrder';
 
   // Notification
   static const String noNotificationFound = 'noNotificationFound';
@@ -202,4 +202,7 @@ class LocaleKeys {
   static const pending = 'pending';
   static const unknownWord = 'unknownWord';
   static const alreadyAdded = 'alreadyAdded';
+
+  // Update Address Screen
+  static const updateAddress = "updateAddress";
 }

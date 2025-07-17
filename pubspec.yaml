@@ -148,8 +148,8 @@ flutter:
   - assets/images/
   - assets/files/AboutUs.json
   - assets/files/Terms.json
+  - assets/files/governorates.json
   - assets/files/cities.json
-  - assets/files/states.json
   - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see

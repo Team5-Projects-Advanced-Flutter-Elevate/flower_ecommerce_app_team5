@@ -181,5 +181,7 @@
   "delivered": "Delivered",
   "pending": "Pending...",
   "unknownWord": "Unknown",
-  "alreadyAdded": "Already added"
+  "alreadyAdded": "Already added",
+  "//UpdateAddressScreen": "$$$ Comment $$$",
+  "updateAddress": "Update Address"
 }

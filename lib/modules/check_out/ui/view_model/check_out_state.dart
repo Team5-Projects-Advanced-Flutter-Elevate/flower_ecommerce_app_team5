@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_response_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 
 enum LoadCheckoutAddressesStatus {
   initial,
@@ -45,7 +45,7 @@ class CheckOutState extends Equatable {
   MakeCreditCardStatus makeCreditCardStatus;
   final Object? error;
   AddressResponseEntity? addressesResponseEntity;
-  final AddressModelEntity? addressModelEntityOfSelectedAddress;
+  final AddressEntity? addressModelEntityOfSelectedAddress;
   String? selectedDeliveryAddress;
   final int rebuildKey;
 
@@ -75,7 +75,7 @@ class CheckOutState extends Equatable {
     SelectAddressStatus? selectAddressStatus,
     SelectedPaymentMethod? selectedPaymentMethod,
     bool? isGift,
-    AddressModelEntity? addressModelEntityOfSelectedAddress,
+    AddressEntity? addressModelEntityOfSelectedAddress,
     int? rebuildKey,
   }) {
     return CheckOutState(

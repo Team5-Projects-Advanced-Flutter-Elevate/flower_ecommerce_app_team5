@@ -254,6 +254,8 @@ import '../../modules/payment/ui/view_model/payment_view_model.dart' as _i801;
 import '../../modules/product_details/ui/view_model/product_details_view_model.dart'
     as _i902;
 import '../../modules/search/view_model/search_cubit.dart' as _i861;
+import '../../modules/update_address/ui/view_model/update_address_view_model.dart'
+    as _i499;
 import '../../shared_layers/database/firestore/data/data_sources_abstracts/order_collection.dart'
     as _i884;
 import '../../shared_layers/database/firestore/data/data_sources_imp/order_collection_imp.dart'
@@ -536,6 +538,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i482.NewAddressViewModelCubit>(
         () => _i482.NewAddressViewModelCubit(gh<_i304.NewAddressUseCase>()));
+    gh.factory<_i499.UpdateAddressViewModel>(() =>
+        _i499.UpdateAddressViewModel(gh<_i482.NewAddressViewModelCubit>()));
     gh.factory<_i363.LoginViewModelCubit>(() => _i363.LoginViewModelCubit(
           gh<_i543.LoginUseCase>(),
           gh<_i421.LoginAsGuestUseCase>(),
