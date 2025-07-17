@@ -299,27 +299,23 @@ class _HomeApiClient implements HomeApiClient {
   }
 
   @override
-  Future<SaveAddress> editAddress(Map<String, dynamic> body) async {
-  Future<CartResponse> updateCartQuantity(
-    String productId,
+  Future<AddressResponse> editAddress(
     Map<String, dynamic> body,
+    String id,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _options = _setStreamType<SaveAddress>(Options(
+    final _options = _setStreamType<AddressResponse>(Options(
       method: 'PATCH',
-    final _options = _setStreamType<CartResponse>(Options(
-      method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
           'api/v1/addresses/',
-          '/api/v1/cart/${productId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -329,9 +325,9 @@ class _HomeApiClient implements HomeApiClient {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SaveAddress _value;
+    late AddressResponse _value;
     try {
-      _value = SaveAddress.fromJson(_result.data!);
+      _value = AddressResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -340,13 +336,12 @@ class _HomeApiClient implements HomeApiClient {
   }
 
   @override
-  Future<SaveAddress> deleteAddress(Map<String, dynamic> body) async {
+  Future<AddressResponse> deleteAddress(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
-    final _options = _setStreamType<SaveAddress>(Options(
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<AddressResponse>(Options(
       method: 'DELETE',
       headers: _headers,
       extra: _extra,
@@ -363,9 +358,43 @@ class _HomeApiClient implements HomeApiClient {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SaveAddress _value;
+    late AddressResponse _value;
     try {
-      _value = SaveAddress.fromJson(_result.data!);
+      _value = AddressResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<CartResponse> updateCartQuantity(
+    String productId,
+    Map<String, dynamic> body,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _options = _setStreamType<CartResponse>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/api/v1/cart/${productId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late CartResponse _value;
     try {
       _value = CartResponse.fromJson(_result.data!);

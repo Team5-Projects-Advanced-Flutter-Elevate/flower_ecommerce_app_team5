@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/apis_endpoints/apis_endpoints.dart';
+import 'package:flower_ecommerce_app_team5/modules/check_out/data/models/address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_gategories_reponse/all_categories_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_occasions_response/all_occasions_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart';
@@ -42,10 +43,10 @@ abstract class HomeApiClient {
   Future<SaveAddress> saveAddress(@Body() Map<String, dynamic> body);
   
   @PATCH(ApisEndpoints.editAddress)
-  editAddress(@Body() Map<String, dynamic> body);
+  Future<AddressResponse> editAddress(@Body() Map<String, dynamic> body, @Path("_id") String id);
 
   @DELETE(ApisEndpoints.deleteAddress)
-  deleteAddress(@Body() Map<String, dynamic> body);
+  Future<AddressResponse> deleteAddress(@Path("_id") String id);
 
   @PUT(ApisEndpoints.updateCartQuantity)
   Future<CartResponse> updateCartQuantity(
