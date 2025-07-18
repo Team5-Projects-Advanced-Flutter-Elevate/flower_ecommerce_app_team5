@@ -8,6 +8,7 @@ import 'package:flower_ecommerce_app_team5/modules/saved-address/ui/view_model/s
 import 'package:flower_ecommerce_app_team5/modules/saved-address/ui/view_model/saved_address_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../core/colors/app_colors.dart';
 import '../../../core/constants/assets_paths.dart';
 import '../../../core/di/injectable_initializer.dart';
@@ -80,11 +81,13 @@ class _SavedAddressScreenState
 class AddressItem extends StatelessWidget {
   final AddressEntity address;
   final VoidCallback onDelete;
+  final SavedAddressState state;
 
   const AddressItem({
     super.key,
     required this.address,
     required this.onDelete,
+    required this.state,
   });
 
   @override
@@ -129,13 +132,19 @@ class AddressItem extends StatelessWidget {
             children: [
               InkWell(
                 onTap: onDelete,
-                child: ImageIcon(
-                  AssetImage(
-                    AssetsPaths.deleteIcon,
-                  ),
-                  size: 18,
-                  color: AppColors.red,
-                ),
+                child: state.deleteAddressState == DeleteAddressState.loading &&
+                        state.deleteAddressId == address.id
+                    ? const SizedBox(
+                    width: 18,
+                    height: 18,
+                    child: LoadingWidget())
+                    : ImageIcon(
+                        AssetImage(
+                          AssetsPaths.deleteIcon,
+                        ),
+                        size: 18,
+                        color: AppColors.red,
+                      ),
               ),
               const SizedBox(width: 16),
               InkWell(
@@ -177,6 +186,7 @@ Widget _buildAddressContent(SavedAddressState state, BuildContext context) {
                 itemBuilder: (context, index) {
                   final address = state.addressesList![index];
                   return AddressItem(
+                    state: state,
                     address: address,
                     onDelete: () =>
                         context.read<SavedAddressViewModel>().onIntent(

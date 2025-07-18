@@ -2,6 +2,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_addr
 import 'package:flower_ecommerce_app_team5/modules/saved-address/ui/view_model/saved_address_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../../core/apis/api_result/api_result.dart';
 import '../../domain/use_cases/delete_address_use_case.dart';
 import '../../domain/use_cases/get_saved_address_use_case.dart';
@@ -54,6 +55,10 @@ class SavedAddressViewModel extends Cubit<SavedAddressState> {
   Future<void> _deleteAddress({
     required String addressId,
   }) async {
+    emit(state.copyWith(
+      deleteAddressState: DeleteAddressState.loading,
+      addressId: addressId,
+    ));
     var result = await _deleteAddressUseCase.call(addressId);
     switch (result) {
       case Success<List<AddressEntity>>():
