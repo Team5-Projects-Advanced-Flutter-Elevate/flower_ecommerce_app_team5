@@ -122,17 +122,17 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                       hideAlertDialog();
                       displayAlertDialog(
                         showOkButton: true,
+                        onOkButtonClick: () {
+                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(
+                              context, DefinedRoutes.loginScreenRoute);
+                        },
                         title: Text(LocaleKeys.registeredSuccessfully.tr()),
                       );
                     case RegisterStatus.error:
                       hideAlertDialog();
                       displayAlertDialog(
                         showOkButton: true,
-                        onOkButtonClick: () {
-                          Navigator.pop(context);
-                          Navigator.pushReplacementNamed(
-                              context, DefinedRoutes.loginScreenRoute);
-                        },
                         title: ErrorStateWidget(
                           error: state.error!,
                         ),
