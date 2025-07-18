@@ -111,6 +111,8 @@ class PlaceOrderSection extends BaseStatelessWidget {
                           displayAlertDialog(
                             title: Text(
                               LocaleKeys.pleaseSelectPaymentMethod.tr(),
+                              textAlign: TextAlign.center,
+
                             ),
                             isDismissible: true,
                             autoDismissible: true,
@@ -119,6 +121,7 @@ class PlaceOrderSection extends BaseStatelessWidget {
                           displayAlertDialog(
                             title: Text(
                               LocaleKeys.pleaseSelectDeliveryAddress.tr(),
+                              textAlign: TextAlign.center,
                             ),
                             isDismissible: true,
                             autoDismissible: true,
