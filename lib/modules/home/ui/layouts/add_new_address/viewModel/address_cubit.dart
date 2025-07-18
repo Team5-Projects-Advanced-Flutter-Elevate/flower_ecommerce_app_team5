@@ -1,38 +1,56 @@
 import 'dart:convert';
+
 import 'package:flower_ecommerce_app_team5/core/apis/api_error/api_error_model.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
+import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cities_states_entity/get_cities.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cities_states_entity/get_states.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/delete_address_use_case.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/use_cases/edit_address_use_case.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/repo_contract/new_address_repo.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/address_states.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+abstract class AddressIntent {}
+
+class GetSavedAddresses extends AddressIntent {}
+
+class EditAddress extends AddressIntent {
+  String? street;
+  String? phone;
+  String? city;
+  String? lat;
+  String? long;
+  String? name;
+  String? username;
+  String? id;
+  AddressEntity? request;
+
+  EditAddress(
+    this.id,
+    this.street,
+    this.phone,
+    this.city,
+    this.lat,
+    this.long,
+    this.username,
+    this.request
+  );
+}
+
+class DeleteAddress extends AddressIntent {
+  final String id;
+
+  DeleteAddress(this.id);
+}
+@Injectable()
 class AddressCubit extends Cubit<AddressStates> {
-  EditAddressUseCase editAddressUseCase;
-  DeleteAddressUseCase deleteAddressUseCase;
+  final NewAddressRepo repository;
 
-  AddressCubit(this.editAddressUseCase, this.deleteAddressUseCase)
-      : super(GetSavedAddressesInitialState());
-
-  void processIntent(NewAddressOnIntent intent) {
-    switch (intent) {
-      case EditAddress():
-        _updateAddress(intent.id, intent.request, intent.street, intent.phone,
-            intent.city, intent.long, intent.long, intent.name);
-        break;
-      case DeleteAddress():
-        _deleteAddress(intent.addressId);
-        break;
-    }
-  }
-
+  AddressCubit(this.repository) : super(GetSavedAddressesInitialState());
+  
   Future<List<GetCities>> loadGovernorates() async {
     final jsonString = await rootBundle.loadString('assets/files/cities.json');
     final List<dynamic> jsonList = json.decode(jsonString);
@@ -71,73 +89,53 @@ class AddressCubit extends Cubit<AddressStates> {
           'longitude': location.longitude,
         };
       } else {
-        debugPrint("No location found for the country.");
         return null;
       }
     } catch (e) {
-      debugPrint("Error getting coordinates: $e");
       return null;
     }
   }
 
-  _deleteAddress(var addressId) async {
-    emit(DeleteAddressLoadingState());
-    var response = await deleteAddressUseCase(addressId);
-    switch (response) {
-      case Success<List<AddressEntity>>():
-        emit(DeleteAddressSuccessState(response.data));
-      case Error():
-        emit(
-            DeleteAddressErrorState(ApiErrorModel(error: response.toString())));
+  Future<void> processIntent(AddressIntent intent) async {
+    if (intent is GetSavedAddresses) {
+      emit(GetSavedAddressesLoadingState());
+      try {
+        final result = await repository.getSavedAddresses();
+        switch (result) {
+          case Success<List<AddressModelEntity>>():
+            emit(GetSavedAddressesSuccessState(result.data));
+          case Error<List<AddressModelEntity>>():
+            emit(GetSavedAddressesErrorState(ApiErrorModel(error: result.error.toString())));
+        }
+      } catch (e) {
+        emit(GetSavedAddressesErrorState(ApiErrorModel(error: e.toString())));
+      }
+    } else if (intent is EditAddress) {
+      emit(UpdateAddressLoadingState());
+      try {
+        final result = await repository.updateAddress(id: intent.id!, request: intent.request!);
+        switch (result) {
+          case Success<List<AddressModelEntity>>():
+            emit(UpdateAddressSuccessState(result.data));
+          case Error<List<AddressModelEntity>>():
+            emit(UpdateAddressErrorState(ApiErrorModel(error: result.error.toString())));
+        }
+      } catch (e) {
+        emit(UpdateAddressErrorState(ApiErrorModel(error: e.toString())));
+      }
+    } else if (intent is DeleteAddress) {
+      emit(DeleteAddressLoadingState());
+      try {
+        final result = await repository.deleteAddress(id: intent.id);
+        switch (result) {
+          case Success<List<AddressModelEntity>>():
+            emit(DeleteAddressSuccessState(result.data));
+          case Error<List<AddressModelEntity>>():
+            emit(DeleteAddressErrorState(ApiErrorModel(error: result.error.toString())));
+        }
+      } catch (e) {
+        emit(DeleteAddressErrorState(ApiErrorModel(error: e.toString())));
+      }
     }
   }
-
-  _updateAddress(
-    var addressId,
-    AddressEntity request,
-    var street,
-    var phone,
-    var city,
-    var lat,
-    var long,
-    var name,
-  ) async {
-    emit(UpdateAddressLoadingState());
-    var response = await editAddressUseCase(
-      addressId,
-      request,
-      street,
-      phone,
-      city,
-      lat,
-      long,
-    );
-    switch (response) {
-      case Success<List<AddressEntity>>():
-        emit(UpdateAddressSuccessState(response.data));
-      case Error():
-        emit(
-            UpdateAddressErrorState(ApiErrorModel(error: response.toString())));
-    }
-  }
-}
-
-sealed class NewAddressOnIntent {}
-
-class EditAddress extends NewAddressOnIntent {
-  AddressEntity request;
-  String? street;
-  String? phone;
-  String? city;
-  String? lat;
-  String? long;
-  String? name;
-  String? id;
-  EditAddress(this.street, this.phone, this.city, this.lat, this.long,
-      this.name, this.id, this.request);
-}
-
-class DeleteAddress extends NewAddressOnIntent {
-  String? addressId;
-  DeleteAddress(this.addressId);
 }

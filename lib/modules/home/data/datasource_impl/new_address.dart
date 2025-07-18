@@ -38,16 +38,17 @@ class NewAddressOnlineDataSourceImpl implements NewAddressOnlineDataSource {
   }
 
   @override
-  Future<ApiResult<List<AddressModelEntity>>>  deleteAddress(
-      {required String id}) async {
-
+  Future<ApiResult<List<AddressModelEntity>>> deleteAddress({
+    required String id,
+  }) async {
     var result = await ApiExecutor.executeApi(
         () async => await _apiClient.deleteAddress(id));
-
     switch (result) {
       case Success<AddressResponse>():
         return Success(
-          data: result.data.addresses!.map((e) => e.toEntity()).toList(),
+          data: (result.data.addresses ?? result.data.addresses ?? [])
+              .map((e) => e.toEntity())
+              .toList(),
         );
       case Error<AddressResponse>():
         return Error(error: result.error);
@@ -55,23 +56,42 @@ class NewAddressOnlineDataSourceImpl implements NewAddressOnlineDataSource {
   }
 
   @override
-  Future<ApiResult<List<AddressModelEntity>>>  updateAddress(
-      {required String id, required AddressEntity request}) async {
-    final map = {
-      "street": request.street,
-      "phone": request.phone,
-      "city": request.city,
-      "lat": request.lat,
-      "long": request.long,
-      "username": request.username,
-      "_id": id
-    };
-    var result =  await ApiExecutor.executeApi(
-        () async => await _apiClient.editAddress(map, id));
-        switch (result) {
+  Future<ApiResult<List<AddressModelEntity>>> getSavedAddresses() async {
+    var result = await ApiExecutor.executeApi(
+        () async => await _apiClient.getSavedAddresses());
+    switch (result) {
       case Success<AddressResponse>():
         return Success(
-          data: result.data.addresses!.map((e) => e.toEntity()).toList(),
+          data: (result.data.addresses ?? result.data.addresses ?? [])
+              .map((e) => e.toEntity())
+              .toList(),
+        );
+      case Error<AddressResponse>():
+        return Error(error: result.error);
+    }
+  }
+
+  @override
+  Future<ApiResult<List<AddressModelEntity>>> updateAddress({
+    required String id,
+    required AddressEntity request,
+  }) async {
+    final map = {
+      'street': request.street,
+      'phone': request.phone,
+      'city': request.city,
+      'lat': request.lat,
+      'long': request.long,
+      'username': request.username,
+    };
+    var result = await ApiExecutor.executeApi(
+        () async => await _apiClient.editAddress(map, id));
+    switch (result) {
+      case Success<AddressResponse>():
+        return Success(
+          data: (result.data.addresses ?? result.data.addresses ?? [])
+              .map((e) => e.toEntity())
+              .toList(),
         );
       case Error<AddressResponse>():
         return Error(error: result.error);

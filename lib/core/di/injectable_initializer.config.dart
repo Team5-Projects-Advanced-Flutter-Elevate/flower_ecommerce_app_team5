@@ -169,7 +169,11 @@ import '../../modules/home/domain/repo_contract/new_address_repo.dart' as _i469;
 import '../../modules/home/domain/repo_contract/terms.dart' as _i1053;
 import '../../modules/home/domain/use_cases/about_us.dart' as _i435;
 import '../../modules/home/domain/use_cases/add_to_use_case.dart' as _i999;
+import '../../modules/home/domain/use_cases/delete_address_use_case.dart'
+    as _i162;
 import '../../modules/home/domain/use_cases/delete_from_cart.dart' as _i828;
+import '../../modules/home/domain/use_cases/edit_address_use_case.dart'
+    as _i776;
 import '../../modules/home/domain/use_cases/get_all_products_use_case.dart'
     as _i1019;
 import '../../modules/home/domain/use_cases/get_cart_items_use_case.dart'
@@ -183,6 +187,8 @@ import '../../modules/home/domain/use_cases/get_occasions_use_case.dart'
 import '../../modules/home/domain/use_cases/new_address_use_case.dart' as _i304;
 import '../../modules/home/domain/use_cases/terms_use_case.dart' as _i721;
 import '../../modules/home/domain/use_cases/update_cart_quantity.dart' as _i188;
+import '../../modules/home/ui/layouts/add_new_address/viewModel/address_cubit.dart'
+    as _i692;
 import '../../modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart'
     as _i482;
 import '../../modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart'
@@ -498,8 +504,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i188.UpdateCartQuantityUseCase(gh<_i1003.HomeRepo>()));
     gh.factory<_i303.RegisterCubit>(
         () => _i303.RegisterCubit(gh<_i782.RegisterUseCase>()));
+    gh.factory<_i162.DeleteAddressUseCase>(
+        () => _i162.DeleteAddressUseCase(gh<_i469.NewAddressRepo>()));
+    gh.factory<_i776.EditAddressUseCase>(
+        () => _i776.EditAddressUseCase(gh<_i469.NewAddressRepo>()));
     gh.factory<_i304.NewAddressUseCase>(
         () => _i304.NewAddressUseCase(gh<_i469.NewAddressRepo>()));
+    gh.factory<_i692.AddressCubit>(
+        () => _i692.AddressCubit(gh<_i469.NewAddressRepo>()));
     gh.factory<_i926.LoginAsGuestRepo>(() =>
         _i252.LoginAsGuestRepoImpl(gh<_i138.LoginAsGuestOfflineDataSource>()));
     gh.factory<_i811.MyOrdersViewModelCubit>(

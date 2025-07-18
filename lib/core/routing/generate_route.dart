@@ -135,7 +135,7 @@ class GenerateRoute {
         case DefinedRoutes.updateAddress:
         return MaterialPageRoute(
           builder: (context) =>
-              const UpdateAddressScreen(),
+              UpdateAddressScreen(),
         );
       default:
         return _errorRoute();

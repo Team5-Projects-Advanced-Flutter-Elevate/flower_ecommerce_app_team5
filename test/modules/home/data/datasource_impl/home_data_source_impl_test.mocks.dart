@@ -3,10 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i9;
+import 'dart:async' as _i10;
 
-import 'package:flower_ecommerce_app_team5/modules/home/data/api/api_client/home_api_client.dart'
+import 'package:flower_ecommerce_app_team5/modules/check_out/data/models/address_response.dart'
     as _i8;
+import 'package:flower_ecommerce_app_team5/modules/home/data/api/api_client/home_api_client.dart'
+    as _i9;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_gategories_reponse/all_categories_response.dart'
     as _i2;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_occasions_response/all_occasions_response.dart'
@@ -14,7 +16,7 @@ import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_occasion
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/all_products_response/all_product_response.dart'
     as _i5;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/add_to_cart_request.dart'
-    as _i10;
+    as _i11;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/cart_response/cart_response_model.dart'
     as _i6;
 import 'package:flower_ecommerce_app_team5/modules/home/data/models/home_data_response/home_data_response.dart'
@@ -100,21 +102,32 @@ class _FakeSaveAddress_5 extends _i1.SmartFake implements _i7.SaveAddress {
         );
 }
 
+class _FakeAddressResponse_6 extends _i1.SmartFake
+    implements _i8.AddressResponse {
+  _FakeAddressResponse_6(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [HomeApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
+class MockHomeApiClient extends _i1.Mock implements _i9.HomeApiClient {
   MockHomeApiClient() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i9.Future<_i2.AllCategoriesResponse> getCategories() => (super.noSuchMethod(
+  _i10.Future<_i2.AllCategoriesResponse> getCategories() => (super.noSuchMethod(
         Invocation.method(
           #getCategories,
           [],
         ),
-        returnValue: _i9.Future<_i2.AllCategoriesResponse>.value(
+        returnValue: _i10.Future<_i2.AllCategoriesResponse>.value(
             _FakeAllCategoriesResponse_0(
           this,
           Invocation.method(
@@ -122,15 +135,15 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
             [],
           ),
         )),
-      ) as _i9.Future<_i2.AllCategoriesResponse>);
+      ) as _i10.Future<_i2.AllCategoriesResponse>);
 
   @override
-  _i9.Future<_i3.AllOccasionsResponse> getOccasions() => (super.noSuchMethod(
+  _i10.Future<_i3.AllOccasionsResponse> getOccasions() => (super.noSuchMethod(
         Invocation.method(
           #getOccasions,
           [],
         ),
-        returnValue: _i9.Future<_i3.AllOccasionsResponse>.value(
+        returnValue: _i10.Future<_i3.AllOccasionsResponse>.value(
             _FakeAllOccasionsResponse_1(
           this,
           Invocation.method(
@@ -138,26 +151,26 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
             [],
           ),
         )),
-      ) as _i9.Future<_i3.AllOccasionsResponse>);
+      ) as _i10.Future<_i3.AllOccasionsResponse>);
 
   @override
-  _i9.Future<_i4.HomeDataResponse> getHomeData() => (super.noSuchMethod(
+  _i10.Future<_i4.HomeDataResponse> getHomeData() => (super.noSuchMethod(
         Invocation.method(
           #getHomeData,
           [],
         ),
         returnValue:
-            _i9.Future<_i4.HomeDataResponse>.value(_FakeHomeDataResponse_2(
+            _i10.Future<_i4.HomeDataResponse>.value(_FakeHomeDataResponse_2(
           this,
           Invocation.method(
             #getHomeData,
             [],
           ),
         )),
-      ) as _i9.Future<_i4.HomeDataResponse>);
+      ) as _i10.Future<_i4.HomeDataResponse>);
 
   @override
-  _i9.Future<_i5.AllProductResponse> getAllProduct({
+  _i10.Future<_i5.AllProductResponse> getAllProduct({
     String? categoryId,
     String? searchKey,
     String? sortKey,
@@ -173,7 +186,7 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
           },
         ),
         returnValue:
-            _i9.Future<_i5.AllProductResponse>.value(_FakeAllProductResponse_3(
+            _i10.Future<_i5.AllProductResponse>.value(_FakeAllProductResponse_3(
           this,
           Invocation.method(
             #getAllProduct,
@@ -185,104 +198,133 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
             },
           ),
         )),
-      ) as _i9.Future<_i5.AllProductResponse>);
+      ) as _i10.Future<_i5.AllProductResponse>);
 
   @override
-  _i9.Future<_i6.CartResponse> getCartItems() => (super.noSuchMethod(
+  _i10.Future<_i6.CartResponse> getCartItems() => (super.noSuchMethod(
         Invocation.method(
           #getCartItems,
           [],
         ),
-        returnValue: _i9.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
+        returnValue: _i10.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
           this,
           Invocation.method(
             #getCartItems,
             [],
           ),
         )),
-      ) as _i9.Future<_i6.CartResponse>);
+      ) as _i10.Future<_i6.CartResponse>);
 
   @override
-  _i9.Future<_i6.CartResponse> addToCart(
-          _i10.AddToCartRequest? addToCartRequest) =>
+  _i10.Future<_i6.CartResponse> addToCart(
+          _i11.AddToCartRequest? addToCartRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #addToCart,
           [addToCartRequest],
         ),
-        returnValue: _i9.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
+        returnValue: _i10.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
           this,
           Invocation.method(
             #addToCart,
             [addToCartRequest],
           ),
         )),
-      ) as _i9.Future<_i6.CartResponse>);
+      ) as _i10.Future<_i6.CartResponse>);
 
   @override
-  _i9.Future<_i6.CartResponse> deleteFromCart(String? productId) =>
+  _i10.Future<_i6.CartResponse> deleteFromCart(String? productId) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteFromCart,
           [productId],
         ),
-        returnValue: _i9.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
+        returnValue: _i10.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
           this,
           Invocation.method(
             #deleteFromCart,
             [productId],
           ),
         )),
-      ) as _i9.Future<_i6.CartResponse>);
+      ) as _i10.Future<_i6.CartResponse>);
 
   @override
-  _i9.Future<_i7.SaveAddress> saveAddress(Map<String, dynamic>? body) =>
+  _i10.Future<_i7.SaveAddress> saveAddress(Map<String, dynamic>? body) =>
       (super.noSuchMethod(
         Invocation.method(
           #saveAddress,
           [body],
         ),
-        returnValue: _i9.Future<_i7.SaveAddress>.value(_FakeSaveAddress_5(
+        returnValue: _i10.Future<_i7.SaveAddress>.value(_FakeSaveAddress_5(
           this,
           Invocation.method(
             #saveAddress,
             [body],
           ),
         )),
-      ) as _i9.Future<_i7.SaveAddress>);
+      ) as _i10.Future<_i7.SaveAddress>);
 
   @override
-  _i9.Future<_i7.SaveAddress> editAddress(Map<String, dynamic>? body) =>
+  _i10.Future<_i8.AddressResponse> getSavedAddresses() => (super.noSuchMethod(
+        Invocation.method(
+          #getSavedAddresses,
+          [],
+        ),
+        returnValue:
+            _i10.Future<_i8.AddressResponse>.value(_FakeAddressResponse_6(
+          this,
+          Invocation.method(
+            #getSavedAddresses,
+            [],
+          ),
+        )),
+      ) as _i10.Future<_i8.AddressResponse>);
+
+  @override
+  _i10.Future<_i8.AddressResponse> editAddress(
+    Map<String, dynamic>? body,
+    String? id,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #editAddress,
-          [body],
+          [
+            body,
+            id,
+          ],
         ),
-        returnValue: _i9.Future<_i7.SaveAddress>.value(_FakeSaveAddress_5(
+        returnValue:
+            _i10.Future<_i8.AddressResponse>.value(_FakeAddressResponse_6(
           this,
           Invocation.method(
             #editAddress,
-            [body],
+            [
+              body,
+              id,
+            ],
           ),
         )),
-      ) as _i9.Future<_i7.SaveAddress>);
+      ) as _i10.Future<_i8.AddressResponse>);
 
   @override
-  _i9.Future<_i7.SaveAddress> deleteAddress(Map<String, dynamic>? body) =>
+  _i10.Future<_i8.AddressResponse> deleteAddress(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteAddress,
-          [body],
+          [id],
         ),
-        returnValue: _i9.Future<_i7.SaveAddress>.value(_FakeSaveAddress_5(
+        returnValue:
+            _i10.Future<_i8.AddressResponse>.value(_FakeAddressResponse_6(
           this,
           Invocation.method(
             #deleteAddress,
-            [body],
+            [id],
           ),
         )),
-      ) as _i9.Future<_i7.SaveAddress>);
-  _i9.Future<_i6.CartResponse> updateCartQuantity(
+      ) as _i10.Future<_i8.AddressResponse>);
+
+  @override
+  _i10.Future<_i6.CartResponse> updateCartQuantity(
     String? productId,
     Map<String, dynamic>? body,
   ) =>
@@ -294,7 +336,7 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
             body,
           ],
         ),
-        returnValue: _i9.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
+        returnValue: _i10.Future<_i6.CartResponse>.value(_FakeCartResponse_4(
           this,
           Invocation.method(
             #updateCartQuantity,
@@ -304,5 +346,5 @@ class MockHomeApiClient extends _i1.Mock implements _i8.HomeApiClient {
             ],
           ),
         )),
-      ) as _i9.Future<_i6.CartResponse>);
+      ) as _i10.Future<_i6.CartResponse>);
 }

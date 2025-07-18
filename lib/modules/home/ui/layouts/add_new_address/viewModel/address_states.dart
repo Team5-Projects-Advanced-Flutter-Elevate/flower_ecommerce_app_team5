@@ -1,5 +1,5 @@
 import 'package:flower_ecommerce_app_team5/core/apis/api_error/api_error_model.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
+import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
 
 sealed class AddressStates {}
 
@@ -8,7 +8,7 @@ class GetSavedAddressesInitialState extends AddressStates {}
 class GetSavedAddressesLoadingState extends AddressStates {}
 
 class GetSavedAddressesSuccessState extends AddressStates {
-  final List<AddressEntity> addresses;
+  final List<AddressModelEntity> addresses;
 
   GetSavedAddressesSuccessState(this.addresses);
 }
@@ -22,7 +22,7 @@ class GetSavedAddressesErrorState extends AddressStates {
 class DeleteAddressLoadingState extends AddressStates {}
 
 class DeleteAddressSuccessState extends AddressStates {
-  final List<AddressEntity> addresses;
+  final List<AddressModelEntity> addresses;
 
   DeleteAddressSuccessState(this.addresses);
 }
@@ -36,7 +36,7 @@ class DeleteAddressErrorState extends AddressStates {
 class UpdateAddressLoadingState extends AddressStates {}
 
 class UpdateAddressSuccessState extends AddressStates {
-  final List<AddressEntity> addresses;
+  final List<AddressModelEntity> addresses;
 
   UpdateAddressSuccessState(this.addresses);
 }

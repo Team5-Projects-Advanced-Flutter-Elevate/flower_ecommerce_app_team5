@@ -42,11 +42,14 @@ abstract class HomeApiClient {
   @PATCH(ApisEndpoints.addNewAddress)
   Future<SaveAddress> saveAddress(@Body() Map<String, dynamic> body);
   
-  @PATCH(ApisEndpoints.editAddress)
-  Future<AddressResponse> editAddress(@Body() Map<String, dynamic> body, @Path("_id") String id);
+  @GET('api/v1/addresses')
+  Future<AddressResponse> getSavedAddresses();
 
-  @DELETE(ApisEndpoints.deleteAddress)
-  Future<AddressResponse> deleteAddress(@Path("_id") String id);
+  @PATCH('api/v1/addresses/{_id}')
+  Future<AddressResponse> editAddress(@Body() Map<String, dynamic> body, @Path('_id') String id);
+
+  @DELETE('api/v1/addresses/{_id}')
+  Future<AddressResponse> deleteAddress(@Path('_id') String id);
 
   @PUT(ApisEndpoints.updateCartQuantity)
   Future<CartResponse> updateCartQuantity(

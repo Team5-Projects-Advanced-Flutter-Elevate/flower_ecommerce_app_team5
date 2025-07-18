@@ -202,4 +202,6 @@ class LocaleKeys {
   static const pending = 'pending';
   static const unknownWord = 'unknownWord';
   static const alreadyAdded = 'alreadyAdded';
+  static const updateAddress = 'updateAddress';
+  static const updateAddressSuccessfully = 'updateAddressSuccessfully';
 }

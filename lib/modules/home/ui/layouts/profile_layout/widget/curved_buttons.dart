@@ -31,7 +31,6 @@ class CurvedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          //padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 24),
           backgroundColor: color ?? AppColors.mainColor,
           shape: RoundedRectangleBorder(
             side: BorderSide(
