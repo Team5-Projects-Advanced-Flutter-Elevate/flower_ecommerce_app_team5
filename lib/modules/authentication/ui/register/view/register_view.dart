@@ -1,3 +1,4 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
@@ -52,6 +53,13 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
     passwordFocusNode = FocusNode();
     confirmPasswordFocusNode = FocusNode();
     phoneNumberFocusNode = FocusNode();
+    BackButtonInterceptor.add(  myInterceptor);
+  }
+  bool myInterceptor(bool stopDefaultButtonEvent,RouteInfo routeInfo){
+    Navigator.pop(context);
+    Navigator.pushReplacementNamed(
+        context, DefinedRoutes.loginScreenRoute);
+    return true;
   }
 
   @override
@@ -69,6 +77,7 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
     passwordFocusNode.dispose();
     confirmPasswordFocusNode.dispose();
     phoneNumberFocusNode.dispose();
+    BackButtonInterceptor.remove(myInterceptor);
   }
 
   var cubit = getIt<RegisterCubit>();
@@ -83,8 +92,8 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
           titleSpacing: 0.0,
           leading: IconButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context,
-                  DefinedRoutes.loginScreenRoute);
+              Navigator.pushReplacementNamed(
+                  context, DefinedRoutes.loginScreenRoute);
             },
             icon: const Icon(
               Icons.arrow_back_ios,
@@ -119,6 +128,11 @@ class _RegisterViewState extends BaseStatefulWidgetState<RegisterView> {
                       hideAlertDialog();
                       displayAlertDialog(
                         showOkButton: true,
+                        onOkButtonClick: () {
+                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(
+                              context, DefinedRoutes.loginScreenRoute);
+                        },
                         title: ErrorStateWidget(
                           error: state.error!,
                         ),

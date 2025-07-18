@@ -4,9 +4,11 @@ import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/v
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/view_model/cart_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/widgets/invoice_section_and_checkout_button.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/cart_layout/widgets/title_cart_items.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import '../../../../../core/routing/defined_routes.dart';
 import '../../../../../core/widgets/error_state_widget.dart';
 import '../../../../../core/widgets/loading_state_widget.dart';
@@ -40,10 +42,13 @@ class _CartLayoutState extends BaseStatefulWidgetState<CartLayout> {
                 LocaleKeys.pleaseLoginFirst.tr(),
               ),
               showOkButton: true,
-              onOkButtonClick: () => Navigator.pushReplacementNamed(
-                context,
-                DefinedRoutes.loginScreenRoute,
-              ),
+              onOkButtonClick: () {
+                Provider.of<HomeScreenViewModel>(context).setAppSectionsIndex(0);
+                Navigator.pushReplacementNamed(
+                  context,
+                  DefinedRoutes.loginScreenRoute,
+                );
+              },
             );
           }
         },

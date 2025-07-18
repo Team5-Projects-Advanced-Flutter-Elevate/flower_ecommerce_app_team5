@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/media/Volume4/Linux_sdks/flutter_3.29.3/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/media/Volume4/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/media/Volume4/StudioProjects/flower_ecommerce_app_team5/android/app/.cxx/RelWithDebInfo/324bb1y3/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/media/Volume4/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/media/Volume4/StudioProjects/flower_ecommerce_app_team5/android/app/.cxx/RelWithDebInfo/324bb1y3/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

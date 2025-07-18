@@ -1,0 +1,2 @@
+/media/Volume4/StudioProjects/flower_ecommerce_app_team5/android/app/.cxx/RelWithDebInfo/324bb1y3/arm64-v8a/CMakeFiles/edit_cache.dir
+/media/Volume4/StudioProjects/flower_ecommerce_app_team5/android/app/.cxx/RelWithDebInfo/324bb1y3/arm64-v8a/CMakeFiles/rebuild_cache.dir
