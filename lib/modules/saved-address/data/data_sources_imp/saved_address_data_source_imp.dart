@@ -5,6 +5,7 @@ import '../../../../core/apis/api_result/api_result.dart';
 import '../../domain/entities/saved_address_entity.dart';
 import '../api/api_client/saved_address_api_client.dart';
 import '../data_sources_contract/saved_address_data_source_contract.dart';
+import '../models/delete_address_dto.dart';
 import '../models/saved_address_dto.dart';
 
 @Injectable(as: SavedAddressDataSourceContract)
@@ -20,10 +21,10 @@ class SavedAddressDataSourceImp implements SavedAddressDataSourceContract {
       () => _apiClient.deleteAddress(addressId),
     );
     switch (result) {
-      case Success<SavedAddressDto>():
+      case Success<DeleteAddressDto>():
         return Success<List<SavedAddressEntity>>(
             data: result.data.addresses.map((e) => e.toEntity()).toList());
-      case Error<SavedAddressDto>():
+      case Error<DeleteAddressDto>():
         return Error(error: result.error);
     }
   }

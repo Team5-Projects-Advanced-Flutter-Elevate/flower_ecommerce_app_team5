@@ -2,9 +2,7 @@ import 'package:flower_ecommerce_app_team5/modules/saved-address/ui/view_model/s
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/apis/api_error/api_error_handler.dart';
 import '../../../../core/apis/api_result/api_result.dart';
-import '../../../../core/di/injectable_initializer.dart';
 import '../../domain/entities/saved_address_entity.dart';
 import '../../domain/use_cases/delete_address_use_case.dart';
 import '../../domain/use_cases/get_saved_address_use_case.dart';
@@ -32,28 +30,23 @@ class SavedAddressViewModel extends Cubit<SavedAddressState> {
 
   Future<void> _getSavedAddresses() async {
     emit(
-      state.copyWith(loadAddressesState: SavedAddressesState.loading),
+      state.copyWith(loadAddressesState: LoadSavedAddressesState.loading),
     );
     var result = await _getSavedAddressesUseCase.call();
     switch (result) {
       case Success<List<SavedAddressEntity>>():
         emit(
           state.copyWith(
-            loadAddressesState: SavedAddressesState.success,
+            loadAddressesState: LoadSavedAddressesState.success,
             addressesList: result.data,
           ),
-        );
-        emit(
-          state.copyWith(loadAddressesState: SavedAddressesState.idle),
         );
         break;
       case Error<List<SavedAddressEntity>>():
         emit(
           state.copyWith(
-            loadAddressesState: SavedAddressesState.error,
-            loadAddressesErrMsg:
-                getIt.get<ApiErrorHandler>().handle(result.error),
-          ),
+              loadAddressesState: LoadSavedAddressesState.error,
+              loadAddressesErr: result.error),
         );
         break;
     }
@@ -62,17 +55,12 @@ class SavedAddressViewModel extends Cubit<SavedAddressState> {
   Future<void> _deleteAddress({
     required String addressId,
   }) async {
-    emit(
-      state.copyWith(
-        deleteAddressState: SavedAddressesState.loading,
-      ),
-    );
     var result = await _deleteAddressUseCase.call(addressId);
     switch (result) {
       case Success<List<SavedAddressEntity>>():
         emit(
           state.copyWith(
-            deleteAddressState: SavedAddressesState.success,
+            deleteAddressState: DeleteAddressState.success,
             addressesList: result.data,
           ),
         );
@@ -81,9 +69,8 @@ class SavedAddressViewModel extends Cubit<SavedAddressState> {
       case Error<List<SavedAddressEntity>>():
         emit(
           state.copyWith(
-            deleteAddressState: SavedAddressesState.error,
-            deleteAddressErrMsg:
-                getIt.get<ApiErrorHandler>().handle(result.error),
+            deleteAddressState: DeleteAddressState.error,
+            deleteAddressErr: result.error,
           ),
         );
         break;

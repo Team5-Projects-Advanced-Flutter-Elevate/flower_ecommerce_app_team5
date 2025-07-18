@@ -57,19 +57,19 @@ class _SavedAddressApiClient implements SavedAddressApiClient {
   }
 
   @override
-  Future<SavedAddressDto> deleteAddress(String addressId) async {
+  Future<DeleteAddressDto> deleteAddress(String addressId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SavedAddressDto>(Options(
+    final _options = _setStreamType<DeleteAddressDto>(Options(
       method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          'api/v1/addresses/${addressId}/{id}',
+          'api/v1/addresses/${addressId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -79,9 +79,9 @@ class _SavedAddressApiClient implements SavedAddressApiClient {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SavedAddressDto _value;
+    late DeleteAddressDto _value;
     try {
-      _value = SavedAddressDto.fromJson(_result.data!);
+      _value = DeleteAddressDto.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

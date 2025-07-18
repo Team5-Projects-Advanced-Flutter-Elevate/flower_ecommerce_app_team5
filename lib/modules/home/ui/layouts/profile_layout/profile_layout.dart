@@ -2,16 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/about_us.dart';
-import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/terms.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flower_ecommerce_app_team5/core/constants/constants.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/about_us.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/terms.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_layout_view_model.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/profile_layout/view_model/profile_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/view_model/home_screen_view_model.dart';
 import 'package:flower_ecommerce_app_team5/shared_layers/localization/generated/locale_keys.g.dart';
-import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -129,8 +129,11 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => const MyOrderPageScreen(),));
-
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyOrderPageScreen(),
+                            ));
                       },
                       child: ListTile(
                         title: Text(LocaleKeys.myOrders.tr()),
@@ -142,7 +145,7 @@ class _ProfileLayoutState extends BaseStatefulWidgetState<ProfileLayout> {
                       onTap: () {
                         Navigator.pushNamed(
                           context,
-                          DefinedRoutes.addNewAddress,
+                          DefinedRoutes.savedAddressScreen,
                         );
                       },
                       child: ListTile(

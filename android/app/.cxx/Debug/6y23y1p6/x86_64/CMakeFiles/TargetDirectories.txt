@@ -1,0 +1,2 @@
+D:/elevate/flower_ecommerce_app_team5/android/app/.cxx/Debug/6y23y1p6/x86_64/CMakeFiles/edit_cache.dir
+D:/elevate/flower_ecommerce_app_team5/android/app/.cxx/Debug/6y23y1p6/x86_64/CMakeFiles/rebuild_cache.dir

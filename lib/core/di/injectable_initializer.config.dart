@@ -253,6 +253,24 @@ import '../../modules/payment/domain/use_cases/payment/make_checkout_session_use
 import '../../modules/payment/ui/view_model/payment_view_model.dart' as _i801;
 import '../../modules/product_details/ui/view_model/product_details_view_model.dart'
     as _i902;
+import '../../modules/saved-address/data/api/api_client/saved_address_api_client.dart'
+    as _i255;
+import '../../modules/saved-address/data/api/api_client_provider/saved_address_clint_provider.dart'
+    as _i899;
+import '../../modules/saved-address/data/data_sources_contract/saved_address_data_source_contract.dart'
+    as _i700;
+import '../../modules/saved-address/data/data_sources_imp/saved_address_data_source_imp.dart'
+    as _i434;
+import '../../modules/saved-address/data/repositories_imp/saved_address_repo_impl.dart'
+    as _i201;
+import '../../modules/saved-address/domain/repositories_contracts/saved_address_repo_contract.dart'
+    as _i298;
+import '../../modules/saved-address/domain/use_cases/delete_address_use_case.dart'
+    as _i677;
+import '../../modules/saved-address/domain/use_cases/get_saved_address_use_case.dart'
+    as _i386;
+import '../../modules/saved-address/ui/view_model/saved_address_view_model.dart'
+    as _i220;
 import '../../modules/search/view_model/search_cubit.dart' as _i861;
 import '../../shared_layers/database/firestore/data/data_sources_abstracts/order_collection.dart'
     as _i884;
@@ -303,6 +321,7 @@ extension GetItInjectableX on _i174.GetIt {
     final homeApiClientProvider = _$HomeApiClientProvider();
     final occasionApiClientProvider = _$OccasionApiClientProvider();
     final myOrdersApiClientProvider = _$MyOrdersApiClientProvider();
+    final addressApiClientProvider = _$AddressApiClientProvider();
     final localeInitializer = _$LocaleInitializer();
     gh.factory<_i669.ApiManager>(() => _i669.ApiManager());
     await gh.factoryAsync<_i361.Dio>(
@@ -342,6 +361,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => occasionApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.singleton<_i583.MyOrdersApiClient>(
         () => myOrdersApiClientProvider.apiClient(gh<_i361.Dio>()));
+    gh.singleton<_i255.SavedAddressApiClient>(
+        () => addressApiClientProvider.apiClient(gh<_i361.Dio>()));
     gh.factory<_i274.HomeDataSource>(
         () => _i524.HomeDataSourceImpl(gh<_i293.HomeApiClient>()));
     gh.factory<_i113.CheckOutDataSource>(
@@ -350,6 +371,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i20.OrderPageOnlineDataSourceImpl(gh<_i583.MyOrdersApiClient>()));
     gh.singleton<_i23.FirebaseCloudMessagingAPi>(() =>
         _i23.FirebaseCloudMessagingAPi(gh<_i261.LocalNotificationsService>()));
+    gh.factory<_i700.SavedAddressDataSourceContract>(() =>
+        _i434.SavedAddressDataSourceImp(gh<_i255.SavedAddressApiClient>()));
     gh.factory<_i925.AboutUsLocalDataSource>(
         () => _i1049.AboutUsLocalDataSourceImpl());
     gh.factory<_i884.OrderCollection>(() => _i333.OrderCollectionImp());
@@ -414,6 +437,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1042.HomeRepoImpl(gh<_i274.HomeDataSource>()));
     gh.factory<_i1013.ForgetPasswordRepo>(() => _i811.ForgetPasswordRepoImpl(
         gh<_i150.ForgetPasswordRemoteDataSource>()));
+    gh.factory<_i298.SavedAddressRepoContract>(() =>
+        _i201.SavedAddressRepoImpl(gh<_i700.SavedAddressDataSourceContract>()));
     gh.factory<_i897.NotificationsRemoteDataSource>(() =>
         _i902.NotificationsRemoteDataSourceImp(
             gh<_i762.NotificationsApiClient>()));
@@ -513,12 +538,20 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i823.ForgetPasswordUseCase(gh<_i1013.ForgetPasswordRepo>()));
     gh.factory<_i421.LoginAsGuestUseCase>(
         () => _i421.LoginAsGuestUseCase(gh<_i926.LoginAsGuestRepo>()));
+    gh.factory<_i677.DeleteAddressUseCase>(
+        () => _i677.DeleteAddressUseCase(gh<_i298.SavedAddressRepoContract>()));
+    gh.factory<_i386.GetSavedAddressesUseCase>(() =>
+        _i386.GetSavedAddressesUseCase(gh<_i298.SavedAddressRepoContract>()));
     gh.factory<_i105.ForgetPasswordViewModel>(
         () => _i105.ForgetPasswordViewModel(
               gh<_i823.ForgetPasswordUseCase>(),
               gh<_i110.ResetPasswordUseCase>(),
               gh<_i9.ResetCodeUseCase>(),
             ));
+    gh.factory<_i220.SavedAddressViewModel>(() => _i220.SavedAddressViewModel(
+          gh<_i386.GetSavedAddressesUseCase>(),
+          gh<_i677.DeleteAddressUseCase>(),
+        ));
     gh.factory<_i861.GetAllNotificationsUseCase>(
         () => _i861.GetAllNotificationsUseCase(gh<_i14.NotificationsRepo>()));
     gh.factory<_i543.LoginUseCase>(
@@ -583,5 +616,7 @@ class _$HomeApiClientProvider extends _i939.HomeApiClientProvider {}
 class _$OccasionApiClientProvider extends _i507.OccasionApiClientProvider {}
 
 class _$MyOrdersApiClientProvider extends _i372.MyOrdersApiClientProvider {}
+
+class _$AddressApiClientProvider extends _i899.AddressApiClientProvider {}
 
 class _$LocaleInitializer extends _i631.LocaleInitializer {}

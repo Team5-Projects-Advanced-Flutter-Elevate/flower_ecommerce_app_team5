@@ -1,17 +1,17 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flower_ecommerce_app_team5/core/entities/product/product_entity.dart';
 import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
+import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/forget_password_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/reset_code_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/forget_password/view/reset_password_screen.dart';
-import 'package:flower_ecommerce_app_team5/modules/authentication/data/models/login/login_response_dto.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/login/view/login_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/authentication/ui/register/view/register_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/best_seller/ui/best_seller_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/order_placed_successfully_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/ui/on_notification_opened_app.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/notifications_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
@@ -23,9 +23,11 @@ import 'package:flower_ecommerce_app_team5/modules/successful_order_placed/ui/su
 import 'package:flower_ecommerce_app_team5/modules/track_order/ui/track_order_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/track_order_details/ui/track_order_details_screen.dart';
 import 'package:flutter/material.dart';
+
 import '../../modules/check_out/ui/check_out_view.dart';
 import '../../modules/edit_profile/ui/change_password_screen.dart';
 import '../../modules/home/ui/layouts/add_new_address/new_address_screen.dart';
+import '../../modules/saved-address/ui/saved_address_screen.dart';
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -122,7 +124,13 @@ class GenerateRoute {
         );
       case DefinedRoutes.successfulOrderPlacedScreenRoute:
         return MaterialPageRoute(
-          builder: (context) => SuccessfulOrderPlacedScreen(orderId: args as String,),
+          builder: (context) => SuccessfulOrderPlacedScreen(
+            orderId: args as String,
+          ),
+        );
+      case DefinedRoutes.savedAddressScreen:
+        return MaterialPageRoute(
+          builder: (context) => const SavedAddressScreen(),
         );
       default:
         return _errorRoute();

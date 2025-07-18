@@ -2,35 +2,37 @@ import 'package:equatable/equatable.dart';
 
 import '../../domain/entities/saved_address_entity.dart';
 
-enum SavedAddressesState { initial, loading, success, error, idle }
+enum LoadSavedAddressesState { initial, loading, success, error }
+
+enum DeleteAddressState { initial, success, error }
 
 class SavedAddressState extends Equatable {
-  final SavedAddressesState loadAddressesState;
-  final SavedAddressesState deleteAddressState;
-  final String? loadAddressesErrMsg;
-  final String? deleteAddressErrMsg;
+  final LoadSavedAddressesState loadAddressesState;
+  final DeleteAddressState deleteAddressState;
+  final Object? loadAddressesErr;
+  final Object? deleteAddressErr;
   final List<SavedAddressEntity>? addressesList;
 
   const SavedAddressState({
-    this.loadAddressesState = SavedAddressesState.initial,
-    this.deleteAddressState = SavedAddressesState.initial,
-    this.loadAddressesErrMsg,
-    this.deleteAddressErrMsg,
+    this.loadAddressesState = LoadSavedAddressesState.initial,
+    this.deleteAddressState = DeleteAddressState.initial,
+    this.loadAddressesErr,
+    this.deleteAddressErr,
     this.addressesList,
   });
 
   SavedAddressState copyWith({
-    SavedAddressesState? loadAddressesState,
-    SavedAddressesState? deleteAddressState,
-    String? loadAddressesErrMsg,
-    String? deleteAddressErrMsg,
+    LoadSavedAddressesState? loadAddressesState,
+    DeleteAddressState? deleteAddressState,
+    Object? loadAddressesErr,
+    Object? deleteAddressErr,
     List<SavedAddressEntity>? addressesList,
   }) {
     return SavedAddressState(
       loadAddressesState: loadAddressesState ?? this.loadAddressesState,
       deleteAddressState: deleteAddressState ?? this.deleteAddressState,
-      loadAddressesErrMsg: loadAddressesErrMsg ?? this.loadAddressesErrMsg,
-      deleteAddressErrMsg: deleteAddressErrMsg ?? this.deleteAddressErrMsg,
+      loadAddressesErr: loadAddressesErr ?? this.loadAddressesErr,
+      deleteAddressErr: deleteAddressErr ?? this.deleteAddressErr,
       addressesList: addressesList ?? this.addressesList,
     );
   }
@@ -39,8 +41,8 @@ class SavedAddressState extends Equatable {
   List<Object?> get props => [
         loadAddressesState,
         deleteAddressState,
-        loadAddressesErrMsg,
-        deleteAddressErrMsg,
+        loadAddressesErr,
+        deleteAddressErr,
         addressesList,
       ];
 }

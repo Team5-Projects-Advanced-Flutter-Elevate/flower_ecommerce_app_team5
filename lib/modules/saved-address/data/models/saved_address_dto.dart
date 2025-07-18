@@ -18,11 +18,6 @@ class SavedAddressDto {
               json["addresses"]!.map((x) => Address.fromJson(x))),
     );
   }
-
-  Map<String, dynamic> toJson() => {
-        "message": message,
-        "addresses": addresses.map((x) => x.toJson()).toList(),
-      };
 }
 
 class Address {
@@ -55,16 +50,6 @@ class Address {
       id: json["_id"],
     );
   }
-
-  Map<String, dynamic> toJson() => {
-        "street": street,
-        "phone": phone,
-        "city": city,
-        "lat": lat,
-        "long": long,
-        "username": username,
-        "_id": id,
-      };
 
   SavedAddressEntity toEntity() {
     return SavedAddressEntity(
