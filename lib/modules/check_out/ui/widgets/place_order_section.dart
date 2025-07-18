@@ -72,11 +72,11 @@ class PlaceOrderSection extends BaseStatelessWidget {
                 case MakeCreditCardStatus.loading:
                   break;
                 case MakeCreditCardStatus.success:
-                  debugPrint("Navigating to checkoutSessionScreenRoute --------");
+                  debugPrint(
+                      "Navigating to checkoutSessionScreenRoute --------");
                   Navigator.pushNamed(
                       context, DefinedRoutes.checkoutSessionScreenRoute,
                       arguments: PaymentRequestParametersEntity(
-
                         shippingAddress: ShippingAddressEntity(
                           street: state.addressModelEntityOfSelectedAddress!
                                   .street ??
@@ -113,14 +113,16 @@ class PlaceOrderSection extends BaseStatelessWidget {
                               LocaleKeys.pleaseSelectPaymentMethod.tr(),
                             ),
                             isDismissible: true,
-                            showOkButton: true,
                             autoDismissible: true,
                           );
-                          // AppDialogs.showMessage(
-                          //   context,
-                          //   message: LocaleKeys.pleaseSelectPaymentMethod.tr(),
-                          //   isSuccess: false,
-                          // );
+                        } else if (state.selectedDeliveryAddress == null) {
+                          displayAlertDialog(
+                            title: Text(
+                              LocaleKeys.pleaseSelectDeliveryAddress.tr(),
+                            ),
+                            isDismissible: true,
+                            autoDismissible: true,
+                          );
                         } else {
                           if (state.selectedPaymentMethod ==
                               SelectedPaymentMethod.cod) {

@@ -48,20 +48,21 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
                 children: [
                   BlocBuilder<CheckOutCubit, CheckOutState>(
                     builder: (context, state) {
+                      state.selectedDeliveryAddress ??=
+                          state.addressesResponseEntity?.addresses?[0].id;
                       return Radio<String>(
                         visualDensity: VisualDensity.compact,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         value: widget.addressModel.id!,
-                        groupValue: state.selectedDeliveryAddress ??
-                            state.addressesResponseEntity?.addresses?[0].id,
+                        groupValue: state.selectedDeliveryAddress,
                         onChanged: (val) {
                           if (val != null) {
                             context
                                 .read<CheckOutCubit>()
                                 .doIntent(ChangeAddressIntent(
-                                  address: val,
-                                  addressModelEntity: widget.addressModel,
-                                ));
+                              address: val,
+                              addressModelEntity: widget.addressModel,
+                            ));
                           }
                         },
                       );
@@ -94,10 +95,10 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
           InkWell(
             onTap: () {
               Navigator.pushNamed<bool>(
-                      context, DefinedRoutes.updateAddressRoute,
-                      arguments: widget.addressModel)
+                  context, DefinedRoutes.updateAddressRoute,
+                  arguments: widget.addressModel)
                   .then(
-                (didAddressUpdated) {
+                    (didAddressUpdated) {
                   if (didAddressUpdated == true) {
                     if (!context.mounted) return;
                     BlocProvider.of<CheckOutCubit>(context)
