@@ -22,7 +22,6 @@ class UpdateAddressScreen extends StatefulWidget {
 }
 
 class _UpdState extends BaseStatefulWidgetState<UpdateAddressScreen> {
-  bool didAddressUpdated = false;
   final UpdateAddressViewModel updateAddressViewModel =
       getIt.get<UpdateAddressViewModel>();
   @override
@@ -34,7 +33,7 @@ class _UpdState extends BaseStatefulWidgetState<UpdateAddressScreen> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo routeInfo) {
-    Navigator.pop(context, didAddressUpdated);
+    Navigator.pop(context, updateAddressViewModel.didAddressUpdated);
     return true;
   }
 
@@ -54,14 +53,42 @@ class _UpdState extends BaseStatefulWidgetState<UpdateAddressScreen> {
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios,
                   size: 20, color: Colors.black),
-              onPressed: () => Navigator.pop(context, didAddressUpdated),
+              onPressed: () => Navigator.pop(
+                  context, updateAddressViewModel.didAddressUpdated),
             ),
             title: Text(LocaleKeys.updateAddress.tr(),
                 style: Theme.of(context).textTheme.headlineMedium),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: BlocBuilder<UpdateAddressViewModel, UpdateAddressState>(
+            child: BlocConsumer<UpdateAddressViewModel, UpdateAddressState>(
+              listener: (context, state) {
+                switch (state.updateAddressStatus) {
+                  case Status.idle:
+                  case Status.loading:
+                    break;
+                  case Status.success:
+                    displayAlertDialog(
+                        title: const Text(
+                          "Address Updated Successfully!",
+                          textAlign: TextAlign.center,
+                        ),
+                        autoDismissible: true,
+                        autoDismissDuration: const Duration(seconds: 2));
+                  case Status.error:
+                    displayAlertDialog(
+                        title:
+                            ErrorStateWidget(error: state.updateAddressError!),
+                        showOkButton: true);
+                }
+              },
+              buildWhen: (previous, current) {
+                if (previous.initializingDataStatus !=
+                    current.initializingDataStatus) {
+                  return true;
+                }
+                return false;
+              },
               builder: (context, state) {
                 switch (state.initializingDataStatus) {
                   case Status.idle:
@@ -183,28 +210,30 @@ class _UpdState extends BaseStatefulWidgetState<UpdateAddressScreen> {
                               ],
                             ),
                             SizedBox(height: screenHeight * 0.04),
-                            // ? const LoadingWidget()
-                            ValueListenableBuilder(
-                                valueListenable: updateAddressViewModel
-                                    .isUpdateButtonEnabledNotifier,
-                                builder: (context, isEnabled, child) {
-                                  return ElevatedButton(
-                                    onPressed: isEnabled
-                                        ? () async {
-                                            if (updateAddressViewModel
-                                                    .formKey.currentState
-                                                    ?.validate() !=
-                                                true) {
-                                              return;
-                                            }
-                                          }
-                                        : null,
-                                    child: Text(
-                                      LocaleKeys.update.tr(),
-                                      style: TextStyle(color: AppColors.white),
-                                    ),
-                                  );
-                                }),
+                            BlocBuilder<UpdateAddressViewModel,
+                                UpdateAddressState>(builder: (context, state) {
+                              return state.updateAddressStatus == Status.loading
+                                  ? const LoadingWidget()
+                                  : ValueListenableBuilder(
+                                      valueListenable: updateAddressViewModel
+                                          .isUpdateButtonEnabledNotifier,
+                                      builder: (context, isEnabled, child) {
+                                        return ElevatedButton(
+                                          onPressed: isEnabled
+                                              ? () {
+                                                  updateAddressViewModel
+                                                      .doIntent(
+                                                          UpdateAddressCall());
+                                                }
+                                              : null,
+                                          child: Text(
+                                            LocaleKeys.update.tr(),
+                                            style: TextStyle(
+                                                color: AppColors.white),
+                                          ),
+                                        );
+                                      });
+                            }),
                           ],
                         ),
                       ),

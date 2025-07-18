@@ -63,6 +63,7 @@ class NewAddressViewModelCubit extends Cubit<AddressState> {
 
   Future<Map<String, double>?> getLatLongFromCountry(String country) async {
     try {
+      debugPrint("------------ $country");
       List<Location> locations = await locationFromAddress(country);
 
       if (locations.isNotEmpty) {

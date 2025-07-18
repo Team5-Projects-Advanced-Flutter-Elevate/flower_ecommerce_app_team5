@@ -1,3 +1,4 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart';
@@ -41,6 +42,13 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
   void initState() {
     super.initState();
     _initializeAddressData();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo routeInfo) {
+    Navigator.pop(context);
+    Navigator.pop(context, newAddress);
+    return true;
   }
 
   Future<void> _initializeAddressData() async {
@@ -110,7 +118,8 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                     style: Theme.of(context).textTheme.headlineMedium),
               ),
               body: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
@@ -145,7 +154,8 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                             Expanded(
                               child: _buildDropdown(
                                 value: selectedGovernorate ?? '',
-                                items: governorates.map((e) => e.nameEn).toList(),
+                                items:
+                                    governorates.map((e) => e.nameEn).toList(),
                                 onChanged: (value) {
                                   setState(() {
                                     selectedGovernorate = value;
@@ -185,13 +195,14 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                             ? const LoadingWidget()
                             : ElevatedButton(
                                 onPressed: () async {
-                                  if (_formKey.currentState?.validate() != true) {
+                                  if (_formKey.currentState?.validate() !=
+                                      true) {
                                     return;
                                   }
 
                                   final latLong =
                                       await viewModel.getLatLongFromCountry(
-                                          selectedGovernorate ?? '');
+                                          "$selectedGovernorate $selectedCity");
                                   final lat = latLong?['latitude'].toString();
                                   final long = latLong?['longitude'].toString();
 
@@ -266,5 +277,10 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
               ))
           .toList(),
     );
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    BackButtonInterceptor.remove(myInterceptor);
   }
 }
