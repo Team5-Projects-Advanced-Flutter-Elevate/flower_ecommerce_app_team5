@@ -2,16 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/saved-address/ui/view_model/saved_address_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/saved-address/ui/view_model/saved_address_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../core/colors/app_colors.dart';
 import '../../../core/constants/assets_paths.dart';
 import '../../../core/di/injectable_initializer.dart';
 import '../../../shared_layers/localization/generated/locale_keys.g.dart';
-import '../domain/entities/saved_address_entity.dart';
 
 class SavedAddressScreen extends StatefulWidget {
   const SavedAddressScreen({super.key});
@@ -78,7 +77,7 @@ class _SavedAddressScreenState
 }
 
 class AddressItem extends StatelessWidget {
-  final SavedAddressEntity address;
+  final AddressEntity address;
   final VoidCallback onDelete;
 
   const AddressItem({

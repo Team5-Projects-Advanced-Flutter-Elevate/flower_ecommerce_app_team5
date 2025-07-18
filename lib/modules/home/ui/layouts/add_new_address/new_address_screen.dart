@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/states.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
 
   final NewAddressViewModelCubit viewModel =
       getIt.get<NewAddressViewModelCubit>();
-  AddressModelEntity? newAddress;
+  AddressEntity? newAddress;
 
   @override
   void initState() {
@@ -110,7 +110,8 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                     style: Theme.of(context).textTheme.headlineMedium),
               ),
               body: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
@@ -145,7 +146,8 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                             Expanded(
                               child: _buildDropdown(
                                 value: selectedGovernorate ?? '',
-                                items: governorates.map((e) => e.nameEn).toList(),
+                                items:
+                                    governorates.map((e) => e.nameEn).toList(),
                                 onChanged: (value) {
                                   setState(() {
                                     selectedGovernorate = value;
@@ -185,7 +187,8 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                             ? const LoadingWidget()
                             : ElevatedButton(
                                 onPressed: () async {
-                                  if (_formKey.currentState?.validate() != true) {
+                                  if (_formKey.currentState?.validate() !=
+                                      true) {
                                     return;
                                   }
 
@@ -205,7 +208,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                                       recipientController.text,
                                     ),
                                   );
-                                  newAddress = AddressModelEntity(
+                                  newAddress = AddressEntity(
                                     street: addressController.text,
                                     lat: lat,
                                     long: long,

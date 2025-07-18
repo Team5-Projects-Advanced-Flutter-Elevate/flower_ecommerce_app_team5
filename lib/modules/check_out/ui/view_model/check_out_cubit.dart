@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flower_ecommerce_app_team5/core/apis/api_result/api_result.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_response_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/domain/use_case/get_all_addresses_use_case.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/payment/domain/entities/cash_order_response/cash_order_response_entity.dart';
 import 'package:injectable/injectable.dart';
 import '../../../payment/domain/entities/checkout_session_response/checkout_response_entity.dart';
@@ -48,7 +48,7 @@ class CheckOutCubit extends Cubit<CheckOutState> {
     ));
   }
 
-  void _changeAddress(String address, AddressModelEntity addressModelEntity) {
+  void _changeAddress(String address, AddressEntity addressModelEntity) {
     emit(state.copyWith(
       selectedDeliveryAddress: address,
       addressModelEntityOfSelectedAddress: addressModelEntity,
@@ -75,7 +75,7 @@ class CheckOutCubit extends Cubit<CheckOutState> {
           addressesResponseEntity: result.data,
           addressModelEntityOfSelectedAddress: result.data.addresses!.isNotEmpty
               ? result.data.addresses!.first
-              : AddressModelEntity(),
+              : const AddressEntity(),
         ));
         log(state.addressModelEntityOfSelectedAddress.toString());
       case Error<AddressResponseEntity>():
@@ -86,7 +86,7 @@ class CheckOutCubit extends Cubit<CheckOutState> {
     }
   }
 
-  void addAddress(AddressModelEntity addressModelEntity) {
+  void addAddress(AddressEntity addressModelEntity) {
     final currentAddresses = state.addressesResponseEntity?.addresses ?? [];
 
     emit(state.copyWith(
@@ -148,7 +148,7 @@ class GetAllAddressesIntent extends CheckOutIntent {}
 
 class ChangeAddressIntent extends CheckOutIntent {
   final String address;
-  final AddressModelEntity addressModelEntity;
+  final AddressEntity addressModelEntity;
 
   ChangeAddressIntent({
     required this.address,

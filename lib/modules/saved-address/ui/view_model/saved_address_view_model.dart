@@ -1,9 +1,8 @@
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/saved-address/ui/view_model/saved_address_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../../core/apis/api_result/api_result.dart';
-import '../../domain/entities/saved_address_entity.dart';
 import '../../domain/use_cases/delete_address_use_case.dart';
 import '../../domain/use_cases/get_saved_address_use_case.dart';
 
@@ -34,7 +33,7 @@ class SavedAddressViewModel extends Cubit<SavedAddressState> {
     );
     var result = await _getSavedAddressesUseCase.call();
     switch (result) {
-      case Success<List<SavedAddressEntity>>():
+      case Success<List<AddressEntity>>():
         emit(
           state.copyWith(
             loadAddressesState: LoadSavedAddressesState.success,
@@ -42,7 +41,7 @@ class SavedAddressViewModel extends Cubit<SavedAddressState> {
           ),
         );
         break;
-      case Error<List<SavedAddressEntity>>():
+      case Error<List<AddressEntity>>():
         emit(
           state.copyWith(
               loadAddressesState: LoadSavedAddressesState.error,
@@ -57,7 +56,7 @@ class SavedAddressViewModel extends Cubit<SavedAddressState> {
   }) async {
     var result = await _deleteAddressUseCase.call(addressId);
     switch (result) {
-      case Success<List<SavedAddressEntity>>():
+      case Success<List<AddressEntity>>():
         emit(
           state.copyWith(
             deleteAddressState: DeleteAddressState.success,
@@ -66,7 +65,7 @@ class SavedAddressViewModel extends Cubit<SavedAddressState> {
         );
         // _getSavedAddresses(); // Refresh list after deletion
         break;
-      case Error<List<SavedAddressEntity>>():
+      case Error<List<AddressEntity>>():
         emit(
           state.copyWith(
             deleteAddressState: DeleteAddressState.error,

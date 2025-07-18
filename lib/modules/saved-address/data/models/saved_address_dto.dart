@@ -1,5 +1,4 @@
-import '../../domain/entities/saved_address_entity.dart';
-
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 class SavedAddressDto {
   SavedAddressDto({
     required this.message,
@@ -51,8 +50,8 @@ class Address {
     );
   }
 
-  SavedAddressEntity toEntity() {
-    return SavedAddressEntity(
+  AddressEntity toEntity() {
+    return AddressEntity(
       street: street,
       phone: phone,
       city: city,

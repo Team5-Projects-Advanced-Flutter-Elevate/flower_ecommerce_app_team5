@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../domain/entities/saved_address_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 
 enum LoadSavedAddressesState { initial, loading, success, error }
 
@@ -11,7 +10,7 @@ class SavedAddressState extends Equatable {
   final DeleteAddressState deleteAddressState;
   final Object? loadAddressesErr;
   final Object? deleteAddressErr;
-  final List<SavedAddressEntity>? addressesList;
+  final List<AddressEntity>? addressesList;
 
   const SavedAddressState({
     this.loadAddressesState = LoadSavedAddressesState.initial,
@@ -26,7 +25,7 @@ class SavedAddressState extends Equatable {
     DeleteAddressState? deleteAddressState,
     Object? loadAddressesErr,
     Object? deleteAddressErr,
-    List<SavedAddressEntity>? addressesList,
+    List<AddressEntity>? addressesList,
   }) {
     return SavedAddressState(
       loadAddressesState: loadAddressesState ?? this.loadAddressesState,

@@ -1,3 +1,13 @@
+class SaveAddressResponseEntity {
+  SaveAddressResponseEntity({
+    required this.message,
+    required this.addresses,
+  });
+
+  final String? message;
+  final List<AddressEntity> addresses;
+}
+
 class AddressEntity {
   final String? street;
   final String? phone;
@@ -8,12 +18,12 @@ class AddressEntity {
   final String? id;
 
   const AddressEntity({
-    required this.street,
-    required this.phone,
-    required this.city,
-    required this.lat,
-    required this.long,
-    required this.username,
-    required this.id,
+    this.street,
+    this.phone,
+    this.city,
+    this.lat,
+    this.long,
+    this.username,
+    this.id,
   });
 }

@@ -1,6 +1,6 @@
-import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +10,7 @@ import '../../../../core/colors/app_colors.dart';
 class AddressItem extends StatefulWidget {
   const AddressItem({super.key, required this.addressModel});
 
-  final AddressModelEntity addressModel;
+  final AddressEntity addressModel;
 
   @override
   State<AddressItem> createState() => _AddressItemState();
