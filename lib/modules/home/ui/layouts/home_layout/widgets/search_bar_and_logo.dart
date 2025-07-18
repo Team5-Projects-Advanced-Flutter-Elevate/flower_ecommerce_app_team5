@@ -23,7 +23,7 @@ class SearchBarAndLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenHeight * 0.045,
+      height: screenHeight * 0.052,
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
       child: Row(
         children: [
