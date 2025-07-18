@@ -1,6 +1,7 @@
-import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_state.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +11,7 @@ import '../../../../core/colors/app_colors.dart';
 class AddressItem extends StatefulWidget {
   const AddressItem({super.key, required this.addressModel});
 
-  final AddressModelEntity addressModel;
+  final AddressEntity addressModel;
 
   @override
   State<AddressItem> createState() => _AddressItemState();
@@ -47,27 +48,28 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
                 children: [
                   BlocBuilder<CheckOutCubit, CheckOutState>(
                     builder: (context, state) {
+                      state.selectedDeliveryAddress ??=
+                          state.addressesResponseEntity?.addresses?[0].id;
                       return Radio<String>(
                         visualDensity: VisualDensity.compact,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         value: widget.addressModel.id!,
-                        groupValue: state.selectedDeliveryAddress ??
-                            state.addressesResponseEntity?.addresses?[0].id,
+                        groupValue: state.selectedDeliveryAddress,
                         onChanged: (val) {
                           if (val != null) {
                             context
                                 .read<CheckOutCubit>()
                                 .doIntent(ChangeAddressIntent(
-                                  address: val,
-                                  addressModelEntity: widget.addressModel,
-                                ));
+                              address: val,
+                              addressModelEntity: widget.addressModel,
+                            ));
                           }
                         },
                       );
                     },
                   ),
                   Text(
-                    widget.addressModel.street ?? '',
+                    widget.addressModel.city ?? '',
                     style: theme.textTheme.labelMedium?.copyWith(
                       fontSize: 12 * (screenWidth / 375),
                     ),
@@ -79,7 +81,7 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
                   left: 16,
                   top: 8,
                 ),
-                child: Text(widget.addressModel.city ?? '',
+                child: Text(widget.addressModel.street ?? '',
                     style: GoogleFonts.roboto(
                       textStyle: theme.textTheme.bodySmall?.copyWith(
                         fontSize: 10 * (screenWidth / 375),
@@ -90,8 +92,24 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
             ],
           ),
           const Spacer(),
-          const Icon(
-            Icons.edit_outlined,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed<bool>(
+                  context, DefinedRoutes.updateAddressRoute,
+                  arguments: widget.addressModel)
+                  .then(
+                    (didAddressUpdated) {
+                  if (didAddressUpdated == true) {
+                    if (!context.mounted) return;
+                    BlocProvider.of<CheckOutCubit>(context)
+                        .doIntent(GetAllAddressesIntent());
+                  }
+                },
+              );
+            },
+            child: const Icon(
+              Icons.edit_outlined,
+            ),
           ),
         ],
       ),

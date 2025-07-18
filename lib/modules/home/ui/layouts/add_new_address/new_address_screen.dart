@@ -1,5 +1,7 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_ecommerce_app_team5/modules/check_out/domain/entity/address_model_entity.dart';
+import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/states.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +11,8 @@ import '../../../../../core/colors/app_colors.dart';
 import '../../../../../core/di/injectable_initializer.dart';
 import '../../../../../core/widgets/loading_state_widget.dart';
 import '../../../../../shared_layers/localization/generated/locale_keys.g.dart';
-import '../../../domain/entities/cities_states_entity/get_cities.dart';
-import '../../../domain/entities/cities_states_entity/get_states.dart';
+import '../../../domain/entities/cities_states_entity/governorate_entity.dart';
+import '../../../domain/entities/cities_states_entity/city_entity.dart';
 
 class NewAddressScreen extends StatefulWidget {
   const NewAddressScreen({super.key});
@@ -25,22 +27,29 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
   final TextEditingController recipientController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  List<GetCities> governorates = [];
+  List<Governorate> governorates = [];
   List<City> allCities = [];
   List<City> filteredCities = [];
 
   String? selectedGovernorate;
   String selectedGovernorateId = '';
-  String? selectedArea;
+  String? selectedCity;
 
   final NewAddressViewModelCubit viewModel =
       getIt.get<NewAddressViewModelCubit>();
-  AddressModelEntity? newAddress;
+  AddressEntity? newAddress;
 
   @override
   void initState() {
     super.initState();
     _initializeAddressData();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo routeInfo) {
+    Navigator.pop(context);
+    Navigator.pop(context, newAddress);
+    return true;
   }
 
   Future<void> _initializeAddressData() async {
@@ -56,7 +65,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
             .where((city) => city.governorateId == selectedGovernorateId)
             .toList();
 
-        selectedArea =
+        selectedCity =
             filteredCities.isNotEmpty ? filteredCities.first.cityNameEn : null;
       }
 
@@ -81,7 +90,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
           listener: (context, state) {
             if (state is AddressSuccess) {
               displayAlertDialog(
-                title: const Text('Saved Successfully'),
+                title: Text(LocaleKeys.savedSuccessfully.tr()),
                 showOkButton: true,
                 onOkButtonClick: () {
                   Navigator.pop(context);
@@ -110,14 +119,15 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                     style: Theme.of(context).textTheme.headlineMedium),
               ),
               body: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Image(image: AssetImage('assets/icons/map.png')),
+                         Image(image: AssetImage(AssetsPaths.mapImage)),
                         SizedBox(height: screenHeight * 0.02),
                         _buildTextField(
                           controller: addressController,
@@ -145,7 +155,8 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                             Expanded(
                               child: _buildDropdown(
                                 value: selectedGovernorate ?? '',
-                                items: governorates.map((e) => e.nameEn).toList(),
+                                items:
+                                    governorates.map((e) => e.nameEn).toList(),
                                 onChanged: (value) {
                                   setState(() {
                                     selectedGovernorate = value;
@@ -157,7 +168,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                                             c.governorateId ==
                                             selectedGovernorateId)
                                         .toList();
-                                    selectedArea = filteredCities.isNotEmpty
+                                    selectedCity = filteredCities.isNotEmpty
                                         ? filteredCities.first.cityNameEn
                                         : null;
                                   });
@@ -167,13 +178,13 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                             SizedBox(width: screenWidth * 0.02),
                             Expanded(
                               child: _buildDropdown(
-                                value: selectedArea ?? '',
+                                value: selectedCity ?? '',
                                 items: filteredCities
                                     .map((c) => c.cityNameEn)
                                     .toList(),
                                 onChanged: (value) {
                                   setState(() {
-                                    selectedArea = value;
+                                    selectedCity = value;
                                   });
                                 },
                               ),
@@ -185,13 +196,14 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                             ? const LoadingWidget()
                             : ElevatedButton(
                                 onPressed: () async {
-                                  if (_formKey.currentState?.validate() != true) {
+                                  if (_formKey.currentState?.validate() !=
+                                      true) {
                                     return;
                                   }
 
                                   final latLong =
                                       await viewModel.getLatLongFromCountry(
-                                          selectedGovernorate ?? '');
+                                          "$selectedGovernorate $selectedCity");
                                   final lat = latLong?['latitude'].toString();
                                   final long = latLong?['longitude'].toString();
 
@@ -199,18 +211,18 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                                     AddAddress(
                                       addressController.text,
                                       phoneController.text,
-                                      selectedGovernorate,
+                                      selectedCity,
                                       lat,
                                       long,
                                       recipientController.text,
                                     ),
                                   );
-                                  newAddress = AddressModelEntity(
+                                  newAddress = AddressEntity(
                                     street: addressController.text,
                                     lat: lat,
                                     long: long,
                                     phone: phoneController.text,
-                                    city: selectedGovernorate,
+                                    city: selectedCity,
                                     username: recipientController.text,
                                   );
                                 },
@@ -266,5 +278,11 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
               ))
           .toList(),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    BackButtonInterceptor.remove(myInterceptor);
   }
 }

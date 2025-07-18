@@ -72,11 +72,11 @@ class PlaceOrderSection extends BaseStatelessWidget {
                 case MakeCreditCardStatus.loading:
                   break;
                 case MakeCreditCardStatus.success:
-                  debugPrint("Navigating to checkoutSessionScreenRoute --------");
+                  debugPrint(
+                      "Navigating to checkoutSessionScreenRoute --------");
                   Navigator.pushNamed(
                       context, DefinedRoutes.checkoutSessionScreenRoute,
                       arguments: PaymentRequestParametersEntity(
-
                         shippingAddress: ShippingAddressEntity(
                           street: state.addressModelEntityOfSelectedAddress!
                                   .street ??
@@ -111,16 +111,21 @@ class PlaceOrderSection extends BaseStatelessWidget {
                           displayAlertDialog(
                             title: Text(
                               LocaleKeys.pleaseSelectPaymentMethod.tr(),
+                              textAlign: TextAlign.center,
+
                             ),
                             isDismissible: true,
-                            showOkButton: true,
                             autoDismissible: true,
                           );
-                          // AppDialogs.showMessage(
-                          //   context,
-                          //   message: LocaleKeys.pleaseSelectPaymentMethod.tr(),
-                          //   isSuccess: false,
-                          // );
+                        } else if (state.selectedDeliveryAddress == null) {
+                          displayAlertDialog(
+                            title: Text(
+                              LocaleKeys.pleaseSelectDeliveryAddress.tr(),
+                              textAlign: TextAlign.center,
+                            ),
+                            isDismissible: true,
+                            autoDismissible: true,
+                          );
                         } else {
                           if (state.selectedPaymentMethod ==
                               SelectedPaymentMethod.cod) {
