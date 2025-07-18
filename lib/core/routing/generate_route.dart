@@ -12,7 +12,6 @@ import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/order_pl
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/ui/on_notification_opened_app.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
-import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/notifications_screen.dart';

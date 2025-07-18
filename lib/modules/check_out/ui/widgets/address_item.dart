@@ -68,7 +68,7 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
                     },
                   ),
                   Text(
-                    widget.addressModel.street ?? '',
+                    widget.addressModel.city ?? '',
                     style: theme.textTheme.labelMedium?.copyWith(
                       fontSize: 12 * (screenWidth / 375),
                     ),
@@ -80,7 +80,7 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
                   left: 16,
                   top: 8,
                 ),
-                child: Text(widget.addressModel.city ?? '',
+                child: Text(widget.addressModel.street ?? '',
                     style: GoogleFonts.roboto(
                       textStyle: theme.textTheme.bodySmall?.copyWith(
                         fontSize: 10 * (screenWidth / 375),

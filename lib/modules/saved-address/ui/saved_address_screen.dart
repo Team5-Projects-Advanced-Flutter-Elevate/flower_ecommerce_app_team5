@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
@@ -68,7 +69,7 @@ class _SavedAddressScreenState
             }
 
             // Main content display
-            return _buildAddressContent(state);
+            return _buildAddressContent(state, context);
           },
         ),
       ),
@@ -136,10 +137,21 @@ class AddressItem extends StatelessWidget {
                   color: AppColors.red,
                 ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 16),
               InkWell(
                 onTap: () {
-                  // Handle edit
+                  Navigator.pushNamed<bool>(
+                          context, DefinedRoutes.updateAddressRoute,
+                          arguments: address)
+                      .then(
+                    (didAddressUpdated) {
+                      if (didAddressUpdated == true) {
+                        if (!context.mounted) return;
+                        BlocProvider.of<SavedAddressViewModel>(context)
+                            .onIntent(GetSavedAddressesIntent());
+                      }
+                    },
+                  );
                 },
                 child: const Icon(Icons.edit_outlined, size: 20),
               ),
@@ -151,7 +163,7 @@ class AddressItem extends StatelessWidget {
   }
 }
 
-Widget _buildAddressContent(SavedAddressState state) {
+Widget _buildAddressContent(SavedAddressState state, BuildContext context) {
   return Column(
     children: [
       state.addressesList?.isEmpty ?? true
@@ -180,7 +192,18 @@ Widget _buildAddressContent(SavedAddressState state) {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, DefinedRoutes.addNewAddress)
+                      .then(
+                    (addressEntity) {
+                      if (addressEntity != null) {
+                        if (!context.mounted) return;
+                        BlocProvider.of<SavedAddressViewModel>(context)
+                            .onIntent(GetSavedAddressesIntent());
+                      }
+                    },
+                  );
+                },
                 child: Text(
                   LocaleKeys.addNew.tr(),
                 ),
