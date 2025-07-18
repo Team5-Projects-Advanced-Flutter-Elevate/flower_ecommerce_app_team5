@@ -1,4 +1,5 @@
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_cubit.dart';
+import 'package:flower_ecommerce_app_team5/core/routing/defined_routes.dart';
 import 'package:flower_ecommerce_app_team5/modules/check_out/ui/view_model/check_out_state.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flutter/material.dart';
@@ -90,8 +91,24 @@ class _AddressItemState extends BaseStatefulWidgetState<AddressItem> {
             ],
           ),
           const Spacer(),
-          const Icon(
-            Icons.edit_outlined,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed<bool>(
+                      context, DefinedRoutes.updateAddressRoute,
+                      arguments: widget.addressModel)
+                  .then(
+                (didAddressUpdated) {
+                  if (didAddressUpdated == true) {
+                    if (!context.mounted) return;
+                    BlocProvider.of<CheckOutCubit>(context)
+                        .doIntent(GetAllAddressesIntent());
+                  }
+                },
+              );
+            },
+            child: const Icon(
+              Icons.edit_outlined,
+            ),
           ),
         ],
       ),

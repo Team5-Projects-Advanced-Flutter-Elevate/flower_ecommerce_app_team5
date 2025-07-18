@@ -12,6 +12,8 @@ import 'package:flower_ecommerce_app_team5/modules/check_out/ui/widgets/order_pl
 import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/firebase_cloud_messaging/ui/on_notification_opened_app.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/cart_response_entity/cart_response_entity.dart';
+import 'package:flower_ecommerce_app_team5/modules/edit_profile/ui/edit_profile_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/home_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/notifications_list/ui/notifications_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/occasion/ui/occasion_screen.dart';
@@ -22,8 +24,8 @@ import 'package:flower_ecommerce_app_team5/modules/search/search_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/successful_order_placed/ui/successful_order_placed_screen.dart';
 import 'package:flower_ecommerce_app_team5/modules/track_order/ui/track_order_view.dart';
 import 'package:flower_ecommerce_app_team5/modules/track_order_details/ui/track_order_details_screen.dart';
+import 'package:flower_ecommerce_app_team5/modules/update_address/ui/update_address_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../../modules/check_out/ui/check_out_view.dart';
 import '../../modules/edit_profile/ui/change_password_screen.dart';
 import '../../modules/home/ui/layouts/add_new_address/new_address_screen.dart';
@@ -131,6 +133,11 @@ class GenerateRoute {
       case DefinedRoutes.savedAddressScreen:
         return MaterialPageRoute(
           builder: (context) => const SavedAddressScreen(),
+        );
+      case DefinedRoutes.updateAddressRoute:
+        return MaterialPageRoute<bool>(
+          builder: (context) =>
+              UpdateAddressScreen(addressEntity: args as AddressEntity),
         );
       default:
         return _errorRoute();

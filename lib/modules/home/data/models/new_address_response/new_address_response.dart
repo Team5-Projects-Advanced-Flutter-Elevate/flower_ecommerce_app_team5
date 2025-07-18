@@ -1,18 +1,18 @@
 import '../../../domain/entities/new_address_response.dart';
 
-class SaveAddress {
-  SaveAddress({
+class SaveAddressResponse {
+  SaveAddressResponse({
     required this.message,
     required this.addresses,
   });
 
   final String? message;
-  final List<Address> addresses;
+  final List<AddressDto> addresses;
 
-  factory SaveAddress.fromJson(Map<String, dynamic> json){
-    return SaveAddress(
+  factory SaveAddressResponse.fromJson(Map<String, dynamic> json){
+    return SaveAddressResponse(
       message: json["message"],
-      addresses: json["addresses"] == null ? [] : List<Address>.from(json["addresses"]!.map((x) => Address.fromJson(x))),
+      addresses: json["addresses"] == null ? [] : List<AddressDto>.from(json["addresses"]!.map((x) => AddressDto.fromJson(x))),
     );
   }
 
@@ -23,8 +23,8 @@ class SaveAddress {
 
 }
 
-class Address {
-  Address({
+class AddressDto {
+  AddressDto({
     required this.street,
     required this.phone,
     required this.city,
@@ -42,8 +42,8 @@ class Address {
   final String? username;
   final String? id;
 
-  factory Address.fromJson(Map<String, dynamic> json){
-    return Address(
+  factory AddressDto.fromJson(Map<String, dynamic> json){
+    return AddressDto(
       street: json["street"],
       phone: json["phone"],
       city: json["city"],
