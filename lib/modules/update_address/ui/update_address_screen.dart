@@ -2,6 +2,7 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_ecommerce_app_team5/core/bases/base_stateful_widget_state.dart';
 import 'package:flower_ecommerce_app_team5/core/colors/app_colors.dart';
+import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flower_ecommerce_app_team5/core/di/injectable_initializer.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/error_state_widget.dart';
 import 'package:flower_ecommerce_app_team5/core/widgets/loading_state_widget.dart';
@@ -69,8 +70,8 @@ class _UpdState extends BaseStatefulWidgetState<UpdateAddressScreen> {
                     break;
                   case Status.success:
                     displayAlertDialog(
-                        title: const Text(
-                          "Address Updated Successfully!",
+                        title: Text(
+                          LocaleKeys.addressUpdatedSuccessfully.tr(),
                           textAlign: TextAlign.center,
                         ),
                         autoDismissible: true,
@@ -106,8 +107,8 @@ class _UpdState extends BaseStatefulWidgetState<UpdateAddressScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const Image(
-                                image: AssetImage('assets/icons/map.png')),
+                             Image(
+                                image: AssetImage(AssetsPaths.mapImage)),
                             SizedBox(height: screenHeight * 0.02),
                             TextFormField(
                               controller:

@@ -183,5 +183,7 @@
   "unknownWord": "Unknown",
   "alreadyAdded": "Already added",
   "//UpdateAddressScreen": "$$$ Comment $$$",
-  "updateAddress": "Update Address"
+  "updateAddress": "Update Address",
+  "savedSuccessfully": "Saved Successfully!",
+  "addressUpdatedSuccessfully": "Address Updated Successfully!"
 }

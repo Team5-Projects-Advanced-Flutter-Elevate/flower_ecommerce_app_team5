@@ -187,5 +187,9 @@
   "delivered": "تم التوصيل",
   "pending": "قيد الانتظار...",
   "unknownWord": "غير معروف",
-  "alreadyAdded": "تمت اضافته من قبل"
+  "alreadyAdded": "تمت اضافته من قبل",
+  "//UpdateAddressScreen": "$$$ تعليق $$$",
+  "updateAddress": "تحديث العنوان",
+  "savedSuccessfully": "تم الحفظ بنجاح!",
+  "addressUpdatedSuccessfully": "تم تحديث العنوان بنجاح!"
 }

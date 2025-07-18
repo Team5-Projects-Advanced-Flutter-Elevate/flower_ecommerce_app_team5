@@ -18,8 +18,11 @@ abstract class AssetsPaths {
   static const String _callIcon = "assets/icons/call_icon.png";
   static const String _whatsAppIcon = "assets/icons/whatsapp_icon.png";
   static const String _carIcon = "assets/icons/car_image.png";
+  static const String _mapImage = "assets/icons/map.png";
 
   static String get homeIcon => _homeIcon;
+
+  static String get mapImage => _mapImage;
 
   static String get categoriesIcon => _categoriesIcon;
 

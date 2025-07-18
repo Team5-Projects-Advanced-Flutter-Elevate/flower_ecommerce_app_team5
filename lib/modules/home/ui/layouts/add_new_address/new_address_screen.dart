@@ -1,5 +1,6 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_ecommerce_app_team5/core/constants/assets_paths.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/domain/entities/new_address_response.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/new_address_cubit.dart';
 import 'package:flower_ecommerce_app_team5/modules/home/ui/layouts/add_new_address/viewModel/states.dart';
@@ -89,7 +90,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
           listener: (context, state) {
             if (state is AddressSuccess) {
               displayAlertDialog(
-                title: const Text('Saved Successfully'),
+                title: Text(LocaleKeys.savedSuccessfully.tr()),
                 showOkButton: true,
                 onOkButtonClick: () {
                   Navigator.pop(context);
@@ -126,7 +127,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Image(image: AssetImage('assets/icons/map.png')),
+                         Image(image: AssetImage(AssetsPaths.mapImage)),
                         SizedBox(height: screenHeight * 0.02),
                         _buildTextField(
                           controller: addressController,
@@ -278,6 +279,7 @@ class _NewAddressScreenState extends BaseStatefulWidgetState<NewAddressScreen> {
           .toList(),
     );
   }
+
   @override
   void dispose() {
     super.dispose();

@@ -205,4 +205,6 @@ class LocaleKeys {
 
   // Update Address Screen
   static const updateAddress = "updateAddress";
+  static const savedSuccessfully = "savedSuccessfully";
+  static const addressUpdatedSuccessfully = "addressUpdatedSuccessfully";
 }
